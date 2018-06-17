@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9035EBF1-B1EC-4A99-8648-9D3C6379101D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>IICAPS_v1</RootNamespace>
+    <AssemblyName>IICAPS v1</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=8.0.11.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Control\ControlIicaps.cs" />
+    <Compile Include="DataObject\Alumno.cs" />
+    <Compile Include="DataObject\CreditoAlumno.cs" />
+    <Compile Include="DataObject\DocumentosEspecialidad.cs" />
+    <Compile Include="DataObject\PagosColegiaturaAlumnos.cs" />
+    <Compile Include="DataObject\PagosCreditoAlumnos.cs" />
+    <Compile Include="Presentacion\Forms\FormsAlumno\Alumnos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAlumno\Alumnos.Designer.cs">
+      <DependentUpon>Alumnos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAlumno\CreditoAlumno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAlumno\CreditoAlumno.Designer.cs">
+      <DependentUpon>CreditoAlumno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAlumno\DocumentosEspecialidad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAlumno\DocumentosEspecialidad.Designer.cs">
+      <DependentUpon>DocumentosEspecialidad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAlumno\DocumentosEspecialidadTitulacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAlumno\DocumentosEspecialidadTitulacion.Designer.cs">
+      <DependentUpon>DocumentosEspecialidadTitulacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAlumno\ImpresionDocumentos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAlumno\ImpresionDocumentos.Designer.cs">
+      <DependentUpon>ImpresionDocumentos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Login\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Login\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Escuela\EscuelaMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Escuela\EscuelaMain.Designer.cs">
+      <DependentUpon>EscuelaMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Escuela\MainAlumnos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Escuela\MainAlumnos.Designer.cs">
+      <DependentUpon>MainAlumnos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Principal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Principal.designer.cs">
+      <DependentUpon>Principal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAlumno\registrarPago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAlumno\registrarPago.Designer.cs">
+      <DependentUpon>registrarPago.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\Alumnos.resx">
+      <DependentUpon>Alumnos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\CreditoAlumno.resx">
+      <DependentUpon>CreditoAlumno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\DocumentosEspecialidad.resx">
+      <DependentUpon>DocumentosEspecialidad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\DocumentosEspecialidadTitulacion.resx">
+      <DependentUpon>DocumentosEspecialidadTitulacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\ImpresionDocumentos.resx">
+      <DependentUpon>ImpresionDocumentos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Login\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Mains\Escuela\EscuelaMain.resx">
+      <DependentUpon>EscuelaMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Mains\Escuela\MainAlumnos.resx">
+      <DependentUpon>MainAlumnos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Mains\Principal.resx">
+      <DependentUpon>Principal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\registrarPago.resx">
+      <DependentUpon>registrarPago.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\+.png" />
+    <None Include="img\RegistrarPago.png" />
+    <None Include="img\DocumentosEspecialidadTitulación.png" />
+    <None Include="img\DocumentosEspecialidad.png" />
+    <None Include="img\Documentos.png" />
+    <None Include="img\AsignarCreditoAlumno.png" />
+    <None Include="img\Alumnos.png" />
+    <Content Include="img\footer.fw.png" />
+    <Content Include="img\footerCompleto.fw.png" />
+    <Content Include="img\header.fw.png" />
+    <Content Include="img\LogoImg.fw.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
