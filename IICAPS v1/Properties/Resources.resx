@@ -117,38 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="header.fw" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\img\header.fw.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Alumnos" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\img\Alumnos.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="RegistrarPago" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\img\RegistrarPago.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AsignarCreditoAlumno" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\img\AsignarCreditoAlumno.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DocumentosEspecialidadTitulación" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\img\DocumentosEspecialidadTitulación.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="footer.fw" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\img\footer.fw.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="LogoImg.fw" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\img\LogoImg.fw.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Documentos" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\img\Documentos.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="footerCompleto.fw" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\img\footerCompleto.fw.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DocumentosEspecialidad" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\img\DocumentosEspecialidad.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="+" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\img\+.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
 </root>
