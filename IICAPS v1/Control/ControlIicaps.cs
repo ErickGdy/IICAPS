@@ -45,7 +45,6 @@ namespace IICAPS_v1.Control
         }
 
         //-------------------------------Alumnos-------------------------------//
-
         public bool agregarAlumno(Alumno alumno)
         {
             try
@@ -77,7 +76,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error...!\n Error al establecer conexion con el servidor");
             }
         }
-
         public MySqlDataAdapter obtenerAlumnosTable()
         {
             try
@@ -101,7 +99,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-
         public MySqlDataAdapter obtenerAlumnosTable(string parameter)
         {
             try
@@ -131,7 +128,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-
         public Alumno consultarAlumno (string rfc)
         {
             try
@@ -180,7 +176,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-
         public List<Alumno> obtenerAlumnos()
         {
             try
@@ -232,7 +227,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-
         public List<Alumno> obtenerAlumnosByPrograma(string programa)
         {
             try
@@ -284,7 +278,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-
         public bool darDeBajaAlumno(string rfc)
         {
             try
@@ -313,7 +306,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
-
         public bool actualizarAlumno(Alumno alumno)
         {
             try
@@ -376,7 +368,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-
         public MySqlDataAdapter obtenerCreditoAlumnosTable()
         {
             try
@@ -400,7 +391,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-
         public MySqlDataAdapter obtenerCreditoAlumnosTable(string parameter)
         {
             try
@@ -429,7 +419,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-
         public CreditoAlumno consultarCreditoAlumno (string rfc)
         {
             try
@@ -469,7 +458,7 @@ namespace IICAPS_v1.Control
             }
         }
 
-
+        //-------------------------------PAGOS--------------------------------------//
 
         public MySqlDataAdapter obtenerPagosCreditoAlumnoTable(string rfc, string credito)
         {
@@ -495,7 +484,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-
         public MySqlDataAdapter obtenerPagosColegiaturaAlumnoTable(string rfc)
         {
             try
@@ -520,6 +508,455 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
+
+        //-------------------------------MATERIAS-------------------------------//
+        public bool agregarMateria(Materia materia)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "INSERT INTO materia (ID, Nombre, Duracion, Semestre, Costo, Programa) VALUES('"
+                    + materia.id+"','"+ materia.nombre + "','"+ materia.duracion + "','" + materia.semestre + "','" + materia.costo + "','" + materia.programa + "')";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al agregar la materia a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexion con el servidor");
+            }
+        }
+        public bool actualizarMateria(Materia materia)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE materia SET "+
+                    "Nombre=" + materia.nombre + "',Duracion='" + materia.duracion + "',Semestre='" + materia.semestre + "',Costo='" + materia.costo + "',Programa='" + materia.programa +
+                    "WHERE ID="+materia.id+";";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al actualizar la materia a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexion con el servidor");
+            }
+        }
+        public bool desactivarMateria(string id)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE materia SET Activo=0 WHERE ID=" + id + ";";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al eliminar la materia a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerMateriasTable()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT M.ID, M.Nombre, M.Duracion,M.Semestre,M.Costo, P.Nombre FROM materia M, programa p WHERE M.Programa=P.Codigo", conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de las materias de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerMateriasTable(string parameter)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT M.ID, M.Nombre, M.Duracion,M.Semestre,M.Costo, P.Nombre FROM materia M, programa p"+ 
+                        " WHERE " +
+                        "(M.nombre LIKE '%" + parameter + "%' or " +
+                        " M.Semestre LIKE '%" + parameter + "%' or " +
+                        " P.Nombre LIKE '%" + parameter + "%' or " +
+                        " M.Programa LIKE '%" + parameter + "%') AND M.Programa=P.Codigo";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
+                    this.conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de las materias de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public Materia consultarMateria(string id)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM materia WHERE ID='" + id + "'";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Materia a = new Materia();
+                        a.id = reader.GetString(0);
+                        a.nombre = reader.GetString(1);
+                        a.duracion = reader.GetString(2);
+                        a.semestre = reader.GetString(3);
+                        a.costo = reader.GetDecimal(4);
+                        a.programa = reader.GetString(5);
+                        conn.Close();
+                        return a;
+                    }
+                    conn.Close();
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de la materia de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public List<Materia> obtenerMaterias()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM materias";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<Materia> aux = new List<Materia>();
+                    while (reader.Read())
+                    {
+
+                        Materia a = new Materia();
+                        a.id = reader.GetString(0);
+                        a.nombre = reader.GetString(1);
+                        a.duracion = reader.GetString(2);
+                        a.semestre = reader.GetString(3);
+                        a.costo = reader.GetDecimal(4);
+                        a.programa = reader.GetString(5);
+                        aux.Add(a);
+                    }
+                    conn.Close();
+                    if (aux.Count != 0)
+                        return aux;
+                    else
+                        return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de las materias de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+
+        //-------------------------------PROGRAMA-------------------------------//
+        public bool agregarPrograma(Programa programa)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "INSERT INTO programa (Nivel, Nombre, Codigo, Duracion, Horario, Modalidad, RequisitosEspecialidad, RequisitosTitulacion,RequisitosDiplomado, Objetivo, PerfilIngreso,MapaCurricular, PerfilEgreso,ProcesoSeleccion,CostoInscripcionSemestral,CostoMensualidad,CostoCursoPropedeutico) VALUES('"
+                    + "','" + programa.Nivel+ "','" + programa.Nombre+ "','" + programa.Codigo+ "','" + programa.Duracion
+                    + "','" + programa.Horario+ "','" + programa.Modalidad+ "','" + programa.RequisitosEspecialidad
+                    + "','" + programa.RequisitosTitulacion+ "','" + programa.RequisitosDiplomado+ "','" + programa.Objetivo
+                    + "','" + programa.PerfilIngreso+ "','" + programa.MapaCurricular+ "','" + programa.PerfilEgreso
+                    + "','" + programa.ProcesoSeleccion+ "','" + programa.CostoInscripcionSemestral+ "','" + programa.CostoMensualidad
+                    + "','" + programa.CostoCursoPropedeutico + "')";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al agregar Prorgrama a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexion con el servidor");
+            }
+        }
+        public bool actualizarPrograma(Programa programa)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE programa SET "
+                    + " Nivel='" + programa.Nivel + "',Nombre='" + programa.Nombre +"',Duracion='" + programa.Duracion
+                    + "',Horario='" + programa.Horario + "',Modalidad='" + programa.Modalidad + "',RequisitosEspecialidad='" + programa.RequisitosEspecialidad
+                    + "',RequisitosTitulacion='" + programa.RequisitosTitulacion + "',RequisitosDiplomado='" + programa.RequisitosDiplomado + "',Objetivo='" + programa.Objetivo
+                    + "',PerfilIngreso='" + programa.PerfilIngreso + "',MapaCurricular='" + programa.MapaCurricular + "',PerfilEgreso='" + programa.PerfilEgreso
+                    + "',ProcesoSeleccion='" + programa.ProcesoSeleccion + "',CostoInscripcionSemestrarl='" + programa.CostoInscripcionSemestral + "',CostoMensualidad='" + programa.CostoMensualidad
+                    + "',CostoCursoPropedeutico='" + programa.CostoCursoPropedeutico + "'"+
+                    "WHERE Codigo=" + programa.Codigo+ ";";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al actualizar la materia a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexion con el servidor");
+            }
+        }
+        public bool desactivarPrograma(string codigo)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE programa SET Activo=0 WHERE Codigo=" + codigo + ";";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al eliminar programa a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerProgramaTable()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT P.Codigo,P.Nivel, P.Nombre, P.Duracion, P.Horario, P.Modalidad FROM programa P", conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de programas de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerProgramaTable(string parameter)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT P.Codigo,P.Nivel, P.Nombre, P.Duracion, P.Horario, P.Modalidad FROM programa P "+
+                        " WHERE " +
+                        "(P.Codigo LIKE '%" + parameter + "%' or " +
+                        " P.Nivel LIKE '%" + parameter + "%' or " +
+                        " P.Nombre LIKE '%" + parameter + "%' or " +
+                        " P.Duracion LIKE '%" + parameter + "%' or " +
+                        " P.Horario LIKE '%" + parameter + "%' or " +
+                        " P.Modalidad LIKE '%" + parameter + "%') AND M.Programa=P.ID";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
+                    this.conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de las materias de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public Programa consultarPrograma(string codigo)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM programa WHERE Codigo='" + codigo + "'";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Programa p = new Programa();
+
+                        conn.Close();
+                        return p;
+                    }
+                    conn.Close();
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos del programa de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public List<Programa> obtenerProgramas()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM programa";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<Programa> aux = new List<Programa>();
+                    while (reader.Read())
+                    {
+
+                        Materia a = new Materia();
+                        a.id = reader.GetString(0);
+                        a.nombre = reader.GetString(1);
+                        a.duracion = reader.GetString(2);
+                        a.semestre = reader.GetString(3);
+                        a.costo = reader.GetDecimal(4);
+                        a.programa = reader.GetString(5);
+                        //aux.Add(a);
+                    }
+                    conn.Close();
+                    if (aux.Count != 0)
+                        return aux;
+                    else
+                        return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de las materias de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+
+
+
+
 
         //-------------------------------Configuracion-------------------------------//
 

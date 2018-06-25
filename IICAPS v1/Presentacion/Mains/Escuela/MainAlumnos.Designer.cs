@@ -146,8 +146,11 @@
             // 
             // btnAgregarAlumno
             // 
+            this.btnAgregarAlumno.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnAgregarAlumno.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnAgregarAlumno.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarAlumno.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregarAlumno.Image = global::IICAPS_v1.Properties.Resources._;
+            this.btnAgregarAlumno.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregarAlumno.Image")));
             this.btnAgregarAlumno.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAgregarAlumno.Location = new System.Drawing.Point(610, 49);
             this.btnAgregarAlumno.Margin = new System.Windows.Forms.Padding(2);
@@ -156,7 +159,7 @@
             this.btnAgregarAlumno.TabIndex = 1;
             this.btnAgregarAlumno.Text = "Agregar Nuevo";
             this.btnAgregarAlumno.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnAgregarAlumno.UseVisualStyleBackColor = true;
+            this.btnAgregarAlumno.UseVisualStyleBackColor = false;
             this.btnAgregarAlumno.Click += new System.EventHandler(this.btnAgregarAlumno_Click);
             // 
             // button1

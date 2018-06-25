@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Control\ControlIicaps.cs" />
+    <Compile Include="DataObject\Programa.cs" />
+    <Compile Include="DataObject\Materia.cs" />
     <Compile Include="DataObject\Alumno.cs" />
     <Compile Include="DataObject\CreditoAlumno.cs" />
     <Compile Include="DataObject\DocumentosEspecialidad.cs" />
@@ -81,6 +83,24 @@
     </Compile>
     <Compile Include="Presentacion\Forms\FormsAlumno\ImpresionDocumentos.Designer.cs">
       <DependentUpon>ImpresionDocumentos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\MateriasDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\MateriasDialog.Designer.cs">
+      <DependentUpon>MateriasDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\FormPrograma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\FormPrograma.Designer.cs">
+      <DependentUpon>FormPrograma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\FormMaterias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\FormMaterias.Designer.cs">
+      <DependentUpon>FormMaterias.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Login\Login.cs">
       <SubType>Form</SubType>
@@ -129,6 +149,15 @@
     <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\ImpresionDocumentos.resx">
       <DependentUpon>ImpresionDocumentos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\MateriasDialog.resx">
+      <DependentUpon>MateriasDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\FormPrograma.resx">
+      <DependentUpon>FormPrograma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\FormMaterias.resx">
+      <DependentUpon>FormMaterias.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Login\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -146,18 +175,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -168,7 +197,22 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="img\+.png" />
+    <None Include="img\footerLargo.fw.png" />
+    <None Include="img\AgregarMaterias.fw.png" />
+    <Content Include="img\Icons\btnPluss.fw.png" />
+    <Content Include="img\Icons\btnPlusss.fw.png" />
+    <Content Include="img\Icons\locked-padlock.png" />
+    <Content Include="img\Icons\magnifier %281%29.png" />
+    <Content Include="img\Icons\pluss.fw.png" />
+    <Content Include="img\Icons\plussW.fw.png" />
+    <Content Include="img\Icons\plussW16.fw.png" />
+    <Content Include="img\Icons\plussW23.fw.png" />
+    <Content Include="img\Icons\plussW32.fw.png" />
+    <Content Include="img\Icons\search.fw.png" />
+    <Content Include="img\Icons\Trash.png" />
+    <Content Include="img\Materias.fw.png" />
+    <Content Include="img\Programas.fw.png" />
+    <None Include="img\Icons\+.png" />
     <None Include="img\RegistrarPago.png" />
     <None Include="img\DocumentosEspecialidadTitulación.png" />
     <None Include="img\DocumentosEspecialidad.png" />
