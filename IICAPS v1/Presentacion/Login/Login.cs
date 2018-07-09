@@ -55,7 +55,7 @@ namespace IICAPS.Presentacion
 
         private void btnIniciarSesion_Click(object sender, EventArgs e)
         {
-            Principal p = new Principal();
+            bntPagos p = new bntPagos();
             p.Show();
             this.Hide();
         }
