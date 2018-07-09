@@ -25,17 +25,31 @@ namespace IICAPS_v1.Presentacion
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (validarCampos())
+            try
             {
-                m = new Materia();
-                m.nombre = txtNombre.Text;
-                m.semestre = txtSemestre.Value.ToString();
-                m.duracion = txtDuracion.Text;
-                m.costo = txtCosto.Value;
-                Hide();
+                if (validarCampos())
+                {
+                    m = new Materia();
+                    m.nombre = txtNombre.Text;
+                    m.semestre = txtSemestre.Value.ToString();
+                    m.duracion = txtDuracion.Text;
+                    m.costo = txtCosto.Value;
+                    if (control.agregarMateria(m))
+                    {
+                        Hide();
+                        Close();
+                    }
+                    else
+                        MessageBox.Show("Error al guardar Materia en la base de datos");
+                }
+                else
+                    MessageBox.Show("No dejar campos vacios");
             }
-            else
-                MessageBox.Show("No dejar campos vacios");
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

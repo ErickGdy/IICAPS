@@ -14,10 +14,10 @@ using System.Windows.Forms;
 
 namespace IICAPS.Presentacion.Mains
 {
-    public partial class bntPagos : Form
+    public partial class Principal : Form
     {
         
-        public bntPagos()
+        public Principal()
         {
             InitializeComponent();
             
@@ -42,7 +42,7 @@ namespace IICAPS.Presentacion.Mains
             {
                 aux.Dispose();
             }
-            inhabilitarBoton("");
+            inhabilitarBoton("","");
         }
         private void minimizeForms()
         {
@@ -50,7 +50,7 @@ namespace IICAPS.Presentacion.Mains
             {
                 aux.Hide();
             }
-            inhabilitarBoton("");
+            inhabilitarBoton("","");
 
         }
         private void configurarForm(Form form)
@@ -59,14 +59,14 @@ namespace IICAPS.Presentacion.Mains
             form.Size = new Size(this.Size.Width - 20, this.Size.Height - 45);
         } 
 
-        private void inhabilitarBoton(String boton)
+        private void inhabilitarBoton(string boton, string modulo)
         {
-            ocultarPaneles("Escuela");
+            ocultarPaneles(modulo);
             btnMenuEscuela.Enabled = true;
             this.btnMenuEscuela.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             btnMenuAlumnos.Enabled = true;
             this.btnMenuAlumnos.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            switch (boton)
+            switch (modulo)
             {
                 case "Escuela":
                     btnMenuEscuela.Enabled = false;
@@ -128,7 +128,7 @@ namespace IICAPS.Presentacion.Mains
             EscuelaMain form = EscuelaMain.getInstance();
             configurarForm(form);
             form.Show();
-            inhabilitarBoton("Escuela");
+            inhabilitarBoton("Escuela", "Escuela");
         }
 
         
@@ -138,7 +138,7 @@ namespace IICAPS.Presentacion.Mains
             MainAlumnos form = MainAlumnos.getInstance();
             configurarForm(form);
             form.Show();
-            inhabilitarBoton("Alumno");
+            inhabilitarBoton("Alumno", "Alumno");
         }
 
         private void btnAlumno_Click(object sender, EventArgs e)
@@ -152,6 +152,22 @@ namespace IICAPS.Presentacion.Mains
             fa.Show();
         }
 
-        
+        private void btnProgramasEscuela_Click(object sender, EventArgs e)
+        {
+            minimizeForms();
+            MainProgramas form = MainProgramas.getInstance();
+            configurarForm(form);
+            form.Show();
+            inhabilitarBoton("Programas", "Escuela");
+        }
+
+        private void btnMateriasEscuela_Click(object sender, EventArgs e)
+        {
+            minimizeForms();
+            MainMaterias form = MainMaterias.getInstance();
+            configurarForm(form);
+            form.Show();
+            inhabilitarBoton("Materias", "Escuela");
+        }
     }
 }

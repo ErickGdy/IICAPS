@@ -80,9 +80,24 @@
             // 
             this.txtSemestre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSemestre.Location = new System.Drawing.Point(186, 193);
+            this.txtSemestre.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.txtSemestre.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.txtSemestre.Name = "txtSemestre";
             this.txtSemestre.Size = new System.Drawing.Size(55, 24);
             this.txtSemestre.TabIndex = 3;
+            this.txtSemestre.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // btnCancelar
             // 
@@ -112,7 +127,7 @@
             this.txtNombre.Margin = new System.Windows.Forms.Padding(2);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(240, 24);
-            this.txtNombre.TabIndex = 4;
+            this.txtNombre.TabIndex = 1;
             // 
             // label3
             // 
@@ -131,7 +146,7 @@
             this.txtDuracion.Margin = new System.Windows.Forms.Padding(2);
             this.txtDuracion.Name = "txtDuracion";
             this.txtDuracion.Size = new System.Drawing.Size(240, 24);
-            this.txtDuracion.TabIndex = 65;
+            this.txtDuracion.TabIndex = 2;
             // 
             // txtCosto
             // 
@@ -150,7 +165,7 @@
             0});
             this.txtCosto.Name = "txtCosto";
             this.txtCosto.Size = new System.Drawing.Size(100, 24);
-            this.txtCosto.TabIndex = 66;
+            this.txtCosto.TabIndex = 4;
             this.txtCosto.ThousandsSeparator = true;
             // 
             // pictureBox1
@@ -181,10 +196,12 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MateriasDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Registrar Pago";
+            this.Text = "Materia Nueva";
             ((System.ComponentModel.ISupportInitialize)(this.txtSemestre)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtCosto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
