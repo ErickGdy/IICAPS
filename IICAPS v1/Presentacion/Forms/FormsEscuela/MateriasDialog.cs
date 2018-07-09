@@ -59,7 +59,7 @@ namespace IICAPS_v1.Presentacion
 
         private bool validarCampos()
         {
-            if (txtNombre.Text != "" && txtDuracion.Text != "" && txtSemestre.Text != "" && txtCosto.Value > 0)
+            if (txtNombre.Text != "" && txtDuracion.Text != "" && txtCosto.Value > 0)
                 return true;
             return false;
         }
