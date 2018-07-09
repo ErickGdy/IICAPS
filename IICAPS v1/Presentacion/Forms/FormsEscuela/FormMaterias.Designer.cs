@@ -44,6 +44,7 @@
             this.cmbIDProgramas = new System.Windows.Forms.ComboBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.checkPrograma = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.txtSemestre)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtCosto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -53,10 +54,10 @@
             // btnAceptar
             // 
             this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAceptar.Location = new System.Drawing.Point(158, 318);
+            this.btnAceptar.Location = new System.Drawing.Point(158, 331);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(103, 40);
-            this.btnAceptar.TabIndex = 5;
+            this.btnAceptar.TabIndex = 7;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
@@ -85,17 +86,32 @@
             // 
             this.txtSemestre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSemestre.Location = new System.Drawing.Point(186, 193);
+            this.txtSemestre.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.txtSemestre.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.txtSemestre.Name = "txtSemestre";
             this.txtSemestre.Size = new System.Drawing.Size(55, 24);
             this.txtSemestre.TabIndex = 3;
+            this.txtSemestre.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // btnCancelar
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(286, 318);
+            this.btnCancelar.Location = new System.Drawing.Point(286, 331);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(103, 40);
-            this.btnCancelar.TabIndex = 6;
+            this.btnCancelar.TabIndex = 8;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -117,23 +133,24 @@
             this.txtNombre.Margin = new System.Windows.Forms.Padding(2);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(240, 24);
-            this.txtNombre.TabIndex = 4;
+            this.txtNombre.TabIndex = 1;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(92, 224);
+            this.label4.Location = new System.Drawing.Point(92, 295);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(91, 20);
             this.label4.TabIndex = 61;
             this.label4.Text = "Programa:";
+            this.label4.Visible = false;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(122, 255);
+            this.label3.Location = new System.Drawing.Point(122, 224);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(76, 20);
             this.label3.TabIndex = 64;
@@ -146,7 +163,7 @@
             this.txtDuracion.Margin = new System.Windows.Forms.Padding(2);
             this.txtDuracion.Name = "txtDuracion";
             this.txtDuracion.Size = new System.Drawing.Size(240, 24);
-            this.txtDuracion.TabIndex = 65;
+            this.txtDuracion.TabIndex = 2;
             // 
             // txtCosto
             // 
@@ -157,7 +174,7 @@
             0,
             0,
             0});
-            this.txtCosto.Location = new System.Drawing.Point(199, 254);
+            this.txtCosto.Location = new System.Drawing.Point(199, 223);
             this.txtCosto.Maximum = new decimal(new int[] {
             9999999,
             0,
@@ -165,30 +182,31 @@
             0});
             this.txtCosto.Name = "txtCosto";
             this.txtCosto.Size = new System.Drawing.Size(100, 24);
-            this.txtCosto.TabIndex = 66;
+            this.txtCosto.TabIndex = 4;
             this.txtCosto.ThousandsSeparator = true;
             // 
             // cmbProgramas
             // 
             this.cmbProgramas.FormattingEnabled = true;
-            this.cmbProgramas.Location = new System.Drawing.Point(186, 223);
+            this.cmbProgramas.Location = new System.Drawing.Point(186, 294);
             this.cmbProgramas.Name = "cmbProgramas";
             this.cmbProgramas.Size = new System.Drawing.Size(240, 21);
-            this.cmbProgramas.TabIndex = 67;
+            this.cmbProgramas.TabIndex = 6;
+            this.cmbProgramas.Visible = false;
             // 
             // cmbIDProgramas
             // 
             this.cmbIDProgramas.FormattingEnabled = true;
-            this.cmbIDProgramas.Location = new System.Drawing.Point(432, 223);
+            this.cmbIDProgramas.Location = new System.Drawing.Point(432, 294);
             this.cmbIDProgramas.Name = "cmbIDProgramas";
             this.cmbIDProgramas.Size = new System.Drawing.Size(43, 21);
-            this.cmbIDProgramas.TabIndex = 68;
+            this.cmbIDProgramas.TabIndex = 0;
             this.cmbIDProgramas.Visible = false;
             // 
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(-4, 363);
+            this.pictureBox2.Location = new System.Drawing.Point(-4, 377);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(570, 102);
@@ -207,12 +225,26 @@
             this.pictureBox1.TabIndex = 62;
             this.pictureBox1.TabStop = false;
             // 
+            // checkPrograma
+            // 
+            this.checkPrograma.AutoSize = true;
+            this.checkPrograma.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkPrograma.Location = new System.Drawing.Point(126, 262);
+            this.checkPrograma.Name = "checkPrograma";
+            this.checkPrograma.Size = new System.Drawing.Size(275, 24);
+            this.checkPrograma.TabIndex = 5;
+            this.checkPrograma.Text = "Asignar materia a un programa";
+            this.checkPrograma.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkPrograma.UseVisualStyleBackColor = true;
+            this.checkPrograma.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // FormMaterias
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(560, 459);
+            this.ClientSize = new System.Drawing.Size(560, 472);
+            this.Controls.Add(this.checkPrograma);
             this.Controls.Add(this.cmbIDProgramas);
             this.Controls.Add(this.cmbProgramas);
             this.Controls.Add(this.txtCosto);
@@ -229,7 +261,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
             this.Name = "FormMaterias";
-            this.Text = "Registrar Pago";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Registrar Materia";
             ((System.ComponentModel.ISupportInitialize)(this.txtSemestre)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtCosto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -256,5 +289,6 @@
         private System.Windows.Forms.NumericUpDown txtCosto;
         private System.Windows.Forms.ComboBox cmbProgramas;
         private System.Windows.Forms.ComboBox cmbIDProgramas;
+        private System.Windows.Forms.CheckBox checkPrograma;
     }
 }

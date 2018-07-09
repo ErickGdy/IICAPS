@@ -16,12 +16,14 @@ namespace IICAPS_v1.Presentacion
     {
         ControlIicaps control;
         bool modificacion;
+        Materia materia;
         public FormMaterias(Materia materia)
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
             List<String> auxNombres = new List<string>();
             List<String> auxId = new List<string>();
+            this.materia = new Materia();
             foreach (Programa p in control.obtenerProgramas())
             {
                 auxNombres.Add(p.Nombre);
@@ -31,13 +33,21 @@ namespace IICAPS_v1.Presentacion
             cmbIDProgramas.DataSource = auxId;
             if (materia!= null)
             {
+                this.materia = materia;
                 modificacion = true;
                 txtNombre.Text = materia.nombre;
                 txtDuracion.Text = materia.duracion;
                 txtSemestre.Text = materia.semestre;
                 txtCosto.Text = materia.costo.ToString();
-                cmbIDProgramas.SelectedValue = materia.programa;
-                cmbProgramas.SelectedIndex = cmbIDProgramas.SelectedIndex;
+                if (materia.programa != null)
+                {
+                    checkPrograma.Enabled = false;
+                    cmbIDProgramas.Enabled = false;
+                    cmbProgramas.Enabled = false;
+                    checkPrograma.Checked = true;
+                    cmbIDProgramas.SelectedValue = materia.programa;
+                    cmbProgramas.SelectedIndex = cmbIDProgramas.SelectedIndex;
+                }
             }
         }
 
@@ -46,17 +56,15 @@ namespace IICAPS_v1.Presentacion
             if (validarCampos())
             {
                 cmbIDProgramas.SelectedIndex = cmbProgramas.SelectedIndex;
-                Materia m = new Materia();
-                m.nombre = txtNombre.Text;
-                m.programa = cmbIDProgramas.SelectedValue.ToString();
-                m.semestre = txtSemestre.Value.ToString();
-                m.duracion = txtDuracion.Text;
-                m.costo = txtCosto.Value;
+                this.materia.nombre = txtNombre.Text;
+                materia.semestre = txtSemestre.Value.ToString();
+                materia.duracion = txtDuracion.Text;
+                materia.costo = txtCosto.Value;
                 try
                 {
                     if (modificacion)
                     {
-                        if (control.actualizarMateria(m))
+                        if (control.actualizarMateria(materia))
                         {
                             MessageBox.Show("Datos actualizados exitosamente!");
                             Close();
@@ -67,7 +75,9 @@ namespace IICAPS_v1.Presentacion
                     }
                     else
                     {
-                        if (control.agregarMateria(m))
+                        if (checkPrograma.Checked)
+                            materia.programa = cmbIDProgramas.SelectedValue.ToString();
+                        if (control.agregarMateria(materia))
                         {
                             MessageBox.Show("Datos guardados exitosamente!");
                             Close();
@@ -94,9 +104,22 @@ namespace IICAPS_v1.Presentacion
 
         private bool validarCampos()
         {
-            if (txtNombre.Text != "" && txtDuracion.Text != "" && txtSemestre.Text != "" && txtCosto.Value>0)
+            if (txtNombre.Text != "" && txtDuracion.Text != "" && txtCosto.Value>0)
                 return true;
             return false;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkPrograma.Checked)
+            {
+                cmbProgramas.Visible = true;
+                label4.Visible = true;
+            }else
+            {
+                cmbProgramas.Visible = false;
+                label4.Visible = false;
+            }
         }
     }
 }
