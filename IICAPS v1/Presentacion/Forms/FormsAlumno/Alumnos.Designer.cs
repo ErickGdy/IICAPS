@@ -76,6 +76,7 @@
             // 
             // cmbNivel
             // 
+            this.cmbNivel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbNivel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbNivel.FormattingEnabled = true;
             this.cmbNivel.Items.AddRange(new object[] {
@@ -151,7 +152,7 @@
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(-1, -5);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(560, 119);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -164,7 +165,7 @@
             this.tabDatosAlumno.Controls.Add(this.tabInfoAcademica);
             this.tabDatosAlumno.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabDatosAlumno.Location = new System.Drawing.Point(10, 124);
-            this.tabDatosAlumno.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabDatosAlumno.Margin = new System.Windows.Forms.Padding(2);
             this.tabDatosAlumno.Name = "tabDatosAlumno";
             this.tabDatosAlumno.SelectedIndex = 0;
             this.tabDatosAlumno.Size = new System.Drawing.Size(532, 247);
@@ -196,9 +197,9 @@
             this.tabPage1.Controls.Add(this.dateTime1);
             this.tabPage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage1.Location = new System.Drawing.Point(4, 27);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
             this.tabPage1.Size = new System.Drawing.Size(524, 216);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Datos del Alumno";
@@ -216,11 +217,13 @@
             // 
             // cmbSexo
             // 
+            this.cmbSexo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSexo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbSexo.FormattingEnabled = true;
             this.cmbSexo.Items.AddRange(new object[] {
             "Femenino",
-            "Masculino"});
+            "Masculino",
+            "Indistinto"});
             this.cmbSexo.Location = new System.Drawing.Point(59, 185);
             this.cmbSexo.Name = "cmbSexo";
             this.cmbSexo.Size = new System.Drawing.Size(176, 26);
@@ -238,6 +241,7 @@
             // 
             // cmbEstadoCivil
             // 
+            this.cmbEstadoCivil.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbEstadoCivil.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbEstadoCivil.FormattingEnabled = true;
             this.cmbEstadoCivil.Items.AddRange(new object[] {
@@ -425,9 +429,9 @@
             this.tabInfoAcademica.Controls.Add(this.label14);
             this.tabInfoAcademica.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabInfoAcademica.Location = new System.Drawing.Point(4, 27);
-            this.tabInfoAcademica.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabInfoAcademica.Margin = new System.Windows.Forms.Padding(2);
             this.tabInfoAcademica.Name = "tabInfoAcademica";
-            this.tabInfoAcademica.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabInfoAcademica.Padding = new System.Windows.Forms.Padding(2);
             this.tabInfoAcademica.Size = new System.Drawing.Size(524, 216);
             this.tabInfoAcademica.TabIndex = 1;
             this.tabInfoAcademica.Text = "Información Académica";
@@ -435,6 +439,7 @@
             // 
             // cmbPrograma
             // 
+            this.cmbPrograma.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPrograma.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbPrograma.FormattingEnabled = true;
             this.cmbPrograma.Location = new System.Drawing.Point(224, 154);
@@ -475,7 +480,7 @@
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(-1, 430);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(560, 110);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -495,6 +500,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.tabDatosAlumno);
             this.Name = "Alumnos";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Alumnos";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabDatosAlumno.ResumeLayout(false);
