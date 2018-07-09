@@ -114,6 +114,12 @@
     <Compile Include="Presentacion\Mains\Escuela\EscuelaMain.Designer.cs">
       <DependentUpon>EscuelaMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentacion\Mains\Escuela\MainCreditos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Escuela\MainCreditos.Designer.cs">
+      <DependentUpon>MainCreditos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Mains\Escuela\MainMaterias.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -175,6 +181,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Mains\Escuela\EscuelaMain.resx">
       <DependentUpon>EscuelaMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Mains\Escuela\MainCreditos.resx">
+      <DependentUpon>MainCreditos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Mains\Escuela\MainMaterias.resx">
       <DependentUpon>MainMaterias.cs</DependentUpon>
