@@ -314,7 +314,7 @@ namespace IICAPS_v1.Control
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE alumnos SET nombre= '"+alumno.nombre+"', direccion= '"+alumno.direccion+"', telefono1= '"+alumno.telefono1+"', telefono2= '"
                     +alumno.telefono2+"', correo= '"+alumno.correo+"', facebook= '"+alumno.facebook+"', sexo= '"+alumno.sexo+"', estadoCivil= '"+alumno.estadoCivil+
-                    "', programa= '"+alumno.programa+"', estado= '"+alumno.estado+"', tipo= '"+alumno.tipo+"'";
+                    "', programa= '"+alumno.programa+"', estado= '"+alumno.estado+"', tipo= '"+alumno.tipo+ "' WHERE rfc = '" + alumno.rfc + "'";
                 try
                 {
                     int rowsAfected = cmd.ExecuteNonQuery();
@@ -449,6 +449,66 @@ namespace IICAPS_v1.Control
                 catch (Exception e)
                 {
                     throw new Exception("Error al obtener los datos del credito del alumno de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+
+        public bool actualizarCredito(CreditoAlumno credito)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE creditoalumno SET cantidadMensualidad= '" + credito.cantidadMensualidad + "', cantidadMeses= '" + credito.cantidadMeses + "', observaciones= '" + credito.observaciones + "', estado= '"
+                    + credito.estado + "' WHERE rfc = '" + credito.alumno + "'";
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al actualizar los datos del credito del alumno en la Base de Datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+
+        public string obtenerProgramaAlumno(String rfc)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT programa FROM alumnos WHERE rfc='" + rfc + "'";
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string programa = "";
+                        programa = reader.GetString(0);
+                        return programa;
+                    }
+                    conn.Close();
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos del programa del alumno de la base de datos");
                 }
             }
             catch (Exception e)

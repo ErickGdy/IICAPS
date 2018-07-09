@@ -152,6 +152,18 @@ namespace IICAPS.Presentacion.Mains
             fa.Show();
         }
 
-        
+        private void btnCreditoAlumno_Click(object sender, EventArgs e)
+        {
+            btnMenuCreditos_Click(null, null);
+        }
+
+        private void btnMenuCreditos_Click(object sender, EventArgs e)
+        {
+            minimizeForms();
+            MainCreditos form = MainCreditos.getInstance();
+            configurarForm(form);
+            form.Show();
+            inhabilitarBoton("Credito");
+        }
     }
 }
