@@ -163,7 +163,7 @@ namespace IICAPS.Presentacion.Mains
             MainCreditos form = MainCreditos.getInstance();
             configurarForm(form);
             form.Show();
-            inhabilitarBoton("Credito");
+            inhabilitarBoton("Credito","Alumno");
         }
         private void btnProgramasEscuela_Click(object sender, EventArgs e)
         {
