@@ -20,6 +20,11 @@ namespace IICAPS_v1.Presentacion
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
+            lblFecha.Text = DateTime.Now.ToShortDateString();
+            cmbEstadoCivil.SelectedIndex = 0;
+            cmbNivel.SelectedIndex = 0;
+            cmbPrograma.SelectedIndex = 0;
+            cmbSexo.SelectedIndex = 0;
             if (a != null)
             {
                 modificacion = true;
@@ -171,6 +176,17 @@ namespace IICAPS_v1.Presentacion
             txtCarrera.Text = "";
             cmbNivel.SelectedItem = "";
             cmbPrograma.SelectedItem = "";
+        }
+
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            tabDatosAlumno.SelectTab(tabDatosAlumno.SelectedIndex + 1);
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            tabDatosAlumno.SelectTab(tabDatosAlumno.SelectedIndex - 1);
         }
     }
 }
