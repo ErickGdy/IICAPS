@@ -19,7 +19,7 @@ namespace IICAPS_v1.DataObject
         public string RequisitosDiplomado { get; set; }
         public string Objetivo { get; set; }
         public string PerfilIngreso { get; set; }
-        public string MapaCurricular { get; set; }
+        public List<Materia> MapaCurricular { get; set; }
         public string PerfilEgreso { get; set; }
         public string ProcesoSeleccion { get; set; }
         public decimal CostoInscripcionSemestral { get; set; }

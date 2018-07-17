@@ -574,13 +574,20 @@ namespace IICAPS_v1.Control
         {
             try
             {
+                string agregar = "INSERT INTO materia (Nombre, Duracion, Semestre, Costo) VALUES('"
+                    + materia.nombre + "','"+ materia.duracion + "','" + materia.semestre + "','" + materia.costo + "');";
+                string programas = "";
+                if (materia.programa != null)
+                    programas = "INSERT INTO mapaCurricular (Materia, Programa) VALUES ((select ID from materia ORDER BY id DESC LIMIT 1), '"+materia.programa+"');";
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO materia (ID, Nombre, Duracion, Semestre, Costo, Programa) VALUES('"
-                    + materia.id+"','"+ materia.nombre + "','"+ materia.duracion + "','" + materia.semestre + "','" + materia.costo + "','" + materia.programa + "')";
-                conn.Open();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + agregar
+                                    + programas
+                                    + "COMMIT;";
                 try
                 {
+                    conn.Open();
                     int rowsAfected = cmd.ExecuteNonQuery();
                     conn.Close();
                     if (rowsAfected > 0)
@@ -590,7 +597,37 @@ namespace IICAPS_v1.Control
                 }
                 catch (Exception e)
                 {
-                    throw new Exception("Error...!\n Error al agregar la materia a la Base de datos");
+                    throw new Exception("Error...! Error al agregar la materia a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexion con el servidor");
+            }
+        }
+        public int obtenerUltimoIDMateria()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT MAX(ID) FROM materia";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int x = reader.GetInt32(0);
+                        conn.Close();
+                        return x;
+                    }
+                        return 0;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al consultar id de materia a la Base de datos");
                 }
             }
             catch (Exception e)
@@ -606,7 +643,7 @@ namespace IICAPS_v1.Control
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE materia SET "+
-                    "Nombre=" + materia.nombre + "',Duracion='" + materia.duracion + "',Semestre='" + materia.semestre + "',Costo='" + materia.costo + "',Programa='" + materia.programa +
+                    "Nombre=" + materia.nombre + "',Duracion='" + materia.duracion + "',Semestre='" + materia.semestre + "',Costo='" + materia.costo + 
                     "WHERE ID="+materia.id+";";
                 conn.Open();
                 try
@@ -665,7 +702,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT M.ID, M.Nombre, M.Duracion,M.Semestre,M.Costo, P.Nombre FROM materia M, programa p WHERE M.Programa=P.Codigo", conn);
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT M.ID, M.Nombre, M.Duracion,M.Semestre,M.Costo, P.Nombre AS 'Programa' FROM materia M LEFT JOIN mapaCurricular C ON C.Materia=M.ID LEFT JOIN programa P ON C.Programa=P.Codigo ORDER BY M.ID ASC", conn);
                     conn.Close();
                     return mdaDatos;
                 }
@@ -688,12 +725,13 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    string sqlString = "SELECT M.ID, M.Nombre, M.Duracion,M.Semestre,M.Costo, P.Nombre FROM materia M, programa p"+ 
+                    string sqlString = "SELECT M.ID, M.Nombre, M.Duracion,M.Semestre,M.Costo, P.Nombre AS 'Programa' FROM materia M LEFT JOIN mapaCurricular C ON C.Materia=M.ID LEFT JOIN programa P ON C.Programa=P.Codigo " + 
                         " WHERE " +
-                        "(M.nombre LIKE '%" + parameter + "%' or " +
+                        "(M.ID LIKE '%" + parameter + "%' or " +
+                        " M.nombre LIKE '%" + parameter + "%' or " +
                         " M.Semestre LIKE '%" + parameter + "%' or " +
                         " P.Nombre LIKE '%" + parameter + "%' or " +
-                        " M.Programa LIKE '%" + parameter + "%') AND M.Programa=P.Codigo";
+                        " C.Programa LIKE '%" + parameter + "%') ORDER BY M.ID ASC";
                     MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
                     this.conn.Close();
                     return mdaDatos;
@@ -723,12 +761,11 @@ namespace IICAPS_v1.Control
                     while (reader.Read())
                     {
                         Materia a = new Materia();
-                        a.id = reader.GetString(0);
+                        a.id = reader.GetInt32(0);
                         a.nombre = reader.GetString(1);
                         a.duracion = reader.GetString(2);
                         a.semestre = reader.GetString(3);
                         a.costo = reader.GetDecimal(4);
-                        a.programa = reader.GetString(5);
                         conn.Close();
                         return a;
                     }
@@ -752,7 +789,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM materias";
+                cmd.CommandText = "SELECT * FROM materia";
                 conn.Open();
                 try
                 {
@@ -762,12 +799,11 @@ namespace IICAPS_v1.Control
                     {
 
                         Materia a = new Materia();
-                        a.id = reader.GetString(0);
+                        a.id = reader.GetInt32(0);
                         a.nombre = reader.GetString(1);
                         a.duracion = reader.GetString(2);
                         a.semestre = reader.GetString(3);
                         a.costo = reader.GetDecimal(4);
-                        a.programa = reader.GetString(5);
                         aux.Add(a);
                     }
                     conn.Close();
@@ -793,15 +829,29 @@ namespace IICAPS_v1.Control
         {
             try
             {
+                string agregar = "INSERT INTO programa (Nivel, Nombre, Codigo, Duracion, Horario, Modalidad, RequisitosEspecialidad, RequisitosTitulacion,RequisitosDiplomado, Objetivo, PerfilIngreso,PerfilEgreso,ProcesoSeleccion,CostoInscripcionSemestral,CostoMensual,CostoCursoPropedeutico) VALUES("
+                    + " ' " + programa.Nivel + "','" + programa.Nombre + "','" + programa.Codigo + "','" + programa.Duracion
+                    + "','" + programa.Horario + "','" + programa.Modalidad + "','" + programa.RequisitosEspecialidad
+                    + "','" + programa.RequisitosTitulacion + "','" + programa.RequisitosDiplomado + "','" + programa.Objetivo
+                    + "','" + programa.PerfilIngreso + "','" + programa.PerfilEgreso
+                    + "','" + programa.ProcesoSeleccion + "','" + programa.CostoInscripcionSemestral + "','" + programa.CostoMensualidad
+                    + "','" + programa.CostoCursoPropedeutico + "');";
+                string materias = "";
+                string mapa = "";
+                if(programa.MapaCurricular!=null)
+                foreach (Materia m in programa.MapaCurricular)
+                {
+                    materias += "INSERT INTO materia (Nombre,Duracion,Semestre,Costo,Activo) SELECT '" + m.nombre + "', '" + m.duracion+ "', '" + m.semestre+ "', '" + m.costo + "',1 FROM DUAL WHERE NOT EXISTS (SELECT * FROM materia WHERE Nombre='" + m.nombre + "' AND Duracion='" + m.duracion + "' AND Semestre= '" + m.semestre + "' AND Costo= '" + m.costo +"' and Activo=1); ";
+                    mapa += "INSERT INTO mapaCurricular (Materia, Programa) VALUES('"+m.id+"','"+programa.Codigo+"');";
+                }
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO programa (Nivel, Nombre, Codigo, Duracion, Horario, Modalidad, RequisitosEspecialidad, RequisitosTitulacion,RequisitosDiplomado, Objetivo, PerfilIngreso,MapaCurricular, PerfilEgreso,ProcesoSeleccion,CostoInscripcionSemestral,CostoMensualidad,CostoCursoPropedeutico) VALUES('"
-                    + "','" + programa.Nivel+ "','" + programa.Nombre+ "','" + programa.Codigo+ "','" + programa.Duracion
-                    + "','" + programa.Horario+ "','" + programa.Modalidad+ "','" + programa.RequisitosEspecialidad
-                    + "','" + programa.RequisitosTitulacion+ "','" + programa.RequisitosDiplomado+ "','" + programa.Objetivo
-                    + "','" + programa.PerfilIngreso+ "','" + programa.MapaCurricular+ "','" + programa.PerfilEgreso
-                    + "','" + programa.ProcesoSeleccion+ "','" + programa.CostoInscripcionSemestral+ "','" + programa.CostoMensualidad
-                    + "','" + programa.CostoCursoPropedeutico + "')";
+                cmd.CommandText = "START TRANSACTION; "
+                                    + agregar
+                                    + "DELETE FROM mapaCurricular WHERE Programa='"+programa.Codigo+"';"
+                                    + materias
+                                    + mapa
+                                    +"COMMIT;";
                 conn.Open();
                 try
                 {
@@ -814,29 +864,44 @@ namespace IICAPS_v1.Control
                 }
                 catch (Exception e)
                 {
-                    throw new Exception("Error...!\n Error al agregar Prorgrama a la Base de datos");
+                    conn.Close();
+                    throw new Exception("Error...! Error al agregar Prorgrama a la Base de datos");
                 }
             }
             catch (Exception e)
             {
                 conn.Close();
-                throw new Exception("Error...!\n Error al establecer conexion con el servidor");
+                throw new Exception("Error...! Error al establecer conexion con el servidor");
             }
         }
         public bool actualizarPrograma(Programa programa)
         {
             try
             {
-                conn = new MySqlConnection(builder.ToString());
-                cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE programa SET "
+               string update = "UPDATE programa SET "
                     + " Nivel='" + programa.Nivel + "',Nombre='" + programa.Nombre +"',Duracion='" + programa.Duracion
                     + "',Horario='" + programa.Horario + "',Modalidad='" + programa.Modalidad + "',RequisitosEspecialidad='" + programa.RequisitosEspecialidad
                     + "',RequisitosTitulacion='" + programa.RequisitosTitulacion + "',RequisitosDiplomado='" + programa.RequisitosDiplomado + "',Objetivo='" + programa.Objetivo
-                    + "',PerfilIngreso='" + programa.PerfilIngreso + "',MapaCurricular='" + programa.MapaCurricular + "',PerfilEgreso='" + programa.PerfilEgreso
-                    + "',ProcesoSeleccion='" + programa.ProcesoSeleccion + "',CostoInscripcionSemestrarl='" + programa.CostoInscripcionSemestral + "',CostoMensualidad='" + programa.CostoMensualidad
+                    + "',PerfilIngreso='" + programa.PerfilIngreso + "',PerfilEgreso='" + programa.PerfilEgreso
+                    + "',ProcesoSeleccion='" + programa.ProcesoSeleccion + "',CostoInscripcionSemestral='" + programa.CostoInscripcionSemestral + "',CostoMensual='" + programa.CostoMensualidad
                     + "',CostoCursoPropedeutico='" + programa.CostoCursoPropedeutico + "'"+
-                    "WHERE Codigo=" + programa.Codigo+ ";";
+                    "WHERE Codigo='" + programa.Codigo+ "';";
+                string materias = "";
+                string mapa = "";
+                if (programa.MapaCurricular != null)
+                foreach (Materia m in programa.MapaCurricular)
+                {
+                        materias += "INSERT INTO materia (Nombre,Duracion,Semestre,Costo,Activo) SELECT '" + m.nombre + "', '" + m.duracion + "', '" + m.semestre + "', '" + m.costo + "',1 FROM DUAL WHERE NOT EXISTS (SELECT * FROM materia WHERE Nombre='" + m.nombre + "' AND Duracion='" + m.duracion + "' AND Semestre= '" + m.semestre + "' AND Costo= '" + m.costo + "' and Activo=1); ";
+                        mapa += "INSERT INTO mapaCurricular (Materia, Programa) VALUES('" + m.id + "','" + programa.Codigo + "');";
+                }
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + update
+                                    + "DELETE FROM mapaCurricular WHERE Programa='" + programa.Codigo + "';"
+                                    + materias
+                                    + mapa
+                                    + "COMMIT;";
                 conn.Open();
                 try
                 {
@@ -864,7 +929,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE programa SET Activo=0 WHERE Codigo=" + codigo + ";";
+                cmd.CommandText = "UPDATE programa SET Activo=0 WHERE Codigo='" + codigo + "';";
                 conn.Open();
                 try
                 {
@@ -894,8 +959,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT P.Codigo,P.Nivel, P.Nombre, P.Duracion, P.Horario, P.Modalidad FROM programa P", conn);
-                    conn.Close();
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT P.Codigo,P.Nivel, P.Nombre, P.Duracion, P.Horario, P.Modalidad FROM programa P WHERE P.Activo=1", conn);                    conn.Close();
                     return mdaDatos;
                 }
                 catch (Exception e)
@@ -924,7 +988,7 @@ namespace IICAPS_v1.Control
                         " P.Nombre LIKE '%" + parameter + "%' or " +
                         " P.Duracion LIKE '%" + parameter + "%' or " +
                         " P.Horario LIKE '%" + parameter + "%' or " +
-                        " P.Modalidad LIKE '%" + parameter + "%') AND M.Programa=P.ID";
+                        " P.Modalidad LIKE '%" + parameter + "%') AND P.Activo=1";
                     MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
                     this.conn.Close();
                     return mdaDatos;
@@ -954,12 +1018,67 @@ namespace IICAPS_v1.Control
                     while (reader.Read())
                     {
                         Programa p = new Programa();
-
+                        p.Codigo = reader.GetString(0);
+                        p.Nombre = reader.GetString(1);
+                        p.Nivel = reader.GetString(2);
+                        p.Duracion = reader.GetString(3);
+                        p.Horario = reader.GetString(4);
+                        p.Modalidad = reader.GetString(5);
+                        p.RequisitosEspecialidad = reader.GetString(6);
+                        p.RequisitosTitulacion = reader.GetString(7);
+                        p.RequisitosDiplomado = reader.GetString(8);
+                        p.Objetivo = reader.GetString(9);
+                        p.PerfilIngreso = reader.GetString(10);
+                        p.PerfilEgreso = reader.GetString(11);
+                        p.ProcesoSeleccion = reader.GetString(12);
+                        p.CostoInscripcionSemestral = reader.GetDecimal(13);
+                        p.CostoMensualidad = reader.GetDecimal(14);
+                        p.CostoCursoPropedeutico = reader.GetDecimal(15);
+                        p.Activo = reader.GetBoolean(16);
                         conn.Close();
                         return p;
                     }
                     conn.Close();
                     return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos del programa de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public List<Materia> consultarMapaCurricularPrograma(string codigo)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT C.Materia ,M.Nombre,M.Duracion,M.Semestre,M.Costo FROM mapaCurricular C, materia M WHERE C.Materia= M.ID AND C.Programa='" + codigo + "'";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<Materia> aux = new List<Materia>();
+                    while (reader.Read())
+                    {
+                        Materia m = new Materia();
+                        m.id = reader.GetInt32(0);
+                        m.nombre = reader.GetString(1);
+                        m.duracion = reader.GetString(2);
+                        m.semestre = reader.GetString(3);
+                        m.costo = reader.GetDecimal(4);
+                        aux.Add(m);
+                    }
+                    conn.Close();
+                    if (aux.Count != 0)
+                        return aux;
+                    else
+                        return null;
                 }
                 catch (Exception e)
                 {
@@ -987,14 +1106,24 @@ namespace IICAPS_v1.Control
                     while (reader.Read())
                     {
 
-                        Materia a = new Materia();
-                        a.id = reader.GetString(0);
-                        a.nombre = reader.GetString(1);
-                        a.duracion = reader.GetString(2);
-                        a.semestre = reader.GetString(3);
-                        a.costo = reader.GetDecimal(4);
-                        a.programa = reader.GetString(5);
-                        //aux.Add(a);
+                        Programa p = new Programa();
+                        p.Codigo = reader.GetString(0);
+                        p.Nombre = reader.GetString(1);
+                        p.Nivel = reader.GetString(2);
+                        p.Duracion = reader.GetString(3);
+                        p.Horario = reader.GetString(4);
+                        p.Modalidad = reader.GetString(5);
+                        p.RequisitosEspecialidad = reader.GetString(6);
+                        p.RequisitosTitulacion = reader.GetString(7);
+                        p.RequisitosDiplomado = reader.GetString(8);
+                        p.Objetivo = reader.GetString(9);
+                        p.PerfilIngreso = reader.GetString(10);
+                        p.PerfilEgreso = reader.GetString(11);
+                        p.ProcesoSeleccion = reader.GetString(12);
+                        p.CostoInscripcionSemestral = reader.GetDecimal(13);
+                        p.CostoMensualidad = reader.GetDecimal(14);
+                        p.CostoCursoPropedeutico = reader.GetDecimal(15);
+                        aux.Add(p);
                     }
                     conn.Close();
                     if (aux.Count != 0)
