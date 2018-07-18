@@ -23,7 +23,16 @@ namespace IICAPS_v1.Presentacion
             lblFecha.Text = DateTime.Now.ToShortDateString();
             cmbEstadoCivil.SelectedIndex = 0;
             cmbNivel.SelectedIndex = 0;
-            cmbPrograma.SelectedIndex = 0;
+            List<string> lista = new List<string>();
+            List<string> listaID = new List<string>();
+            foreach (Programa aux in control.obtenerProgramas())
+            {
+                lista.Add(aux.Nombre);
+                listaID.Add(aux.Codigo);
+            }
+            cmbPrograma.Items.AddRange(listaID.ToArray());
+            cmbNombresPrograma.Items.AddRange(lista.ToArray());
+            cmbNombresPrograma.SelectedIndex = 0;
             cmbSexo.SelectedIndex = 0;
             if (a != null)
             {
@@ -42,6 +51,7 @@ namespace IICAPS_v1.Presentacion
                 txtCarrera.Text = a.carrera;
                 cmbNivel.SelectedItem = a.nivel;
                 cmbPrograma.SelectedItem = a.programa;
+                cmbNombresPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
                 label12.Text = "Programa actual";
             }
         }
@@ -187,6 +197,11 @@ namespace IICAPS_v1.Presentacion
         private void btnPrev_Click(object sender, EventArgs e)
         {
             tabDatosAlumno.SelectTab(tabDatosAlumno.SelectedIndex - 1);
+        }
+
+        private void cmbNombresPrograma_SelectedValueChanged(object sender, EventArgs e)
+        {
+            cmbPrograma.SelectedIndex = cmbNombresPrograma.SelectedIndex;
         }
     }
 }

@@ -152,14 +152,14 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             actualizarTabla(control.obtenerProgramaTable(txtBuscar.Text));
         }
 
-        private void MainProgramas_SizeChanged(object sender, EventArgs e)
+        private void Main_SizeChanged(object sender, EventArgs e)
         {
             int ancho = this.Width;
             //Actualiza el tamaño de la tabla con respecto al tamaño de la ventana
             dataGridView1.Width= ancho - 195;
             dataGridView1.Height=this.Height - 130;
             //actualiza la posicion de los controles con respecto al tamaño de la ventana
-            btnAgregar.Location = new Point (ancho - 157, btnAgregar.Location.Y);
+            btnAgregar.Location = new Point (ancho - 169, btnAgregar.Location.Y);
             txtBuscar.Location = new Point (ancho - 216, txtBuscar.Location.Y);
             pictureBoxBuscar.Location = new Point (ancho - 245, pictureBoxBuscar.Location.Y);
             limpiarBusqueda.Location = new Point (ancho - 39, limpiarBusqueda.Location.Y);
