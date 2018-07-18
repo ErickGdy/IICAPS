@@ -15,6 +15,7 @@ namespace IICAPS_v1.Presentacion
         public ImpresionDocumentos()
         {
             InitializeComponent();
+            lblFecha.Text = DateTime.Now.ToShortDateString();
         }
     }
 }
