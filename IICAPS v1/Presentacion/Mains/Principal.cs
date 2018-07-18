@@ -182,5 +182,14 @@ namespace IICAPS.Presentacion.Mains
             form.Show();
             inhabilitarBoton("Materias", "Escuela");
         }
+
+        private void btnGruposEscuela_Click(object sender, EventArgs e)
+        {
+            minimizeForms();
+            MainGrupos form = MainGrupos.getInstance();
+            configurarForm(form);
+            form.Show();
+            inhabilitarBoton("Grupos", "Escuela");
+        }
     }
 }

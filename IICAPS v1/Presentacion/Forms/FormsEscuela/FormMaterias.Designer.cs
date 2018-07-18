@@ -260,6 +260,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
+            this.MaximizeBox = false;
             this.Name = "FormMaterias";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Registrar Materia";
