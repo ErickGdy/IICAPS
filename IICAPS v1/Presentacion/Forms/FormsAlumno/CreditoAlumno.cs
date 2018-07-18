@@ -20,38 +20,30 @@ namespace IICAPS_v1.Presentacion
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
+            List<String> auxPrograma = new List<string>();
+            List<String> auxIDPrograma = new List<string>();
+            List<String> auxAlumno = new List<string>();
+            List<String> auxIDAlumno = new List<string>();
             lblFecha.Text = DateTime.Now.ToShortDateString();
+            foreach (Programa p in control.obtenerProgramas())
+            {
+                auxPrograma.Add(p.Nombre);
+                auxIDPrograma.Add(p.Codigo.ToString());
+            }
+            cmbPrograma.DataSource = auxPrograma;
+            cmbAlumno.DataSource = auxAlumno;
+            cmbIDPrograma.DataSource = auxIDPrograma;
+            cmbIDAlumno.DataSource = auxIDAlumno;
             if (c != null)
             {
                 modificacion = true;
                 cmbPrograma.SelectedItem = control.obtenerProgramaAlumno(c.alumno);
                 cmbAlumno.SelectedItem = c.alumno;
+                cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
+                cmbIDAlumno.SelectedIndex = cmbAlumno.SelectedIndex;
                 numMensualidad.Value = Convert.ToDecimal(c.cantidadMensualidad);
                 numCantidad.Value = c.cantidadMeses;
                 txtObservaciones.Text = c.observaciones;
-            }
-        }
-
-        public CreditoAlumnos(CreditoAlumno credito, bool c)
-        {
-            InitializeComponent();
-            control = ControlIicaps.getInstance();
-            if(credito != null)
-            {
-                modificacion = true;
-                cmbPrograma.SelectedItem = control.obtenerProgramaAlumno(credito.alumno);
-                cmbAlumno.SelectedItem = credito.alumno;
-                numMensualidad.Value = Convert.ToDecimal(credito.cantidadMensualidad);
-                numCantidad.Value = credito.cantidadMeses;
-                txtObservaciones.Text = credito.observaciones;
-            }
-            if (c == true)
-            {
-                cmbPrograma.Enabled = false;
-                cmbAlumno.Enabled = false;
-                numMensualidad.ReadOnly = true;
-                numCantidad.ReadOnly = true;
-                txtObservaciones.ReadOnly = true;
             }
         }
 
@@ -109,6 +101,8 @@ namespace IICAPS_v1.Presentacion
         {
             if (validarCampos())
             {
+                cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
+                cmbIDAlumno.SelectedIndex = cmbAlumno.SelectedIndex;
                 CreditoAlumno c = new CreditoAlumno();
                 c.alumno = cmbAlumno.SelectedItem.ToString();
                 c.cantidadMensualidad = Convert.ToDouble(numMensualidad.Value);
@@ -133,6 +127,20 @@ namespace IICAPS_v1.Presentacion
             else
                 MessageBox.Show("No deje ningun campo vacio");
             return false;
+        }
+
+        private void cmbPrograma_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
+            List<String> auxAlumno = new List<string>();
+            List<String> auxIDAlumno = new List<string>();
+            foreach (Alumno a in control.obtenerAlumnosByPrograma(cmbIDPrograma.SelectedItem.ToString()))
+            {
+                auxAlumno.Add(a.nombre);
+                auxIDAlumno.Add(a.rfc.ToString());
+            }
+            cmbAlumno.DataSource = auxAlumno;
+            cmbIDAlumno.DataSource = auxIDAlumno;
         }
     }
 }
