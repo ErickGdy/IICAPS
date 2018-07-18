@@ -131,5 +131,24 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         {
             actualizarTablaCreditos(control.obtenerCreditoAlumnosTable(txtBuscarCredito.Text));
         }
+
+        private void Main_SizeChanged(object sender, EventArgs e)
+        {
+            int ancho = this.Width;
+            //Actualiza el tamaño de la tabla con respecto al tamaño de la ventana
+            dataGridViewCreditos.Width = ancho - 195;
+            dataGridViewCreditos.Height = this.Height - 130;
+            //actualiza la posicion de los controles con respecto al tamaño de la ventana
+            btnAgregar.Location = new Point(ancho - 169, btnAgregar.Location.Y);
+            txtBuscarCredito.Location = new Point(ancho - 216, txtBuscarCredito.Location.Y);
+            pictureBox2.Location = new Point(ancho - 245, pictureBox2.Location.Y);
+            limpiarBusqueda.Location = new Point(ancho - 39, limpiarBusqueda.Location.Y);
+            //Actualiza el valor del ancho de la columnas
+            int x = (dataGridViewCreditos.Width - 20) / dataGridViewCreditos.Columns.Count;
+            foreach (DataGridViewColumn aux in dataGridViewCreditos.Columns)
+            {
+                aux.Width = x;
+            }
+        }
     }
 }
