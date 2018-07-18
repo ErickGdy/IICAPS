@@ -40,8 +40,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.limpiarBusqueda = new System.Windows.Forms.LinkLabel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.btnAsignarCredito = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.btnAgregar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCreditos)).BeginInit();
             this.menuTablaAlumnos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -70,21 +70,26 @@
             this.modificarToolStripMenuItem,
             this.darDeBajaToolStripMenuItem});
             this.menuTablaAlumnos.Name = "menuTablaAlumnos";
-            this.menuTablaAlumnos.Size = new System.Drawing.Size(157, 76);
+            this.menuTablaAlumnos.Size = new System.Drawing.Size(143, 76);
             // 
             // consultarToolStripMenuItem
             // 
             this.consultarToolStripMenuItem.Name = "consultarToolStripMenuItem";
-            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(156, 24);
+            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(142, 24);
             this.consultarToolStripMenuItem.Text = "Consultar";
             this.consultarToolStripMenuItem.Click += new System.EventHandler(this.consultarToolStripMenuItem_Click);
             // 
             // modificarToolStripMenuItem
             // 
             this.modificarToolStripMenuItem.Name = "modificarToolStripMenuItem";
-            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(156, 24);
+            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(142, 24);
             this.modificarToolStripMenuItem.Text = "Modificar";
             this.modificarToolStripMenuItem.Click += new System.EventHandler(this.modificarToolStripMenuItem_Click);
+            // 
+            // darDeBajaToolStripMenuItem
+            // 
+            this.darDeBajaToolStripMenuItem.Name = "darDeBajaToolStripMenuItem";
+            this.darDeBajaToolStripMenuItem.Size = new System.Drawing.Size(142, 24);
             // 
             // txtBuscarCredito
             // 
@@ -135,24 +140,6 @@
             this.pictureBox2.TabIndex = 38;
             this.pictureBox2.TabStop = false;
             // 
-            // btnAsignarCredito
-            // 
-            this.btnAsignarCredito.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnAsignarCredito.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnAsignarCredito.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAsignarCredito.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAsignarCredito.Image = ((System.Drawing.Image)(resources.GetObject("btnAsignarCredito.Image")));
-            this.btnAsignarCredito.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAsignarCredito.Location = new System.Drawing.Point(813, 60);
-            this.btnAsignarCredito.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnAsignarCredito.Name = "btnAsignarCredito";
-            this.btnAsignarCredito.Size = new System.Drawing.Size(187, 34);
-            this.btnAsignarCredito.TabIndex = 1;
-            this.btnAsignarCredito.Text = "Asignar Nuevo";
-            this.btnAsignarCredito.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnAsignarCredito.UseVisualStyleBackColor = false;
-            this.btnAsignarCredito.Click += new System.EventHandler(this.btnAgregarAlumno_Click);
-            // 
             // button1
             // 
             this.button1.AutoSize = true;
@@ -162,12 +149,33 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
             this.button1.Location = new System.Drawing.Point(237, 101);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(30, 30);
             this.button1.TabIndex = 40;
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnAgregar
+            // 
+            this.btnAgregar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(173)))), ((int)(((byte)(73)))));
+            this.btnAgregar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAgregar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(36)))), ((int)(((byte)(28)))));
+            this.btnAgregar.FlatAppearance.BorderSize = 0;
+            this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregar.ForeColor = System.Drawing.Color.White;
+            this.btnAgregar.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregar.Image")));
+            this.btnAgregar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAgregar.Location = new System.Drawing.Point(797, 55);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(204, 39);
+            this.btnAgregar.TabIndex = 42;
+            this.btnAgregar.Text = "Agregar Nuevo";
+            this.btnAgregar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAgregar.UseVisualStyleBackColor = false;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregarAlumno_Click);
             // 
             // MainCreditos
             // 
@@ -176,12 +184,12 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1333, 571);
             this.ControlBox = false;
+            this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.limpiarBusqueda);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtBuscarCredito);
-            this.Controls.Add(this.btnAsignarCredito);
             this.Controls.Add(this.dataGridViewCreditos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -190,6 +198,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainAlumnos";
+            this.SizeChanged += new System.EventHandler(this.Main_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCreditos)).EndInit();
             this.menuTablaAlumnos.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -201,7 +210,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridViewCreditos;
-        private System.Windows.Forms.Button btnAsignarCredito;
         private System.Windows.Forms.TextBox txtBuscarCredito;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox2;
@@ -211,5 +219,6 @@
         private System.Windows.Forms.ToolStripMenuItem consultarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem modificarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem darDeBajaToolStripMenuItem;
+        private System.Windows.Forms.Button btnAgregar;
     }
 }

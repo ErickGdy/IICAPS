@@ -20,6 +20,7 @@ namespace IICAPS_v1.Presentacion
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
+            lblFecha.Text = DateTime.Now.ToShortDateString();
             if (c != null)
             {
                 modificacion = true;
@@ -27,7 +28,6 @@ namespace IICAPS_v1.Presentacion
                 cmbAlumno.SelectedItem = c.alumno;
                 numMensualidad.Value = Convert.ToDecimal(c.cantidadMensualidad);
                 numCantidad.Value = c.cantidadMeses;
-                dateTimePicker1.Value = c.fechaSolicitud;
                 txtObservaciones.Text = c.observaciones;
             }
         }
@@ -43,7 +43,6 @@ namespace IICAPS_v1.Presentacion
                 cmbAlumno.SelectedItem = credito.alumno;
                 numMensualidad.Value = Convert.ToDecimal(credito.cantidadMensualidad);
                 numCantidad.Value = credito.cantidadMeses;
-                dateTimePicker1.Value = credito.fechaSolicitud;
                 txtObservaciones.Text = credito.observaciones;
             }
             if (c == true)
@@ -52,7 +51,6 @@ namespace IICAPS_v1.Presentacion
                 cmbAlumno.Enabled = false;
                 numMensualidad.ReadOnly = true;
                 numCantidad.ReadOnly = true;
-                dateTimePicker1.Enabled = false;
                 txtObservaciones.ReadOnly = true;
             }
         }
@@ -102,7 +100,7 @@ namespace IICAPS_v1.Presentacion
 
         private bool validarCampos()
         {
-            if (cmbPrograma.SelectedItem != null && cmbAlumno.SelectedItem != null && numMensualidad.Value != 0 && numCantidad.Value != 0 && dateTimePicker1.Value != null && txtObservaciones.Text != "")
+            if (cmbPrograma.SelectedItem != null && cmbAlumno.SelectedItem != null && numMensualidad.Value != 0 && numCantidad.Value != 0 && txtObservaciones.Text != "")
                 return true;
             return false;
         }
@@ -115,7 +113,6 @@ namespace IICAPS_v1.Presentacion
                 c.alumno = cmbAlumno.SelectedItem.ToString();
                 c.cantidadMensualidad = Convert.ToDouble(numMensualidad.Value);
                 c.cantidadMeses = Convert.ToInt32(numCantidad.Value);
-                c.fechaSolicitud = dateTimePicker1.Value;
                 c.observaciones = txtObservaciones.Text;
                 if (modificacion)
                 {

@@ -15,6 +15,7 @@ namespace IICAPS_v1.Presentacion
         public DocumentosEspecialidad()
         {
             InitializeComponent();
+            lblFecha.Text = DateTime.Now.ToShortDateString();
         }
     }
 }
