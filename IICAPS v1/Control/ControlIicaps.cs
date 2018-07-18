@@ -51,10 +51,10 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO alumnos (nombre, direccion, telefono1, telefono2, correo, facebook, curp, rfc, sexo, estadoCivil, escuelaProcedencia, carrera, programa, nivel, fecha, estado, tipo) VALUES('" 
+                cmd.CommandText = "INSERT INTO alumnos (Nombre, Direccion, Telefono1, Telefono2, Correo, Facebook, CURP, RFC, Sexo, EstadoCivil, EscuelaProcedencia, Carrera, Programa, Nivel, Estado, Tipo) VALUES('" 
                     + alumno.nombre + "','" + alumno.direccion + "','" + alumno.telefono1 + "','" + alumno.telefono2 + "','" + alumno.correo + "','" + alumno.facebook + "','" + alumno.curp + "','"
                     + alumno.rfc + "','" + alumno.sexo + "','" + alumno.estadoCivil + "','" + alumno.escuelaProcedencia + "','" + alumno.carrera + "','" + alumno.programa + "','" + alumno.nivel + "','"
-                    + formatearFecha(alumno.fecha) + "','Registrado','" + alumno.tipo + "')";
+                    + "','Registrado','" + alumno.tipo + "')";
                 conn.Open();
                 try
                 {
@@ -67,13 +67,13 @@ namespace IICAPS_v1.Control
                 }
                 catch (Exception e)
                 {
-                    throw new Exception("Error...!\n Error al agregar el Alumno a la Base de datos");
+                    throw new Exception("Error...! Error al agregar el Alumno a la Base de datos");
                 }
             }
             catch (Exception e)
             {
                 conn.Close();
-                throw new Exception("Error...!\n Error al establecer conexion con el servidor");
+                throw new Exception("Error...! Error al establecer conexion con el servidor");
             }
         }
         public MySqlDataAdapter obtenerAlumnosTable()
@@ -84,7 +84,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT A.rfc AS 'RFC', A.nombre AS 'Nombre', A.telefono1 AS 'Telefono 1', A.programa AS 'Programa', G.nombre AS 'Grupo' FROM alumnos A LEFT JOIN grupoalumno GA ON A.rfc = GA.alumno LEFT JOIN grupos G ON G.codigo = GA.grupo", conn);
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT A.RFC, A.Nombre , A.Telefono1 AS 'Telefono 1', A.Programa AS 'Programa', G.Generacion FROM alumnos A LEFT JOIN grupoAlumno GA ON A.RFC = GA.Alumno LEFT JOIN grupos G ON G.Codigo = GA.Grupo", conn);
                     conn.Close();
                     return mdaDatos;
                 }
@@ -107,12 +107,12 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    string sqlString = "SELECT A.rfc AS 'RFC', A.nombre AS 'Nombre', A.telefono1 AS 'Telefono 1', A.programa AS 'Programa', G.nombre AS 'Grupo' FROM alumnos A LEFT JOIN grupoalumno GA ON A.rfc = GA.alumno LEFT JOIN grupos G ON G.codigo = GA.grupo" +
+                    string sqlString = "SELECT A.RFC, A.Nombre, A.Telefono1 AS 'Telefono 1', A.Programa, G.Generacion FROM alumnos A LEFT JOIN grupoAlumno GA ON A.RFC = GA.Alumno LEFT JOIN grupos G ON G.Codigo = GA.Grupo" +
                         "WHERE " +
-                        "(A.nombre LIKE '%" + parameter + "%' or " +
-                        " A.telefono1 LIKE '%" + parameter + "%' or " +
-                        " A.programa LIKE '%" + parameter + "%' or " +
-                        " G.nombre LIKE '%" + parameter + "%')"; 
+                        "(A.Nombre LIKE '%" + parameter + "%' or " +
+                        " A.Telefono1 LIKE '%" + parameter + "%' or " +
+                        " A.Programa LIKE '%" + parameter + "%' or " +
+                        " G.Generacion LIKE '%" + parameter + "%')"; 
                     MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
                     this.conn.Close();
                     return mdaDatos;
@@ -134,7 +134,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM alumnos WHERE rfc='" + rfc + "'";
+                cmd.CommandText = "SELECT * FROM alumnos WHERE RFC='" + rfc + "'";
                 conn.Open();
                 try
                 {
@@ -233,7 +233,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT A.rfc AS 'RFC', A.nombre AS 'Nombre', A.telefono1 AS 'Telefono 1', A.programa AS 'Programa', G.nombre AS 'Grupo' FROM alumnos A LEFT JOIN grupoalumno GA ON A.rfc = GA.alumno LEFT JOIN grupos G ON G.codigo = GA.grupo WHERE A.programa = '" + programa + "'";
+                cmd.CommandText = "SELECT A.RFC, A.Nombre, A.Telefono1 AS 'Telefono 1', A.Programa, G.Nombre AS 'Grupo' FROM alumnos A LEFT JOIN grupoAlumno GA ON A.RFC = GA.Alumno LEFT JOIN grupos G ON G.Codigo = GA.Grupo WHERE A.Programa = '" + programa + "'";
                 conn.Open();
                 try
                 {
@@ -284,7 +284,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE alumnos SET estado='Baja' WHERE rfc = '" + rfc + "'";
+                cmd.CommandText = "UPDATE alumnos SET Estado='Baja' WHERE RFC = '" + rfc + "'";
                 conn.Open();
                 try
                 {
@@ -312,9 +312,9 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE alumnos SET nombre= '"+alumno.nombre+"', direccion= '"+alumno.direccion+"', telefono1= '"+alumno.telefono1+"', telefono2= '"
-                    +alumno.telefono2+"', correo= '"+alumno.correo+"', facebook= '"+alumno.facebook+"', sexo= '"+alumno.sexo+"', estadoCivil= '"+alumno.estadoCivil+
-                    "', programa= '"+alumno.programa+"', estado= '"+alumno.estado+"', tipo= '"+alumno.tipo+ "' WHERE rfc = '" + alumno.rfc + "'";
+                cmd.CommandText = "UPDATE alumnos SET Nombre= '"+alumno.nombre+"', Direccion= '"+alumno.direccion+"', Telefono1= '"+alumno.telefono1+"', Telefono2= '"
+                    +alumno.telefono2+"', Correo= '"+alumno.correo+"', Facebook= '"+alumno.facebook+"', Sexo= '"+alumno.sexo+"', EstadoCivil= '"+alumno.estadoCivil+
+                    "', Programa= '"+alumno.programa+"', Estado= '"+alumno.estado+"', Tipo= '"+alumno.tipo+ "' WHERE RFC = '" + alumno.rfc + "'";
                 try
                 {
                     int rowsAfected = cmd.ExecuteNonQuery();
@@ -344,8 +344,8 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO creditoalumno (alumno, cantidadMensualidad, cantidadMeses, fechaSolicitud, observaciones, estado) VALUES ('"
-                    + credito.alumno + "', '" + credito.cantidadMensualidad + "', '" + credito.cantidadMeses + "', '" + formatearFecha(credito.fechaSolicitud) + "', '"
+                cmd.CommandText = "INSERT INTO creditoAlumno (Alumno, CantidadMensualidad, CantidadMeses, Observaciones, Estado) VALUES ('"
+                    + credito.alumno + "', '" + credito.cantidadMensualidad + "', '" + credito.cantidadMeses + "', '"
                     + credito.observaciones + "', '" + credito.estado + "')";
                 conn.Open();
                 try
@@ -376,7 +376,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT * FROM creditoalumno", conn);
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT * FROM creditoAlumno", conn);
                     conn.Close();
                     return mdaDatos;
                 }
@@ -399,11 +399,11 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    string sqlString = "SELECT * FROM creditoalumno WHERE" +
-                        "(alumno LIKE '%" + parameter + "%' or " +
-                        "cantidadMensualidad LIKE '%" + parameter + "%' or " +
-                        "cantidadMeses LIKE '%" + parameter + "%' or " +
-                        "observaciones LIKE '%" + parameter + "%')";
+                    string sqlString = "SELECT * FROM creditoAlumno WHERE" +
+                        "(Alumno LIKE '%" + parameter + "%' or " +
+                        "CantidadMensualidad LIKE '%" + parameter + "%' or " +
+                        "CantidadMeses LIKE '%" + parameter + "%' or " +
+                        "Observaciones LIKE '%" + parameter + "%')";
                     MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, conn);
                     conn.Close();
                     return mdaDatos;
@@ -425,7 +425,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM creditoalumno WHERE alumno='" + rfc + "'";
+                cmd.CommandText = "SELECT * FROM creditoAlumno WHERE Alumno='" + rfc + "'";
                 conn.Open();
                 try
                 {
@@ -464,8 +464,8 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE creditoalumno SET cantidadMensualidad= '" + credito.cantidadMensualidad + "', cantidadMeses= '" + credito.cantidadMeses + "', observaciones= '" + credito.observaciones + "', estado= '"
-                    + credito.estado + "' WHERE rfc = '" + credito.alumno + "'";
+                cmd.CommandText = "UPDATE creditoAlumno SET CantidadMensualidad= '" + credito.cantidadMensualidad + "', CantidadMeses= '" + credito.cantidadMeses + "', Observaciones= '" + credito.observaciones + "', Estado= '"
+                    + credito.estado + "' WHERE RFC = '" + credito.alumno + "'";
                 try
                 {
                     int rowsAfected = cmd.ExecuteNonQuery();
@@ -493,7 +493,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT programa FROM alumnos WHERE rfc='" + rfc + "'";
+                cmd.CommandText = "SELECT Programa FROM alumnos WHERE RFC='" + rfc + "'";
                 try
                 {
                     MySqlDataReader reader = cmd.ExecuteReader();
@@ -528,7 +528,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    string sqlString = "SELECT ID, fechaPago AS 'Fecha de Pago', cantidad AS 'Cantidad', observaciones AS 'Observaciones' FROM pagoscreditoalumno WHERE creditoID='" + credito + "' AND alumnoID='" + rfc + "'";
+                    string sqlString = "SELECT ID, FechaPago AS 'Fecha de Pago', Cantidad, Observaciones FROM pagosAlumno WHERE creditoID='" + credito + "' AND alumnoID='" + rfc + "'";
                     MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, conn);
                     conn.Close();
                     return mdaDatos;

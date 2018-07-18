@@ -165,10 +165,13 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             pictureBox2.Location = new Point(ancho - 245, pictureBox2.Location.Y);
             limpiarBusqueda.Location = new Point(ancho - 39, limpiarBusqueda.Location.Y);
             //Actualiza el valor del ancho de la columnas
-            int x = (dataGridViewAlumnos.Width - 20) / dataGridViewAlumnos.Columns.Count;
-            foreach (DataGridViewColumn aux in dataGridViewAlumnos.Columns)
+            if (dataGridViewAlumnos.Columns.Count != 0)
             {
-                aux.Width = x;
+                int x = (dataGridViewAlumnos.Width - 20) / dataGridViewAlumnos.Columns.Count;
+                foreach (DataGridViewColumn aux in dataGridViewAlumnos.Columns)
+                {
+                    aux.Width = x;
+                }
             }
         }
 

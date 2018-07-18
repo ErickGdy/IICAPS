@@ -187,6 +187,7 @@
             // 
             // cmbProgramas
             // 
+            this.cmbProgramas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbProgramas.FormattingEnabled = true;
             this.cmbProgramas.Location = new System.Drawing.Point(186, 294);
             this.cmbProgramas.Name = "cmbProgramas";
