@@ -17,26 +17,13 @@ namespace IICAPS_v1.Presentacion
         ControlIicaps control;
         bool modificacion;
         MateriasDialog md;
+        List<string> listaMateriasListBox = new List<string>();
         public FormPrograma(Programa programa)
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
             List<String> auxNombres = new List<string>();
-            try
-            {
-                foreach (Materia m in control.obtenerMaterias())
-                {
-                    auxNombres.Add(m.id + " - " + m.nombre);
-                }
-                cmbMaterias.Items.AddRange(auxNombres.ToArray());
-                cmbMaterias.SelectedIndex = 0;
-                txtNivel.SelectedIndex = 0;
-                cmbModalidad.SelectedIndex = 0;
-            }
-            catch (Exception ex)
-            {
-
-            }
+            cmbModalidad.SelectedIndex = 0;
             if (programa != null)
             {
                 modificacion = true;
@@ -56,11 +43,55 @@ namespace IICAPS_v1.Presentacion
                 txtCostoInscripcion.Value = programa.CostoInscripcionSemestral;
                 txtCostoMensual.Value = programa.CostoMensualidad;
                 txtCostoCurso.Value = programa.CostoCursoPropedeutico;
-                foreach (Materia m in programa.MapaCurricular)
+                List<int> ids = new List<int>();
+                if (programa.MapaCurricular != null)
                 {
-                    dataGridViewMaterias.Rows.Insert(dataGridViewMaterias.RowCount, m.id, m.nombre, m.duracion, m.semestre, m.costo);
+                    foreach (Materia m in programa.MapaCurricular)
+                    {
+                        dataGridViewMaterias.Rows.Insert(dataGridViewMaterias.RowCount, m.id, m.nombre, m.semestre);
+                        ids.Add(m.id);
+                    }
+                }
+                try
+                {
+                    foreach (Materia mate in control.obtenerMaterias())
+                    {
+                        if(!ids.Contains(mate.id))
+                            auxNombres.Add(mate.id + " - " + mate.nombre);
+                    }
+                    cmbMaterias.Items.AddRange(auxNombres.ToArray());
+                    cmbMaterias.SelectedIndex = 0;
+                    txtNivel.SelectedIndex = 0;
+                    cmbModalidad.SelectedIndex = 0;
+                }
+                catch (Exception ex)
+                {
+
                 }
             }
+            else
+            {
+                try
+                {
+                    foreach (Materia m in control.obtenerMaterias())
+                    {
+                        auxNombres.Add(m.id + " - " + m.nombre);
+                    }
+                    cmbMaterias.Items.AddRange(auxNombres.ToArray());
+                    cmbMaterias.SelectedIndex = 0;
+                    txtNivel.SelectedIndex = 0;
+                    cmbModalidad.SelectedIndex = 0;
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+            foreach (string s in cmbMaterias.Items)
+            {
+                listaMateriasListBox.Add(s);
+            }
+
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -90,13 +121,8 @@ namespace IICAPS_v1.Presentacion
                     for (int i = 0; i < dataGridViewMaterias.RowCount; i++)
                     {
                         DataGridViewCellCollection cells = dataGridViewMaterias.Rows[i].Cells;
-                        Materia m = new Materia();
-                        m.id = Convert.ToInt32(cells[0].Value.ToString());
-                        m.nombre = cells[1].Value.ToString();
-                        m.duracion = cells[2].Value.ToString();
-                        m.semestre = cells[3].Value.ToString();
-                        m.costo = Convert.ToDecimal(cells[4].Value.ToString());
-                        aux.Add(m);
+                        Materia m = new Materia();                        
+                        aux.Add(control.consultarMateria(cells[0].Value.ToString()));
                     }
                     p.MapaCurricular = aux;
                     try
@@ -166,7 +192,7 @@ namespace IICAPS_v1.Presentacion
             if (materia != null)
             {
                 int n = control.obtenerUltimoIDMateria();
-                dataGridViewMaterias.Rows.Insert(dataGridViewMaterias.RowCount, n, materia.nombre, materia.duracion, materia.semestre, materia.costo);
+                dataGridViewMaterias.Rows.Insert(dataGridViewMaterias.RowCount, n, materia.nombre, materia.semestre);
                 cmbMaterias.Items.Add(n + " - " + materia.nombre);
                 cmbMaterias.Refresh();
             }
@@ -174,15 +200,27 @@ namespace IICAPS_v1.Presentacion
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
+            if(cmbMaterias.SelectedItem!=null)
             try
             {
                 string materia = cmbMaterias.SelectedItem.ToString();
                 string id = materia.Substring(0, materia.IndexOf(" - "));
+                foreach(DataGridViewRow row in dataGridViewMaterias.Rows)
+                {
+                    if (dataGridViewMaterias.Rows[row.Index].Cells[0].Value.ToString() == id)
+                        return;
+                }
                 Materia m = control.consultarMateria(id);
-                dataGridViewMaterias.Rows.Insert(dataGridViewMaterias.RowCount, m.id, m.nombre, m.duracion, m.semestre, m.costo);
+                dataGridViewMaterias.Rows.Insert(dataGridViewMaterias.RowCount, m.id, m.nombre, m.semestre);
+                cmbMaterias.Items.RemoveAt(cmbMaterias.SelectedIndex);
             }
             catch (Exception ex) {
                 MessageBox.Show(ex.Message);
+            }
+            listaMateriasListBox.Clear();
+            foreach (string s in cmbMaterias.Items)
+            {
+                listaMateriasListBox.Add(s);
             }
         }
 
@@ -194,6 +232,74 @@ namespace IICAPS_v1.Presentacion
         private void btnPrev_Click(object sender, EventArgs e)
         {
             tabControl1.SelectTab(tabControl1.SelectedIndex - 1);
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                cmbMaterias.Items.Add(dataGridViewMaterias.CurrentRow.Cells[0].Value.ToString() + " - " + dataGridViewMaterias.CurrentRow.Cells[1].Value.ToString());
+                dataGridViewMaterias.Rows.Remove(dataGridViewMaterias.CurrentRow);
+                listaMateriasListBox.Clear();
+                foreach (string s in cmbMaterias.Items)
+                {
+                    listaMateriasListBox.Add(s);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void dataGridViewMaterias_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            dataGridViewMaterias.Sort(dataGridViewMaterias.Columns[2], ListSortDirection.Ascending);
+            dataGridViewMaterias.Sort(dataGridViewMaterias.Columns[0], ListSortDirection.Ascending);
+        }
+
+        private void txtBuscar_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                string texto = txtBuscar.Text;
+                if (texto != "")
+                    limpiarBusqueda.Visible = true;
+                else
+                    limpiarBusqueda.Visible = false;
+                cmbMaterias.Items.Clear();
+                cmbMaterias.Items.AddRange(listaMateriasListBox.ToArray());
+                List<string> aux = new List<string>();
+                foreach (string s in cmbMaterias.Items)
+                {
+                    if (!s.ToUpper().Contains(txtBuscar.Text.ToUpper()))
+                    {
+                        aux.Add(s);
+                    }
+                }
+                foreach (string x in aux)
+                {
+                    cmbMaterias.Items.Remove(x);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void limpiarBusqueda_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            limpiarBusqueda.Visible = false;
+            txtBuscar.Text = "";
+            try
+            {
+                cmbMaterias.Items.AddRange(listaMateriasListBox.ToArray());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

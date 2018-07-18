@@ -150,24 +150,6 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             actualizarTabla(control.obtenerMateriasTable(txtBuscar.Text));
         }
 
-        private void MainProgramas_SizeChanged(object sender, EventArgs e)
-        {
-            int ancho = this.Width;
-            //Actualiza el tamaño de la tabla con respecto al tamaño de la ventana
-            dataGridView1.Width= ancho - 195;
-            dataGridView1.Height=this.Height - 130;
-            //actualiza la posicion de los controles con respecto al tamaño de la ventana
-            btnAgregar.Location = new Point (ancho - 157, btnAgregar.Location.Y);
-            txtBuscar.Location = new Point (ancho - 216, txtBuscar.Location.Y);
-            pictureBoxBuscar.Location = new Point (ancho - 245, pictureBoxBuscar.Location.Y);
-            limpiarBusqueda.Location = new Point (ancho - 39, limpiarBusqueda.Location.Y);
-            //Actualiza el valor del ancho de la columnas
-            int x = (dataGridView1.Width - 20) / dataGridView1.Columns.Count;
-            foreach (DataGridViewColumn aux in dataGridView1.Columns)
-            {
-                aux.Width = x;
-            }
-        }
 
         private void txtBuscar_KeyUp(object sender, KeyEventArgs e)
         {
@@ -202,5 +184,23 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
            
         }
 
+        private void Main_SizeChanged(object sender, EventArgs e)
+        {
+            int ancho = this.Width;
+            //Actualiza el tamaño de la tabla con respecto al tamaño de la ventana
+            dataGridView1.Width = ancho - 195;
+            dataGridView1.Height = this.Height - 130;
+            //actualiza la posicion de los controles con respecto al tamaño de la ventana
+            btnAgregar.Location = new Point(ancho - 169, btnAgregar.Location.Y);
+            txtBuscar.Location = new Point(ancho - 216, txtBuscar.Location.Y);
+            pictureBoxBuscar.Location = new Point(ancho - 245, pictureBoxBuscar.Location.Y);
+            limpiarBusqueda.Location = new Point(ancho - 39, limpiarBusqueda.Location.Y);
+            //Actualiza el valor del ancho de la columnas
+            int x = (dataGridView1.Width - 20) / dataGridView1.Columns.Count;
+            foreach (DataGridViewColumn aux in dataGridView1.Columns)
+            {
+                aux.Width = x;
+            }
+        }
     }
 }

@@ -130,6 +130,7 @@ namespace IICAPS.Presentacion
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Login";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "IICAPS";
             this.ResumeLayout(false);
             this.PerformLayout();
