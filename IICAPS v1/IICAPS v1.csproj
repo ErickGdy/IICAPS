@@ -72,17 +72,17 @@
     <Compile Include="Presentacion\Forms\FormsAlumno\InscripcionProgramaAlumno.Designer.cs">
       <DependentUpon>InscripcionProgramaAlumno.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentacion\Forms\FormsAlumno\DocumentosEspecialidad.cs">
+    <Compile Include="Presentacion\Forms\FormsAlumno\FormDocumentosEspecialidad.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentacion\Forms\FormsAlumno\DocumentosEspecialidad.Designer.cs">
-      <DependentUpon>DocumentosEspecialidad.cs</DependentUpon>
+    <Compile Include="Presentacion\Forms\FormsAlumno\FormDocumentosEspecialidad.Designer.cs">
+      <DependentUpon>FormDocumentosEspecialidad.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentacion\Forms\FormsAlumno\DocumentosEspecialidadTitulacion.cs">
+    <Compile Include="Presentacion\Forms\FormsAlumno\FormDocumentosEspecialidadTitulacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentacion\Forms\FormsAlumno\DocumentosEspecialidadTitulacion.Designer.cs">
-      <DependentUpon>DocumentosEspecialidadTitulacion.cs</DependentUpon>
+    <Compile Include="Presentacion\Forms\FormsAlumno\FormDocumentosEspecialidadTitulacion.Designer.cs">
+      <DependentUpon>FormDocumentosEspecialidadTitulacion.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Forms\FormsAlumno\ImpresionDocumentos.cs">
       <SubType>Form</SubType>
@@ -173,11 +173,11 @@
     <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\InscripcionProgramaAlumno.resx">
       <DependentUpon>InscripcionProgramaAlumno.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\DocumentosEspecialidad.resx">
-      <DependentUpon>DocumentosEspecialidad.cs</DependentUpon>
+    <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\FormDocumentosEspecialidad.resx">
+      <DependentUpon>FormDocumentosEspecialidad.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\DocumentosEspecialidadTitulacion.resx">
-      <DependentUpon>DocumentosEspecialidadTitulacion.cs</DependentUpon>
+    <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\FormDocumentosEspecialidadTitulacion.resx">
+      <DependentUpon>FormDocumentosEspecialidadTitulacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\ImpresionDocumentos.resx">
       <DependentUpon>ImpresionDocumentos.cs</DependentUpon>

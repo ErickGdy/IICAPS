@@ -18,6 +18,7 @@ namespace IICAPS_v1.DataObject
         public bool solicitudOpcTitulacion { get; set; }
         public bool certificadoLicCop { get; set; }
         public bool constanciaLibSSOrg { get; set; }
+        public bool constanciaLibSSCop { get; set; }
         public bool curp { get; set; }
         public bool fotografias { get; set; }
         public string recibioEmpleado { get; set; }

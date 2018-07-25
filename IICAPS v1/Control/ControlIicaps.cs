@@ -1143,9 +1143,163 @@ namespace IICAPS_v1.Control
             }
         }
 
+        //-------------------------------ENTREGA DOCUMENTOS-------------------------------//
 
+        public bool agregarEntregaDocumentos(DocumentosEspecialidad doc)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "INSERT INTO documentosEspecialidad (Alumno, ActaNacimientoOrg, ActaNacimientoCop, TituloCedulaOrg, TituloLicCop, '"
+                    + "CedProfCop, SolicitudOpcionTitulacion, CertificadoLicCop, ConstanciaLibSSOrg, Curp, Fotografias, RecibioEmpleado  ) VALUES ('"
+                    + doc.alumno + "', " + doc.actaNacimientoOrg + ", " + doc.actaNacimientoCop + ", " + doc.tituloCedulaOrg + ", " + doc.tituloLicCop + ", "
+                    + doc.cedProfCop + ", " + doc.solicitudOpcTitulacion + ", " + doc.certificadoLicCop + ", " + doc.constanciaLibSSOrg + ", " + doc.curp + ", "
+                    + doc.fotografias + ", '" + doc.recibioEmpleado + "')";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception E)
+                {
+                    throw new Exception("Error al agregar la documentacion del alumnos a la base d datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerEntregaDocumentos()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT * FROM documentosEspecialidad", conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de la documentacion entregada del alumno de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerEntregaDocumentosTable(string parameter)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT * FROM documentosEspecialidad WHERE" +
+                        "(Alumno LIKE '%" + parameter + "%' or " +
+                        "RecibioEmpleado LIKE '%" + parameter + "%' or " +
+                        "CantidadMeses LIKE '%" + parameter + "%')";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de la documentacion entregada del alumno de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public DocumentosEspecialidad consultarEntregaDocumentos(string rfc)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM documentosEspecialidad WHERE Alumno='" + rfc + "'";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        DocumentosEspecialidad doc = new DocumentosEspecialidad();
+                        doc.alumno = reader.GetString(0);
+                        doc.actaNacimientoOrg = reader.GetBoolean(1);
+                        doc.actaNacimientoCop = reader.GetBoolean(2);
+                        doc.tituloCedulaOrg = reader.GetBoolean(3);
+                        doc.tituloLicCop = reader.GetBoolean(4);
+                        doc.cedProfCop = reader.GetBoolean(5);
+                        doc.solicitudOpcTitulacion = reader.GetBoolean(6);
+                        doc.certificadoLicCop = reader.GetBoolean(7);
+                        doc.constanciaLibSSOrg = reader.GetBoolean(8);
+                        doc.curp = reader.GetBoolean(9);
+                        doc.fotografias = reader.GetBoolean(10);
+                        doc.recibioEmpleado = reader.GetString(11);
+                        conn.Close();
+                        return doc;
+                    }
+                    conn.Close();
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de la documentacion entregada del alumno de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
 
-
+        public bool actualizarEntregaDocumentos(DocumentosEspecialidad doc)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE documentosEspecialidad SET ActaNacimientoOrg= " + doc.actaNacimientoOrg + ", ActaNacimientoCop= " + doc.actaNacimientoCop + ", TituloCedulaOrg= " + doc.tituloCedulaOrg 
+                    + ", TituloLicCop= " + doc.tituloLicCop + ", CedProfCop= " + doc.cedProfCop + ", SolicitudOpcionTitulacion =" + doc.solicitudOpcTitulacion + ", CertificadoLicCop= "+ doc.certificadoLicCop 
+                    + ", ConstanciaLibSSOrg =" + doc.constanciaLibSSOrg + ", Curp =" + doc.curp + ", Fotografias =" + doc.fotografias + ", RecibioEmpleado ='" + doc.recibioEmpleado + "' WHERE Alumno = '" +doc.alumno +"'";                    
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al actualizar los datos de la documentacion entregada del alumno en la Base de Datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
 
         //-------------------------------Configuracion-------------------------------//
 
