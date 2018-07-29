@@ -51,7 +51,7 @@
     <Compile Include="DataObject\Materia.cs" />
     <Compile Include="DataObject\Alumno.cs" />
     <Compile Include="DataObject\CreditoAlumno.cs" />
-    <Compile Include="DataObject\DocumentosEspecialidad.cs" />
+    <Compile Include="DataObject\DocumentosInscripcion.cs" />
     <Compile Include="DataObject\PagosColegiaturaAlumnos.cs" />
     <Compile Include="DataObject\PagosCreditoAlumnos.cs" />
     <Compile Include="Presentacion\Forms\FormsAlumno\Alumnos.cs">
@@ -72,17 +72,17 @@
     <Compile Include="Presentacion\Forms\FormsAlumno\InscripcionProgramaAlumno.Designer.cs">
       <DependentUpon>InscripcionProgramaAlumno.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentacion\Forms\FormsAlumno\FormDocumentosEspecialidad.cs">
+    <Compile Include="Presentacion\Forms\FormsAlumno\FormDocumentosInscripcion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentacion\Forms\FormsAlumno\FormDocumentosEspecialidad.Designer.cs">
-      <DependentUpon>FormDocumentosEspecialidad.cs</DependentUpon>
+    <Compile Include="Presentacion\Forms\FormsAlumno\FormDocumentosInscripcion.Designer.cs">
+      <DependentUpon>FormDocumentosInscripcion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentacion\Forms\FormsAlumno\FormDocumentosEspecialidadTitulacion.cs">
+    <Compile Include="Presentacion\Forms\FormsAlumno\FormDocumentosInscripcionTitulacionLicenciatura.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentacion\Forms\FormsAlumno\FormDocumentosEspecialidadTitulacion.Designer.cs">
-      <DependentUpon>FormDocumentosEspecialidadTitulacion.cs</DependentUpon>
+    <Compile Include="Presentacion\Forms\FormsAlumno\FormDocumentosInscripcionTitulacionLicenciatura.Designer.cs">
+      <DependentUpon>FormDocumentosInscripcionTitulacionLicenciatura.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Forms\FormsAlumno\ImpresionDocumentos.cs">
       <SubType>Form</SubType>
@@ -119,6 +119,12 @@
     </Compile>
     <Compile Include="Presentacion\Mains\Escuela\EscuelaMain.Designer.cs">
       <DependentUpon>EscuelaMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Escuela\MainDocumentosInscripcion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Escuela\MainDocumentosInscripcion.Designer.cs">
+      <DependentUpon>MainDocumentosInscripcion.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Mains\Escuela\MainCreditos.cs">
       <SubType>Form</SubType>
@@ -173,11 +179,11 @@
     <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\InscripcionProgramaAlumno.resx">
       <DependentUpon>InscripcionProgramaAlumno.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\FormDocumentosEspecialidad.resx">
-      <DependentUpon>FormDocumentosEspecialidad.cs</DependentUpon>
+    <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\FormDocumentosInscripcion.resx">
+      <DependentUpon>FormDocumentosInscripcion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\FormDocumentosEspecialidadTitulacion.resx">
-      <DependentUpon>FormDocumentosEspecialidadTitulacion.cs</DependentUpon>
+    <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\FormDocumentosInscripcionTitulacionLicenciatura.resx">
+      <DependentUpon>FormDocumentosInscripcionTitulacionLicenciatura.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\ImpresionDocumentos.resx">
       <DependentUpon>ImpresionDocumentos.cs</DependentUpon>
@@ -196,6 +202,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Mains\Escuela\EscuelaMain.resx">
       <DependentUpon>EscuelaMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Mains\Escuela\MainDocumentosInscripcion.resx">
+      <DependentUpon>MainDocumentosInscripcion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Mains\Escuela\MainCreditos.resx">
       <DependentUpon>MainCreditos.cs</DependentUpon>

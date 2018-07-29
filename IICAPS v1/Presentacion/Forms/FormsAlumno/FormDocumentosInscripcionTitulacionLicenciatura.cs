@@ -12,12 +12,12 @@ using System.Windows.Forms;
 
 namespace IICAPS_v1.Presentacion
 {
-    public partial class FormDocumentosEspecialidadTitulacion : Form
+    public partial class FormDocumentosInscripcionTitulacionLicenciatura : Form
     {
         ControlIicaps control;
-        DocumentosEspecialidad documentacion;
+        DocumentosInscripcion documentacion;
         bool modificacion = false;
-        public FormDocumentosEspecialidadTitulacion(DocumentosEspecialidad doc)
+        public FormDocumentosInscripcionTitulacionLicenciatura(DocumentosInscripcion doc)
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
@@ -28,6 +28,13 @@ namespace IICAPS_v1.Presentacion
             List<String> auxIDAlumno = new List<string>();
             List<String> auxRecibio = new List<string>();
             List<String> auxIDRecibio = new List<string>();
+            foreach (Programa p in control.obtenerProgramas())
+            {
+                auxPrograma.Add(p.Nombre);
+                auxIDPrograma.Add(p.Codigo.ToString());
+            }
+            cmbPrograma.DataSource = auxPrograma;
+            cmbIDPrograma.DataSource = auxIDPrograma;
             if (doc != null)
             {
                 modificacion = true;
@@ -46,7 +53,7 @@ namespace IICAPS_v1.Presentacion
                     checkedListBox1.SetItemChecked(2, true);
                 if (documentacion.certificadoLicCop)
                     checkedListBox1.SetItemChecked(3, true);
-                if (documentacion.constanciaLibSSCop)
+                if (documentacion.constanciaLibSSOrg)
                     checkedListBox1.SetItemChecked(4, true);
                 if (documentacion.curp)
                     checkedListBox1.SetItemChecked(5, true);
@@ -93,13 +100,13 @@ namespace IICAPS_v1.Presentacion
                 cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
                 cmbIDAlumno.SelectedIndex = cmbAlumno.SelectedIndex;
                 cmbIDRecibio.SelectedIndex = cmbRecibio.SelectedIndex;
-                DocumentosEspecialidad doc = new DocumentosEspecialidad();
+                DocumentosInscripcion doc = new DocumentosInscripcion();
                 doc.alumno = cmbIDAlumno.SelectedItem.ToString();
                 doc.actaNacimientoOrg = checkedListBox1.GetItemChecked(0);
                 doc.actaNacimientoCop = checkedListBox1.GetItemChecked(1);
                 doc.solicitudOpcTitulacion = checkedListBox1.GetItemChecked(2);
                 doc.certificadoLicCop = checkedListBox1.GetItemChecked(3);
-                doc.constanciaLibSSCop = checkedListBox1.GetItemChecked(4);
+                doc.constanciaLibSSOrg = checkedListBox1.GetItemChecked(4);
                 doc.curp = checkedListBox1.GetItemChecked(5);
                 doc.fotografias = checkedListBox1.GetItemChecked(6);
                 doc.recibioEmpleado = cmbIDRecibio.SelectedItem.ToString();

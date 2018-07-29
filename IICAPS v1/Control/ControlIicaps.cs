@@ -1145,13 +1145,13 @@ namespace IICAPS_v1.Control
 
         //-------------------------------ENTREGA DOCUMENTOS-------------------------------//
 
-        public bool agregarEntregaDocumentos(DocumentosEspecialidad doc)
+        public bool agregarEntregaDocumentos(DocumentosInscripcion doc)
         {
             try
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO documentosEspecialidad (Alumno, ActaNacimientoOrg, ActaNacimientoCop, TituloCedulaOrg, TituloLicCop, '"
+                cmd.CommandText = "INSERT INTO documentosInscripcion (Alumno, ActaNacimientoOrg, ActaNacimientoCop, TituloCedulaOrg, TituloLicCop, '"
                     + "CedProfCop, SolicitudOpcionTitulacion, CertificadoLicCop, ConstanciaLibSSOrg, Curp, Fotografias, RecibioEmpleado  ) VALUES ('"
                     + doc.alumno + "', " + doc.actaNacimientoOrg + ", " + doc.actaNacimientoCop + ", " + doc.tituloCedulaOrg + ", " + doc.tituloLicCop + ", "
                     + doc.cedProfCop + ", " + doc.solicitudOpcTitulacion + ", " + doc.certificadoLicCop + ", " + doc.constanciaLibSSOrg + ", " + doc.curp + ", "
@@ -1185,7 +1185,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT * FROM documentosEspecialidad", conn);
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT * FROM documentosInscripcion", conn);
                     conn.Close();
                     return mdaDatos;
                 }
@@ -1208,10 +1208,9 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    string sqlString = "SELECT * FROM documentosEspecialidad WHERE" +
+                    string sqlString = "SELECT * FROM documentosInscripcion WHERE" +
                         "(Alumno LIKE '%" + parameter + "%' or " +
-                        "RecibioEmpleado LIKE '%" + parameter + "%' or " +
-                        "CantidadMeses LIKE '%" + parameter + "%')";
+                        "RecibioEmpleado LIKE '%" + parameter + "%')";
                     MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, conn);
                     conn.Close();
                     return mdaDatos;
@@ -1227,20 +1226,20 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-        public DocumentosEspecialidad consultarEntregaDocumentos(string rfc)
+        public DocumentosInscripcion consultarEntregaDocumentos(string rfc)
         {
             try
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM documentosEspecialidad WHERE Alumno='" + rfc + "'";
+                cmd.CommandText = "SELECT * FROM documentosInscripcion WHERE Alumno='" + rfc + "'";
                 conn.Open();
                 try
                 {
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        DocumentosEspecialidad doc = new DocumentosEspecialidad();
+                        DocumentosInscripcion doc = new DocumentosInscripcion();
                         doc.alumno = reader.GetString(0);
                         doc.actaNacimientoOrg = reader.GetBoolean(1);
                         doc.actaNacimientoCop = reader.GetBoolean(2);
@@ -1271,13 +1270,13 @@ namespace IICAPS_v1.Control
             }
         }
 
-        public bool actualizarEntregaDocumentos(DocumentosEspecialidad doc)
+        public bool actualizarEntregaDocumentos(DocumentosInscripcion doc)
         {
             try
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE documentosEspecialidad SET ActaNacimientoOrg= " + doc.actaNacimientoOrg + ", ActaNacimientoCop= " + doc.actaNacimientoCop + ", TituloCedulaOrg= " + doc.tituloCedulaOrg 
+                cmd.CommandText = "UPDATE documentosInscripcion SET ActaNacimientoOrg= " + doc.actaNacimientoOrg + ", ActaNacimientoCop= " + doc.actaNacimientoCop + ", TituloCedulaOrg= " + doc.tituloCedulaOrg 
                     + ", TituloLicCop= " + doc.tituloLicCop + ", CedProfCop= " + doc.cedProfCop + ", SolicitudOpcionTitulacion =" + doc.solicitudOpcTitulacion + ", CertificadoLicCop= "+ doc.certificadoLicCop 
                     + ", ConstanciaLibSSOrg =" + doc.constanciaLibSSOrg + ", Curp =" + doc.curp + ", Fotografias =" + doc.fotografias + ", RecibioEmpleado ='" + doc.recibioEmpleado + "' WHERE Alumno = '" +doc.alumno +"'";                    
                 try

@@ -12,12 +12,12 @@ using System.Windows.Forms;
 
 namespace IICAPS_v1.Presentacion
 {
-    public partial class FormDocumentosEspecialidad : Form
+    public partial class FormDocumentosInscripcion : Form
     {
         ControlIicaps control;
-        DocumentosEspecialidad documentacion;
+        DocumentosInscripcion documentacion;
         bool modificacion = false;
-        public FormDocumentosEspecialidad(DocumentosEspecialidad doc)
+        public FormDocumentosInscripcion(DocumentosInscripcion doc)
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
@@ -28,6 +28,13 @@ namespace IICAPS_v1.Presentacion
             List<String> auxIDAlumno = new List<string>();
             List<String> auxRecibio = new List<string>();
             List<String> auxIDRecibio = new List<string>();
+            foreach (Programa p in control.obtenerProgramas())
+            {
+                auxPrograma.Add(p.Nombre);
+                auxIDPrograma.Add(p.Codigo.ToString());
+            }
+            cmbPrograma.DataSource = auxPrograma;
+            cmbIDPrograma.DataSource = auxIDPrograma;
             if (doc != null)
             {
                 modificacion = true;
@@ -93,7 +100,7 @@ namespace IICAPS_v1.Presentacion
                 cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
                 cmbIDAlumno.SelectedIndex = cmbAlumno.SelectedIndex;
                 cmbIDRecibio.SelectedIndex = cmbRecibio.SelectedIndex;
-                DocumentosEspecialidad doc = new DocumentosEspecialidad();
+                DocumentosInscripcion doc = new DocumentosInscripcion();
                 doc.alumno = cmbIDAlumno.SelectedItem.ToString();
                 doc.actaNacimientoOrg = checkedListBox1.GetItemChecked(0);
                 doc.actaNacimientoCop = checkedListBox1.GetItemChecked(1);
