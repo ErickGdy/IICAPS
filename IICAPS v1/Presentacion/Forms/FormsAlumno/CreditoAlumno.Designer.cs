@@ -49,6 +49,8 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.lblFecha = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.cmbIDPrograma = new System.Windows.Forms.ComboBox();
+            this.cmbIDAlumno = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.numMensualidad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCantidad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -59,7 +61,7 @@
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.Location = new System.Drawing.Point(459, 439);
-            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(100, 33);
             this.btnCancelar.TabIndex = 8;
@@ -71,7 +73,7 @@
             // 
             this.numMensualidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numMensualidad.Location = new System.Drawing.Point(231, 241);
-            this.numMensualidad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numMensualidad.Margin = new System.Windows.Forms.Padding(4);
             this.numMensualidad.Name = "numMensualidad";
             this.numMensualidad.Size = new System.Drawing.Size(160, 28);
             this.numMensualidad.TabIndex = 3;
@@ -80,7 +82,7 @@
             // 
             this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.Location = new System.Drawing.Point(193, 439);
-            this.btnAceptar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAceptar.Margin = new System.Windows.Forms.Padding(4);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(100, 33);
             this.btnAceptar.TabIndex = 6;
@@ -105,10 +107,11 @@
             this.cmbPrograma.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbPrograma.FormattingEnabled = true;
             this.cmbPrograma.Location = new System.Drawing.Point(231, 165);
-            this.cmbPrograma.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbPrograma.Margin = new System.Windows.Forms.Padding(4);
             this.cmbPrograma.Name = "cmbPrograma";
-            this.cmbPrograma.Size = new System.Drawing.Size(500, 30);
+            this.cmbPrograma.Size = new System.Drawing.Size(445, 30);
             this.cmbPrograma.TabIndex = 1;
+            this.cmbPrograma.SelectedIndexChanged += new System.EventHandler(this.cmbPrograma_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -125,7 +128,7 @@
             // 
             this.btnCalcular.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCalcular.Location = new System.Drawing.Point(405, 241);
-            this.btnCalcular.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCalcular.Margin = new System.Windows.Forms.Padding(4);
             this.btnCalcular.Name = "btnCalcular";
             this.btnCalcular.Size = new System.Drawing.Size(100, 32);
             this.btnCalcular.TabIndex = 4;
@@ -147,7 +150,7 @@
             // 
             this.numCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numCantidad.Location = new System.Drawing.Point(231, 277);
-            this.numCantidad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numCantidad.Margin = new System.Windows.Forms.Padding(4);
             this.numCantidad.Name = "numCantidad";
             this.numCantidad.ReadOnly = true;
             this.numCantidad.Size = new System.Drawing.Size(160, 28);
@@ -188,13 +191,12 @@
             // 
             // cmbAlumno
             // 
-            this.cmbAlumno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbAlumno.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbAlumno.FormattingEnabled = true;
             this.cmbAlumno.Location = new System.Drawing.Point(231, 203);
-            this.cmbAlumno.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbAlumno.Margin = new System.Windows.Forms.Padding(4);
             this.cmbAlumno.Name = "cmbAlumno";
-            this.cmbAlumno.Size = new System.Drawing.Size(500, 30);
+            this.cmbAlumno.Size = new System.Drawing.Size(445, 30);
             this.cmbAlumno.TabIndex = 2;
             // 
             // label1
@@ -278,12 +280,34 @@
             this.label6.TabIndex = 63;
             this.label6.Text = "Fecha:";
             // 
+            // cmbIDPrograma
+            // 
+            this.cmbIDPrograma.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.cmbIDPrograma.FormattingEnabled = true;
+            this.cmbIDPrograma.Location = new System.Drawing.Point(684, 165);
+            this.cmbIDPrograma.Name = "cmbIDPrograma";
+            this.cmbIDPrograma.Size = new System.Drawing.Size(45, 30);
+            this.cmbIDPrograma.TabIndex = 65;
+            this.cmbIDPrograma.Visible = false;
+            // 
+            // cmbIDAlumno
+            // 
+            this.cmbIDAlumno.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbIDAlumno.FormattingEnabled = true;
+            this.cmbIDAlumno.Location = new System.Drawing.Point(683, 203);
+            this.cmbIDAlumno.Name = "cmbIDAlumno";
+            this.cmbIDAlumno.Size = new System.Drawing.Size(45, 30);
+            this.cmbIDAlumno.TabIndex = 66;
+            this.cmbIDAlumno.Visible = false;
+            // 
             // CreditoAlumnos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(741, 613);
+            this.Controls.Add(this.cmbIDAlumno);
+            this.Controls.Add(this.cmbIDPrograma);
             this.Controls.Add(this.lblFecha);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtObservaciones);
@@ -338,5 +362,7 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label lblFecha;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cmbIDPrograma;
+        private System.Windows.Forms.ComboBox cmbIDAlumno;
     }
 }
