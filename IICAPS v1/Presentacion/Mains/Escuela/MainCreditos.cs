@@ -117,7 +117,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             {
                 String rfc = dataGridViewCreditos.CurrentRow.Cells[0].Value.ToString();
                 CreditoAlumno credito = control.consultarCreditoAlumno(rfc);
-                CreditoAlumnos fa = new CreditoAlumnos(credito, true);
+                CreditoAlumnos fa = new CreditoAlumnos(credito);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
             }

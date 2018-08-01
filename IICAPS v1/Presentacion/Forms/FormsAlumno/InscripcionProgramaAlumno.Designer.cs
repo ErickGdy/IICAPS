@@ -1,4 +1,6 @@
-﻿namespace IICAPS_v1.Presentacion
+﻿using IICAPS_v1.DataObject;
+
+namespace IICAPS_v1.Presentacion
 {
     partial class InscripcionProgramaAlumno
     {
@@ -28,7 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DocumentosEspecialidad));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DocumentosInscripcion));
             this.cmbRecibio = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
