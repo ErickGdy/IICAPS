@@ -56,49 +56,6 @@ namespace IICAPS_v1.Presentacion
             }
         }
 
-        public Alumnos(Alumno a, bool c)
-        {
-            InitializeComponent();
-            control = ControlIicaps.getInstance();
-            if (a != null)
-            {
-                modificacion = true;
-                txtNombre.Text = a.nombre;
-                txtDireccion.Text = a.direccion;
-                txtTelefono1.Text = a.telefono1;
-                txtTelefono2.Text = a.telefono2;
-                txtCorreo.Text = a.correo;
-                txtFacebook.Text = a.facebook;
-                txtCURP.Text = a.curp;
-                txtRFC.Text = a.rfc;
-                cmbSexo.SelectedItem = a.sexo;
-                cmbEstadoCivil.SelectedItem = a.estadoCivil;
-                txtEscuelaProcedencia.Text = a.escuelaProcedencia;
-                txtCarrera.Text = a.carrera;
-                cmbNivel.SelectedItem = a.nivel;
-                cmbPrograma.SelectedItem = a.programa;
-                label12.Text = "Programa actual";
-            }
-            if (c == true)
-            {
-                txtNombre.ReadOnly = true;
-                txtDireccion.ReadOnly = true;
-                txtTelefono1.ReadOnly = true;
-                txtTelefono2.ReadOnly = true;
-                txtCorreo.ReadOnly = true;
-                txtFacebook.ReadOnly = true;
-                txtCURP.ReadOnly = true;
-                txtRFC.ReadOnly = true;
-                cmbSexo.Enabled = false;
-                cmbEstadoCivil.Enabled = false;
-                txtEscuelaProcedencia.ReadOnly = true;
-                txtCarrera.ReadOnly = true;
-                cmbNivel.Enabled = false;
-                cmbPrograma.Enabled = false;
-                label12.Text = "Programa actual";
-            }
-        }
-
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             try

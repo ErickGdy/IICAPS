@@ -61,6 +61,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tabInfoAcademica = new System.Windows.Forms.TabPage();
+            this.cmbNombresPrograma = new System.Windows.Forms.ComboBox();
             this.btnPrev = new System.Windows.Forms.Button();
             this.cmbPrograma = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -69,7 +70,6 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lblFecha = new System.Windows.Forms.Label();
-            this.cmbNombresPrograma = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabDatosAlumno.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -331,7 +331,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.label10.Location = new System.Drawing.Point(272, 161);
+            this.label10.Location = new System.Drawing.Point(271, 161);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(105, 20);
             this.label10.TabIndex = 49;
@@ -351,7 +351,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.label9.Location = new System.Drawing.Point(327, 132);
+            this.label9.Location = new System.Drawing.Point(326, 132);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(50, 20);
             this.label9.TabIndex = 47;
@@ -361,7 +361,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.label7.Location = new System.Drawing.Point(284, 103);
+            this.label7.Location = new System.Drawing.Point(283, 103);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(93, 20);
             this.label7.TabIndex = 46;
@@ -438,6 +438,17 @@
             this.tabInfoAcademica.TabIndex = 1;
             this.tabInfoAcademica.Text = "Información Académica";
             this.tabInfoAcademica.UseVisualStyleBackColor = true;
+            // 
+            // cmbNombresPrograma
+            // 
+            this.cmbNombresPrograma.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbNombresPrograma.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbNombresPrograma.FormattingEnabled = true;
+            this.cmbNombresPrograma.Location = new System.Drawing.Point(223, 141);
+            this.cmbNombresPrograma.Name = "cmbNombresPrograma";
+            this.cmbNombresPrograma.Size = new System.Drawing.Size(346, 26);
+            this.cmbNombresPrograma.TabIndex = 56;
+            this.cmbNombresPrograma.SelectedValueChanged += new System.EventHandler(this.cmbNombresPrograma_SelectedValueChanged);
             // 
             // btnPrev
             // 
@@ -527,17 +538,6 @@
             this.lblFecha.Size = new System.Drawing.Size(99, 20);
             this.lblFecha.TabIndex = 33;
             this.lblFecha.Text = "10/12/2010";
-            // 
-            // cmbNombresPrograma
-            // 
-            this.cmbNombresPrograma.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbNombresPrograma.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbNombresPrograma.FormattingEnabled = true;
-            this.cmbNombresPrograma.Location = new System.Drawing.Point(223, 141);
-            this.cmbNombresPrograma.Name = "cmbNombresPrograma";
-            this.cmbNombresPrograma.Size = new System.Drawing.Size(346, 26);
-            this.cmbNombresPrograma.TabIndex = 56;
-            this.cmbNombresPrograma.SelectedValueChanged += new System.EventHandler(this.cmbNombresPrograma_SelectedValueChanged);
             // 
             // Alumnos
             // 

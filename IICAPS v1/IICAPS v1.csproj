@@ -90,6 +90,12 @@
     <Compile Include="Presentacion\Forms\FormsAlumno\ImpresionDocumentos.Designer.cs">
       <DependentUpon>ImpresionDocumentos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentacion\Forms\FormsAlumno\DetalleAlumno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAlumno\DetalleAlumno.Designer.cs">
+      <DependentUpon>DetalleAlumno.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Forms\FormsEscuela\MateriasDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -187,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\ImpresionDocumentos.resx">
       <DependentUpon>ImpresionDocumentos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\DetalleAlumno.resx">
+      <DependentUpon>DetalleAlumno.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\MateriasDialog.resx">
       <DependentUpon>MateriasDialog.cs</DependentUpon>
