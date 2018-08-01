@@ -33,8 +33,8 @@ namespace IICAPS_v1.Presentacion
                 auxPrograma.Add(p.Nombre);
                 auxIDPrograma.Add(p.Codigo.ToString());
             }
-            cmbPrograma.DataSource = auxPrograma;
-            cmbIDPrograma.DataSource = auxIDPrograma;
+            cmbIDPrograma.Items.AddRange(auxIDPrograma.ToArray());
+            cmbPrograma.Items.AddRange(auxPrograma.ToArray());
             if (doc != null)
             {
                 modificacion = true;
@@ -141,8 +141,9 @@ namespace IICAPS_v1.Presentacion
                 auxAlumno.Add(a.nombre);
                 auxIDAlumno.Add(a.rfc.ToString());
             }
-            cmbAlumno.DataSource = auxAlumno;
-            cmbIDAlumno.DataSource = auxIDAlumno;
+            cmbIDAlumno.Items.AddRange(auxIDAlumno.ToArray());
+            cmbAlumno.Items.AddRange(auxAlumno.ToArray());
+            cmbAlumno.SelectedIndex = 0;
         }
     }
 }

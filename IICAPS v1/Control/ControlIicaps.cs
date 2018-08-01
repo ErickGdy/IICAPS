@@ -233,7 +233,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT A.RFC, A.Nombre, A.Telefono1 AS 'Telefono 1', A.Programa, G.Nombre AS 'Grupo' FROM alumnos A LEFT JOIN grupoAlumno GA ON A.RFC = GA.Alumno LEFT JOIN grupos G ON G.Codigo = GA.Grupo WHERE A.Programa = '" + programa + "'";
+                cmd.CommandText = "SELECT * FROM alumnos WHERE Programa = '" + programa + "'";
                 conn.Open();
                 try
                 {
