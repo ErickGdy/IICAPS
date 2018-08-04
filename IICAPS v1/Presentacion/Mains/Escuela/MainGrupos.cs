@@ -25,7 +25,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             control = ControlIicaps.getInstance();
             try
             {
-                actualizarTabla(control.obtenerProgramaTable());
+                actualizarTabla(control.obtenerGruposTable());
             }
             catch (Exception e)
             {
@@ -61,27 +61,23 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 MessageBox.Show(e.Message);
             }
         }
-
         private void btnAgregarAlumno_Click(object sender, EventArgs e)
         {
-            FormPrograma fa = new FormPrograma(null);
+            FormGrupos fa = new FormGrupos(null);
             fa.FormClosed += new FormClosedEventHandler(form_Closed);
             fa.Show();
         }
-
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTabla(control.obtenerProgramaTable(txtBuscar.Text));
+            actualizarTabla(control.obtenerGruposTable(txtBuscar.Text));
         }
-
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                Programa programa = control.consultarPrograma(id);
-                programa.MapaCurricular = control.consultarMapaCurricularPrograma(programa.Codigo);
-                MessageBox.Show("Reporte referente al programa "+programa.Codigo);
+                Grupo grupo = control.consultarGrupo(id);
+                MessageBox.Show("Reporte referente al grupo "+ grupo.codigo);
                 //FormPrograma fa = new FormPrograma(programa);
                 //fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 //fa.Show();
@@ -91,15 +87,13 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void modificarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                Programa programa = control.consultarPrograma(id);
-                programa.MapaCurricular = control.consultarMapaCurricularPrograma(programa.Codigo);
-                FormPrograma fa = new FormPrograma(programa);
+                Grupo grupo = control.consultarGrupo(id);
+                FormGrupos fa = new FormGrupos(grupo);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
             }
@@ -108,22 +102,21 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void cancelarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                DialogResult dialogresult = MessageBox.Show("¿Desea calcelar el programa?", "Cancelar programa", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                DialogResult dialogresult = MessageBox.Show("¿Desea calcelar el grupo?", "Cancelar grupo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if(dialogresult == DialogResult.OK)
                 {
-                    if (control.desactivarPrograma(id))
+                    if (control.desactivarGrupo(id))
                     {
-                        MessageBox.Show("Programa cancelado");
-                        actualizarTabla(control.obtenerProgramaTable());
+                        MessageBox.Show("Grupo cancelado");
+                        actualizarTabla(control.obtenerGruposTable());
                     }
                     else
-                        MessageBox.Show("Error al cancelar programa");
+                        MessageBox.Show("Error al cancelar grupo");
                 }
             }
             catch (Exception ex)
@@ -131,27 +124,23 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void limpiarBusqueda_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             limpiarBusqueda.Visible = false;
             txtBuscar.Text = "";
             try
             {
-                actualizarTabla(control.obtenerProgramaTable());
+                actualizarTabla(control.obtenerGruposTable());
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-
-
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTabla(control.obtenerProgramaTable(txtBuscar.Text));
+            actualizarTabla(control.obtenerGruposTable(txtBuscar.Text));
         }
-
         private void Main_SizeChanged(object sender, EventArgs e)
         {
             int ancho = this.Width;
@@ -173,7 +162,6 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 }
             }
         }
-
         private void txtBuscar_KeyUp(object sender, KeyEventArgs e)
         {
             string texto = txtBuscar.Text;
@@ -184,7 +172,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 {
                     try
                     {
-                        actualizarTabla(control.obtenerProgramaTable(texto));
+                        actualizarTabla(control.obtenerGruposTable(texto));
                     }
                     catch (Exception ex)
                     {
@@ -197,7 +185,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 limpiarBusqueda.Visible = false;
                 try
                 {
-                    actualizarTabla(control.obtenerProgramaTable());
+                    actualizarTabla(control.obtenerGruposTable());
                 }
                 catch (Exception ex)
                 {

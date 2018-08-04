@@ -93,11 +93,45 @@ namespace IICAPS_v1.Presentacion
                     break;
                 case 2:
                     panelDocumentacion.Visible = true;
-                    
+                    try
+                    {
+                        DocumentosInscripcion al = control.consultarEntregaDocumentos(alumno.rfc);
+                        checkInscActaCopia.Checked = al.actaNacimientoOrg;
+                        checkInscActaOrignial.Checked = al.actaNacimientoOrg;
+                        checkInscCopiaCedula.Checked = al.cedProfCop;
+                        checkInscCopiaTitulo.Checked = al.tituloLicCop;
+                        checkInscCURP.Checked = al.curp;
+                        checkInscFotos.Checked = al.fotografias;
+                        checkInscTituloCedula.Checked = al.tituloCedulaOrg;
+                        checkTituActa.Checked = al.actaNacimientoOrg;
+                        checkTituCopiaActa.Checked = al.actaNacimientoCop;
+                        checkTituCopiaCertificado.Checked = al.certificadoLicCop;
+                        checkTituCopiaConstancia.Checked = al.constanciaLibSSCop;
+                        checkTituCURP.Checked = al.curp;
+                        checkTituFotos.Checked = al.fotografias;
+                        checkTituSolicitud.Checked = al.solicitudOpcTitulacion;
+                    }
+                    catch (Exception ex) { }
                     break;
                 case 3:
                     panelInformacionPersonal.Visible = true;
-                    
+                    try { 
+                        alumno = control.consultarAlumno(alumno.rfc);
+                        lblCarrera.Text = alumno.carrera;
+                        lblCorreo.Text = alumno.correo;
+                        lblCurp.Text = alumno.curp;
+                        lblDireccion.Text = alumno.direccion;
+                        lblEscuelaProcedencia.Text = alumno.escuelaProcedencia;
+                        lblEstadoCivil.Text = alumno.estadoCivil;
+                        lblFacebook.Text = alumno.facebook;
+                        lblNivel.Text = alumno.nivel;
+                        lblNombre.Text = alumno.nombre;
+                        lblRFC.Text = alumno.rfc;
+                        lblSexo.Text = alumno.sexo;
+                        lblTelefono1.Text = alumno.telefono1;
+                        lblTelefono2.Text = alumno.telefono2;
+                    }
+                    catch (Exception ex) { }
                     break;
                 case 4:
                     panelSituacionAcademica.Visible = true;
@@ -207,16 +241,25 @@ namespace IICAPS_v1.Presentacion
 
         private void btnActualizarDocumentos_Click(object sender, EventArgs e)
         {
-            if (tabControlDocumentacion.TabIndex == 0) {
-                DocumentosEspecialidad fa = new DocumentosEspecialidad(alumno);
-                fa.FormClosed += new FormClosedEventHandler(form_ClosedDocumentos);
-                fa.Show();
-            }
-            else
+            try
             {
-                DocumentosEspecialidadTitulacion fa = new DocumentosEspecialidadTitulacion(alumno);
-                fa.FormClosed += new FormClosedEventHandler(form_ClosedDocumentos);
-                fa.Show();
+                DocumentosInscripcion al = control.consultarEntregaDocumentos(alumno.rfc);
+                if (tabControlDocumentacion.SelectedIndex == 0)
+                {
+                    FormDocumentosInscripcion fa = new FormDocumentosInscripcion(al);
+                    fa.FormClosed += new FormClosedEventHandler(form_ClosedDocumentos);
+                    fa.Show();
+                }
+                else
+                {
+                    FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(al);
+                    fa.FormClosed += new FormClosedEventHandler(form_ClosedDocumentos);
+                    fa.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al obtener datos de documentos");
             }
         }
 

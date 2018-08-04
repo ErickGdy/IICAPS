@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Control\ControlIicaps.cs" />
     <Compile Include="Control\DocumentosWord.cs" />
+    <Compile Include="DataObject\Grupo.cs" />
     <Compile Include="DataObject\Programa.cs" />
     <Compile Include="DataObject\Materia.cs" />
     <Compile Include="DataObject\Alumno.cs" />
@@ -96,6 +97,12 @@
     </Compile>
     <Compile Include="Presentacion\Forms\FormsAlumno\DetalleAlumno.Designer.cs">
       <DependentUpon>DetalleAlumno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\FormGrupos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\FormGrupos.Designer.cs">
+      <DependentUpon>FormGrupos.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Forms\FormsEscuela\MateriasDialog.cs">
       <SubType>Form</SubType>
@@ -197,6 +204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\DetalleAlumno.resx">
       <DependentUpon>DetalleAlumno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\FormGrupos.resx">
+      <DependentUpon>FormGrupos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\MateriasDialog.resx">
       <DependentUpon>MateriasDialog.cs</DependentUpon>

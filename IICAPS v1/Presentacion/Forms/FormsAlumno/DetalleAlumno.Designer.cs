@@ -65,9 +65,38 @@
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.label10 = new System.Windows.Forms.Label();
             this.panelDocumentacion = new System.Windows.Forms.Panel();
+            this.btnActualizarDocumentos = new System.Windows.Forms.Button();
             this.tabControlDocumentacion = new System.Windows.Forms.TabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.checkInscCopiaCedula = new System.Windows.Forms.CheckBox();
+            this.checkInscFotos = new System.Windows.Forms.CheckBox();
+            this.checkInscCURP = new System.Windows.Forms.CheckBox();
+            this.checkInscCopiaTitulo = new System.Windows.Forms.CheckBox();
+            this.checkInscTituloCedula = new System.Windows.Forms.CheckBox();
+            this.checkInscActaCopia = new System.Windows.Forms.CheckBox();
+            this.checkInscActaOrignial = new System.Windows.Forms.CheckBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
             this.tapPage8 = new System.Windows.Forms.TabPage();
+            this.checkTituCopiaConstancia = new System.Windows.Forms.CheckBox();
+            this.checkTituFotos = new System.Windows.Forms.CheckBox();
+            this.checkTituCURP = new System.Windows.Forms.CheckBox();
+            this.checkTituCopiaCertificado = new System.Windows.Forms.CheckBox();
+            this.checkTituSolicitud = new System.Windows.Forms.CheckBox();
+            this.checkTituCopiaActa = new System.Windows.Forms.CheckBox();
+            this.checkTituActa = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.panelInformacionPersonal = new System.Windows.Forms.Panel();
             this.btnActualizarInformacionPersonal = new System.Windows.Forms.Button();
@@ -103,35 +132,7 @@
             this.label65 = new System.Windows.Forms.Label();
             this.cmbProgramaSitacionAcademica = new System.Windows.Forms.ComboBox();
             this.label81 = new System.Windows.Forms.Label();
-            this.checkTituCopiaConstancia = new System.Windows.Forms.CheckBox();
-            this.checkTituFotos = new System.Windows.Forms.CheckBox();
-            this.checkTituCURP = new System.Windows.Forms.CheckBox();
-            this.checkTituCopiaCertificado = new System.Windows.Forms.CheckBox();
-            this.checkTituSolicitud = new System.Windows.Forms.CheckBox();
-            this.checkTituCopiaActa = new System.Windows.Forms.CheckBox();
-            this.checkTituActa = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.checkInscCopiaCedula = new System.Windows.Forms.CheckBox();
-            this.checkInscFotos = new System.Windows.Forms.CheckBox();
-            this.checkInscCURP = new System.Windows.Forms.CheckBox();
-            this.checkInscCopiaTitulo = new System.Windows.Forms.CheckBox();
-            this.checkInscTituloCedula = new System.Windows.Forms.CheckBox();
-            this.checkInscActaCopia = new System.Windows.Forms.CheckBox();
-            this.checkInscActaOrignial = new System.Windows.Forms.CheckBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.btnActualizarDocumentos = new System.Windows.Forms.Button();
+            this.linkInscripciones = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.panelCalificaciones.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -217,6 +218,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.linkInscripciones);
             this.groupBox1.Controls.Add(this.linkLabel5);
             this.groupBox1.Controls.Add(this.linkLabel4);
             this.groupBox1.Controls.Add(this.linkLabel3);
@@ -224,7 +226,7 @@
             this.groupBox1.Controls.Add(this.linkLabel1);
             this.groupBox1.Location = new System.Drawing.Point(779, 93);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(211, 172);
+            this.groupBox1.Size = new System.Drawing.Size(211, 203);
             this.groupBox1.TabIndex = 47;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Menú";
@@ -237,7 +239,7 @@
             this.lblProgramaHeader.Name = "lblProgramaHeader";
             this.lblProgramaHeader.Size = new System.Drawing.Size(508, 31);
             this.lblProgramaHeader.TabIndex = 48;
-            this.lblProgramaHeader.Text = "Programa Al que pertenece";
+            this.lblProgramaHeader.Text = "Alumno no inscrito en algun programa";
             // 
             // label2
             // 
@@ -523,6 +525,16 @@
             this.panelDocumentacion.Size = new System.Drawing.Size(578, 422);
             this.panelDocumentacion.TabIndex = 54;
             // 
+            // btnActualizarDocumentos
+            // 
+            this.btnActualizarDocumentos.Location = new System.Drawing.Point(463, 31);
+            this.btnActualizarDocumentos.Name = "btnActualizarDocumentos";
+            this.btnActualizarDocumentos.Size = new System.Drawing.Size(83, 23);
+            this.btnActualizarDocumentos.TabIndex = 88;
+            this.btnActualizarDocumentos.Text = "Actualizar";
+            this.btnActualizarDocumentos.UseVisualStyleBackColor = true;
+            this.btnActualizarDocumentos.Click += new System.EventHandler(this.btnActualizarDocumentos_Click);
+            // 
             // tabControlDocumentacion
             // 
             this.tabControlDocumentacion.Controls.Add(this.tabPage7);
@@ -557,6 +569,160 @@
             this.tabPage7.Text = "Inscripción";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
+            // checkInscCopiaCedula
+            // 
+            this.checkInscCopiaCedula.AutoSize = true;
+            this.checkInscCopiaCedula.Enabled = false;
+            this.checkInscCopiaCedula.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkInscCopiaCedula.Location = new System.Drawing.Point(426, 124);
+            this.checkInscCopiaCedula.Name = "checkInscCopiaCedula";
+            this.checkInscCopiaCedula.Size = new System.Drawing.Size(103, 24);
+            this.checkInscCopiaCedula.TabIndex = 124;
+            this.checkInscCopiaCedula.Text = "Entregado";
+            this.checkInscCopiaCedula.UseVisualStyleBackColor = true;
+            // 
+            // checkInscFotos
+            // 
+            this.checkInscFotos.AutoSize = true;
+            this.checkInscFotos.Enabled = false;
+            this.checkInscFotos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkInscFotos.Location = new System.Drawing.Point(426, 172);
+            this.checkInscFotos.Name = "checkInscFotos";
+            this.checkInscFotos.Size = new System.Drawing.Size(103, 24);
+            this.checkInscFotos.TabIndex = 123;
+            this.checkInscFotos.Text = "Entregado";
+            this.checkInscFotos.UseVisualStyleBackColor = true;
+            // 
+            // checkInscCURP
+            // 
+            this.checkInscCURP.AutoSize = true;
+            this.checkInscCURP.Enabled = false;
+            this.checkInscCURP.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkInscCURP.Location = new System.Drawing.Point(426, 148);
+            this.checkInscCURP.Name = "checkInscCURP";
+            this.checkInscCURP.Size = new System.Drawing.Size(103, 24);
+            this.checkInscCURP.TabIndex = 122;
+            this.checkInscCURP.Text = "Entregado";
+            this.checkInscCURP.UseVisualStyleBackColor = true;
+            // 
+            // checkInscCopiaTitulo
+            // 
+            this.checkInscCopiaTitulo.AutoSize = true;
+            this.checkInscCopiaTitulo.Enabled = false;
+            this.checkInscCopiaTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkInscCopiaTitulo.Location = new System.Drawing.Point(426, 99);
+            this.checkInscCopiaTitulo.Name = "checkInscCopiaTitulo";
+            this.checkInscCopiaTitulo.Size = new System.Drawing.Size(103, 24);
+            this.checkInscCopiaTitulo.TabIndex = 121;
+            this.checkInscCopiaTitulo.Text = "Entregado";
+            this.checkInscCopiaTitulo.UseVisualStyleBackColor = true;
+            // 
+            // checkInscTituloCedula
+            // 
+            this.checkInscTituloCedula.AutoSize = true;
+            this.checkInscTituloCedula.Enabled = false;
+            this.checkInscTituloCedula.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkInscTituloCedula.Location = new System.Drawing.Point(426, 75);
+            this.checkInscTituloCedula.Name = "checkInscTituloCedula";
+            this.checkInscTituloCedula.Size = new System.Drawing.Size(103, 24);
+            this.checkInscTituloCedula.TabIndex = 120;
+            this.checkInscTituloCedula.Text = "Entregado";
+            this.checkInscTituloCedula.UseVisualStyleBackColor = true;
+            // 
+            // checkInscActaCopia
+            // 
+            this.checkInscActaCopia.AutoSize = true;
+            this.checkInscActaCopia.Enabled = false;
+            this.checkInscActaCopia.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkInscActaCopia.Location = new System.Drawing.Point(426, 49);
+            this.checkInscActaCopia.Name = "checkInscActaCopia";
+            this.checkInscActaCopia.Size = new System.Drawing.Size(103, 24);
+            this.checkInscActaCopia.TabIndex = 119;
+            this.checkInscActaCopia.Text = "Entregado";
+            this.checkInscActaCopia.UseVisualStyleBackColor = true;
+            // 
+            // checkInscActaOrignial
+            // 
+            this.checkInscActaOrignial.AutoSize = true;
+            this.checkInscActaOrignial.Enabled = false;
+            this.checkInscActaOrignial.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkInscActaOrignial.Location = new System.Drawing.Point(426, 24);
+            this.checkInscActaOrignial.Name = "checkInscActaOrignial";
+            this.checkInscActaOrignial.Size = new System.Drawing.Size(103, 24);
+            this.checkInscActaOrignial.TabIndex = 118;
+            this.checkInscActaOrignial.Text = "Entregado";
+            this.checkInscActaOrignial.UseVisualStyleBackColor = true;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Location = new System.Drawing.Point(17, 173);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(103, 20);
+            this.label23.TabIndex = 117;
+            this.label23.Text = "6 Fotografías";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(17, 148);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(54, 20);
+            this.label25.TabIndex = 116;
+            this.label25.Text = "CURP";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(17, 125);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(209, 20);
+            this.label27.TabIndex = 115;
+            this.label27.Text = "Copia de Cédula Profesional";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.Location = new System.Drawing.Point(17, 99);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(226, 20);
+            this.label29.TabIndex = 114;
+            this.label29.Text = "Copia de Título de Licenciatura";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Location = new System.Drawing.Point(17, 75);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(341, 20);
+            this.label30.TabIndex = 113;
+            this.label30.Text = "Título de Licenciatura origial/Cédula Profesional";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.Location = new System.Drawing.Point(17, 50);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(210, 20);
+            this.label31.TabIndex = 112;
+            this.label31.Text = "Copia de acta de nacimiento";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.Location = new System.Drawing.Point(17, 25);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(199, 20);
+            this.label32.TabIndex = 111;
+            this.label32.Text = "Acta de nacimiento original";
+            // 
             // tapPage8
             // 
             this.tapPage8.Controls.Add(this.checkTituCopiaConstancia);
@@ -580,6 +746,160 @@
             this.tapPage8.TabIndex = 1;
             this.tapPage8.Text = "Titulación";
             this.tapPage8.UseVisualStyleBackColor = true;
+            // 
+            // checkTituCopiaConstancia
+            // 
+            this.checkTituCopiaConstancia.AutoSize = true;
+            this.checkTituCopiaConstancia.Enabled = false;
+            this.checkTituCopiaConstancia.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkTituCopiaConstancia.Location = new System.Drawing.Point(426, 124);
+            this.checkTituCopiaConstancia.Name = "checkTituCopiaConstancia";
+            this.checkTituCopiaConstancia.Size = new System.Drawing.Size(103, 24);
+            this.checkTituCopiaConstancia.TabIndex = 110;
+            this.checkTituCopiaConstancia.Text = "Entregado";
+            this.checkTituCopiaConstancia.UseVisualStyleBackColor = true;
+            // 
+            // checkTituFotos
+            // 
+            this.checkTituFotos.AutoSize = true;
+            this.checkTituFotos.Enabled = false;
+            this.checkTituFotos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkTituFotos.Location = new System.Drawing.Point(426, 172);
+            this.checkTituFotos.Name = "checkTituFotos";
+            this.checkTituFotos.Size = new System.Drawing.Size(103, 24);
+            this.checkTituFotos.TabIndex = 109;
+            this.checkTituFotos.Text = "Entregado";
+            this.checkTituFotos.UseVisualStyleBackColor = true;
+            // 
+            // checkTituCURP
+            // 
+            this.checkTituCURP.AutoSize = true;
+            this.checkTituCURP.Enabled = false;
+            this.checkTituCURP.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkTituCURP.Location = new System.Drawing.Point(426, 148);
+            this.checkTituCURP.Name = "checkTituCURP";
+            this.checkTituCURP.Size = new System.Drawing.Size(103, 24);
+            this.checkTituCURP.TabIndex = 108;
+            this.checkTituCURP.Text = "Entregado";
+            this.checkTituCURP.UseVisualStyleBackColor = true;
+            // 
+            // checkTituCopiaCertificado
+            // 
+            this.checkTituCopiaCertificado.AutoSize = true;
+            this.checkTituCopiaCertificado.Enabled = false;
+            this.checkTituCopiaCertificado.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkTituCopiaCertificado.Location = new System.Drawing.Point(426, 99);
+            this.checkTituCopiaCertificado.Name = "checkTituCopiaCertificado";
+            this.checkTituCopiaCertificado.Size = new System.Drawing.Size(103, 24);
+            this.checkTituCopiaCertificado.TabIndex = 107;
+            this.checkTituCopiaCertificado.Text = "Entregado";
+            this.checkTituCopiaCertificado.UseVisualStyleBackColor = true;
+            // 
+            // checkTituSolicitud
+            // 
+            this.checkTituSolicitud.AutoSize = true;
+            this.checkTituSolicitud.Enabled = false;
+            this.checkTituSolicitud.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkTituSolicitud.Location = new System.Drawing.Point(426, 75);
+            this.checkTituSolicitud.Name = "checkTituSolicitud";
+            this.checkTituSolicitud.Size = new System.Drawing.Size(103, 24);
+            this.checkTituSolicitud.TabIndex = 106;
+            this.checkTituSolicitud.Text = "Entregado";
+            this.checkTituSolicitud.UseVisualStyleBackColor = true;
+            // 
+            // checkTituCopiaActa
+            // 
+            this.checkTituCopiaActa.AutoSize = true;
+            this.checkTituCopiaActa.Enabled = false;
+            this.checkTituCopiaActa.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkTituCopiaActa.Location = new System.Drawing.Point(426, 49);
+            this.checkTituCopiaActa.Name = "checkTituCopiaActa";
+            this.checkTituCopiaActa.Size = new System.Drawing.Size(103, 24);
+            this.checkTituCopiaActa.TabIndex = 105;
+            this.checkTituCopiaActa.Text = "Entregado";
+            this.checkTituCopiaActa.UseVisualStyleBackColor = true;
+            // 
+            // checkTituActa
+            // 
+            this.checkTituActa.AutoSize = true;
+            this.checkTituActa.Enabled = false;
+            this.checkTituActa.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkTituActa.Location = new System.Drawing.Point(426, 24);
+            this.checkTituActa.Name = "checkTituActa";
+            this.checkTituActa.Size = new System.Drawing.Size(103, 24);
+            this.checkTituActa.TabIndex = 104;
+            this.checkTituActa.Text = "Entregado";
+            this.checkTituActa.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(17, 173);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(103, 20);
+            this.label1.TabIndex = 103;
+            this.label1.Text = "6 Fotografías";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(17, 148);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(54, 20);
+            this.label20.TabIndex = 102;
+            this.label20.Text = "CURP";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(17, 125);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(368, 20);
+            this.label21.TabIndex = 101;
+            this.label21.Text = "Copia de constancia de liberación de servicio social";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(17, 99);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(341, 20);
+            this.label22.TabIndex = 100;
+            this.label22.Text = "Copia de certificado de estudios de licenciatura";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(17, 75);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(358, 20);
+            this.label24.TabIndex = 99;
+            this.label24.Text = "Solicitud como opción de titulación de licenciatura";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(17, 50);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(210, 20);
+            this.label26.TabIndex = 98;
+            this.label26.Text = "Copia de acta de nacimiento";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(17, 25);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(199, 20);
+            this.label28.TabIndex = 97;
+            this.label28.Text = "Acta de nacimiento original";
             // 
             // label19
             // 
@@ -970,323 +1290,16 @@
             this.label81.TabIndex = 53;
             this.label81.Text = "Sitación académica";
             // 
-            // checkTituCopiaConstancia
+            // linkInscripciones
             // 
-            this.checkTituCopiaConstancia.AutoSize = true;
-            this.checkTituCopiaConstancia.Enabled = false;
-            this.checkTituCopiaConstancia.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkTituCopiaConstancia.Location = new System.Drawing.Point(426, 124);
-            this.checkTituCopiaConstancia.Name = "checkTituCopiaConstancia";
-            this.checkTituCopiaConstancia.Size = new System.Drawing.Size(103, 24);
-            this.checkTituCopiaConstancia.TabIndex = 110;
-            this.checkTituCopiaConstancia.Text = "Entregado";
-            this.checkTituCopiaConstancia.UseVisualStyleBackColor = true;
-            // 
-            // checkTituFotos
-            // 
-            this.checkTituFotos.AutoSize = true;
-            this.checkTituFotos.Enabled = false;
-            this.checkTituFotos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkTituFotos.Location = new System.Drawing.Point(426, 172);
-            this.checkTituFotos.Name = "checkTituFotos";
-            this.checkTituFotos.Size = new System.Drawing.Size(103, 24);
-            this.checkTituFotos.TabIndex = 109;
-            this.checkTituFotos.Text = "Entregado";
-            this.checkTituFotos.UseVisualStyleBackColor = true;
-            // 
-            // checkTituCURP
-            // 
-            this.checkTituCURP.AutoSize = true;
-            this.checkTituCURP.Enabled = false;
-            this.checkTituCURP.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkTituCURP.Location = new System.Drawing.Point(426, 148);
-            this.checkTituCURP.Name = "checkTituCURP";
-            this.checkTituCURP.Size = new System.Drawing.Size(103, 24);
-            this.checkTituCURP.TabIndex = 108;
-            this.checkTituCURP.Text = "Entregado";
-            this.checkTituCURP.UseVisualStyleBackColor = true;
-            // 
-            // checkTituCopiaCertificado
-            // 
-            this.checkTituCopiaCertificado.AutoSize = true;
-            this.checkTituCopiaCertificado.Enabled = false;
-            this.checkTituCopiaCertificado.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkTituCopiaCertificado.Location = new System.Drawing.Point(426, 99);
-            this.checkTituCopiaCertificado.Name = "checkTituCopiaCertificado";
-            this.checkTituCopiaCertificado.Size = new System.Drawing.Size(103, 24);
-            this.checkTituCopiaCertificado.TabIndex = 107;
-            this.checkTituCopiaCertificado.Text = "Entregado";
-            this.checkTituCopiaCertificado.UseVisualStyleBackColor = true;
-            // 
-            // checkTituSolicitud
-            // 
-            this.checkTituSolicitud.AutoSize = true;
-            this.checkTituSolicitud.Enabled = false;
-            this.checkTituSolicitud.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkTituSolicitud.Location = new System.Drawing.Point(426, 75);
-            this.checkTituSolicitud.Name = "checkTituSolicitud";
-            this.checkTituSolicitud.Size = new System.Drawing.Size(103, 24);
-            this.checkTituSolicitud.TabIndex = 106;
-            this.checkTituSolicitud.Text = "Entregado";
-            this.checkTituSolicitud.UseVisualStyleBackColor = true;
-            // 
-            // checkTituCopiaActa
-            // 
-            this.checkTituCopiaActa.AutoSize = true;
-            this.checkTituCopiaActa.Enabled = false;
-            this.checkTituCopiaActa.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkTituCopiaActa.Location = new System.Drawing.Point(426, 49);
-            this.checkTituCopiaActa.Name = "checkTituCopiaActa";
-            this.checkTituCopiaActa.Size = new System.Drawing.Size(103, 24);
-            this.checkTituCopiaActa.TabIndex = 105;
-            this.checkTituCopiaActa.Text = "Entregado";
-            this.checkTituCopiaActa.UseVisualStyleBackColor = true;
-            // 
-            // checkTituActa
-            // 
-            this.checkTituActa.AutoSize = true;
-            this.checkTituActa.Enabled = false;
-            this.checkTituActa.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkTituActa.Location = new System.Drawing.Point(426, 24);
-            this.checkTituActa.Name = "checkTituActa";
-            this.checkTituActa.Size = new System.Drawing.Size(103, 24);
-            this.checkTituActa.TabIndex = 104;
-            this.checkTituActa.Text = "Entregado";
-            this.checkTituActa.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(17, 173);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(103, 20);
-            this.label1.TabIndex = 103;
-            this.label1.Text = "6 Fotografías";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(17, 148);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(54, 20);
-            this.label20.TabIndex = 102;
-            this.label20.Text = "CURP";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(17, 125);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(368, 20);
-            this.label21.TabIndex = 101;
-            this.label21.Text = "Copia de constancia de liberación de servicio social";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(17, 99);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(341, 20);
-            this.label22.TabIndex = 100;
-            this.label22.Text = "Copia de certificado de estudios de licenciatura";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(17, 75);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(358, 20);
-            this.label24.TabIndex = 99;
-            this.label24.Text = "Solicitud como opción de titulación de licenciatura";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(17, 50);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(210, 20);
-            this.label26.TabIndex = 98;
-            this.label26.Text = "Copia de acta de nacimiento";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(17, 25);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(199, 20);
-            this.label28.TabIndex = 97;
-            this.label28.Text = "Acta de nacimiento original";
-            // 
-            // checkInscCopiaCedula
-            // 
-            this.checkInscCopiaCedula.AutoSize = true;
-            this.checkInscCopiaCedula.Enabled = false;
-            this.checkInscCopiaCedula.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkInscCopiaCedula.Location = new System.Drawing.Point(426, 124);
-            this.checkInscCopiaCedula.Name = "checkInscCopiaCedula";
-            this.checkInscCopiaCedula.Size = new System.Drawing.Size(103, 24);
-            this.checkInscCopiaCedula.TabIndex = 124;
-            this.checkInscCopiaCedula.Text = "Entregado";
-            this.checkInscCopiaCedula.UseVisualStyleBackColor = true;
-            // 
-            // checkInscFotos
-            // 
-            this.checkInscFotos.AutoSize = true;
-            this.checkInscFotos.Enabled = false;
-            this.checkInscFotos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkInscFotos.Location = new System.Drawing.Point(426, 172);
-            this.checkInscFotos.Name = "checkInscFotos";
-            this.checkInscFotos.Size = new System.Drawing.Size(103, 24);
-            this.checkInscFotos.TabIndex = 123;
-            this.checkInscFotos.Text = "Entregado";
-            this.checkInscFotos.UseVisualStyleBackColor = true;
-            // 
-            // checkInscCURP
-            // 
-            this.checkInscCURP.AutoSize = true;
-            this.checkInscCURP.Enabled = false;
-            this.checkInscCURP.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkInscCURP.Location = new System.Drawing.Point(426, 148);
-            this.checkInscCURP.Name = "checkInscCURP";
-            this.checkInscCURP.Size = new System.Drawing.Size(103, 24);
-            this.checkInscCURP.TabIndex = 122;
-            this.checkInscCURP.Text = "Entregado";
-            this.checkInscCURP.UseVisualStyleBackColor = true;
-            // 
-            // checkInscCopiaTitulo
-            // 
-            this.checkInscCopiaTitulo.AutoSize = true;
-            this.checkInscCopiaTitulo.Enabled = false;
-            this.checkInscCopiaTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkInscCopiaTitulo.Location = new System.Drawing.Point(426, 99);
-            this.checkInscCopiaTitulo.Name = "checkInscCopiaTitulo";
-            this.checkInscCopiaTitulo.Size = new System.Drawing.Size(103, 24);
-            this.checkInscCopiaTitulo.TabIndex = 121;
-            this.checkInscCopiaTitulo.Text = "Entregado";
-            this.checkInscCopiaTitulo.UseVisualStyleBackColor = true;
-            // 
-            // checkInscTituloCedula
-            // 
-            this.checkInscTituloCedula.AutoSize = true;
-            this.checkInscTituloCedula.Enabled = false;
-            this.checkInscTituloCedula.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkInscTituloCedula.Location = new System.Drawing.Point(426, 75);
-            this.checkInscTituloCedula.Name = "checkInscTituloCedula";
-            this.checkInscTituloCedula.Size = new System.Drawing.Size(103, 24);
-            this.checkInscTituloCedula.TabIndex = 120;
-            this.checkInscTituloCedula.Text = "Entregado";
-            this.checkInscTituloCedula.UseVisualStyleBackColor = true;
-            // 
-            // checkInscActaCopia
-            // 
-            this.checkInscActaCopia.AutoSize = true;
-            this.checkInscActaCopia.Enabled = false;
-            this.checkInscActaCopia.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkInscActaCopia.Location = new System.Drawing.Point(426, 49);
-            this.checkInscActaCopia.Name = "checkInscActaCopia";
-            this.checkInscActaCopia.Size = new System.Drawing.Size(103, 24);
-            this.checkInscActaCopia.TabIndex = 119;
-            this.checkInscActaCopia.Text = "Entregado";
-            this.checkInscActaCopia.UseVisualStyleBackColor = true;
-            // 
-            // checkInscActaOrignial
-            // 
-            this.checkInscActaOrignial.AutoSize = true;
-            this.checkInscActaOrignial.Enabled = false;
-            this.checkInscActaOrignial.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkInscActaOrignial.Location = new System.Drawing.Point(426, 24);
-            this.checkInscActaOrignial.Name = "checkInscActaOrignial";
-            this.checkInscActaOrignial.Size = new System.Drawing.Size(103, 24);
-            this.checkInscActaOrignial.TabIndex = 118;
-            this.checkInscActaOrignial.Text = "Entregado";
-            this.checkInscActaOrignial.UseVisualStyleBackColor = true;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(17, 173);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(103, 20);
-            this.label23.TabIndex = 117;
-            this.label23.Text = "6 Fotografías";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(17, 148);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(54, 20);
-            this.label25.TabIndex = 116;
-            this.label25.Text = "CURP";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(17, 125);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(209, 20);
-            this.label27.TabIndex = 115;
-            this.label27.Text = "Copia de Cédula Profesional";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(17, 99);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(226, 20);
-            this.label29.TabIndex = 114;
-            this.label29.Text = "Copia de Título de Licenciatura";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.Location = new System.Drawing.Point(17, 75);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(341, 20);
-            this.label30.TabIndex = 113;
-            this.label30.Text = "Título de Licenciatura origial/Cédula Profesional";
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.Location = new System.Drawing.Point(17, 50);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(210, 20);
-            this.label31.TabIndex = 112;
-            this.label31.Text = "Copia de acta de nacimiento";
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label32.Location = new System.Drawing.Point(17, 25);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(199, 20);
-            this.label32.TabIndex = 111;
-            this.label32.Text = "Acta de nacimiento original";
-            // 
-            // btnActualizarDocumentos
-            // 
-            this.btnActualizarDocumentos.Location = new System.Drawing.Point(463, 31);
-            this.btnActualizarDocumentos.Name = "btnActualizarDocumentos";
-            this.btnActualizarDocumentos.Size = new System.Drawing.Size(83, 23);
-            this.btnActualizarDocumentos.TabIndex = 88;
-            this.btnActualizarDocumentos.Text = "Actualizar";
-            this.btnActualizarDocumentos.UseVisualStyleBackColor = true;
-            this.btnActualizarDocumentos.Click += new System.EventHandler(this.btnActualizarDocumentos_Click);
+            this.linkInscripciones.AutoSize = true;
+            this.linkInscripciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkInscripciones.Location = new System.Drawing.Point(38, 166);
+            this.linkInscripciones.Name = "linkInscripciones";
+            this.linkInscripciones.Size = new System.Drawing.Size(102, 20);
+            this.linkInscripciones.TabIndex = 47;
+            this.linkInscripciones.TabStop = true;
+            this.linkInscripciones.Text = "Inscripciones";
             // 
             // FormDetalleAlumno
             // 
@@ -1438,5 +1451,6 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Button btnActualizarDocumentos;
+        private System.Windows.Forms.LinkLabel linkInscripciones;
     }
 }
