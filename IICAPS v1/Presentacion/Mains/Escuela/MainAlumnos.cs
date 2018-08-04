@@ -76,7 +76,18 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            consultarAlumno();
+            try
+            {
+                String rfc = dataGridViewAlumnos.CurrentRow.Cells[0].Value.ToString();
+                FormDetalleAlumno fa = new FormDetalleAlumno(control.consultarAlumno(rfc));
+                fa.MdiParent = this.ParentForm;
+                fa.Size = new Size(this.ParentForm.Size.Width - 20, this.ParentForm.Size.Height - 45);
+                fa.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void modificarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -132,21 +143,6 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             }
         }
 
-        private void consultarAlumno()
-        {
-            try
-            {
-                String rfc = dataGridViewAlumnos.CurrentRow.Cells[0].Value.ToString();
-                Alumno alumno = control.consultarAlumno(rfc);
-                Alumnos fa = new Alumnos(alumno, true);
-                fa.FormClosed += new FormClosedEventHandler(form_Closed);
-                fa.Show();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {

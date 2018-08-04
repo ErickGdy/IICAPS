@@ -457,7 +457,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-
         public bool actualizarCredito(CreditoAlumno credito)
         {
             try
@@ -486,7 +485,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
-
         public string obtenerProgramaAlumno(String rfc)
         {
             try
@@ -1143,8 +1141,226 @@ namespace IICAPS_v1.Control
             }
         }
 
-        //-------------------------------ENTREGA DOCUMENTOS-------------------------------//
+        //-------------------------------GRUPOS-------------------------------//
+        public bool agregarGrupo(Grupo grupo)
+        {
+            try
+            {
+                string agregar = "INSERT INTO grupos (Generacion, Codigo, Tipo, Programa) VALUES("
+                    + " ' " + grupo.generacion + "','" + grupo.codigo + "','" + grupo.tipo + "','" + grupo.programa + "');";
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + agregar
+                                    + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    conn.Close();
+                    throw new Exception("Error...! Error al agregar Grupo a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...! Error al establecer conexion con el servidor");
+            }
+        }
+        public bool actualizarGrupo(Grupo grupo)
+        {
+            try
+            {
+                string update = "UPDATE grupos SET Generacion="+ " ' " + grupo.generacion +
+                    "', Codigo='" + grupo.codigo + "', Tipo='" + grupo.tipo + "', Programa='" + grupo.programa+ "';";
 
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + update
+                                    + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al actualizar la materia a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexion con el servidor");
+            }
+        }
+        public bool desactivarGrupo(string codigo)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE grupos SET Activo=0 WHERE Codigo='" + codigo + "';";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al eliminar programa a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerGruposTable()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT G.Codigo,G.Generacion,G.Tipo, P.Nombre FROM grupos G, programa P WHERE G.Activo=1 AND P.Codigo=G.Programa", conn); conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de grupos de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerGruposTable(string parameter)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT G.Codigo,G.Generacion,G.Tipo, P.Nombre FROM grupos G, programa P WHERE " +
+                        "(G.Codigo LIKE '%" + parameter + "%' or " +
+                        " G.Tipo LIKE '%" + parameter + "%' or " +
+                        " P.Nombre LIKE '%" + parameter + "%' or " +
+                        " G.Programa LIKE '%" + parameter + "%' or " +
+                        " G.Generacion LIKE '%" + parameter + "%') AND G.Activo=1 AND P.Codigo=G.Programa";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
+                    this.conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de las materias de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public Grupo consultarGrupo(string codigo)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM grupos WHERE Codigo='" + codigo + "'";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Grupo g = new Grupo();
+                        g.codigo = reader.GetString(1);
+                        g.generacion = reader.GetString(0);
+                        g.tipo = reader.GetString(2);
+                        conn.Close();
+                        return g;
+                    }
+                    conn.Close();
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos del grupo de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public List<Grupo> obtenerGrupos()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM grupos";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<Grupo> aux = new List<Grupo>();
+                    while (reader.Read())
+                    {
+
+                        Grupo g = new Grupo();
+                        g.codigo = reader.GetString(1);
+                        g.generacion = reader.GetString(0);
+                        g.tipo = reader.GetString(2);
+                        aux.Add(g);
+                    }
+                    conn.Close();
+                    if (aux.Count != 0)
+                        return aux;
+                    else
+                        return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de las grupos de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+
+        //-------------------------------ENTREGA DOCUMENTOS-------------------------------//
         public bool agregarEntregaDocumentos(DocumentosInscripcion doc)
         {
             try
@@ -1269,7 +1485,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-
         public bool actualizarEntregaDocumentos(DocumentosInscripcion doc)
         {
             try
@@ -1300,8 +1515,54 @@ namespace IICAPS_v1.Control
             }
         }
 
-        //-------------------------------Configuracion-------------------------------//
+        //-----------------------------INSCRIPCIONES---------------------------------//
+        //public bool inscribirAlumno(string RFC, string codigoPrograma)
+        //{
+        //    try
+        //    {
+        //        string agregar = "INSERT INTO grupos (Generacion, Codigo, Tipo, Programa) VALUES("
+        //            + "','" + programa.CostoCursoPropedeutico + "');";
+        //        string materias = "";
+        //        string mapa = "";
+        //        if (programa.MapaCurricular != null)
+        //            foreach (Materia m in programa.MapaCurricular)
+        //            {
+        //                materias += "INSERT INTO materia (Nombre,Duracion,Semestre,Costo,Activo) SELECT '" + m.nombre + "', '" + m.duracion + "', '" + m.semestre + "', '" + m.costo + "',1 FROM DUAL WHERE NOT EXISTS (SELECT * FROM materia WHERE Nombre='" + m.nombre + "' AND Duracion='" + m.duracion + "' AND Semestre= '" + m.semestre + "' AND Costo= '" + m.costo + "' and Activo=1); ";
+        //                mapa += "INSERT INTO mapaCurricular (Materia, Programa) VALUES('" + m.id + "','" + programa.Codigo + "');";
+        //            }
+        //        conn = new MySqlConnection(builder.ToString());
+        //        cmd = conn.CreateCommand();
+        //        cmd.CommandText = "START TRANSACTION; "
+        //                            + agregar
+        //                            + "DELETE FROM mapaCurricular WHERE Programa='" + programa.Codigo + "';"
+        //                            + materias
+        //                            + mapa
+        //                            + "COMMIT;";
+        //        conn.Open();
+        //        try
+        //        {
+        //            int rowsAfected = cmd.ExecuteNonQuery();
+        //            conn.Close();
+        //            if (rowsAfected > 0)
+        //                return true;
+        //            else
+        //                return false;
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            conn.Close();
+        //            throw new Exception("Error...! Error al agregar Prorgrama a la Base de datos");
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        conn.Close();
+        //        throw new Exception("Error...! Error al establecer conexion con el servidor");
+        //    }
+        //}
 
+
+        //-------------------------------Configuracion-------------------------------//
         public string formatearFecha(DateTime fecha)
         {
             DateTime aux;

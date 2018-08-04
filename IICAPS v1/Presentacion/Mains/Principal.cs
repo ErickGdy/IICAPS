@@ -20,7 +20,6 @@ namespace IICAPS.Presentacion.Mains
         public Principal()
         {
             InitializeComponent();
-            
         }
 
         
@@ -44,7 +43,7 @@ namespace IICAPS.Presentacion.Mains
             }
             inhabilitarBoton("","");
         }
-        private void minimizeForms()
+        public void minimizeForms()
         {
             foreach (Form aux in MdiChildren)
             {
@@ -53,7 +52,7 @@ namespace IICAPS.Presentacion.Mains
             inhabilitarBoton("","");
 
         }
-        private void configurarForm(Form form)
+        public void configurarForm(Form form)
         {
             form.MdiParent = this;
             form.Size = new Size(this.Size.Width - 20, this.Size.Height - 45);

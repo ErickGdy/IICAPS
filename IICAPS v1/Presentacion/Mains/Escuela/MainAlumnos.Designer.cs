@@ -55,11 +55,12 @@
             this.dataGridViewAlumnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAlumnos.ContextMenuStrip = this.menuTablaAlumnos;
             this.dataGridViewAlumnos.Location = new System.Drawing.Point(178, 112);
-            this.dataGridViewAlumnos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridViewAlumnos.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridViewAlumnos.Name = "dataGridViewAlumnos";
             this.dataGridViewAlumnos.ReadOnly = true;
             this.dataGridViewAlumnos.RowHeadersVisible = false;
             this.dataGridViewAlumnos.RowTemplate.Height = 24;
+            this.dataGridViewAlumnos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAlumnos.Size = new System.Drawing.Size(573, 275);
             this.dataGridViewAlumnos.TabIndex = 0;
             // 
@@ -71,26 +72,26 @@
             this.modificarToolStripMenuItem,
             this.darDeBajaToolStripMenuItem});
             this.menuTablaAlumnos.Name = "menuTablaAlumnos";
-            this.menuTablaAlumnos.Size = new System.Drawing.Size(134, 70);
+            this.menuTablaAlumnos.Size = new System.Drawing.Size(159, 70);
             // 
             // consultarToolStripMenuItem
             // 
             this.consultarToolStripMenuItem.Name = "consultarToolStripMenuItem";
-            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.consultarToolStripMenuItem.Text = "Consultar";
             this.consultarToolStripMenuItem.Click += new System.EventHandler(this.consultarToolStripMenuItem_Click);
             // 
             // modificarToolStripMenuItem
             // 
             this.modificarToolStripMenuItem.Name = "modificarToolStripMenuItem";
-            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-            this.modificarToolStripMenuItem.Text = "Modificar";
+            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.modificarToolStripMenuItem.Text = "Modificar Datos";
             this.modificarToolStripMenuItem.Click += new System.EventHandler(this.modificarToolStripMenuItem_Click);
             // 
             // darDeBajaToolStripMenuItem
             // 
             this.darDeBajaToolStripMenuItem.Name = "darDeBajaToolStripMenuItem";
-            this.darDeBajaToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.darDeBajaToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.darDeBajaToolStripMenuItem.Text = "Dar de Baja";
             this.darDeBajaToolStripMenuItem.Click += new System.EventHandler(this.darDeBajaToolStripMenuItem_Click);
             // 
@@ -98,7 +99,7 @@
             // 
             this.txtBuscarAlumno.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBuscarAlumno.Location = new System.Drawing.Point(551, 82);
-            this.txtBuscarAlumno.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBuscarAlumno.Margin = new System.Windows.Forms.Padding(2);
             this.txtBuscarAlumno.Name = "txtBuscarAlumno";
             this.txtBuscarAlumno.Size = new System.Drawing.Size(200, 24);
             this.txtBuscarAlumno.TabIndex = 2;
@@ -172,7 +173,7 @@
             this.btnAgregar.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregar.Image")));
             this.btnAgregar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAgregar.Location = new System.Drawing.Point(598, 45);
-            this.btnAgregar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(2);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(153, 32);
             this.btnAgregar.TabIndex = 41;
@@ -196,7 +197,7 @@
             this.Controls.Add(this.txtBuscarAlumno);
             this.Controls.Add(this.dataGridViewAlumnos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainAlumnos";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
