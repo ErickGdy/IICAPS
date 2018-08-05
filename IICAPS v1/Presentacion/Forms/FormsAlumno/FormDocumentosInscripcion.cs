@@ -35,6 +35,13 @@ namespace IICAPS_v1.Presentacion
             }
             cmbIDPrograma.Items.AddRange(auxIDPrograma.ToArray());
             cmbPrograma.Items.AddRange(auxPrograma.ToArray());
+            foreach (Empleados e in control.obtenerEmpleados())
+            {
+                auxRecibio.Add(e.nombre);
+                auxIDRecibio.Add(e.correo);
+            }
+            cmbIDRecibio.Items.AddRange(auxIDRecibio.ToArray());
+            cmbRecibio.Items.AddRange(auxRecibio.ToArray());
             if (doc != null)
             {
                 modificacion = true;
