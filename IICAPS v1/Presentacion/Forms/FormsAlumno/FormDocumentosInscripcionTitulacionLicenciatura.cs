@@ -117,6 +117,7 @@ namespace IICAPS_v1.Presentacion
                 doc.curp = checkedListBox1.GetItemChecked(5);
                 doc.fotografias = checkedListBox1.GetItemChecked(6);
                 doc.recibioEmpleado = cmbIDRecibio.SelectedItem.ToString();
+                doc.tipoInscripcion = 2;
                 if (modificacion)
                 {
                     doc.alumno = cmbAlumno.SelectedItem.ToString();
