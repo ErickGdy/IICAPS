@@ -22,6 +22,7 @@ namespace IICAPS_v1.DataObject
         public bool curp { get; set; }
         public bool fotografias { get; set; }
         public string recibioEmpleado { get; set; }
+        public int tipoInscripcion { get; set; }
 
     }
 }

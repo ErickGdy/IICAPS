@@ -35,6 +35,13 @@ namespace IICAPS_v1.Presentacion
             }
             cmbIDPrograma.Items.AddRange(auxIDPrograma.ToArray());
             cmbPrograma.Items.AddRange(auxPrograma.ToArray());
+            foreach (Empleados e in control.obtenerEmpleados())
+            {
+                auxRecibio.Add(e.nombre);
+                auxIDRecibio.Add(e.correo);
+            }
+            cmbIDRecibio.Items.AddRange(auxIDRecibio.ToArray());
+            cmbRecibio.Items.AddRange(auxRecibio.ToArray());
             if (doc != null)
             {
                 modificacion = true;
@@ -110,6 +117,7 @@ namespace IICAPS_v1.Presentacion
                 doc.curp = checkedListBox1.GetItemChecked(5);
                 doc.fotografias = checkedListBox1.GetItemChecked(6);
                 doc.recibioEmpleado = cmbIDRecibio.SelectedItem.ToString();
+                doc.tipoInscripcion = 1;
                 if (modificacion)
                 {
                     doc.alumno = cmbAlumno.SelectedItem.ToString();
