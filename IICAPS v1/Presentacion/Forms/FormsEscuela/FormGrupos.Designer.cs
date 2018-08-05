@@ -32,10 +32,8 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.txtGeneracion = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtTipo = new System.Windows.Forms.TextBox();
             this.cmbProgramas = new System.Windows.Forms.ComboBox();
             this.cmbIDProgramas = new System.Windows.Forms.ComboBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -61,7 +59,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(74, 155);
+            this.label2.Location = new System.Drawing.Point(73, 182);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(107, 20);
             this.label2.TabIndex = 35;
@@ -78,20 +76,10 @@
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(133, 186);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 20);
-            this.label1.TabIndex = 42;
-            this.label1.Text = "Tipo:";
-            // 
             // txtGeneracion
             // 
             this.txtGeneracion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtGeneracion.Location = new System.Drawing.Point(186, 153);
+            this.txtGeneracion.Location = new System.Drawing.Point(185, 180);
             this.txtGeneracion.Margin = new System.Windows.Forms.Padding(2);
             this.txtGeneracion.Name = "txtGeneracion";
             this.txtGeneracion.Size = new System.Drawing.Size(240, 24);
@@ -106,15 +94,6 @@
             this.label4.Size = new System.Drawing.Size(91, 20);
             this.label4.TabIndex = 61;
             this.label4.Text = "Programa:";
-            // 
-            // txtTipo
-            // 
-            this.txtTipo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTipo.Location = new System.Drawing.Point(186, 186);
-            this.txtTipo.Margin = new System.Windows.Forms.Padding(2);
-            this.txtTipo.Name = "txtTipo";
-            this.txtTipo.Size = new System.Drawing.Size(240, 24);
-            this.txtTipo.TabIndex = 2;
             // 
             // cmbProgramas
             // 
@@ -159,7 +138,7 @@
             // txtCodigo
             // 
             this.txtCodigo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCodigo.Location = new System.Drawing.Point(185, 120);
+            this.txtCodigo.Location = new System.Drawing.Point(184, 140);
             this.txtCodigo.Margin = new System.Windows.Forms.Padding(2);
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.Size = new System.Drawing.Size(240, 24);
@@ -169,7 +148,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(110, 122);
+            this.label3.Location = new System.Drawing.Point(109, 142);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(70, 20);
             this.label3.TabIndex = 65;
@@ -185,11 +164,9 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cmbIDProgramas);
             this.Controls.Add(this.cmbProgramas);
-            this.Controls.Add(this.txtTipo);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.txtGeneracion);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.label2);
@@ -210,12 +187,10 @@
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnCancelar;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtGeneracion;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.TextBox txtTipo;
         private System.Windows.Forms.ComboBox cmbProgramas;
         private System.Windows.Forms.ComboBox cmbIDProgramas;
         private System.Windows.Forms.TextBox txtCodigo;

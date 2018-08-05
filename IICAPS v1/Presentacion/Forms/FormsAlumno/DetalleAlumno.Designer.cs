@@ -36,6 +36,7 @@
             this.linkLabel4 = new System.Windows.Forms.LinkLabel();
             this.linkLabel5 = new System.Windows.Forms.LinkLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.linkInscripciones = new System.Windows.Forms.LinkLabel();
             this.lblProgramaHeader = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -132,7 +133,11 @@
             this.label65 = new System.Windows.Forms.Label();
             this.cmbProgramaSitacionAcademica = new System.Windows.Forms.ComboBox();
             this.label81 = new System.Windows.Forms.Label();
-            this.linkInscripciones = new System.Windows.Forms.LinkLabel();
+            this.panelInscripcion = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label33 = new System.Windows.Forms.Label();
+            this.cmbGrupos = new System.Windows.Forms.ComboBox();
+            this.label34 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panelCalificaciones.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -143,6 +148,7 @@
             this.tapPage8.SuspendLayout();
             this.panelInformacionPersonal.SuspendLayout();
             this.panelSituacionAcademica.SuspendLayout();
+            this.panelInscripcion.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblNombreHeader
@@ -231,6 +237,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Menú";
             // 
+            // linkInscripciones
+            // 
+            this.linkInscripciones.AutoSize = true;
+            this.linkInscripciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkInscripciones.Location = new System.Drawing.Point(38, 166);
+            this.linkInscripciones.Name = "linkInscripciones";
+            this.linkInscripciones.Size = new System.Drawing.Size(102, 20);
+            this.linkInscripciones.TabIndex = 47;
+            this.linkInscripciones.TabStop = true;
+            this.linkInscripciones.Text = "Inscripciones";
+            // 
             // lblProgramaHeader
             // 
             this.lblProgramaHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -267,7 +284,7 @@
             this.panelCalificaciones.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panelCalificaciones.Controls.Add(this.tabControl1);
             this.panelCalificaciones.Controls.Add(this.label10);
-            this.panelCalificaciones.Location = new System.Drawing.Point(192, 128);
+            this.panelCalificaciones.Location = new System.Drawing.Point(195, 127);
             this.panelCalificaciones.Name = "panelCalificaciones";
             this.panelCalificaciones.Size = new System.Drawing.Size(578, 422);
             this.panelCalificaciones.TabIndex = 52;
@@ -518,9 +535,9 @@
             // 
             this.panelDocumentacion.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panelDocumentacion.Controls.Add(this.btnActualizarDocumentos);
-            this.panelDocumentacion.Controls.Add(this.tabControlDocumentacion);
             this.panelDocumentacion.Controls.Add(this.label19);
-            this.panelDocumentacion.Location = new System.Drawing.Point(195, 131);
+            this.panelDocumentacion.Controls.Add(this.tabControlDocumentacion);
+            this.panelDocumentacion.Location = new System.Drawing.Point(195, 127);
             this.panelDocumentacion.Name = "panelDocumentacion";
             this.panelDocumentacion.Size = new System.Drawing.Size(578, 422);
             this.panelDocumentacion.TabIndex = 54;
@@ -944,7 +961,7 @@
             this.panelInformacionPersonal.Controls.Add(this.label46);
             this.panelInformacionPersonal.Controls.Add(this.label47);
             this.panelInformacionPersonal.Controls.Add(this.label56);
-            this.panelInformacionPersonal.Location = new System.Drawing.Point(193, 130);
+            this.panelInformacionPersonal.Location = new System.Drawing.Point(195, 127);
             this.panelInformacionPersonal.Name = "panelInformacionPersonal";
             this.panelInformacionPersonal.Size = new System.Drawing.Size(578, 422);
             this.panelInformacionPersonal.TabIndex = 55;
@@ -1244,7 +1261,7 @@
             this.panelSituacionAcademica.Controls.Add(this.label65);
             this.panelSituacionAcademica.Controls.Add(this.cmbProgramaSitacionAcademica);
             this.panelSituacionAcademica.Controls.Add(this.label81);
-            this.panelSituacionAcademica.Location = new System.Drawing.Point(192, 128);
+            this.panelSituacionAcademica.Location = new System.Drawing.Point(195, 127);
             this.panelSituacionAcademica.Name = "panelSituacionAcademica";
             this.panelSituacionAcademica.Size = new System.Drawing.Size(578, 422);
             this.panelSituacionAcademica.TabIndex = 54;
@@ -1290,16 +1307,57 @@
             this.label81.TabIndex = 53;
             this.label81.Text = "Sitación académica";
             // 
-            // linkInscripciones
+            // panelInscripcion
             // 
-            this.linkInscripciones.AutoSize = true;
-            this.linkInscripciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkInscripciones.Location = new System.Drawing.Point(38, 166);
-            this.linkInscripciones.Name = "linkInscripciones";
-            this.linkInscripciones.Size = new System.Drawing.Size(102, 20);
-            this.linkInscripciones.TabIndex = 47;
-            this.linkInscripciones.TabStop = true;
-            this.linkInscripciones.Text = "Inscripciones";
+            this.panelInscripcion.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panelInscripcion.Controls.Add(this.button1);
+            this.panelInscripcion.Controls.Add(this.label33);
+            this.panelInscripcion.Controls.Add(this.cmbGrupos);
+            this.panelInscripcion.Controls.Add(this.label34);
+            this.panelInscripcion.Location = new System.Drawing.Point(195, 127);
+            this.panelInscripcion.Name = "panelInscripcion";
+            this.panelInscripcion.Size = new System.Drawing.Size(578, 422);
+            this.panelInscripcion.TabIndex = 57;
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.button1.Location = new System.Drawing.Point(228, 113);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(84, 29);
+            this.button1.TabIndex = 56;
+            this.button1.Text = "Inscribir";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label33.Location = new System.Drawing.Point(70, 70);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(58, 20);
+            this.label33.TabIndex = 55;
+            this.label33.Text = "Grupo:";
+            // 
+            // cmbGrupos
+            // 
+            this.cmbGrupos.FormattingEnabled = true;
+            this.cmbGrupos.Location = new System.Drawing.Point(131, 72);
+            this.cmbGrupos.Name = "cmbGrupos";
+            this.cmbGrupos.Size = new System.Drawing.Size(289, 21);
+            this.cmbGrupos.TabIndex = 54;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.BackColor = System.Drawing.Color.Transparent;
+            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.label34.Location = new System.Drawing.Point(6, 14);
+            this.label34.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(121, 24);
+            this.label34.TabIndex = 53;
+            this.label34.Text = "Inscripciones";
             // 
             // FormDetalleAlumno
             // 
@@ -1312,10 +1370,11 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lblProgramaHeader);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.panelDocumentacion);
-            this.Controls.Add(this.panelInformacionPersonal);
-            this.Controls.Add(this.panelCalificaciones);
             this.Controls.Add(this.panelSituacionAcademica);
+            this.Controls.Add(this.panelInscripcion);
+            this.Controls.Add(this.panelCalificaciones);
+            this.Controls.Add(this.panelInformacionPersonal);
+            this.Controls.Add(this.panelDocumentacion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormDetalleAlumno";
@@ -1342,6 +1401,8 @@
             this.panelInformacionPersonal.PerformLayout();
             this.panelSituacionAcademica.ResumeLayout(false);
             this.panelSituacionAcademica.PerformLayout();
+            this.panelInscripcion.ResumeLayout(false);
+            this.panelInscripcion.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1452,5 +1513,10 @@
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Button btnActualizarDocumentos;
         private System.Windows.Forms.LinkLabel linkInscripciones;
+        private System.Windows.Forms.Panel panelInscripcion;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.ComboBox cmbGrupos;
+        private System.Windows.Forms.Label label34;
     }
 }

@@ -1146,8 +1146,8 @@ namespace IICAPS_v1.Control
         {
             try
             {
-                string agregar = "INSERT INTO grupos (Generacion, Codigo, Tipo, Programa) VALUES("
-                    + " ' " + grupo.generacion + "','" + grupo.codigo + "','" + grupo.tipo + "','" + grupo.programa + "');";
+                string agregar = "INSERT INTO grupos (Generacion, Codigo, Programa) VALUES("
+                    + " ' " + grupo.generacion + "','" + grupo.codigo + "','" + grupo.programa + "');";
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "START TRANSACTION; "
@@ -1180,7 +1180,7 @@ namespace IICAPS_v1.Control
             try
             {
                 string update = "UPDATE grupos SET Generacion="+ " ' " + grupo.generacion +
-                    "', Codigo='" + grupo.codigo + "', Tipo='" + grupo.tipo + "', Programa='" + grupo.programa+ "';";
+                    "', Codigo='" + grupo.codigo + "', Programa='" + grupo.programa+ "';";
 
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
@@ -1244,7 +1244,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT G.Codigo,G.Generacion,G.Tipo, P.Nombre FROM grupos G, programa P WHERE G.Activo=1 AND P.Codigo=G.Programa", conn); conn.Close();
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT G.Codigo,G.Generacion, P.Nombre FROM grupos G, programa P WHERE G.Activo=1 AND P.Codigo=G.Programa", conn); conn.Close();
                     return mdaDatos;
                 }
                 catch (Exception e)
@@ -1266,9 +1266,8 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    string sqlString = "SELECT G.Codigo,G.Generacion,G.Tipo, P.Nombre FROM grupos G, programa P WHERE " +
+                    string sqlString = "SELECT G.Codigo,G.Generacion, P.Nombre FROM grupos G, programa P WHERE " +
                         "(G.Codigo LIKE '%" + parameter + "%' or " +
-                        " G.Tipo LIKE '%" + parameter + "%' or " +
                         " P.Nombre LIKE '%" + parameter + "%' or " +
                         " G.Programa LIKE '%" + parameter + "%' or " +
                         " G.Generacion LIKE '%" + parameter + "%') AND G.Activo=1 AND P.Codigo=G.Programa";
@@ -1303,7 +1302,7 @@ namespace IICAPS_v1.Control
                         Grupo g = new Grupo();
                         g.codigo = reader.GetString(1);
                         g.generacion = reader.GetString(0);
-                        g.tipo = reader.GetString(2);
+                        g.programa = reader.GetString(2);
                         conn.Close();
                         return g;
                     }
@@ -1339,7 +1338,7 @@ namespace IICAPS_v1.Control
                         Grupo g = new Grupo();
                         g.codigo = reader.GetString(1);
                         g.generacion = reader.GetString(0);
-                        g.tipo = reader.GetString(2);
+                        g.programa = reader.GetString(2);
                         aux.Add(g);
                     }
                     conn.Close();
