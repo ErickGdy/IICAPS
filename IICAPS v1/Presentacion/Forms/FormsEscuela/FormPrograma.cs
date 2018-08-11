@@ -28,6 +28,8 @@ namespace IICAPS_v1.Presentacion
             {
                 modificacion = true;
                 txtCodigo.Text = programa.Codigo;
+                txtCEIFRHS.Text = programa.CEIFRHS;
+                txtRVOE.Text = programa.RVOE;
                 txtNombre.Text = programa.Nombre;
                 txtNivel.SelectedItem = programa.Nivel;
                 txtDuracion.Text = programa.Duracion;
