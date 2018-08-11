@@ -102,6 +102,8 @@ namespace IICAPS_v1.Presentacion
                 {
                     Programa p = new Programa();
                     p.Codigo = txtCodigo.Text;
+                    p.RVOE = txtRVOE.Text;
+                    p.CEIFRHS = txtCEIFRHS.Text;
                     p.Nivel = txtNivel.SelectedItem.ToString();
                     p.Nombre = txtNombre.Text;
                     p.Duracion = txtDuracion.Text;
