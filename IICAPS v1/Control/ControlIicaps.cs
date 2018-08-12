@@ -1185,8 +1185,8 @@ namespace IICAPS_v1.Control
         {
             try
             {
-                string update = "UPDATE grupos SET Generacion="+ " ' " + grupo.generacion +
-                    "', Codigo='" + grupo.codigo + "', Programa='" + grupo.programa+ "';";
+                string update = "UPDATE grupos SET Generacion='" + grupo.generacion +
+                    "', Programa='" + grupo.programa+ "' WHERE Codigo='" + grupo.codigo + "';";
 
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
@@ -1386,8 +1386,8 @@ namespace IICAPS_v1.Control
                     {
 
                         Grupo g = new Grupo();
-                        g.codigo = reader.GetString(1);
-                        g.generacion = reader.GetString(0);
+                        g.codigo = reader.GetString(0);
+                        g.generacion = reader.GetString(1);
                         g.programa = reader.GetString(2);
                         aux.Add(g);
                     }
@@ -1395,7 +1395,7 @@ namespace IICAPS_v1.Control
                     if (aux.Count != 0)
                         return aux;
                     else
-                        return null;
+                        return aux;
                 }
                 catch (Exception e)
                 {
@@ -1408,6 +1408,62 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
+
+        //-------------------------------GRUPOS DE ALUMNOS-------------------------//
+        public MySqlDataAdapter obtenerAlumnosGruposTable(string grupo)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT A.Nombre, A.RFC FROM grupoAlumno G, alumnos A WHERE A.RFC=G.Alumno AND G.Grupo='"+grupo+"';";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
+                    this.conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos del grupo de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerAlumnosGruposTable(string grupo, string parameter)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT A.Nombre, A.RFC FROM grupoAlumno G, alumnos A WHERE " +
+                        "(A.Nombre LIKE '%" + parameter + "%' or " +
+                        " A.RFC LIKE '%" + parameter + "%') " +
+                        //" A.Matricula LIKE '%" + parameter + "%' or " +
+                        //" G.Generacion LIKE '%" + parameter + "%') "+
+                        "AND A.RFC=G.Alumno AND G.Grupo='"+grupo+"';";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
+                    this.conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos del grupo de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+
 
         //-------------------------------ENTREGA DOCUMENTOS-------------------------------//
         public bool agregarEntregaDocumentos(DocumentosInscripcion doc)
@@ -1604,11 +1660,11 @@ namespace IICAPS_v1.Control
         {
             try
             {
-                string inscribirGrupo = "INSERT INTO grupoAlumno (Alumno, Grupo) VALUES("
-                    + "','" + RFC + "','" + grupo + "');";
-                string inscribirPrograma = "INSERT INTO programaAlumno (Alumno, Programa, Estado) VALUES("
-                    + "','" + RFC + "','" + programa + "','Inscrito');";
-                string updateDatosAlumno = "UPDATE alumno SET Programa = '" + programa + "' WHERE RFC='" + RFC + "';";
+                string inscribirGrupo = "INSERT INTO grupoAlumno (Alumno, Grupo) VALUES('"
+                    + RFC + "','" + grupo + "'); ";
+                string inscribirPrograma = "INSERT INTO programaAlumno (Alumno, Programa, Estado) VALUES('"
+                    + RFC + "','" + programa + "','Inscrito'); ";
+                string updateDatosAlumno = "UPDATE alumnos SET Programa = '" + programa + "' WHERE RFC='" + RFC + "';";
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "START TRANSACTION; "

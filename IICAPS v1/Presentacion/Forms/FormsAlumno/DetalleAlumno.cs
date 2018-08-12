@@ -28,6 +28,8 @@ namespace IICAPS_v1.Presentacion
             try
             {
                 actualizarPanel(0);
+                lblNombreHeader.Text = al.nombre;
+                lblProgramaHeader.Text = control.consultarPrograma(al.programa).Nombre;
             }
             catch (Exception e)
             {
@@ -50,6 +52,7 @@ namespace IICAPS_v1.Presentacion
                 panelDocumentacion.Visible = false;
                 panelInformacionPersonal.Visible = false;
                 panelSituacionAcademica.Visible = false;
+                panelInscripcion.Visible = false;
                 switch (option)
                 {
                     case 1:
@@ -66,6 +69,10 @@ namespace IICAPS_v1.Presentacion
                         break;
                     case 4:
                         panelSituacionAcademica.Visible = true;
+                        llenarPanel(option);
+                        break;
+                    case 5:
+                        panelInscripcion.Visible = true;
                         llenarPanel(option);
                         break;
                     default:
@@ -135,7 +142,23 @@ namespace IICAPS_v1.Presentacion
                     break;
                 case 4:
                     panelSituacionAcademica.Visible = true;
-                    
+
+                    break;
+                case 5:
+                    try
+                    {
+                        cmbGrupos.Items.Clear();
+                        foreach (Grupo grupo in control.obtenerGrupos(cmbGrupos.Text, alumno.programa))
+                        {
+                            cmbGrupos.Items.Add(grupo.codigo + " - " + grupo.generacion);
+                        }
+                        string group = control.consultarGrupoAlumno(alumno.rfc);
+                        if (group != "")
+                            lblMensajeInscripciones.Text = "Alumno inscrito en el grupo " + group;
+                        else
+                            lblMensajeInscripciones.Text = "El alumno no se encuentra inscrito en ningún grupo";
+                    }
+                    catch (Exception ex) { }
                     break;
                 default:
                     break;
@@ -147,23 +170,14 @@ namespace IICAPS_v1.Presentacion
         private void Main_SizeChanged(object sender, EventArgs e)
         {
             int ancho = this.Width;
+            int alto = this.Height;
             //Actualiza el tamaño de la tabla con respecto al tamaño de la ventana
-            //dataGridViewAlumnos.Width = ancho - 195;
-            //dataGridViewAlumnos.Height = this.Height - 130;
-            ////actualiza la posicion de los controles con respecto al tamaño de la ventana
-            //btnAgregar.Location = new Point(ancho - 169, btnAgregar.Location.Y);
-            //txtBuscarAlumno.Location = new Point(ancho - 216, txtBuscarAlumno.Location.Y);
-            //pictureBox2.Location = new Point(ancho - 245, pictureBox2.Location.Y);
-            //limpiarBusqueda.Location = new Point(ancho - 39, limpiarBusqueda.Location.Y);
-            ////Actualiza el valor del ancho de la columnas
-            //if (dataGridViewAlumnos.Columns.Count != 0)
-            //{
-            //    int x = (dataGridViewAlumnos.Width - 20) / dataGridViewAlumnos.Columns.Count;
-            //    foreach (DataGridViewColumn aux in dataGridViewAlumnos.Columns)
-            //    {
-            //        aux.Width = x;
-            //    }
-            //}
+            groupMenus.Location = new Point(ancho - 220, groupMenus.Location.Y);
+            panelCalificaciones.Size = new Size(ancho-420,alto - 130);
+            panelDocumentacion.Size = new Size(ancho - 420, alto - 130);
+            panelInformacionPersonal.Size = new Size(ancho - 420, alto - 130);
+            panelInscripcion.Size = new Size(ancho - 420, alto - 130);
+            panelSituacionAcademica.Size = new Size(ancho - 420, alto - 130);
         }
 
         private void btnActualizarInformacionPersonal_Click(object sender, EventArgs e)
@@ -273,6 +287,61 @@ namespace IICAPS_v1.Presentacion
             catch (Exception ex)
             {
 
+            }
+        }
+
+        private void linkInscripciones_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                actualizarPanel(5);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void cmbGrupos_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(cmbGrupos.Text.Length>2)
+            try
+            {
+                cmbGrupos.Items.Clear();
+                foreach (Grupo grupo in control.obtenerGrupos(cmbGrupos.Text, alumno.programa))
+                {
+                    cmbGrupos.Items.Add(grupo.codigo + " - " + grupo.generacion);
+                }
+                cmbGrupos.Select(cmbGrupos.Text.Length,0);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al obtener datos de grupos");
+            }
+            
+        }
+
+        private void btnInscribir_Inscripciones_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cmbGrupos.SelectedItem != null)
+                {
+                    string grupo = cmbGrupos.SelectedItem.ToString();
+                    grupo = grupo.Substring(0, grupo.IndexOf(" - "));
+                    if (control.inscribirAlumnoGrupo(alumno.rfc, grupo, alumno.programa))
+                    {
+                        MessageBox.Show("Alumno inscrito en el grupo " + grupo);
+                        actualizarPanel(5);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Seleccione un grupo válido");
+                }
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

@@ -37,9 +37,10 @@ namespace IICAPS_v1.Presentacion
                 modificacion = true;
                 txtGeneracion.Text = grupo.generacion;
                 txtCodigo.Text = grupo.codigo;
+                txtCodigo.ReadOnly = true;
                 if (grupo.programa != null)
                 {
-                    cmbIDProgramas.SelectedValue = grupo.programa;
+                    cmbIDProgramas.SelectedItem = grupo.programa;
                     cmbProgramas.SelectedIndex = cmbIDProgramas.SelectedIndex;
                 }
             }

@@ -63,8 +63,8 @@ namespace IICAPS.Presentacion.Mains
             ocultarPaneles(modulo);
             btnMenuEscuela.Enabled = true;
             this.btnMenuEscuela.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            btnMenuAlumnos.Enabled = true;
-            this.btnMenuAlumnos.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            btnMenuMaestros.Enabled = true;
+            this.btnMenuMaestros.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             switch (modulo)
             {
                 case "Escuela":
@@ -72,8 +72,8 @@ namespace IICAPS.Presentacion.Mains
                     btnMenuEscuela.Font = new System.Drawing.Font("Montserrat", 9.749999F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                     break;
                 case "Alumno":
-                    btnMenuAlumnos.Enabled = false;
-                    btnMenuAlumnos.Font = new System.Drawing.Font("Montserrat", 9.749999F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    btnMenuMaestros.Enabled = false;
+                    btnMenuMaestros.Font = new System.Drawing.Font("Montserrat", 9.749999F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                     break;
                 default:
                     break;
@@ -129,20 +129,19 @@ namespace IICAPS.Presentacion.Mains
             form.Show();
             inhabilitarBoton("Escuela", "Escuela");
         }
-
         
-        private void btnMenuAlumnos_Click(object sender, EventArgs e)
+        private void btnMenuMaestros_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btnAlumno_Click(object sender, EventArgs e)
         {
             minimizeForms();
             MainAlumnos form = MainAlumnos.getInstance();
             configurarForm(form);
             form.Show();
             inhabilitarBoton("Alumno", "Alumno");
-        }
-
-        private void btnAlumno_Click(object sender, EventArgs e)
-        {
-            btnMenuAlumnos_Click(null,null);
         }
 
         private void btnRegistroAlumno_Click(object sender, EventArgs e)

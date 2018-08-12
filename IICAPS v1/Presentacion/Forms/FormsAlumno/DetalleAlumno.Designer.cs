@@ -35,7 +35,7 @@
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.linkLabel4 = new System.Windows.Forms.LinkLabel();
             this.linkLabel5 = new System.Windows.Forms.LinkLabel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupMenus = new System.Windows.Forms.GroupBox();
             this.linkInscripciones = new System.Windows.Forms.LinkLabel();
             this.lblProgramaHeader = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -67,6 +67,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.panelDocumentacion = new System.Windows.Forms.Panel();
             this.btnActualizarDocumentos = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
             this.tabControlDocumentacion = new System.Windows.Forms.TabControl();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.checkInscCopiaCedula = new System.Windows.Forms.CheckBox();
@@ -98,7 +99,6 @@
             this.label24 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
             this.panelInformacionPersonal = new System.Windows.Forms.Panel();
             this.btnActualizarInformacionPersonal = new System.Windows.Forms.Button();
             this.lblNivel = new System.Windows.Forms.Label();
@@ -134,11 +134,12 @@
             this.cmbProgramaSitacionAcademica = new System.Windows.Forms.ComboBox();
             this.label81 = new System.Windows.Forms.Label();
             this.panelInscripcion = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.lblMensajeInscripciones = new System.Windows.Forms.Label();
+            this.btnInscribir_Inscripciones = new System.Windows.Forms.Button();
             this.label33 = new System.Windows.Forms.Label();
             this.cmbGrupos = new System.Windows.Forms.ComboBox();
             this.label34 = new System.Windows.Forms.Label();
-            this.groupBox1.SuspendLayout();
+            this.groupMenus.SuspendLayout();
             this.panelCalificaciones.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -159,9 +160,9 @@
             this.lblNombreHeader.Location = new System.Drawing.Point(190, 62);
             this.lblNombreHeader.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNombreHeader.Name = "lblNombreHeader";
-            this.lblNombreHeader.Size = new System.Drawing.Size(385, 25);
+            this.lblNombreHeader.Size = new System.Drawing.Size(326, 25);
             this.lblNombreHeader.TabIndex = 3;
-            this.lblNombreHeader.Text = "Daniel De Jesús Mendoza Martinez";
+            this.lblNombreHeader.Text = "Nombre Completo Del Alumno";
             // 
             // linkLabel1
             // 
@@ -222,20 +223,20 @@
             this.linkLabel5.Text = "Situacion Academica";
             this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel5_LinkClicked);
             // 
-            // groupBox1
+            // groupMenus
             // 
-            this.groupBox1.Controls.Add(this.linkInscripciones);
-            this.groupBox1.Controls.Add(this.linkLabel5);
-            this.groupBox1.Controls.Add(this.linkLabel4);
-            this.groupBox1.Controls.Add(this.linkLabel3);
-            this.groupBox1.Controls.Add(this.linkLabel2);
-            this.groupBox1.Controls.Add(this.linkLabel1);
-            this.groupBox1.Location = new System.Drawing.Point(779, 93);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(211, 203);
-            this.groupBox1.TabIndex = 47;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Menú";
+            this.groupMenus.Controls.Add(this.linkInscripciones);
+            this.groupMenus.Controls.Add(this.linkLabel5);
+            this.groupMenus.Controls.Add(this.linkLabel4);
+            this.groupMenus.Controls.Add(this.linkLabel3);
+            this.groupMenus.Controls.Add(this.linkLabel2);
+            this.groupMenus.Controls.Add(this.linkLabel1);
+            this.groupMenus.Location = new System.Drawing.Point(779, 93);
+            this.groupMenus.Name = "groupMenus";
+            this.groupMenus.Size = new System.Drawing.Size(211, 203);
+            this.groupMenus.TabIndex = 47;
+            this.groupMenus.TabStop = false;
+            this.groupMenus.Text = "Menú";
             // 
             // linkInscripciones
             // 
@@ -247,6 +248,7 @@
             this.linkInscripciones.TabIndex = 47;
             this.linkInscripciones.TabStop = true;
             this.linkInscripciones.Text = "Inscripciones";
+            this.linkInscripciones.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkInscripciones_LinkClicked);
             // 
             // lblProgramaHeader
             // 
@@ -272,7 +274,7 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Underline);
-            this.label3.Location = new System.Drawing.Point(190, 80);
+            this.label3.Location = new System.Drawing.Point(181, 80);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(1010, 10);
@@ -281,7 +283,7 @@
             // 
             // panelCalificaciones
             // 
-            this.panelCalificaciones.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panelCalificaciones.BackColor = System.Drawing.Color.White;
             this.panelCalificaciones.Controls.Add(this.tabControl1);
             this.panelCalificaciones.Controls.Add(this.label10);
             this.panelCalificaciones.Location = new System.Drawing.Point(195, 127);
@@ -533,7 +535,7 @@
             // 
             // panelDocumentacion
             // 
-            this.panelDocumentacion.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panelDocumentacion.BackColor = System.Drawing.Color.White;
             this.panelDocumentacion.Controls.Add(this.btnActualizarDocumentos);
             this.panelDocumentacion.Controls.Add(this.label19);
             this.panelDocumentacion.Controls.Add(this.tabControlDocumentacion);
@@ -551,6 +553,18 @@
             this.btnActualizarDocumentos.Text = "Actualizar";
             this.btnActualizarDocumentos.UseVisualStyleBackColor = true;
             this.btnActualizarDocumentos.Click += new System.EventHandler(this.btnActualizarDocumentos_Click);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.BackColor = System.Drawing.Color.Transparent;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.label19.Location = new System.Drawing.Point(6, 14);
+            this.label19.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(143, 24);
+            this.label19.TabIndex = 53;
+            this.label19.Text = "Documentación";
             // 
             // tabControlDocumentacion
             // 
@@ -918,21 +932,9 @@
             this.label28.TabIndex = 97;
             this.label28.Text = "Acta de nacimiento original";
             // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.BackColor = System.Drawing.Color.Transparent;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.label19.Location = new System.Drawing.Point(6, 14);
-            this.label19.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(143, 24);
-            this.label19.TabIndex = 53;
-            this.label19.Text = "Documentación";
-            // 
             // panelInformacionPersonal
             // 
-            this.panelInformacionPersonal.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panelInformacionPersonal.BackColor = System.Drawing.Color.White;
             this.panelInformacionPersonal.Controls.Add(this.btnActualizarInformacionPersonal);
             this.panelInformacionPersonal.Controls.Add(this.lblNivel);
             this.panelInformacionPersonal.Controls.Add(this.lblEscuelaProcedencia);
@@ -1256,7 +1258,7 @@
             // 
             // panelSituacionAcademica
             // 
-            this.panelSituacionAcademica.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panelSituacionAcademica.BackColor = System.Drawing.Color.White;
             this.panelSituacionAcademica.Controls.Add(this.btnBuscarSituacionAcademica);
             this.panelSituacionAcademica.Controls.Add(this.label65);
             this.panelSituacionAcademica.Controls.Add(this.cmbProgramaSitacionAcademica);
@@ -1309,8 +1311,9 @@
             // 
             // panelInscripcion
             // 
-            this.panelInscripcion.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panelInscripcion.Controls.Add(this.button1);
+            this.panelInscripcion.BackColor = System.Drawing.Color.White;
+            this.panelInscripcion.Controls.Add(this.lblMensajeInscripciones);
+            this.panelInscripcion.Controls.Add(this.btnInscribir_Inscripciones);
             this.panelInscripcion.Controls.Add(this.label33);
             this.panelInscripcion.Controls.Add(this.cmbGrupos);
             this.panelInscripcion.Controls.Add(this.label34);
@@ -1319,21 +1322,32 @@
             this.panelInscripcion.Size = new System.Drawing.Size(578, 422);
             this.panelInscripcion.TabIndex = 57;
             // 
-            // button1
+            // lblMensajeInscripciones
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.button1.Location = new System.Drawing.Point(228, 113);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(84, 29);
-            this.button1.TabIndex = 56;
-            this.button1.Text = "Inscribir";
-            this.button1.UseVisualStyleBackColor = true;
+            this.lblMensajeInscripciones.AutoSize = true;
+            this.lblMensajeInscripciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lblMensajeInscripciones.Location = new System.Drawing.Point(105, 65);
+            this.lblMensajeInscripciones.Name = "lblMensajeInscripciones";
+            this.lblMensajeInscripciones.Size = new System.Drawing.Size(371, 20);
+            this.lblMensajeInscripciones.TabIndex = 57;
+            this.lblMensajeInscripciones.Text = "El alumno no se encuentra inscrito en ningún grupo";
+            // 
+            // btnInscribir_Inscripciones
+            // 
+            this.btnInscribir_Inscripciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnInscribir_Inscripciones.Location = new System.Drawing.Point(272, 202);
+            this.btnInscribir_Inscripciones.Name = "btnInscribir_Inscripciones";
+            this.btnInscribir_Inscripciones.Size = new System.Drawing.Size(84, 29);
+            this.btnInscribir_Inscripciones.TabIndex = 56;
+            this.btnInscribir_Inscripciones.Text = "Inscribir";
+            this.btnInscribir_Inscripciones.UseVisualStyleBackColor = true;
+            this.btnInscribir_Inscripciones.Click += new System.EventHandler(this.btnInscribir_Inscripciones_Click);
             // 
             // label33
             // 
             this.label33.AutoSize = true;
             this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label33.Location = new System.Drawing.Point(70, 70);
+            this.label33.Location = new System.Drawing.Point(114, 159);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(58, 20);
             this.label33.TabIndex = 55;
@@ -1342,10 +1356,11 @@
             // cmbGrupos
             // 
             this.cmbGrupos.FormattingEnabled = true;
-            this.cmbGrupos.Location = new System.Drawing.Point(131, 72);
+            this.cmbGrupos.Location = new System.Drawing.Point(175, 161);
             this.cmbGrupos.Name = "cmbGrupos";
             this.cmbGrupos.Size = new System.Drawing.Size(289, 21);
             this.cmbGrupos.TabIndex = 54;
+            this.cmbGrupos.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cmbGrupos_KeyUp);
             // 
             // label34
             // 
@@ -1365,16 +1380,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1002, 551);
+            this.Controls.Add(this.groupMenus);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblNombreHeader);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lblProgramaHeader);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.panelSituacionAcademica);
             this.Controls.Add(this.panelInscripcion);
             this.Controls.Add(this.panelCalificaciones);
             this.Controls.Add(this.panelInformacionPersonal);
             this.Controls.Add(this.panelDocumentacion);
+            this.Controls.Add(this.panelSituacionAcademica);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormDetalleAlumno";
@@ -1383,8 +1398,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Centro Alumnado";
             this.SizeChanged += new System.EventHandler(this.Main_SizeChanged);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupMenus.ResumeLayout(false);
+            this.groupMenus.PerformLayout();
             this.panelCalificaciones.ResumeLayout(false);
             this.panelCalificaciones.PerformLayout();
             this.tabControl1.ResumeLayout(false);
@@ -1415,7 +1430,7 @@
     private System.Windows.Forms.LinkLabel linkLabel3;
     private System.Windows.Forms.LinkLabel linkLabel4;
     private System.Windows.Forms.LinkLabel linkLabel5;
-    private System.Windows.Forms.GroupBox groupBox1;
+    private System.Windows.Forms.GroupBox groupMenus;
     private System.Windows.Forms.Label lblProgramaHeader;
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.Label label3;
@@ -1514,9 +1529,10 @@
         private System.Windows.Forms.Button btnActualizarDocumentos;
         private System.Windows.Forms.LinkLabel linkInscripciones;
         private System.Windows.Forms.Panel panelInscripcion;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnInscribir_Inscripciones;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ComboBox cmbGrupos;
         private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label lblMensajeInscripciones;
     }
 }

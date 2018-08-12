@@ -1,9 +1,5 @@
 ﻿using IICAPS_v1.DataObject;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using word = Microsoft.Office.Interop.Word;
 
 namespace IICAPS_v1.Control
