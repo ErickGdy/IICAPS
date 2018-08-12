@@ -12,10 +12,11 @@ namespace IICAPS_v1.Control
     class DocumentosWord
     {
         ControlIicaps control;
-        string imgHeader1 = "C:\\logoaltacalidad.jpg";
-        string imgFooter1 = "C:\\piealtacalidad.jpg";
+        string imgHeader1 = "C:\\SistemaIICAPS\\imagenes\\logoaltacalidad.jpg";
+        string imgFooter1 = "C:\\SistemaIICAPS\\imagenes\\piealtacalidad.jpg";
         public DocumentosWord (DocumentosInscripcion doc)
         {
+            control = ControlIicaps.getInstance();
             Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
             //Quitar animacion y visibilidad mientras se crea y edita
             word.ShowAnimation = false;
