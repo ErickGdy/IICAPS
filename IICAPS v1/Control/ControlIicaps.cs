@@ -344,7 +344,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO creditoAlumno (Alumno, CantidadMensualidad, CantidadMeses, Observaciones, Estado) VALUES ('"
+                cmd.CommandText = "INSERT INTO creditoAlumno (AlumnoID, CantidadMensualidad, CantidadMeses, Observaciones, Estado) VALUES ('"
                     + credito.alumno + "', '" + credito.cantidadMensualidad + "', '" + credito.cantidadMeses + "', '"
                     + credito.observaciones + "', '" + credito.estado + "')";
                 conn.Open();
@@ -400,7 +400,7 @@ namespace IICAPS_v1.Control
                 try
                 {
                     string sqlString = "SELECT * FROM creditoAlumno WHERE" +
-                        "(Alumno LIKE '%" + parameter + "%' or " +
+                        "(AlumnoID LIKE '%" + parameter + "%' or " +
                         "CantidadMensualidad LIKE '%" + parameter + "%' or " +
                         "CantidadMeses LIKE '%" + parameter + "%' or " +
                         "Observaciones LIKE '%" + parameter + "%')";
@@ -425,7 +425,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM creditoAlumno WHERE Alumno='" + rfc + "'";
+                cmd.CommandText = "SELECT * FROM creditoAlumno WHERE AlumnoID='" + rfc + "'";
                 conn.Open();
                 try
                 {
@@ -464,7 +464,7 @@ namespace IICAPS_v1.Control
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE creditoAlumno SET CantidadMensualidad= '" + credito.cantidadMensualidad + "', CantidadMeses= '" + credito.cantidadMeses + "', Observaciones= '" + credito.observaciones + "', Estado= '"
-                    + credito.estado + "' WHERE RFC = '" + credito.alumno + "'";
+                    + credito.estado + "' WHERE AlumnoID = '" + credito.alumno + "'";
                 try
                 {
                     int rowsAfected = cmd.ExecuteNonQuery();
@@ -1473,10 +1473,10 @@ namespace IICAPS_v1.Control
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "INSERT INTO documentosInscripcion (Alumno, ActaNacimientoOrg, ActaNacimientoCop, TituloCedulaOrg, TituloLicCop, '"
-                    + "CedProfCop, SolicitudOpcionTitulacion, CertificadoLicCop, ConstanciaLibSSOrg, Curp, Fotografias, RecibioEmpleado  ) VALUES ('"
+                    + "CedProfCop, SolicitudOpcionTitulacion, CertificadoLicCop, ConstanciaLibSSOrg, Curp, Fotografias, RecibioEmpleado, TipoInscripcion  ) VALUES ('"
                     + doc.alumno + "', " + doc.actaNacimientoOrg + ", " + doc.actaNacimientoCop + ", " + doc.tituloCedulaOrg + ", " + doc.tituloLicCop + ", "
                     + doc.cedProfCop + ", " + doc.solicitudOpcTitulacion + ", " + doc.certificadoLicCop + ", " + doc.constanciaLibSSOrg + ", " + doc.curp + ", "
-                    + doc.fotografias + ", '" + doc.recibioEmpleado + "')";
+                    + doc.fotografias + ", '" + doc.recibioEmpleado + "', "+ doc.tipoInscripcion +")";
                 conn.Open();
                 try
                 {
@@ -1506,7 +1506,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT * FROM documentosInscripcion", conn);
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT Alumno, ActaNacimientoOrg, ActaNacimientoCop, TituloCedulaOrg, TituloLicCop, CedProfCop, SolicitudOpcionTitulacion, CertificadoLicCop, Curp, Fotografias, RecibioEmpleado FROM documentosInscripcion", conn);
                     conn.Close();
                     return mdaDatos;
                 }
@@ -1529,7 +1529,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    string sqlString = "SELECT * FROM documentosInscripcion WHERE" +
+                    string sqlString = "SELECT Alumno, ActaNacimientoOrg, ActaNacimientoCop, TituloCedulaOrg, TituloLicCop, CedProfCop, SolicitudOpcionTitulacion, CertificadoLicCop, Curp, Fotografias, RecibioEmpleado FROM documentosInscripcion WHERE" +
                         "(Alumno LIKE '%" + parameter + "%' or " +
                         "RecibioEmpleado LIKE '%" + parameter + "%')";
                     MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, conn);
@@ -1573,6 +1573,7 @@ namespace IICAPS_v1.Control
                         doc.curp = reader.GetBoolean(9);
                         doc.fotografias = reader.GetBoolean(10);
                         doc.recibioEmpleado = reader.GetString(11);
+                        doc.tipoInscripcion = reader.GetInt32(12);
                         conn.Close();
                         return doc;
                     }
@@ -1617,6 +1618,267 @@ namespace IICAPS_v1.Control
             {
                 conn.Close();
                 throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+
+        //-------------------------------EMPLEADOS-------------------------------//
+        public bool agregarEmpleado(Empleados empleado, Usuarios usuario)
+        {
+            try
+            {
+                string empleados = "INSERT INTO empleados (Correo, Nombre, Telefono, Puesto, NivelDeAcceso) VALUES('"
+                    + empleado.correo + "','" + empleado.nombre + "','" + empleado.telefono + "','" + empleado.puesto + "'," + empleado.niveldeacceso+");";
+                string usuarios = "";
+                if (usuario != null) {
+                    usuarios = "INSERT INTO usuarios (Estado, Empleado, Usuario, Contrasena) VALUES("
+                        + usuario.estado + ",'" + usuario.empleado + "','" + usuario.usuario + "','" + usuario.contrasena + "');";
+                }
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = empleados + usuarios;
+                try
+                {
+                    conn.Open();
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected >= 1)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...! Error al agregar el empleado de la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexion con el servidor");
+            }
+        }
+        
+        public bool actualizarEmpleado(Empleados empleado, Usuarios usuario)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                string emp = "UPDATE empleados SET " +
+                    "Nombre=" + empleado.nombre + "',Telefono='" + empleado.telefono + "Puesto='" + empleado.puesto + "',NivelDeAcceso='" + empleado.niveldeacceso +
+                    "WHERE Correo=" + empleado.correo + ";";
+                string user = "UPDATE usuarios SET " +
+                    "Usuario=" + usuario.usuario + "',Contrasena='" + usuario.contrasena + "Estado='" + usuario.estado + 
+                    "WHERE Empleado=" + usuario.empleado + ";";
+                cmd.CommandText = "START TRANSACTION; " +
+                    emp + user + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected >= 1)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al actualizar el empleado de la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexion con el servidor");
+            }
+        }
+        public bool actualizarEmpleado(Empleados empleado)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE empleados SET " +
+                    "Nombre=" + empleado.nombre + "',Telefono='" + empleado.telefono + "Puesto='" + empleado.puesto + "',NivelDeAcceso='" + empleado.niveldeacceso +
+                    "WHERE Correo=" + empleado.correo + ";";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al actualizar el empleado de la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexion con el servidor");
+            }
+        }
+        public bool desactivarEmpleado(string correo)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE usuarios SET Estado=0 WHERE Empleado=" + correo + ";";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al desactivar el usuario de la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerEmpleadosTable()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT E.Correo,E.Nombre,E.Telefono,E.Puesto,E.NivelDeAcceso FROM empleados E, usuarios U WHERE E.Correo = U.Empleado AND U.Estado = 1", conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de los empleados de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerEmpleadosTable(string parameter)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT E.Correo,E.Nombre,E.Telefono,E.Puesto,E.NivelDeAcceso FROM empleados E LEFT JOIN usuarios U ON E.Correo = U.Empleado" +
+                        " WHERE " +
+                        "(Correo LIKE '%" + parameter + "%' or " +
+                        " Nombre LIKE '%" + parameter + "%' or " +
+                        " Telefono LIKE '%" + parameter + "%' or " +
+                        " Puesto LIKE '%" + parameter + "%' or " +
+                        " NivelDeAcceso = " + parameter + ") and " +
+                        " Estado = 1 ORDER BY Nombre ASC";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
+                    this.conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de los empleados de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public Empleados consultarEmpleado(string correo)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT E.Correo,E.Nombre,E.Telefono,E.Puesto,E.NivelDeAcceso FROM empleados E LEFT JOIN usuarios U ON E.Correo = U.Empleado WHERE U.Estado = 1 AND E.Correo='" + correo + "'";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Empleados a = new Empleados();
+                        a.correo = reader.GetString(0);
+                        a.nombre = reader.GetString(1);
+                        a.telefono = reader.GetString(2);
+                        a.puesto = reader.GetString(3);
+                        a.niveldeacceso = reader.GetInt32(4);
+                        conn.Close();
+                        return a;
+                    }
+                    conn.Close();
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos del empleado de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public List<Empleados> obtenerEmpleados()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT E.Correo,E.Nombre,E.Telefono,E.Puesto,E.NivelDeAcceso FROM empleados E LEFT JOIN usuarios U ON E.Correo = U.Empleado WHERE U.Estado = 1";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<Empleados> aux = new List<Empleados>();
+                    while (reader.Read())
+                    {
+
+                        Empleados a = new Empleados();
+                        a.correo = reader.GetString(0);
+                        a.nombre = reader.GetString(1);
+                        a.telefono = reader.GetString(2);
+                        a.puesto = reader.GetString(3);
+                        a.niveldeacceso = reader.GetInt32(4);
+                        aux.Add(a);
+                    }
+                    conn.Close();
+                    if (aux.Count != 0)
+                        return aux;
+                    else
+                        return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de los empleados de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
             }
         }
 

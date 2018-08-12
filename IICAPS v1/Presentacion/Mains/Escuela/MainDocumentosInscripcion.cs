@@ -104,13 +104,13 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             {
                 String rfc = dataGridViewDocumentos.CurrentRow.Cells[0].Value.ToString();
                 DocumentosInscripcion documentos = control.consultarEntregaDocumentos(rfc);
-                if (documentos.solicitudOpcTitulacion == true || documentos.certificadoLicCop == true || documentos.constanciaLibSSOrg)
+                if (documentos.tipoInscripcion == 2)
                 {
                     FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(null);
                     fa.FormClosed += new FormClosedEventHandler(form_Closed);
                     fa.Show();
                 }
-                else
+                else if (documentos.tipoInscripcion == 1)
                 {
                     FormDocumentosInscripcion fa = new FormDocumentosInscripcion(null);
                     fa.FormClosed += new FormClosedEventHandler(form_Closed);
@@ -143,13 +143,13 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             {
                 String rfc = dataGridViewDocumentos.CurrentRow.Cells[0].Value.ToString();
                 DocumentosInscripcion documentos = control.consultarEntregaDocumentos(rfc);
-                if (documentos.solicitudOpcTitulacion == true || documentos.certificadoLicCop == true || documentos.constanciaLibSSOrg)
+                if (documentos.tipoInscripcion == 2)
                 {
                     FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(null);
                     fa.FormClosed += new FormClosedEventHandler(form_Closed);
                     fa.Show();
                 }
-                else
+                else if (documentos.tipoInscripcion == 1)
                 {
                     FormDocumentosInscripcion fa = new FormDocumentosInscripcion(null);
                     fa.FormClosed += new FormClosedEventHandler(form_Closed);

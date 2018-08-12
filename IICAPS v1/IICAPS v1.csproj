@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Control\ControlIicaps.cs" />
     <Compile Include="Control\DocumentosWord.cs" />
+    <Compile Include="DataObject\Empleados.cs" />
     <Compile Include="DataObject\Grupo.cs" />
     <Compile Include="DataObject\Programa.cs" />
     <Compile Include="DataObject\Materia.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="DataObject\DocumentosInscripcion.cs" />
     <Compile Include="DataObject\PagosColegiaturaAlumnos.cs" />
     <Compile Include="DataObject\PagosCreditoAlumnos.cs" />
+    <Compile Include="DataObject\Usuarios.cs" />
     <Compile Include="Presentacion\Forms\FormsAlumno\Alumnos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -270,7 +272,6 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="itextsharp-lgpl.4.1.6.nupkg" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

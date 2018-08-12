@@ -71,21 +71,25 @@ namespace IICAPS_v1.Presentacion
 
         private void btnCalcular_Click(object sender, EventArgs e)
         {
-            //String programa = cmbPrograma.SelectedItem.ToString();
-            double inscripcion = 500, meses = 0;
-            //if (programa.Contains("Maestria") || programa.Contains("MAESTRIA") || programa.Contains("Maestría") || programa.Contains("MAESTRÍA"))
-            //{
-                //cuanto este la informacion de los programas cambiar los parametros por querys
-                double pagomensualidad = 0, pagocredito = 0, maestria = 62500, costocredito = 5000;
-                pagomensualidad = Convert.ToDouble(numMensualidad.Value);
-                meses = (maestria + costocredito) / pagomensualidad;
-                meses = Math.Ceiling(meses);
-                pagomensualidad = maestria / meses;
-                pagocredito = costocredito / meses;
-                numCantidad.Value = Convert.ToDecimal(meses);
-                lblMensualidad.Text = lblMensualidad.Text + pagomensualidad.ToString();
-                lblCredito.Text = lblCredito.Text + pagocredito.ToString();
-            //}
+            Programa programa = control.consultarPrograma(cmbIDPrograma.SelectedItem.ToString());
+            List<Materia> lista = control.consultarMapaCurricularPrograma(cmbIDPrograma.SelectedItem.ToString());
+            double totalmaterias = 0, grantotal = 0;
+            foreach (Materia materia in lista)
+            {
+                totalmaterias += Convert.ToDouble(materia.costo);
+            }
+            double costoCredito;
+            if (programa.Nivel.Contains("Maestria") || programa.Nivel.Contains("MAESTRIA") || programa.Nivel.Contains("Maestría") || programa.Nivel.Contains("MAESTRÍA"))
+                costoCredito = 5000;
+            else
+                costoCredito = 4000;
+            grantotal = totalmaterias + costoCredito;
+            double aux1 = grantotal / Convert.ToDouble(numMensualidad.Value);
+            numCantidad.Value = Convert.ToDecimal(aux1);
+            double var1 = costoCredito / Convert.ToDouble(numCantidad.Value);
+            double var2 = totalmaterias / Convert.ToDouble(numCantidad.Value);
+            lblCredito.Text = lblCredito.Text + var1.ToString();
+            lblMensualidad.Text = lblMensualidad.Text + var2.ToString();
         }
 
         private bool validarCampos()
