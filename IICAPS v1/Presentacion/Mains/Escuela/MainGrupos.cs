@@ -77,10 +77,12 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 Grupo grupo = control.consultarGrupo(id);
-                MessageBox.Show("Reporte referente al grupo "+ grupo.codigo);
-                //FormPrograma fa = new FormPrograma(programa);
+                //MessageBox.Show("Reporte referente al grupo "+ grupo.codigo);
+                DetalleGrupo fa = new DetalleGrupo(grupo);
+                fa.MdiParent = this.ParentForm;
+                fa.Size = new Size(this.ParentForm.Size.Width - 20, this.ParentForm.Size.Height - 45);
                 //fa.FormClosed += new FormClosedEventHandler(form_Closed);
-                //fa.Show();
+                fa.Show();
             }
             catch (Exception ex)
             {
