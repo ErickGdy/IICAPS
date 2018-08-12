@@ -827,8 +827,8 @@ namespace IICAPS_v1.Control
         {
             try
             {
-                string agregar = "INSERT INTO programa (Nivel, Nombre, Codigo, Duracion, Horario, Modalidad, RequisitosEspecialidad, RequisitosTitulacion,RequisitosDiplomado, Objetivo, PerfilIngreso,PerfilEgreso,ProcesoSeleccion,CostoInscripcionSemestral,CostoMensual,CostoCursoPropedeutico) VALUES("
-                    + " ' " + programa.Nivel + "','" + programa.Nombre + "','" + programa.Codigo + "','" + programa.Duracion
+                string agregar = "INSERT INTO programa (RVOE, CEIFRHS, Nivel, Nombre, Codigo, Duracion, Horario, Modalidad, RequisitosEspecialidad, RequisitosTitulacion,RequisitosDiplomado, Objetivo, PerfilIngreso,PerfilEgreso,ProcesoSeleccion,CostoInscripcionSemestral,CostoMensual,CostoCursoPropedeutico) VALUES("
+                    + " ' " + programa.RVOE + "','"+ programa.CEIFRHS + "','" + programa.Nivel + "','" + programa.Nombre + "','" + programa.Codigo + "','" + programa.Duracion
                     + "','" + programa.Horario + "','" + programa.Modalidad + "','" + programa.RequisitosEspecialidad
                     + "','" + programa.RequisitosTitulacion + "','" + programa.RequisitosDiplomado + "','" + programa.Objetivo
                     + "','" + programa.PerfilIngreso + "','" + programa.PerfilEgreso
@@ -877,7 +877,7 @@ namespace IICAPS_v1.Control
             try
             {
                string update = "UPDATE programa SET "
-                    + " Nivel='" + programa.Nivel + "',Nombre='" + programa.Nombre +"',Duracion='" + programa.Duracion
+                    + " Nivel='" + programa.Nivel + "',Nombre='" + programa.Nombre +"',Duracion='" + programa.Duracion + "',RVOE='" + programa.RVOE + "',CEIFRHS='" + programa.CEIFRHS
                     + "',Horario='" + programa.Horario + "',Modalidad='" + programa.Modalidad + "',RequisitosEspecialidad='" + programa.RequisitosEspecialidad
                     + "',RequisitosTitulacion='" + programa.RequisitosTitulacion + "',RequisitosDiplomado='" + programa.RequisitosDiplomado + "',Objetivo='" + programa.Objetivo
                     + "',PerfilIngreso='" + programa.PerfilIngreso + "',PerfilEgreso='" + programa.PerfilEgreso
@@ -1017,22 +1017,23 @@ namespace IICAPS_v1.Control
                     {
                         Programa p = new Programa();
                         p.Codigo = reader.GetString(0);
-                        p.Nombre = reader.GetString(1);
-                        p.Nivel = reader.GetString(2);
-                        p.Duracion = reader.GetString(3);
-                        p.Horario = reader.GetString(4);
-                        p.Modalidad = reader.GetString(5);
-                        p.RequisitosEspecialidad = reader.GetString(6);
-                        p.RequisitosTitulacion = reader.GetString(7);
-                        p.RequisitosDiplomado = reader.GetString(8);
-                        p.Objetivo = reader.GetString(9);
-                        p.PerfilIngreso = reader.GetString(10);
-                        p.PerfilEgreso = reader.GetString(11);
-                        p.ProcesoSeleccion = reader.GetString(12);
-                        p.CostoInscripcionSemestral = reader.GetDecimal(13);
-                        p.CostoMensualidad = reader.GetDecimal(14);
-                        p.CostoCursoPropedeutico = reader.GetDecimal(15);
-                        p.Activo = reader.GetBoolean(16);
+                        p.RVOE = reader.GetString(1);
+                        p.CEIFRHS = reader.GetString(2);
+                        p.Nombre = reader.GetString(3);
+                        p.Nivel = reader.GetString(4);
+                        p.Duracion = reader.GetString(5);
+                        p.Horario = reader.GetString(6);
+                        p.Modalidad = reader.GetString(7);
+                        p.RequisitosEspecialidad = reader.GetString(8);
+                        p.RequisitosTitulacion = reader.GetString(9);
+                        p.RequisitosDiplomado = reader.GetString(10);
+                        p.Objetivo = reader.GetString(11);
+                        p.PerfilIngreso = reader.GetString(12);
+                        p.PerfilEgreso = reader.GetString(13);
+                        p.ProcesoSeleccion = reader.GetString(14);
+                        p.CostoInscripcionSemestral = reader.GetDecimal(15);
+                        p.CostoMensualidad = reader.GetDecimal(16);
+                        p.CostoCursoPropedeutico = reader.GetDecimal(17);
                         conn.Close();
                         return p;
                     }
@@ -1106,21 +1107,23 @@ namespace IICAPS_v1.Control
 
                         Programa p = new Programa();
                         p.Codigo = reader.GetString(0);
-                        p.Nombre = reader.GetString(1);
-                        p.Nivel = reader.GetString(2);
-                        p.Duracion = reader.GetString(3);
-                        p.Horario = reader.GetString(4);
-                        p.Modalidad = reader.GetString(5);
-                        p.RequisitosEspecialidad = reader.GetString(6);
-                        p.RequisitosTitulacion = reader.GetString(7);
-                        p.RequisitosDiplomado = reader.GetString(8);
-                        p.Objetivo = reader.GetString(9);
-                        p.PerfilIngreso = reader.GetString(10);
-                        p.PerfilEgreso = reader.GetString(11);
-                        p.ProcesoSeleccion = reader.GetString(12);
-                        p.CostoInscripcionSemestral = reader.GetDecimal(13);
-                        p.CostoMensualidad = reader.GetDecimal(14);
-                        p.CostoCursoPropedeutico = reader.GetDecimal(15);
+                        p.RVOE = reader.GetString(1);
+                        p.CEIFRHS = reader.GetString(2);
+                        p.Nombre = reader.GetString(3);
+                        p.Nivel = reader.GetString(4);
+                        p.Duracion = reader.GetString(5);
+                        p.Horario = reader.GetString(6);
+                        p.Modalidad = reader.GetString(7);
+                        p.RequisitosEspecialidad = reader.GetString(8);
+                        p.RequisitosTitulacion = reader.GetString(9);
+                        p.RequisitosDiplomado = reader.GetString(10);
+                        p.Objetivo = reader.GetString(11);
+                        p.PerfilIngreso = reader.GetString(12);
+                        p.PerfilEgreso = reader.GetString(13);
+                        p.ProcesoSeleccion = reader.GetString(14);
+                        p.CostoInscripcionSemestral = reader.GetDecimal(15);
+                        p.CostoMensualidad = reader.GetDecimal(16);
+                        p.CostoCursoPropedeutico = reader.GetDecimal(17);
                         aux.Add(p);
                     }
                     conn.Close();
@@ -1367,7 +1370,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO documentosInscripcion (Alumno, ActaNacimientoOrg, ActaNacimientoCop, TituloCedulaOrg, TituloLicCop, '"
+                cmd.CommandText = "INSERT INTO documentosInscripcion (Alumno, ActaNacimientoOrg, ActaNacimientoCop, TituloCedulaOrg, TituloLicCop, "
                     + "CedProfCop, SolicitudOpcionTitulacion, CertificadoLicCop, ConstanciaLibSSOrg, Curp, Fotografias, RecibioEmpleado, TipoInscripcion  ) VALUES ('"
                     + doc.alumno + "', " + doc.actaNacimientoOrg + ", " + doc.actaNacimientoCop + ", " + doc.tituloCedulaOrg + ", " + doc.tituloLicCop + ", "
                     + doc.cedProfCop + ", " + doc.solicitudOpcTitulacion + ", " + doc.certificadoLicCop + ", " + doc.constanciaLibSSOrg + ", " + doc.curp + ", "

@@ -93,17 +93,17 @@ namespace IICAPS_v1.Presentacion
             this.Dispose();
         }
 
-        private bool validarCampos()
-        {
-            if (cmbAlumno.SelectedItem != null && cmbPrograma != null && cmbRecibio != null)
-                return false;
-            return true;
-        }
+        //private bool validarCampos()
+        //{
+        //    if (cmbAlumno.SelectedItem != null && cmbPrograma != null && cmbRecibio != null)
+        //        return false;
+        //    return true;
+        //}
 
         private bool agregarEntregaDocumentos()
         {
-            if (validarCampos())
-            {
+            //if (validarCampos())
+            //{
                 cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
                 cmbIDAlumno.SelectedIndex = cmbAlumno.SelectedIndex;
                 cmbIDRecibio.SelectedIndex = cmbRecibio.SelectedIndex;
@@ -120,23 +120,29 @@ namespace IICAPS_v1.Presentacion
                 doc.tipoInscripcion = 1;
                 if (modificacion)
                 {
-                    doc.alumno = cmbAlumno.SelectedItem.ToString();
+                    doc.alumno = cmbIDAlumno.SelectedItem.ToString();
                     if (control.actualizarEntregaDocumentos(doc))
+                    {
+                        DocumentosWord word = new DocumentosWord(doc);
                         return true;
+                    }
                     else
                         throw new Exception("Error al actualizar los datos de la entrega de documentos");
                 }
                 else
                 {
                     if (control.agregarEntregaDocumentos(doc))
+                    {
+                        DocumentosWord word = new DocumentosWord(doc);
                         return true;
+                    }
                     else
                         throw new Exception("Error al agregar los datos de la entrega de documentos");
                 }
-            }
-            else
-                MessageBox.Show("No deje ningun campo vacio");
-            return false;
+            //}
+            //else
+            //    MessageBox.Show("No deje ningun campo vacio");
+            //return false;
         }
 
         private void cmbPrograma_SelectedIndexChanged(object sender, EventArgs e)

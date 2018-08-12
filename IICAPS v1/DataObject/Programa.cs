@@ -11,6 +11,8 @@ namespace IICAPS_v1.DataObject
         public string Nivel { get; set; }
         public string Nombre { get; set; }
         public string Codigo { get; set; }
+        public string RVOE { get; set; }
+        public string CEIFRHS { get; set; }
         public string Duracion { get; set; }
         public string Horario { get; set; }
         public string Modalidad { get; set; }
