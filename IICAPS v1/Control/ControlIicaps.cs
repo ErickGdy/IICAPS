@@ -827,8 +827,8 @@ namespace IICAPS_v1.Control
         {
             try
             {
-                string agregar = "INSERT INTO programa (RVOE, CEIFRHS, Nivel, Nombre, Codigo, Duracion, Horario, Modalidad, RequisitosEspecialidad, RequisitosTitulacion,RequisitosDiplomado, Objetivo, PerfilIngreso,PerfilEgreso,ProcesoSeleccion,CostoInscripcionSemestral,CostoMensual,CostoCursoPropedeutico) VALUES("
-                    + " ' " + programa.RVOE + "','"+ programa.CEIFRHS + "','" + programa.Nivel + "','" + programa.Nombre + "','" + programa.Codigo + "','" + programa.Duracion
+                string agregar = "INSERT INTO programa (Nivel, Nombre, Codigo, RVOE, CEIFRHS, Duracion, Horario, Modalidad, RequisitosEspecialidad, RequisitosTitulacion,RequisitosDiplomado, Objetivo, PerfilIngreso,PerfilEgreso,ProcesoSeleccion,CostoInscripcionSemestral,CostoMensual,CostoCursoPropedeutico) VALUES("
+                    + " ' " + programa.Nivel + "','" + programa.Nombre + "','" + programa.Codigo + "','" + programa.RVOE + "','" + programa.CEIFRHS + "','" + programa.Duracion
                     + "','" + programa.Horario + "','" + programa.Modalidad + "','" + programa.RequisitosEspecialidad
                     + "','" + programa.RequisitosTitulacion + "','" + programa.RequisitosDiplomado + "','" + programa.Objetivo
                     + "','" + programa.PerfilIngreso + "','" + programa.PerfilEgreso
@@ -877,7 +877,8 @@ namespace IICAPS_v1.Control
             try
             {
                string update = "UPDATE programa SET "
-                    + " Nivel='" + programa.Nivel + "',Nombre='" + programa.Nombre +"',Duracion='" + programa.Duracion + "',RVOE='" + programa.RVOE + "',CEIFRHS='" + programa.CEIFRHS
+                    + " RVOE='" + programa.RVOE+ "', CEIFRHS='" + programa.CEIFRHS 
+                    + "',Nivel='" + programa.Nivel + "',Nombre='" + programa.Nombre +"',Duracion='" + programa.Duracion
                     + "',Horario='" + programa.Horario + "',Modalidad='" + programa.Modalidad + "',RequisitosEspecialidad='" + programa.RequisitosEspecialidad
                     + "',RequisitosTitulacion='" + programa.RequisitosTitulacion + "',RequisitosDiplomado='" + programa.RequisitosDiplomado + "',Objetivo='" + programa.Objetivo
                     + "',PerfilIngreso='" + programa.PerfilIngreso + "',PerfilEgreso='" + programa.PerfilEgreso
@@ -1034,6 +1035,7 @@ namespace IICAPS_v1.Control
                         p.CostoInscripcionSemestral = reader.GetDecimal(15);
                         p.CostoMensualidad = reader.GetDecimal(16);
                         p.CostoCursoPropedeutico = reader.GetDecimal(17);
+                        p.Activo = reader.GetBoolean(18);
                         conn.Close();
                         return p;
                     }
@@ -1124,6 +1126,7 @@ namespace IICAPS_v1.Control
                         p.CostoInscripcionSemestral = reader.GetDecimal(15);
                         p.CostoMensualidad = reader.GetDecimal(16);
                         p.CostoCursoPropedeutico = reader.GetDecimal(17);
+                        p.Activo = reader.GetBoolean(18);
                         aux.Add(p);
                     }
                     conn.Close();
@@ -1149,8 +1152,8 @@ namespace IICAPS_v1.Control
         {
             try
             {
-                string agregar = "INSERT INTO grupos (Generacion, Codigo, Tipo, Programa) VALUES("
-                    + " ' " + grupo.generacion + "','" + grupo.codigo + "','" + grupo.tipo + "','" + grupo.programa + "');";
+                string agregar = "INSERT INTO grupos (Generacion, Codigo, Programa) VALUES("
+                    + " ' " + grupo.generacion + "','" + grupo.codigo + "','" + grupo.programa + "');";
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "START TRANSACTION; "
@@ -1182,8 +1185,8 @@ namespace IICAPS_v1.Control
         {
             try
             {
-                string update = "UPDATE grupos SET Generacion="+ " ' " + grupo.generacion +
-                    "', Codigo='" + grupo.codigo + "', Tipo='" + grupo.tipo + "', Programa='" + grupo.programa+ "';";
+                string update = "UPDATE grupos SET Generacion='" + grupo.generacion +
+                    "', Programa='" + grupo.programa+ "' WHERE Codigo='" + grupo.codigo + "';";
 
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
@@ -1247,7 +1250,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT G.Codigo,G.Generacion,G.Tipo, P.Nombre FROM grupos G, programa P WHERE G.Activo=1 AND P.Codigo=G.Programa", conn); conn.Close();
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT G.Codigo,G.Generacion, P.Nombre FROM grupos G, programa P WHERE G.Activo=1 AND P.Codigo=G.Programa", conn); conn.Close();
                     return mdaDatos;
                 }
                 catch (Exception e)
@@ -1269,9 +1272,8 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    string sqlString = "SELECT G.Codigo,G.Generacion,G.Tipo, P.Nombre FROM grupos G, programa P WHERE " +
+                    string sqlString = "SELECT G.Codigo,G.Generacion, P.Nombre FROM grupos G, programa P WHERE " +
                         "(G.Codigo LIKE '%" + parameter + "%' or " +
-                        " G.Tipo LIKE '%" + parameter + "%' or " +
                         " P.Nombre LIKE '%" + parameter + "%' or " +
                         " G.Programa LIKE '%" + parameter + "%' or " +
                         " G.Generacion LIKE '%" + parameter + "%') AND G.Activo=1 AND P.Codigo=G.Programa";
@@ -1306,7 +1308,7 @@ namespace IICAPS_v1.Control
                         Grupo g = new Grupo();
                         g.codigo = reader.GetString(1);
                         g.generacion = reader.GetString(0);
-                        g.tipo = reader.GetString(2);
+                        g.programa = reader.GetString(2);
                         conn.Close();
                         return g;
                     }
@@ -1342,7 +1344,7 @@ namespace IICAPS_v1.Control
                         Grupo g = new Grupo();
                         g.codigo = reader.GetString(1);
                         g.generacion = reader.GetString(0);
-                        g.tipo = reader.GetString(2);
+                        g.programa = reader.GetString(2);
                         aux.Add(g);
                     }
                     conn.Close();
@@ -1362,6 +1364,106 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
+        public List<Grupo> obtenerGrupos(string parameter, string programa)
+        {
+            try
+            {
+                string sqlString = "SELECT G.Codigo,G.Generacion, G.Programa FROM grupos G, programa P WHERE " +
+                       "(G.Codigo LIKE '%" + parameter + "%' or " +
+                       " P.Nombre LIKE '%" + parameter + "%' or " +
+                       " G.Programa LIKE '%" + parameter + "%' or " +
+                       " P.Codigo LIKE '%" + parameter + "%' or " +
+                       " G.Generacion LIKE '%" + parameter + "%') AND G.Activo=1 AND P.Codigo=G.Programa AND P.Codigo='"+programa+"';";
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = sqlString;
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<Grupo> aux = new List<Grupo>();
+                    while (reader.Read())
+                    {
+
+                        Grupo g = new Grupo();
+                        g.codigo = reader.GetString(0);
+                        g.generacion = reader.GetString(1);
+                        g.programa = reader.GetString(2);
+                        aux.Add(g);
+                    }
+                    conn.Close();
+                    if (aux.Count != 0)
+                        return aux;
+                    else
+                        return aux;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de las grupos de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+
+        //-------------------------------GRUPOS DE ALUMNOS-------------------------//
+        public MySqlDataAdapter obtenerAlumnosGruposTable(string grupo)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT A.Nombre, A.RFC FROM grupoAlumno G, alumnos A WHERE A.RFC=G.Alumno AND G.Grupo='"+grupo+"';";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
+                    this.conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos del grupo de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerAlumnosGruposTable(string grupo, string parameter)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT A.Nombre, A.RFC FROM grupoAlumno G, alumnos A WHERE " +
+                        "(A.Nombre LIKE '%" + parameter + "%' or " +
+                        " A.RFC LIKE '%" + parameter + "%') " +
+                        //" A.Matricula LIKE '%" + parameter + "%' or " +
+                        //" G.Generacion LIKE '%" + parameter + "%') "+
+                        "AND A.RFC=G.Alumno AND G.Grupo='"+grupo+"';";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
+                    this.conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos del grupo de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+
 
         //-------------------------------ENTREGA DOCUMENTOS-------------------------------//
         public bool agregarEntregaDocumentos(DocumentosInscripcion doc)
@@ -1781,50 +1883,110 @@ namespace IICAPS_v1.Control
         }
 
         //-----------------------------INSCRIPCIONES---------------------------------//
-        //public bool inscribirAlumno(string RFC, string codigoPrograma)
-        //{
-        //    try
-        //    {
-        //        string agregar = "INSERT INTO grupos (Generacion, Codigo, Tipo, Programa) VALUES("
-        //            + "','" + programa.CostoCursoPropedeutico + "');";
-        //        string materias = "";
-        //        string mapa = "";
-        //        if (programa.MapaCurricular != null)
-        //            foreach (Materia m in programa.MapaCurricular)
-        //            {
-        //                materias += "INSERT INTO materia (Nombre,Duracion,Semestre,Costo,Activo) SELECT '" + m.nombre + "', '" + m.duracion + "', '" + m.semestre + "', '" + m.costo + "',1 FROM DUAL WHERE NOT EXISTS (SELECT * FROM materia WHERE Nombre='" + m.nombre + "' AND Duracion='" + m.duracion + "' AND Semestre= '" + m.semestre + "' AND Costo= '" + m.costo + "' and Activo=1); ";
-        //                mapa += "INSERT INTO mapaCurricular (Materia, Programa) VALUES('" + m.id + "','" + programa.Codigo + "');";
-        //            }
-        //        conn = new MySqlConnection(builder.ToString());
-        //        cmd = conn.CreateCommand();
-        //        cmd.CommandText = "START TRANSACTION; "
-        //                            + agregar
-        //                            + "DELETE FROM mapaCurricular WHERE Programa='" + programa.Codigo + "';"
-        //                            + materias
-        //                            + mapa
-        //                            + "COMMIT;";
-        //        conn.Open();
-        //        try
-        //        {
-        //            int rowsAfected = cmd.ExecuteNonQuery();
-        //            conn.Close();
-        //            if (rowsAfected > 0)
-        //                return true;
-        //            else
-        //                return false;
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            conn.Close();
-        //            throw new Exception("Error...! Error al agregar Prorgrama a la Base de datos");
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        conn.Close();
-        //        throw new Exception("Error...! Error al establecer conexion con el servidor");
-        //    }
-        //}
+        public bool inscribirAlumnoPrograma(string RFC, string programa)
+        {
+            try
+            {
+                string agregar = "INSERT INTO programaAlumno (Alumno, Programa, Estado) VALUES("
+                    + "','" + RFC + "','"+ programa + "','Inscrito');";
+                string updateDatosAlumno = "UPDATE alumno SET Programa = '" + programa + "' WHERE RFC='"+RFC+"';";
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + agregar
+                                    + updateDatosAlumno
+                                    + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    conn.Close();
+                    throw new Exception("Error...! Error al agregar Prorgrama a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...! Error al establecer conexion con el servidor");
+            }
+        }
+        public bool inscribirAlumnoGrupo(string RFC, string grupo, string programa)
+        {
+            try
+            {
+                string inscribirGrupo = "INSERT INTO grupoAlumno (Alumno, Grupo) VALUES('"
+                    + RFC + "','" + grupo + "'); ";
+                string inscribirPrograma = "INSERT INTO programaAlumno (Alumno, Programa, Estado) VALUES('"
+                    + RFC + "','" + programa + "','Inscrito'); ";
+                string updateDatosAlumno = "UPDATE alumnos SET Programa = '" + programa + "' WHERE RFC='" + RFC + "';";
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + inscribirGrupo
+                                    + inscribirPrograma
+                                    + updateDatosAlumno
+                                    + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    conn.Close();
+                    throw new Exception("Error...! Error al agregar Prorgrama a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...! Error al establecer conexion con el servidor");
+            }
+        }
+        public string consultarGrupoAlumno(string RFC)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Grupo FROM grupoAlumno WHERE Alumno='" + RFC + "'";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string grupo = reader.GetString(0);
+                        conn.Close();
+                        return grupo;
+                    }
+                    conn.Close();
+                    return "";
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos del alumno de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
 
 
         //-------------------------------Configuracion-------------------------------//

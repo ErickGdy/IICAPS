@@ -36,11 +36,11 @@ namespace IICAPS_v1.Presentacion
                 this.grupo = grupo;
                 modificacion = true;
                 txtGeneracion.Text = grupo.generacion;
-                txtTipo.Text = grupo.tipo;
                 txtCodigo.Text = grupo.codigo;
+                txtCodigo.ReadOnly = true;
                 if (grupo.programa != null)
                 {
-                    cmbIDProgramas.SelectedValue = grupo.programa;
+                    cmbIDProgramas.SelectedItem = grupo.programa;
                     cmbProgramas.SelectedIndex = cmbIDProgramas.SelectedIndex;
                 }
             }
@@ -52,7 +52,6 @@ namespace IICAPS_v1.Presentacion
             {
                 cmbIDProgramas.SelectedIndex = cmbProgramas.SelectedIndex;
                 this.grupo.generacion = txtGeneracion.Text;
-                this.grupo.tipo = txtTipo.Text;
                 this.grupo.codigo = txtCodigo.Text;
                 this.grupo.programa = cmbIDProgramas.SelectedItem.ToString();
                 try
@@ -97,7 +96,7 @@ namespace IICAPS_v1.Presentacion
 
         private bool validarCampos()
         {
-            if (txtGeneracion.Text != "" && txtTipo.Text != "" && txtCodigo.Text != "")
+            if (txtGeneracion.Text != "" && txtCodigo.Text != "")
                 return true;
             return false;
         }
