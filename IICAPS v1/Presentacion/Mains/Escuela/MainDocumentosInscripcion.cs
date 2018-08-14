@@ -50,19 +50,14 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 //Se asigna el datatable como origen de datos del datagridview
                 dataGridViewDocumentos.DataSource = dtDatos;
                 //Actualiza el valor de la etiqueta donde se muestra el total de productos
-                dataGridViewDocumentos.Columns[0].Width = 100;
-                dataGridViewDocumentos.Columns[1].Width = 20;
-                dataGridViewDocumentos.Columns[2].Width = 20;
-                dataGridViewDocumentos.Columns[3].Width = 20;
-                dataGridViewDocumentos.Columns[4].Width = 20;
-                dataGridViewDocumentos.Columns[5].Width = 20;
-                dataGridViewDocumentos.Columns[6].Width = 20;
-                dataGridViewDocumentos.Columns[7].Width = 20;
-                dataGridViewDocumentos.Columns[8].Width = 20;
-                dataGridViewDocumentos.Columns[9].Width = 20;
-                dataGridViewDocumentos.Columns[10].Width = 20;
-                dataGridViewDocumentos.Columns[11].Width = 20;
-                dataGridViewDocumentos.Columns[12].Width = 100;
+                if (dataGridViewDocumentos.Columns.Count != 0)
+                {
+                    int x = (dataGridViewDocumentos.Width - 20) / dataGridViewDocumentos.Columns.Count;
+                    foreach (DataGridViewColumn aux in dataGridViewDocumentos.Columns)
+                    {
+                        aux.Width = x;
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -95,7 +90,27 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            consultarDocumentosInscripcion();
+            try
+            {
+                String rfc = dataGridViewDocumentos.CurrentRow.Cells[0].Value.ToString();
+                DocumentosInscripcion documentos = control.consultarEntregaDocumentos(rfc);
+                if (documentos.tipoInscripcion == 2)
+                {
+                    FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(null);
+                    fa.FormClosed += new FormClosedEventHandler(form_Closed);
+                    fa.Show();
+                }
+                else if (documentos.tipoInscripcion == 1)
+                {
+                    FormDocumentosInscripcion fa = new FormDocumentosInscripcion(null);
+                    fa.FormClosed += new FormClosedEventHandler(form_Closed);
+                    fa.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void modificarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -137,31 +152,6 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             }
         }
 
-        private void consultarDocumentosInscripcion()
-        {
-            try
-            {
-                String rfc = dataGridViewDocumentos.CurrentRow.Cells[0].Value.ToString();
-                DocumentosInscripcion documentos = control.consultarEntregaDocumentos(rfc);
-                if (documentos.tipoInscripcion == 2)
-                {
-                    FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(null);
-                    fa.FormClosed += new FormClosedEventHandler(form_Closed);
-                    fa.Show();
-                }
-                else if (documentos.tipoInscripcion == 1)
-                {
-                    FormDocumentosInscripcion fa = new FormDocumentosInscripcion(null);
-                    fa.FormClosed += new FormClosedEventHandler(form_Closed);
-                    fa.Show();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             actualizarTablaDocumentosInscripcion(control.obtenerEntregaDocumentosTable(txtBuscarDocumentos.Text));
@@ -188,5 +178,6 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 }
             }
         }
+
     }
 }
