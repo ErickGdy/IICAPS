@@ -304,7 +304,9 @@
     <Content Include="img\Icons\plussW32.fw.png" />
     <Content Include="img\Icons\search.fw.png" />
     <Content Include="img\Icons\Trash.png" />
+    <Content Include="img\logoaltacalidad.jpg" />
     <Content Include="img\Materias.fw.png" />
+    <Content Include="img\piealtacalidad.jpg" />
     <Content Include="img\Programas.fw.png" />
     <None Include="img\Icons\+.png" />
     <None Include="img\RegistrarPago.png" />
