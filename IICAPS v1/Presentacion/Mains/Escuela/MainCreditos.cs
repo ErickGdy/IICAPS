@@ -50,13 +50,14 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 //Se asigna el datatable como origen de datos del datagridview
                 dataGridViewCreditos.DataSource = dtDatos;
                 //Actualiza el valor de la etiqueta donde se muestra el total de productos
-                dataGridViewCreditos.Columns[0].Width = 50;
-                dataGridViewCreditos.Columns[1].Width = 50;
-                dataGridViewCreditos.Columns[2].Width = 50;
-                dataGridViewCreditos.Columns[3].Width = 50;
-                dataGridViewCreditos.Columns[4].Width = 50;
-                dataGridViewCreditos.Columns[5].Width = 50;
-                dataGridViewCreditos.Columns[6].Width = 50;
+                if (dataGridViewCreditos.Columns.Count != 0)
+                {
+                    int x = (dataGridViewCreditos.Width - 20) / dataGridViewCreditos.Columns.Count;
+                    foreach (DataGridViewColumn aux in dataGridViewCreditos.Columns)
+                    {
+                        aux.Width = x;
+                    }
+                }
             }
             catch (Exception e)
             {

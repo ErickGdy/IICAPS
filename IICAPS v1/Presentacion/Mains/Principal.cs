@@ -198,5 +198,10 @@ namespace IICAPS.Presentacion.Mains
             form.Show();
             inhabilitarBoton("Documentación", "Alumno");
         }
+
+        private void btnListaAlumnosEscuela_Click(object sender, EventArgs e)
+        {
+            btnAlumno_Click(null, null);
+        }
     }
 }

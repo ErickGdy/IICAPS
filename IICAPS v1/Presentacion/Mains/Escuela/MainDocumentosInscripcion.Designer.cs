@@ -35,7 +35,6 @@
             this.menuTablaAlumnos = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.consultarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modificarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.darDeBajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtBuscarDocumentos = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.limpiarBusqueda = new System.Windows.Forms.LinkLabel();
@@ -54,13 +53,15 @@
             this.dataGridViewDocumentos.AllowUserToOrderColumns = true;
             this.dataGridViewDocumentos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewDocumentos.ContextMenuStrip = this.menuTablaAlumnos;
-            this.dataGridViewDocumentos.Location = new System.Drawing.Point(237, 138);
-            this.dataGridViewDocumentos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dataGridViewDocumentos.Location = new System.Drawing.Point(178, 112);
+            this.dataGridViewDocumentos.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridViewDocumentos.MultiSelect = false;
             this.dataGridViewDocumentos.Name = "dataGridViewDocumentos";
             this.dataGridViewDocumentos.ReadOnly = true;
             this.dataGridViewDocumentos.RowHeadersVisible = false;
             this.dataGridViewDocumentos.RowTemplate.Height = 24;
-            this.dataGridViewDocumentos.Size = new System.Drawing.Size(764, 338);
+            this.dataGridViewDocumentos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewDocumentos.Size = new System.Drawing.Size(573, 275);
             this.dataGridViewDocumentos.TabIndex = 0;
             // 
             // menuTablaAlumnos
@@ -68,46 +69,41 @@
             this.menuTablaAlumnos.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuTablaAlumnos.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.consultarToolStripMenuItem,
-            this.modificarToolStripMenuItem,
-            this.darDeBajaToolStripMenuItem});
+            this.modificarToolStripMenuItem});
             this.menuTablaAlumnos.Name = "menuTablaAlumnos";
-            this.menuTablaAlumnos.Size = new System.Drawing.Size(143, 76);
+            this.menuTablaAlumnos.Size = new System.Drawing.Size(153, 70);
             // 
             // consultarToolStripMenuItem
             // 
             this.consultarToolStripMenuItem.Name = "consultarToolStripMenuItem";
-            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(142, 24);
+            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.consultarToolStripMenuItem.Text = "Consultar";
             this.consultarToolStripMenuItem.Click += new System.EventHandler(this.consultarToolStripMenuItem_Click);
             // 
             // modificarToolStripMenuItem
             // 
             this.modificarToolStripMenuItem.Name = "modificarToolStripMenuItem";
-            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(142, 24);
+            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.modificarToolStripMenuItem.Text = "Modificar";
             this.modificarToolStripMenuItem.Click += new System.EventHandler(this.modificarToolStripMenuItem_Click);
-            // 
-            // darDeBajaToolStripMenuItem
-            // 
-            this.darDeBajaToolStripMenuItem.Name = "darDeBajaToolStripMenuItem";
-            this.darDeBajaToolStripMenuItem.Size = new System.Drawing.Size(142, 24);
             // 
             // txtBuscarDocumentos
             // 
             this.txtBuscarDocumentos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBuscarDocumentos.Location = new System.Drawing.Point(735, 101);
-            this.txtBuscarDocumentos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtBuscarDocumentos.Location = new System.Drawing.Point(551, 82);
+            this.txtBuscarDocumentos.Margin = new System.Windows.Forms.Padding(2);
             this.txtBuscarDocumentos.Name = "txtBuscarDocumentos";
-            this.txtBuscarDocumentos.Size = new System.Drawing.Size(265, 28);
+            this.txtBuscarDocumentos.Size = new System.Drawing.Size(200, 24);
             this.txtBuscarDocumentos.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(229, 55);
+            this.label1.Location = new System.Drawing.Point(172, 45);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(428, 39);
+            this.label1.Size = new System.Drawing.Size(342, 31);
             this.label1.TabIndex = 3;
             this.label1.Text = "Documentos de Inscripción";
             // 
@@ -120,9 +116,10 @@
             this.limpiarBusqueda.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.limpiarBusqueda.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.limpiarBusqueda.LinkColor = System.Drawing.Color.Gray;
-            this.limpiarBusqueda.Location = new System.Drawing.Point(971, 103);
+            this.limpiarBusqueda.Location = new System.Drawing.Point(728, 84);
+            this.limpiarBusqueda.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.limpiarBusqueda.Name = "limpiarBusqueda";
-            this.limpiarBusqueda.Size = new System.Drawing.Size(27, 25);
+            this.limpiarBusqueda.Size = new System.Drawing.Size(21, 20);
             this.limpiarBusqueda.TabIndex = 39;
             this.limpiarBusqueda.TabStop = true;
             this.limpiarBusqueda.Text = "X";
@@ -133,10 +130,10 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(696, 101);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pictureBox2.Location = new System.Drawing.Point(522, 82);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(32, 28);
+            this.pictureBox2.Size = new System.Drawing.Size(24, 23);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 38;
             this.pictureBox2.TabStop = false;
@@ -149,8 +146,7 @@
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(237, 101);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Location = new System.Drawing.Point(178, 82);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(30, 30);
             this.button1.TabIndex = 40;
@@ -168,10 +164,10 @@
             this.btnAgregar.ForeColor = System.Drawing.Color.White;
             this.btnAgregar.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregar.Image")));
             this.btnAgregar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAgregar.Location = new System.Drawing.Point(797, 55);
-            this.btnAgregar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnAgregar.Location = new System.Drawing.Point(598, 45);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(2);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(204, 39);
+            this.btnAgregar.Size = new System.Drawing.Size(153, 32);
             this.btnAgregar.TabIndex = 42;
             this.btnAgregar.Text = "Agregar Nuevo";
             this.btnAgregar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -180,10 +176,10 @@
             // 
             // MainDocumentosInscripcion
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1333, 571);
+            this.ClientSize = new System.Drawing.Size(1000, 464);
             this.ControlBox = false;
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.button1);
@@ -193,7 +189,7 @@
             this.Controls.Add(this.txtBuscarDocumentos);
             this.Controls.Add(this.dataGridViewDocumentos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainDocumentosInscripcion";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -219,7 +215,6 @@
         private System.Windows.Forms.ContextMenuStrip menuTablaAlumnos;
         private System.Windows.Forms.ToolStripMenuItem consultarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem modificarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem darDeBajaToolStripMenuItem;
         private System.Windows.Forms.Button btnAgregar;
     }
 }
