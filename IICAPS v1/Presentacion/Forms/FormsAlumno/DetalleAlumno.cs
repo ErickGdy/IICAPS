@@ -157,6 +157,7 @@ namespace IICAPS_v1.Presentacion
                             lblMensajeInscripciones.Text = "Alumno inscrito en el grupo " + group;
                         else
                             lblMensajeInscripciones.Text = "El alumno no se encuentra inscrito en ningún grupo";
+                        panelInscripcion.Visible = true;
                     }
                     catch (Exception ex) { }
                     break;
@@ -167,12 +168,12 @@ namespace IICAPS_v1.Presentacion
 
        
 
-        private void Main_SizeChanged(object sender, EventArgs e)
+        public void Main_SizeChanged(object sender, EventArgs e)
         {
             int ancho = this.Width;
             int alto = this.Height;
             //Actualiza el tamaño de la tabla con respecto al tamaño de la ventana
-            groupMenus.Location = new Point(ancho - 220, groupMenus.Location.Y);
+            groupMenus.Location = new Point(ancho - 223,groupMenus.Location.Y);
             panelCalificaciones.Size = new Size(ancho-420,alto - 130);
             panelDocumentacion.Size = new Size(ancho - 420, alto - 130);
             panelInformacionPersonal.Size = new Size(ancho - 420, alto - 130);
@@ -344,5 +345,20 @@ namespace IICAPS_v1.Presentacion
                 MessageBox.Show(ex.Message);
             }
         }
+        public void moverForms(int distancia)
+        {
+            lblCentroAlumnado.Location= new Point(lblCentroAlumnado.Location.X - distancia, lblCentroAlumnado.Location.Y);
+            lblNombreHeader.Location= new Point(lblNombreHeader.Location.X - distancia, lblNombreHeader.Location.Y);
+            lblProgramaHeader.Location= new Point(lblProgramaHeader.Location.X - distancia, lblProgramaHeader.Location.Y);
+            lblLineaHeader.Location= new Point(lblLineaHeader.Location.X - distancia, lblLineaHeader.Location.Y);
+            groupMenus.Location = new Point(groupMenus.Location.X - distancia, groupMenus.Location.Y);
+            panelCalificaciones.Location = new Point(panelCalificaciones.Location.X - distancia, panelCalificaciones.Location.Y);
+            panelDocumentacion.Location = new Point(panelDocumentacion.Location.X - distancia, panelDocumentacion.Location.Y);
+            panelInformacionPersonal.Location = new Point(panelInformacionPersonal.Location.X - distancia, panelInformacionPersonal.Location.Y);
+            panelInscripcion.Location = new Point(panelInscripcion.Location.X - distancia, panelInscripcion.Location.Y);
+            panelSituacionAcademica.Location = new Point(panelSituacionAcademica.Location.X - distancia, panelSituacionAcademica.Location.Y);
+        }
+
+
     }
 }

@@ -38,8 +38,8 @@
             this.groupMenus = new System.Windows.Forms.GroupBox();
             this.linkInscripciones = new System.Windows.Forms.LinkLabel();
             this.lblProgramaHeader = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblCentroAlumnado = new System.Windows.Forms.Label();
+            this.lblLineaHeader = new System.Windows.Forms.Label();
             this.panelCalificaciones = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -231,9 +231,9 @@
             this.groupMenus.Controls.Add(this.linkLabel3);
             this.groupMenus.Controls.Add(this.linkLabel2);
             this.groupMenus.Controls.Add(this.linkLabel1);
-            this.groupMenus.Location = new System.Drawing.Point(779, 93);
+            this.groupMenus.Location = new System.Drawing.Point(780, 93);
             this.groupMenus.Name = "groupMenus";
-            this.groupMenus.Size = new System.Drawing.Size(211, 203);
+            this.groupMenus.Size = new System.Drawing.Size(210, 203);
             this.groupMenus.TabIndex = 47;
             this.groupMenus.TabStop = false;
             this.groupMenus.Text = "Menú";
@@ -260,26 +260,26 @@
             this.lblProgramaHeader.TabIndex = 48;
             this.lblProgramaHeader.Text = "Alumno no inscrito en algun programa";
             // 
-            // label2
+            // lblCentroAlumnado
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(180, 9);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(261, 31);
-            this.label2.TabIndex = 49;
-            this.label2.Text = "Centro de Alumnado";
+            this.lblCentroAlumnado.AutoSize = true;
+            this.lblCentroAlumnado.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCentroAlumnado.Location = new System.Drawing.Point(180, 9);
+            this.lblCentroAlumnado.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCentroAlumnado.Name = "lblCentroAlumnado";
+            this.lblCentroAlumnado.Size = new System.Drawing.Size(261, 31);
+            this.lblCentroAlumnado.TabIndex = 49;
+            this.lblCentroAlumnado.Text = "Centro de Alumnado";
             // 
-            // label3
+            // lblLineaHeader
             // 
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Underline);
-            this.label3.Location = new System.Drawing.Point(181, 80);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(1010, 10);
-            this.label3.TabIndex = 50;
-            this.label3.Text = resources.GetString("label3.Text");
+            this.lblLineaHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Underline);
+            this.lblLineaHeader.Location = new System.Drawing.Point(181, 80);
+            this.lblLineaHeader.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblLineaHeader.Name = "lblLineaHeader";
+            this.lblLineaHeader.Size = new System.Drawing.Size(1010, 10);
+            this.lblLineaHeader.TabIndex = 50;
+            this.lblLineaHeader.Text = resources.GetString("lblLineaHeader.Text");
             // 
             // panelCalificaciones
             // 
@@ -1381,9 +1381,9 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1002, 551);
             this.Controls.Add(this.groupMenus);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblCentroAlumnado);
             this.Controls.Add(this.lblNombreHeader);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblLineaHeader);
             this.Controls.Add(this.lblProgramaHeader);
             this.Controls.Add(this.panelInscripcion);
             this.Controls.Add(this.panelCalificaciones);
@@ -1432,8 +1432,8 @@
     private System.Windows.Forms.LinkLabel linkLabel5;
     private System.Windows.Forms.GroupBox groupMenus;
     private System.Windows.Forms.Label lblProgramaHeader;
-    private System.Windows.Forms.Label label2;
-    private System.Windows.Forms.Label label3;
+    private System.Windows.Forms.Label lblCentroAlumnado;
+    private System.Windows.Forms.Label lblLineaHeader;
     private System.Windows.Forms.Panel panelCalificaciones;
     private System.Windows.Forms.Label label10;
     private System.Windows.Forms.TabControl tabControl1;
