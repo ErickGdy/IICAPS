@@ -55,11 +55,13 @@
             this.dataGridViewCreditos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCreditos.ContextMenuStrip = this.menuTablaAlumnos;
             this.dataGridViewCreditos.Location = new System.Drawing.Point(178, 112);
-            this.dataGridViewCreditos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridViewCreditos.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridViewCreditos.MultiSelect = false;
             this.dataGridViewCreditos.Name = "dataGridViewCreditos";
             this.dataGridViewCreditos.ReadOnly = true;
             this.dataGridViewCreditos.RowHeadersVisible = false;
             this.dataGridViewCreditos.RowTemplate.Height = 24;
+            this.dataGridViewCreditos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewCreditos.Size = new System.Drawing.Size(573, 275);
             this.dataGridViewCreditos.TabIndex = 0;
             // 
@@ -96,7 +98,7 @@
             // 
             this.txtBuscarCredito.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBuscarCredito.Location = new System.Drawing.Point(551, 82);
-            this.txtBuscarCredito.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBuscarCredito.Margin = new System.Windows.Forms.Padding(2);
             this.txtBuscarCredito.Name = "txtBuscarCredito";
             this.txtBuscarCredito.Size = new System.Drawing.Size(200, 24);
             this.txtBuscarCredito.TabIndex = 2;
@@ -170,7 +172,7 @@
             this.btnAgregar.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregar.Image")));
             this.btnAgregar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAgregar.Location = new System.Drawing.Point(598, 45);
-            this.btnAgregar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(2);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(153, 32);
             this.btnAgregar.TabIndex = 42;
@@ -194,7 +196,7 @@
             this.Controls.Add(this.txtBuscarCredito);
             this.Controls.Add(this.dataGridViewCreditos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainCreditos";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;

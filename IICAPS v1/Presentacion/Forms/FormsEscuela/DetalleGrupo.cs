@@ -26,6 +26,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             control = ControlIicaps.getInstance();
             this.grupo = gru;
             lblNombreGrupo.Text = grupo.codigo + " - " + grupo.generacion;
+            this.Text = lblNombreGrupo.Text;
             try
             {
                 actualizarTabla(control.obtenerAlumnosGruposTable(grupo.codigo));
@@ -78,25 +79,14 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         {
             try
             {
-                String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                Grupo grupo = control.consultarGrupo(id);
-                MessageBox.Show("Reporte referente al grupo "+ grupo.codigo);
-                //FormPrograma fa = new FormPrograma(programa);
-                //fa.FormClosed += new FormClosedEventHandler(form_Closed);
-                //fa.Show();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-        private void modificarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                Grupo grupo = control.consultarGrupo(id);
-                FormGrupos fa = new FormGrupos(grupo);
+                String id = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                Alumno alu = control.consultarAlumno(id);
+                //MessageBox.Show("Reporte referente al grupo "+ grupo.codigo);
+                FormDetalleAlumno fa = new FormDetalleAlumno(alu);
+                fa.FormBorderStyle = FormBorderStyle.FixedToolWindow;
+                fa.SizeChanged -= new System.EventHandler(fa.Main_SizeChanged);
+                fa.moverForms(170);
+                fa.Width = fa.Width - 150;
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
             }
@@ -105,11 +95,15 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 MessageBox.Show(ex.Message);
             }
         }
-        private void cancelarToolStripMenuItem_Click(object sender, EventArgs e)
+        private void quitarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void cambiarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
-                String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                String id = dataGridView1.CurrentRow.Cells[1].Value.ToString();
                 DialogResult dialogresult = MessageBox.Show("¿Desea calcelar el grupo?", "Cancelar grupo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if(dialogresult == DialogResult.OK)
                 {
@@ -148,13 +142,13 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         {
             int ancho = this.Width;
             //Actualiza el tamaño de la tabla con respecto al tamaño de la ventana
-            dataGridView1.Width= ancho - 195;
-            dataGridView1.Height=this.Height - 130;
+            dataGridView1.Width = ancho - 50;
+            dataGridView1.Height = this.Height - 155;
             //actualiza la posicion de los controles con respecto al tamaño de la ventana
-            btnAgregar.Location = new Point (ancho - 180, btnAgregar.Location.Y);
-            txtBuscar.Location = new Point (ancho - 216, txtBuscar.Location.Y);
-            pictureBoxBuscar.Location = new Point (ancho - 245, pictureBoxBuscar.Location.Y);
-            limpiarBusqueda.Location = new Point (ancho - 39, limpiarBusqueda.Location.Y);
+            btnAgregar.Location = new Point (ancho - 195, btnAgregar.Location.Y);
+            txtBuscar.Location = new Point (ancho - 230, txtBuscar.Location.Y);
+            pictureBoxBuscar.Location = new Point (ancho - 260, pictureBoxBuscar.Location.Y);
+            limpiarBusqueda.Location = new Point (ancho - 55, limpiarBusqueda.Location.Y);
             //Actualiza el valor del ancho de la columnas
             if (dataGridView1.Columns.Count != 0)
             {
@@ -197,5 +191,17 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             }
            
         }
+
+        private void pasarListaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void imprimirListaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+     
     }
 }
