@@ -350,6 +350,7 @@
             this.btnPagosAlumno.Text = "Pagos";
             this.btnPagosAlumno.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnPagosAlumno.UseVisualStyleBackColor = true;
+            this.btnPagosAlumno.Click += new System.EventHandler(this.btnPagosAlumno_Click);
             // 
             // btnRegistroAlumno
             // 

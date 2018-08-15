@@ -83,7 +83,7 @@
             "6 Fotografías"});
             this.checkedListBox1.Location = new System.Drawing.Point(18, 212);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(353, 137);
+            this.checkedListBox1.Size = new System.Drawing.Size(365, 137);
             this.checkedListBox1.TabIndex = 3;
             // 
             // cmbPrograma
@@ -153,7 +153,7 @@
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(0, -7);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(559, 124);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -164,7 +164,7 @@
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(-4, 427);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(565, 98);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -201,7 +201,7 @@
             this.cmbIDRecibio.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbIDRecibio.FormattingEnabled = true;
             this.cmbIDRecibio.Location = new System.Drawing.Point(506, 356);
-            this.cmbIDRecibio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbIDRecibio.Margin = new System.Windows.Forms.Padding(2);
             this.cmbIDRecibio.Name = "cmbIDRecibio";
             this.cmbIDRecibio.Size = new System.Drawing.Size(34, 26);
             this.cmbIDRecibio.TabIndex = 71;
@@ -212,7 +212,7 @@
             this.cmbIDAlumno.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbIDAlumno.FormattingEnabled = true;
             this.cmbIDAlumno.Location = new System.Drawing.Point(506, 178);
-            this.cmbIDAlumno.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbIDAlumno.Margin = new System.Windows.Forms.Padding(2);
             this.cmbIDAlumno.Name = "cmbIDAlumno";
             this.cmbIDAlumno.Size = new System.Drawing.Size(34, 26);
             this.cmbIDAlumno.TabIndex = 70;
@@ -223,7 +223,7 @@
             this.cmbIDPrograma.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbIDPrograma.FormattingEnabled = true;
             this.cmbIDPrograma.Location = new System.Drawing.Point(506, 147);
-            this.cmbIDPrograma.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbIDPrograma.Margin = new System.Windows.Forms.Padding(2);
             this.cmbIDPrograma.Name = "cmbIDPrograma";
             this.cmbIDPrograma.Size = new System.Drawing.Size(34, 26);
             this.cmbIDPrograma.TabIndex = 69;

@@ -518,22 +518,28 @@ namespace IICAPS_v1.Control
 
         //-------------------------------PAGOS--------------------------------------//
 
-        public MySqlDataAdapter obtenerPagosCreditoAlumnoTable(string rfc, string credito)
+        public bool agregarPago(Pago pago)
         {
             try
             {
                 conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "INSERT INTO pagosAlumno (AlumnoID, FechaPago, Cantidad, Concepto, Observaciones, Recibio) VALUES ('"
+                    + pago.alumnoID + "', '" + pago.fechaPago + "', " + pago.cantidad + ", '" + pago.concepto + "', '"
+                    + pago.observaciones + "', '" + pago.recibio + "')";
                 conn.Open();
                 try
                 {
-                    string sqlString = "SELECT ID, FechaPago AS 'Fecha de Pago', Cantidad, Observaciones FROM pagosAlumno WHERE creditoID='" + credito + "' AND alumnoID='" + rfc + "'";
-                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, conn);
+                    int rowsAfected = cmd.ExecuteNonQuery();
                     conn.Close();
-                    return mdaDatos;
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
                 }
-                catch (Exception e)
+                catch (Exception E)
                 {
-                    throw new Exception("Error al obtener los datos de los pagos del credito del alumno");
+                    throw new Exception("Error al agregar el pago del alumno a la base d datos");
                 }
             }
             catch (Exception e)
@@ -542,7 +548,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-        public MySqlDataAdapter obtenerPagosColegiaturaAlumnoTable(string rfc)
+        public MySqlDataAdapter obtenerPagosTable()
         {
             try
             {
@@ -550,14 +556,139 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    string sqlString = "SELECT ID, fechaPago AS 'Fecha de Pago', cantidad AS 'Cantidad', observaciones AS 'Observaciones' FROM pagoscolegiaturaalumno WHERE alumnoID='" + rfc + "'";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno", conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de los pagos de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerPagosTable(string parameter)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT * FROM pagosAlumno WHERE" +
+                        "(AlumnoID LIKE '%" + parameter + "%' or " +
+                        "Cantidad LIKE '%" + parameter + "%' or " +
+                        "Concepto LIKE '%" + parameter + "%' or " +
+                        "Recibio LIKE '%" + parameter + "%')";
                     MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, conn);
                     conn.Close();
                     return mdaDatos;
                 }
                 catch (Exception e)
                 {
-                    throw new Exception("Error al obtener los datos de los pagos de la colegiatura del alumno");
+                    throw new Exception("Error al obtener los datos de los pagos de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public Pago consultarPago(string id)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM pagosAlumno WHERE ID='" + id + "'";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Pago pago = new Pago();
+                        pago.id = reader.GetInt32(0);
+                        pago.alumnoID = reader.GetString(1);
+                        pago.fechaPago = reader.GetDateTime(2);
+                        pago.cantidad = reader.GetInt32(3);
+                        pago.concepto = reader.GetString(4);
+                        pago.observaciones = reader.GetString(5);
+                        pago.recibio = reader.GetString(6);
+                        conn.Close();
+                        return pago;
+                    }
+                    conn.Close();
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos del pago de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        
+        public MySqlDataAdapter obtenerPagosAlumnoTable(String rfc, string concepto)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID='" + rfc + "' AND Concepto='" + concepto + "'", conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de los pagos del alumno de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+
+        public List<String> obtenerConceptosDePago()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM conceptosDePago";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<String> aux = new List<String>();
+                    while (reader.Read())
+                    {
+                        String c = "";
+                        c = reader.GetString(0);
+                        aux.Add(c);
+                    }
+                    conn.Close();
+                    if (aux.Count != 0)
+                        return aux;
+                    else
+                        return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de los conceptos de pago de la base de datos");
                 }
             }
             catch (Exception e)
@@ -1476,7 +1607,7 @@ namespace IICAPS_v1.Control
                     + "CedProfCop, SolicitudOpcionTitulacion, CertificadoLicCop, ConstanciaLibSSOrg, Curp, Fotografias, RecibioEmpleado, TipoInscripcion  ) VALUES ('"
                     + doc.alumno + "', " + doc.actaNacimientoOrg + ", " + doc.actaNacimientoCop + ", " + doc.tituloCedulaOrg + ", " + doc.tituloLicCop + ", "
                     + doc.cedProfCop + ", " + doc.solicitudOpcTitulacion + ", " + doc.certificadoLicCop + ", " + doc.constanciaLibSSOrg + ", " + doc.curp + ", "
-                    + doc.fotografias + ", '" + doc.recibioEmpleado + "', "+ doc.tipoInscripcion +")";
+                    + doc.fotografias + ", '" + doc.recibioEmpleado + "', "+ doc.tipoInscripcion +");";
                 conn.Open();
                 try
                 {
