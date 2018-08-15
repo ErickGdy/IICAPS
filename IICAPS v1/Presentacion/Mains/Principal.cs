@@ -203,5 +203,14 @@ namespace IICAPS.Presentacion.Mains
         {
             btnAlumno_Click(null, null);
         }
+
+        private void btnPagosAlumno_Click(object sender, EventArgs e)
+        {
+            minimizeForms();
+            MainPagos form = MainPagos.getInstance();
+            configurarForm(form);
+            form.Show();
+            inhabilitarBoton("Pagos", "Alumno");
+        }
     }
 }

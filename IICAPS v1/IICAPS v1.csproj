@@ -50,13 +50,12 @@
     <Compile Include="Control\DocumentosWord.cs" />
     <Compile Include="DataObject\Empleados.cs" />
     <Compile Include="DataObject\Grupo.cs" />
+    <Compile Include="DataObject\Pago.cs" />
     <Compile Include="DataObject\Programa.cs" />
     <Compile Include="DataObject\Materia.cs" />
     <Compile Include="DataObject\Alumno.cs" />
     <Compile Include="DataObject\CreditoAlumno.cs" />
     <Compile Include="DataObject\DocumentosInscripcion.cs" />
-    <Compile Include="DataObject\PagosColegiaturaAlumnos.cs" />
-    <Compile Include="DataObject\PagosCreditoAlumnos.cs" />
     <Compile Include="DataObject\Usuarios.cs" />
     <Compile Include="Presentacion\Forms\FormsAlumno\Alumnos.cs">
       <SubType>Form</SubType>
@@ -172,6 +171,12 @@
     <Compile Include="Presentacion\Mains\Escuela\MainGrupos.Designer.cs">
       <DependentUpon>MainGrupos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentacion\Mains\Escuela\MainPagos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Escuela\MainPagos.Designer.cs">
+      <DependentUpon>MainPagos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Mains\Escuela\MainProgramas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -190,11 +195,11 @@
     <Compile Include="Presentacion\Mains\Principal.designer.cs">
       <DependentUpon>Principal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentacion\Forms\FormsAlumno\registrarPago.cs">
+    <Compile Include="Presentacion\Forms\FormsAlumno\FormRegistrarPago.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentacion\Forms\FormsAlumno\registrarPago.Designer.cs">
-      <DependentUpon>registrarPago.cs</DependentUpon>
+    <Compile Include="Presentacion\Forms\FormsAlumno\FormRegistrarPago.Designer.cs">
+      <DependentUpon>FormRegistrarPago.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -255,6 +260,9 @@
     <EmbeddedResource Include="Presentacion\Mains\Escuela\MainGrupos.resx">
       <DependentUpon>MainGrupos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Mains\Escuela\MainPagos.resx">
+      <DependentUpon>MainPagos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Mains\Escuela\MainProgramas.resx">
       <DependentUpon>MainProgramas.cs</DependentUpon>
     </EmbeddedResource>
@@ -264,8 +272,8 @@
     <EmbeddedResource Include="Presentacion\Mains\Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\registrarPago.resx">
-      <DependentUpon>registrarPago.cs</DependentUpon>
+    <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\FormRegistrarPago.resx">
+      <DependentUpon>FormRegistrarPago.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
