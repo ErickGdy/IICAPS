@@ -16,7 +16,8 @@ namespace IICAPS_v1.Presentacion
     {
         ControlIicaps control;
         bool modificacion = false;
-        public CreditoAlumnos(CreditoAlumno c)
+        double varaux1 = 0, varaux2 = 0;
+        public CreditoAlumnos(CreditoAlumno c, bool consultar)
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
@@ -32,16 +33,25 @@ namespace IICAPS_v1.Presentacion
             }
             cmbIDPrograma.Items.AddRange(auxIDPrograma.ToArray());
             cmbPrograma.Items.AddRange(auxPrograma.ToArray());
+            numCantidad.Enabled = false;
             if (c != null)
             {
                 modificacion = true;
-                cmbPrograma.SelectedItem = control.obtenerProgramaAlumno(c.alumno);
-                cmbAlumno.SelectedItem = c.alumno;
-                cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
-                cmbIDAlumno.SelectedIndex = cmbAlumno.SelectedIndex;
+                cmbIDPrograma.SelectedItem = control.obtenerProgramaAlumno(c.alumno);
+                cmbPrograma.SelectedIndex = cmbIDPrograma.SelectedIndex;
+                cmbIDAlumno.SelectedItem = c.alumno;                
+                cmbAlumno.SelectedIndex = cmbIDAlumno.SelectedIndex;
                 numMensualidad.Value = Convert.ToDecimal(c.cantidadMensualidad);
                 numCantidad.Value = c.cantidadMeses;
                 txtObservaciones.Text = c.observaciones;
+                if (consultar)
+                {
+                    cmbPrograma.Enabled = false;
+                    cmbAlumno.Enabled = false;
+                    numMensualidad.Enabled = false;
+                    txtObservaciones.Enabled = false;
+                    btnCalcular.Enabled = false;
+                }
             }
         }
 
@@ -88,13 +98,16 @@ namespace IICAPS_v1.Presentacion
             numCantidad.Value = Convert.ToDecimal(aux1);
             double var1 = costoCredito / Convert.ToDouble(numCantidad.Value);
             double var2 = totalmaterias / Convert.ToDouble(numCantidad.Value);
+            varaux1 = var1;
+            varaux2 = var2;
             lblCredito.Text = lblCredito.Text + var1.ToString();
             lblMensualidad.Text = lblMensualidad.Text + var2.ToString();
+            
         }
 
         private bool validarCampos()
         {
-            if (cmbPrograma.SelectedItem != null && cmbAlumno.SelectedItem != null && numMensualidad.Value != 0 && numCantidad.Value != 0 && txtObservaciones.Text != "")
+            if (numMensualidad.Value != 0 && numCantidad.Value != 0 && txtObservaciones.Text != "")
                 return true;
             return false;
         }
@@ -106,22 +119,31 @@ namespace IICAPS_v1.Presentacion
                 cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
                 cmbIDAlumno.SelectedIndex = cmbAlumno.SelectedIndex;
                 CreditoAlumno c = new CreditoAlumno();
-                c.alumno = cmbAlumno.SelectedItem.ToString();
+                c.alumno = cmbIDAlumno.SelectedItem.ToString();
                 c.cantidadMensualidad = Convert.ToDouble(numMensualidad.Value);
                 c.cantidadMeses = Convert.ToInt32(numCantidad.Value);
                 c.observaciones = txtObservaciones.Text;
+                c.cantidadAbonoCredito = varaux1;
+                c.cantidadAbonoMensual = varaux2;
+                c.estado = "Aprobado";
                 if (modificacion)
                 {
-                    c.alumno = cmbAlumno.SelectedItem.ToString();
+                    c.alumno = cmbIDAlumno.SelectedItem.ToString();
                     if (control.actualizarCredito(c))
+                    {
+                        DocumentosWord word = new DocumentosWord(c);
                         return true;
+                    }
                     else
                         throw new Exception("Error al actualizar los datos del credito");
                 }
                 else
                 {
                     if (control.agregarCreditoAlumno(c))
+                    {
+                        DocumentosWord word = new DocumentosWord(c);
                         return true;
+                    }
                     else
                         throw new Exception("Error al agregar el credito");
                 }

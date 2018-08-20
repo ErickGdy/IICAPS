@@ -40,6 +40,8 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.lblFecha = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.cmbIDAlumno = new System.Windows.Forms.ComboBox();
+            this.cmbIDPrograma = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -52,7 +54,7 @@
             this.cmbPrograma.Location = new System.Drawing.Point(244, 169);
             this.cmbPrograma.Margin = new System.Windows.Forms.Padding(4);
             this.cmbPrograma.Name = "cmbPrograma";
-            this.cmbPrograma.Size = new System.Drawing.Size(481, 30);
+            this.cmbPrograma.Size = new System.Drawing.Size(440, 30);
             this.cmbPrograma.TabIndex = 1;
             this.cmbPrograma.SelectedIndexChanged += new System.EventHandler(this.cmbPrograma_SelectedIndexChanged);
             // 
@@ -72,10 +74,13 @@
             this.cmbTipoDocumento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTipoDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbTipoDocumento.FormattingEnabled = true;
+            this.cmbTipoDocumento.Items.AddRange(new object[] {
+            "Constancia",
+            "Kardex"});
             this.cmbTipoDocumento.Location = new System.Drawing.Point(244, 244);
             this.cmbTipoDocumento.Margin = new System.Windows.Forms.Padding(4);
             this.cmbTipoDocumento.Name = "cmbTipoDocumento";
-            this.cmbTipoDocumento.Size = new System.Drawing.Size(480, 30);
+            this.cmbTipoDocumento.Size = new System.Drawing.Size(440, 30);
             this.cmbTipoDocumento.TabIndex = 3;
             // 
             // label5
@@ -109,7 +114,7 @@
             this.cmbAlumno.Location = new System.Drawing.Point(244, 207);
             this.cmbAlumno.Margin = new System.Windows.Forms.Padding(4);
             this.cmbAlumno.Name = "cmbAlumno";
-            this.cmbAlumno.Size = new System.Drawing.Size(480, 30);
+            this.cmbAlumno.Size = new System.Drawing.Size(440, 30);
             this.cmbAlumno.TabIndex = 2;
             // 
             // label1
@@ -172,12 +177,36 @@
             this.label3.TabIndex = 35;
             this.label3.Text = "Fecha:";
             // 
+            // cmbIDAlumno
+            // 
+            this.cmbIDAlumno.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbIDAlumno.FormattingEnabled = true;
+            this.cmbIDAlumno.Location = new System.Drawing.Point(691, 207);
+            this.cmbIDAlumno.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cmbIDAlumno.Name = "cmbIDAlumno";
+            this.cmbIDAlumno.Size = new System.Drawing.Size(45, 30);
+            this.cmbIDAlumno.TabIndex = 68;
+            this.cmbIDAlumno.Visible = false;
+            // 
+            // cmbIDPrograma
+            // 
+            this.cmbIDPrograma.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.cmbIDPrograma.FormattingEnabled = true;
+            this.cmbIDPrograma.Location = new System.Drawing.Point(691, 169);
+            this.cmbIDPrograma.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cmbIDPrograma.Name = "cmbIDPrograma";
+            this.cmbIDPrograma.Size = new System.Drawing.Size(45, 30);
+            this.cmbIDPrograma.TabIndex = 67;
+            this.cmbIDPrograma.Visible = false;
+            // 
             // ImpresionDocumentos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(747, 453);
+            this.Controls.Add(this.cmbIDAlumno);
+            this.Controls.Add(this.cmbIDPrograma);
             this.Controls.Add(this.lblFecha);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.pictureBox2);
@@ -211,5 +240,7 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label lblFecha;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cmbIDAlumno;
+        private System.Windows.Forms.ComboBox cmbIDPrograma;
     }
 }
