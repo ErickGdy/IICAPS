@@ -54,7 +54,9 @@
     <Compile Include="Control\ControlIicaps.cs" />
     <Compile Include="Control\DataGridViewPrinter.cs" />
     <Compile Include="Control\DocumentosWord.cs" />
+    <Compile Include="DataObject\TallerAsistente.cs" />
     <Compile Include="DataObject\Empleados.cs" />
+    <Compile Include="DataObject\Taller.cs" />
     <Compile Include="DataObject\Grupo.cs" />
     <Compile Include="DataObject\Pago.cs" />
     <Compile Include="DataObject\PaseDeLista.cs" />
@@ -107,11 +109,29 @@
     <Compile Include="Presentacion\Forms\FormsAlumno\DetalleAlumno.Designer.cs">
       <DependentUpon>DetalleAlumno.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\DetalleTaller.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\DetalleTaller.Designer.cs">
+      <DependentUpon>DetalleTaller.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Forms\FormsEscuela\DetalleGrupoListas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Presentacion\Forms\FormsEscuela\DetalleGrupoListas.Designer.cs">
       <DependentUpon>DetalleGrupoListas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\FormInscricionTaller.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\FormInscricionTaller.Designer.cs">
+      <DependentUpon>FormInscricionTaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\FormTalleres.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\FormTalleres.Designer.cs">
+      <DependentUpon>FormTalleres.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Forms\FormsEscuela\FormInscricionGrupos.cs">
       <SubType>Form</SubType>
@@ -172,6 +192,12 @@
     </Compile>
     <Compile Include="Presentacion\Mains\Escuela\MainCreditos.Designer.cs">
       <DependentUpon>MainCreditos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Escuela\MainTalleres.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Escuela\MainTalleres.Designer.cs">
+      <DependentUpon>MainTalleres.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Mains\Escuela\MainMaterias.cs">
       <SubType>Form</SubType>
@@ -238,8 +264,17 @@
     <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\DetalleAlumno.resx">
       <DependentUpon>DetalleAlumno.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\DetalleTaller.resx">
+      <DependentUpon>DetalleTaller.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\DetalleGrupoListas.resx">
       <DependentUpon>DetalleGrupoListas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\FormInscricionTaller.resx">
+      <DependentUpon>FormInscricionTaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\FormTalleres.resx">
+      <DependentUpon>FormTalleres.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\FormInscricionGrupos.resx">
       <DependentUpon>FormInscricionGrupos.cs</DependentUpon>
@@ -270,6 +305,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Mains\Escuela\MainCreditos.resx">
       <DependentUpon>MainCreditos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Mains\Escuela\MainTalleres.resx">
+      <DependentUpon>MainTalleres.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Mains\Escuela\MainMaterias.resx">
       <DependentUpon>MainMaterias.cs</DependentUpon>
