@@ -30,6 +30,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainAlumnos));
             this.dataGridViewAlumnos = new System.Windows.Forms.DataGridView();
             this.menuTablaAlumnos = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -53,6 +55,9 @@
             this.dataGridViewAlumnos.AllowUserToAddRows = false;
             this.dataGridViewAlumnos.AllowUserToDeleteRows = false;
             this.dataGridViewAlumnos.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            this.dataGridViewAlumnos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewAlumnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAlumnos.ContextMenuStrip = this.menuTablaAlumnos;
             this.dataGridViewAlumnos.Location = new System.Drawing.Point(237, 138);
@@ -60,6 +65,9 @@
             this.dataGridViewAlumnos.Name = "dataGridViewAlumnos";
             this.dataGridViewAlumnos.ReadOnly = true;
             this.dataGridViewAlumnos.RowHeadersVisible = false;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            this.dataGridViewAlumnos.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewAlumnos.RowTemplate.Height = 24;
             this.dataGridViewAlumnos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAlumnos.Size = new System.Drawing.Size(764, 338);

@@ -67,9 +67,9 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            FormInscricionGrupos fa = new FormInscricionGrupos(this.grupo.codigo);
+            FormInscricionGrupos fa = new FormInscricionGrupos(this.grupo.codigo, null);
             fa.FormClosed += new FormClosedEventHandler(form_Closed);
-            fa.Show();
+            fa.ShowDialog();
         }
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
@@ -88,7 +88,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 fa.moverForms(170);
                 fa.Width = fa.Width - 150;
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
-                fa.Show();
+                fa.ShowDialog();
             }
             catch (Exception ex)
             {
@@ -97,24 +97,34 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         }
         private void quitarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                String id = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                DialogResult dialogresult = MessageBox.Show("¿Desea remover al alumno del grupo?", "Remover Alumno", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (dialogresult == DialogResult.OK)
+                {
+                    if (control.quitarAlumnoDeGrupo(this.grupo.codigo, id))
+                    {
+                        MessageBox.Show("Alumno removido");
+                        actualizarTabla(control.obtenerAlumnosGruposTable(grupo.codigo, txtBuscar.Text));
+                    }
+                    else
+                        MessageBox.Show("Error al remover alumno");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         private void cambiarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                DialogResult dialogresult = MessageBox.Show("¿Desea calcelar el grupo?", "Cancelar grupo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                if(dialogresult == DialogResult.OK)
-                {
-                    if (control.desactivarGrupo(id))
-                    {
-                        MessageBox.Show("Grupo cancelado");
-                        actualizarTabla(control.obtenerGruposTable());
-                    }
-                    else
-                        MessageBox.Show("Error al cancelar grupo");
-                }
+                FormInscricionGrupos fa = new FormInscricionGrupos(null, id);
+                fa.FormClosed += new FormClosedEventHandler(form_Closed);
+                fa.ShowDialog();
             }
             catch (Exception ex)
             {
@@ -192,16 +202,12 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
            
         }
 
-        private void pasarListaToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void listasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            DetalleGrupoListas dtg = new DetalleGrupoListas(this.grupo);
+            dtg.Show();
+            this.Close();
         }
-
-        private void imprimirListaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-     
     }
 }

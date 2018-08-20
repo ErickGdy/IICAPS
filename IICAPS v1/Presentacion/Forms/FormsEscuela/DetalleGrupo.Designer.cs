@@ -30,6 +30,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DetalleGrupo));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.menuTablaAlumnos = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -45,8 +48,6 @@
             this.lblNombreGrupo = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.listasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pasarListaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.imprimirListaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuTablaAlumnos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBuscar)).BeginInit();
@@ -58,13 +59,27 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.ContextMenuStrip = this.menuTablaAlumnos;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.Location = new System.Drawing.Point(20, 101);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(814, 350);
@@ -78,26 +93,26 @@
             this.cancelarToolStripMenuItem,
             this.quitarToolStripMenuItem});
             this.menuTablaAlumnos.Name = "menuTablaAlumnos";
-            this.menuTablaAlumnos.Size = new System.Drawing.Size(153, 92);
+            this.menuTablaAlumnos.Size = new System.Drawing.Size(126, 70);
             // 
             // consultarToolStripMenuItem
             // 
             this.consultarToolStripMenuItem.Name = "consultarToolStripMenuItem";
-            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.consultarToolStripMenuItem.Text = "Consultar";
             this.consultarToolStripMenuItem.Click += new System.EventHandler(this.consultarToolStripMenuItem_Click);
             // 
             // cancelarToolStripMenuItem
             // 
             this.cancelarToolStripMenuItem.Name = "cancelarToolStripMenuItem";
-            this.cancelarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cancelarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.cancelarToolStripMenuItem.Text = "Cambiar";
             this.cancelarToolStripMenuItem.Click += new System.EventHandler(this.cambiarToolStripMenuItem_Click);
             // 
             // quitarToolStripMenuItem
             // 
             this.quitarToolStripMenuItem.Name = "quitarToolStripMenuItem";
-            this.quitarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.quitarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.quitarToolStripMenuItem.Text = "Quitar";
             this.quitarToolStripMenuItem.Click += new System.EventHandler(this.quitarToolStripMenuItem_Click);
             // 
@@ -216,29 +231,11 @@
             // listasToolStripMenuItem
             // 
             this.listasToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.listasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pasarListaToolStripMenuItem,
-            this.imprimirListaToolStripMenuItem});
             this.listasToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("listasToolStripMenuItem.Image")));
             this.listasToolStripMenuItem.Name = "listasToolStripMenuItem";
             this.listasToolStripMenuItem.Size = new System.Drawing.Size(77, 25);
             this.listasToolStripMenuItem.Text = "Listas";
-            // 
-            // pasarListaToolStripMenuItem
-            // 
-            this.pasarListaToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("pasarListaToolStripMenuItem.Image")));
-            this.pasarListaToolStripMenuItem.Name = "pasarListaToolStripMenuItem";
-            this.pasarListaToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
-            this.pasarListaToolStripMenuItem.Text = "Pasar Lista";
-            this.pasarListaToolStripMenuItem.Click += new System.EventHandler(this.pasarListaToolStripMenuItem_Click);
-            // 
-            // imprimirListaToolStripMenuItem
-            // 
-            this.imprimirListaToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("imprimirListaToolStripMenuItem.Image")));
-            this.imprimirListaToolStripMenuItem.Name = "imprimirListaToolStripMenuItem";
-            this.imprimirListaToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
-            this.imprimirListaToolStripMenuItem.Text = "Imprimir Lista";
-            this.imprimirListaToolStripMenuItem.Click += new System.EventHandler(this.imprimirListaToolStripMenuItem_Click);
+            this.listasToolStripMenuItem.Click += new System.EventHandler(this.listasToolStripMenuItem_Click);
             // 
             // DetalleGrupo
             // 
@@ -262,7 +259,7 @@
             this.Name = "DetalleGrupo";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Grupo";
+            this.Text = "00";
             this.SizeChanged += new System.EventHandler(this.Main_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.menuTablaAlumnos.ResumeLayout(false);
@@ -289,8 +286,6 @@
         private System.Windows.Forms.Label lblNombreGrupo;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem listasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pasarListaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem imprimirListaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quitarToolStripMenuItem;
     }
 }
