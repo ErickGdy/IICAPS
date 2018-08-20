@@ -141,7 +141,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                     if (control.cancelarPago(id))
                     {
                         MessageBox.Show("Pago cancelado");
-                        actualizarTablaPagos(control.obtenerAlumnosTable());
+                        actualizarTablaPagos(control.obtenerPagosTable());
                     }
                     else
                         MessageBox.Show("Error al cancelar el pago");

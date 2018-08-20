@@ -17,7 +17,7 @@ namespace IICAPS_v1.Presentacion
         ControlIicaps control;
         DocumentosInscripcion documentacion;
         bool modificacion = false;
-        public FormDocumentosInscripcionTitulacionLicenciatura(DocumentosInscripcion doc)
+        public FormDocumentosInscripcionTitulacionLicenciatura(DocumentosInscripcion doc, bool consulta)
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
@@ -66,6 +66,13 @@ namespace IICAPS_v1.Presentacion
                     checkedListBox1.SetItemChecked(5, true);
                 if (documentacion.fotografias)
                     checkedListBox1.SetItemChecked(6, true);
+                if (consulta)
+                {
+                    cmbPrograma.Enabled = false;
+                    cmbAlumno.Enabled = false;
+                    cmbRecibio.Enabled = false;
+                    checkedListBox1.Enabled = false;
+                }
             }
         }
 

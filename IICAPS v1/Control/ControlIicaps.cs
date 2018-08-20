@@ -405,9 +405,9 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO creditoAlumno (AlumnoID, CantidadMensualidad, CantidadMeses, Observaciones, Estado) VALUES ('"
+                cmd.CommandText = "INSERT INTO creditoAlumno (AlumnoID, CantidadMensualidad, CantidadMeses, FechaSolicitud, Observaciones, Estado) VALUES ('"
                     + credito.alumno + "', '" + credito.cantidadMensualidad + "', '" + credito.cantidadMeses + "', '"
-                    + credito.observaciones + "', '" + credito.estado + "')";
+                    + formatearFecha(DateTime.Now) + "', '" + credito.observaciones + "', '" + credito.estado + "')";
                 conn.Open();
                 try
                 {
@@ -480,7 +480,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-        public CreditoAlumno consultarCreditoAlumno (string rfc)
+        public CreditoAlumno consultarCreditoAlumno(string rfc)
         {
             try
             {
@@ -524,8 +524,8 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE creditoAlumno SET CantidadMensualidad= '" + credito.cantidadMensualidad + "', CantidadMeses= '" + credito.cantidadMeses + "', Observaciones= '" + credito.observaciones + "', Estado= '"
-                    + credito.estado + "' WHERE AlumnoID = '" + credito.alumno + "'";
+                cmd.CommandText = "UPDATE creditoAlumno SET CantidadMensualidad= '" + credito.cantidadMensualidad + "', CantidadMeses= '" + credito.cantidadMeses + 
+                    "', Observaciones= '" + credito.observaciones +  "' WHERE AlumnoID = '" + credito.alumno + "'";
                 conn.Open();
                 try
                 {
@@ -576,6 +576,35 @@ namespace IICAPS_v1.Control
             {
                 conn.Close();
                 throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+
+        public bool cancelarCredito(string id)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "DELETE FROM creditoAlumno WHERE ID=" + id;
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al cancelar el crédito del alumno en la Base de Datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
             }
         }
 

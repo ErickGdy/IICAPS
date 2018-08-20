@@ -15,5 +15,7 @@ namespace IICAPS_v1.DataObject
         public DateTime fechaSolicitud { get; set; }
         public string observaciones { get; set; }
         public string estado { get; set; }
+        public double cantidadAbonoCredito { get; set; }
+        public double cantidadAbonoMensual { get; set; }
     }
 }

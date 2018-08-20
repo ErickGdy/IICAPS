@@ -67,7 +67,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void btnAgregarAlumno_Click(object sender, EventArgs e)
         {
-            CreditoAlumnos fa = new CreditoAlumnos(null);
+            CreditoAlumnos fa = new CreditoAlumnos(null, false);
             fa.FormClosed += new FormClosedEventHandler(form_Closed);
             fa.Show();
         }
@@ -86,9 +86,9 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         {
             try
             {
-                String rfc = dataGridViewCreditos.CurrentRow.Cells[0].Value.ToString();
+                String rfc = dataGridViewCreditos.CurrentRow.Cells[1].Value.ToString();
                 CreditoAlumno credito = control.consultarCreditoAlumno(rfc);
-                CreditoAlumnos fa = new CreditoAlumnos(credito);
+                CreditoAlumnos fa = new CreditoAlumnos(credito, false);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
             }
@@ -116,9 +116,9 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         {
             try
             {
-                String rfc = dataGridViewCreditos.CurrentRow.Cells[0].Value.ToString();
+                String rfc = dataGridViewCreditos.CurrentRow.Cells[1].Value.ToString();
                 CreditoAlumno credito = control.consultarCreditoAlumno(rfc);
-                CreditoAlumnos fa = new CreditoAlumnos(credito);
+                CreditoAlumnos fa = new CreditoAlumnos(credito, true);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
             }
@@ -152,6 +152,36 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 {
                     aux.Width = x;
                 }
+            }
+        }
+
+        private void darDeBajaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            String rfc = dataGridViewCreditos.CurrentRow.Cells[1].Value.ToString();
+            CreditoAlumno credito = control.consultarCreditoAlumno(rfc);
+            DocumentosWord word = new DocumentosWord(credito);
+        }
+
+        private void cancelarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                String id = dataGridViewCreditos.CurrentRow.Cells[0].Value.ToString();
+                DialogResult dialogresult = MessageBox.Show("¿Desea cancelar el crédito?", "Cancelar crédito", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (dialogresult == DialogResult.OK)
+                {
+                    if (control.cancelarCredito(id))
+                    {
+                        MessageBox.Show("Crédito cancelado");
+                        actualizarTablaCreditos(control.obtenerCreditoAlumnosTable());
+                    }
+                    else
+                        MessageBox.Show("Error al cancelar el crédito");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }
