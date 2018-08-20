@@ -212,5 +212,11 @@ namespace IICAPS.Presentacion.Mains
             form.Show();
             inhabilitarBoton("Pagos", "Alumno");
         }
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            ImpresionDocumentos fa = new ImpresionDocumentos();
+            fa.Show();
+        }
     }
 }

@@ -46,10 +46,10 @@ namespace IICAPS_v1.Presentacion
             {
                 modificacion = true;
                 documentacion = doc;
-                cmbPrograma.SelectedItem = control.obtenerProgramaAlumno(doc.alumno);
-                cmbIDAlumno.SelectedItem = doc.alumno;
+                cmbIDPrograma.SelectedItem = control.obtenerProgramaAlumno(doc.alumno);
                 cmbIDRecibio.SelectedItem = doc.recibioEmpleado;
-                cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
+                cmbPrograma.SelectedIndex = cmbIDPrograma.SelectedIndex;
+                cmbIDAlumno.SelectedItem = doc.alumno;
                 cmbAlumno.SelectedIndex = cmbIDAlumno.SelectedIndex;
                 cmbRecibio.SelectedIndex = cmbIDRecibio.SelectedIndex;
                 if (documentacion.actaNacimientoOrg)

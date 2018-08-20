@@ -96,13 +96,13 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 DocumentosInscripcion documentos = control.consultarEntregaDocumentos(rfc);
                 if (documentos.tipoInscripcion == 2)
                 {
-                    FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(null);
+                    FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(documentos);
                     fa.FormClosed += new FormClosedEventHandler(form_Closed);
                     fa.Show();
                 }
                 else if (documentos.tipoInscripcion == 1)
                 {
-                    FormDocumentosInscripcion fa = new FormDocumentosInscripcion(null);
+                    FormDocumentosInscripcion fa = new FormDocumentosInscripcion(documentos);
                     fa.FormClosed += new FormClosedEventHandler(form_Closed);
                     fa.Show();
                 }
@@ -121,13 +121,13 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 DocumentosInscripcion documentos = control.consultarEntregaDocumentos(rfc);
                 if (documentos.tipoInscripcion == 2)
                 {
-                    FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(null);
+                    FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(documentos);
                     fa.FormClosed += new FormClosedEventHandler(form_Closed);
                     fa.Show();
                 }
                 else if (documentos.tipoInscripcion == 1)
                 {
-                    FormDocumentosInscripcion fa = new FormDocumentosInscripcion(null);
+                    FormDocumentosInscripcion fa = new FormDocumentosInscripcion(documentos);
                     fa.FormClosed += new FormClosedEventHandler(form_Closed);
                     fa.Show();
                 }

@@ -46,10 +46,10 @@ namespace IICAPS_v1.Presentacion
             {
                 modificacion = true;
                 documentacion = doc;
-                cmbPrograma.SelectedItem = control.obtenerProgramaAlumno(doc.alumno);
-                cmbIDAlumno.SelectedItem = doc.alumno;
+                cmbIDPrograma.SelectedItem = control.obtenerProgramaAlumno(doc.alumno);
                 cmbIDRecibio.SelectedItem = doc.recibioEmpleado;
-                cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
+                cmbPrograma.SelectedIndex = cmbIDPrograma.SelectedIndex;
+                cmbIDAlumno.SelectedItem = doc.alumno;
                 cmbAlumno.SelectedIndex = cmbIDAlumno.SelectedIndex;
                 cmbRecibio.SelectedIndex = cmbIDRecibio.SelectedIndex;
                 if (documentacion.actaNacimientoOrg)
@@ -93,17 +93,17 @@ namespace IICAPS_v1.Presentacion
             this.Dispose();
         }
 
-        private bool validarCampos()
-        {
-            if (cmbAlumno.SelectedItem != null && cmbPrograma != null && cmbRecibio != null)
-                return false;
-            return true;
-        }
+        //private bool validarCampos()
+        //{
+        //    if (cmbAlumno.SelectedItem != null && cmbPrograma != null && cmbRecibio != null)
+        //        return false;
+        //    return true;
+        //}
 
         private bool agregarEntregaDocumentosTitulacion()
         {
-            if (validarCampos())
-            {
+            //if (validarCampos())
+            //{
                 cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
                 cmbIDAlumno.SelectedIndex = cmbAlumno.SelectedIndex;
                 cmbIDRecibio.SelectedIndex = cmbRecibio.SelectedIndex;
@@ -120,14 +120,14 @@ namespace IICAPS_v1.Presentacion
                 doc.tipoInscripcion = 2;
                 if (modificacion)
                 {
-                    doc.alumno = cmbAlumno.SelectedItem.ToString();
+                    doc.alumno = cmbIDAlumno.SelectedItem.ToString();
                     if (control.actualizarEntregaDocumentos(doc))
                     {
                         DocumentosWord word = new DocumentosWord(doc);
                         return true;
                     }
                     else
-                        throw new Exception("Error al actualizar los datos de la entrega de documentos de titulacion");
+                        throw new Exception("Error al actualizar los datos de la entrega de documentos para titulacion de licenciatura");
                 }
                 else
                 {
@@ -137,12 +137,12 @@ namespace IICAPS_v1.Presentacion
                         return true;
                     }
                     else
-                        throw new Exception("Error al agregar los datos de la entrega de documentos de titulacion");
+                        throw new Exception("Error al agregar los datos de la entrega de documentos para titulacion de licenciatura");
                 }
-            }
-            else
-                MessageBox.Show("No deje ningun campo vacio");
-            return false;
+            //}
+            //else
+            //    MessageBox.Show("No deje ningun campo vacio");
+            //return false;
         }
 
         private void cmbPrograma_SelectedIndexChanged(object sender, EventArgs e)
