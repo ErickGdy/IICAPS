@@ -99,6 +99,7 @@ namespace IICAPS_v1.Presentacion
             p.concepto = cmbConcepto.SelectedItem.ToString();
             p.observaciones = txtObservaciones.Text;
             p.recibio = cmbIDRecibio.SelectedItem.ToString();
+            p.fechaPago = DateTime.Now;
             //if (modificacion)
             //{
             //    p.alumnoID = cmbIDAlumno.SelectedItem.ToString();

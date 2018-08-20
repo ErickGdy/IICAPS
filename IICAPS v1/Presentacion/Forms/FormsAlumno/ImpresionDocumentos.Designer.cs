@@ -50,10 +50,11 @@
             this.cmbPrograma.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbPrograma.FormattingEnabled = true;
             this.cmbPrograma.Location = new System.Drawing.Point(244, 169);
-            this.cmbPrograma.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbPrograma.Margin = new System.Windows.Forms.Padding(4);
             this.cmbPrograma.Name = "cmbPrograma";
             this.cmbPrograma.Size = new System.Drawing.Size(481, 30);
             this.cmbPrograma.TabIndex = 1;
+            this.cmbPrograma.SelectedIndexChanged += new System.EventHandler(this.cmbPrograma_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -72,7 +73,7 @@
             this.cmbTipoDocumento.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbTipoDocumento.FormattingEnabled = true;
             this.cmbTipoDocumento.Location = new System.Drawing.Point(244, 244);
-            this.cmbTipoDocumento.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbTipoDocumento.Margin = new System.Windows.Forms.Padding(4);
             this.cmbTipoDocumento.Name = "cmbTipoDocumento";
             this.cmbTipoDocumento.Size = new System.Drawing.Size(480, 30);
             this.cmbTipoDocumento.TabIndex = 3;
@@ -92,12 +93,13 @@
             // 
             this.btnGenerar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerar.Location = new System.Drawing.Point(331, 293);
-            this.btnGenerar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnGenerar.Margin = new System.Windows.Forms.Padding(4);
             this.btnGenerar.Name = "btnGenerar";
             this.btnGenerar.Size = new System.Drawing.Size(100, 33);
             this.btnGenerar.TabIndex = 4;
             this.btnGenerar.Text = "Generar";
             this.btnGenerar.UseVisualStyleBackColor = true;
+            this.btnGenerar.Click += new System.EventHandler(this.btnGenerar_Click);
             // 
             // cmbAlumno
             // 
@@ -105,7 +107,7 @@
             this.cmbAlumno.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbAlumno.FormattingEnabled = true;
             this.cmbAlumno.Location = new System.Drawing.Point(244, 207);
-            this.cmbAlumno.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbAlumno.Margin = new System.Windows.Forms.Padding(4);
             this.cmbAlumno.Name = "cmbAlumno";
             this.cmbAlumno.Size = new System.Drawing.Size(480, 30);
             this.cmbAlumno.TabIndex = 2;
@@ -187,7 +189,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cmbPrograma);
             this.Controls.Add(this.label2);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ImpresionDocumentos";
             this.Text = "Impresion de Documentos";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

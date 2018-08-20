@@ -17,5 +17,15 @@ namespace IICAPS_v1.Presentacion
             InitializeComponent();
             lblFecha.Text = DateTime.Now.ToShortDateString();
         }
+
+        private void cmbPrograma_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGenerar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
