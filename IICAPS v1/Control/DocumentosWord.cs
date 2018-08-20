@@ -40,65 +40,100 @@ namespace IICAPS_v1.Control
                 Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
                 footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
                 HeaderFooter footer = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
-                footer.Range.ParagraphFormat.SpaceAfter = 0;
+                footer.Range.ParagraphFormat.SpaceAfter = 50;
                 footer.Shapes.AddPicture(imgFooter1);
             }
             //Agregar parrafo de texto con estilo de titulo 1
             Microsoft.Office.Interop.Word.Paragraph parra1 = documento.Content.Paragraphs.Add(ref missing);
             object styleHeading1 = "Título 1";
             parra1.Range.set_Style(ref styleHeading1);
-            parra1.Range.Text = "Recibo de documentos para: " + control.obtenerProgramaAlumno(doc.alumno);
+            parra1.Range.Font.Bold = 1;
+            parra1.Range.Font.Color = WdColor.wdColorDarkGreen;
+            parra1.Range.Text = Environment.NewLine +"Recibo de documentos para: " + control.obtenerProgramaAlumno(doc.alumno);
             parra1.Range.InsertParagraphAfter();
             //Parrafos restantes del documento
-            documento.Content.SetRange(0, 0);
             Microsoft.Office.Interop.Word.Paragraph parra2 = documento.Content.Paragraphs.Add(ref missing);
-            object style1 = "Normal";
+            object style1 = "Título 2";
             parra2.Range.set_Style(ref style1);
+            parra2.Range.Font.Bold = 1;
+            parra2.Range.Font.Color = WdColor.wdColorDarkRed;
             //parra1.Range.Text = "Recibo de documentos para: " + control.obtenerProgramaAlumno(doc.alumno);
-            parra2.Range.Text = "Se han recibido los siguientes documentos del alumno: " + doc.alumno + Environment.NewLine;
-            parra2.Range.InsertParagraphAfter();
+            parra2.Range.Text = "Se han recibido los siguientes documentos del alumno: " + control.obtenerNombreAlumno(doc.alumno) + Environment.NewLine;
+            //Damos formato a los parrafos siguientes dentro de los if
+            object style2 = "Normal";
             if (doc.actaNacimientoCop)
             {
-                word.Selection.TypeText("Copia del acta de Nacimiento - Recibido" + Environment.NewLine);
+                Microsoft.Office.Interop.Word.Paragraph parra3 = documento.Content.Paragraphs.Add(ref missing);
+                parra3.Range.set_Style(ref style2);
+                parra3.Range.Font.Size = 12;
+                parra3.Range.Text = "Copia del acta de Nacimiento - Recibido" + Environment.NewLine;
             }
             if (doc.actaNacimientoOrg)
             {
-                word.Selection.TypeText("Acta de Nacimiento - Recibido" + Environment.NewLine);
+                Microsoft.Office.Interop.Word.Paragraph parra4 = documento.Content.Paragraphs.Add(ref missing);
+                parra4.Range.set_Style(ref style2);
+                parra4.Range.Font.Size = 12;
+                parra4.Range.Text = "Acta de Nacimiento - Recibido" + Environment.NewLine;
             }
             if (doc.tituloCedulaOrg)
             {
-                word.Selection.TypeText("Título Licenciatura y Cedula Profesional - Recibido" + Environment.NewLine);
+                Microsoft.Office.Interop.Word.Paragraph parra5 = documento.Content.Paragraphs.Add(ref missing);
+                parra5.Range.set_Style(ref style2);
+                parra5.Range.Font.Size = 12;
+                parra5.Range.Text = "Título Licenciatura y Cedula Profesional - Recibido" + Environment.NewLine;
             }
             if (doc.tituloLicCop)
             {
-                word.Selection.TypeText("Copia del Título de Licenciatura - Recibido" + Environment.NewLine);
+                Microsoft.Office.Interop.Word.Paragraph parra6 = documento.Content.Paragraphs.Add(ref missing);
+                parra6.Range.set_Style(ref style2);
+                parra6.Range.Font.Size = 12;
+                parra6.Range.Text = "Copia del Título de Licenciatura - Recibido" + Environment.NewLine;
             }
             if (doc.cedProfCop)
             {
-                word.Selection.TypeText("Copia de la Cedula Profesional - Recibido" + Environment.NewLine);
+                Microsoft.Office.Interop.Word.Paragraph parra7 = documento.Content.Paragraphs.Add(ref missing);
+                parra7.Range.set_Style(ref style2);
+                parra7.Range.Font.Size = 12;
+                parra7.Range.Text = "Copia de la Cedula Profesional - Recibido" + Environment.NewLine;
             }
             if (doc.solicitudOpcTitulacion)
             {
-                word.Selection.TypeText("Solicitud como opción de titulación - Recibido" + Environment.NewLine);
+                Microsoft.Office.Interop.Word.Paragraph parra8 = documento.Content.Paragraphs.Add(ref missing);
+                parra8.Range.set_Style(ref style2);
+                parra8.Range.Font.Size = 12;
+                parra8.Range.Text = "Solicitud como opción de titulación - Recibido" + Environment.NewLine;
             }
             if (doc.certificadoLicCop)
             {
-                word.Selection.TypeText("Copia del Certificado de Licenciatura - Recibido" + Environment.NewLine);
+                Microsoft.Office.Interop.Word.Paragraph parra9 = documento.Content.Paragraphs.Add(ref missing);
+                parra9.Range.set_Style(ref style2);
+                parra9.Range.Text = "Copia del Certificado de Licenciatura - Recibido" + Environment.NewLine;
             }
             if (doc.constanciaLibSSOrg)
             {
-                word.Selection.TypeText("Constancia de Liberación del Servicio Social - Recibido" + Environment.NewLine);
+                Microsoft.Office.Interop.Word.Paragraph parra10 = documento.Content.Paragraphs.Add(ref missing);
+                parra10.Range.set_Style(ref style2);
+                parra10.Range.Font.Size = 12;
+                parra10.Range.Text = "Constancia de Liberación del Servicio Social - Recibido" + Environment.NewLine;
             }
             if (doc.curp)
             {
-                word.Selection.TypeText("CURP - Recibido" + Environment.NewLine);
+                Microsoft.Office.Interop.Word.Paragraph parra11 = documento.Content.Paragraphs.Add(ref missing);
+                parra11.Range.set_Style(ref style2);
+                parra11.Range.Font.Size = 12;
+                parra11.Range.Text = "CURP - Recibido" + Environment.NewLine;
             }
             if (doc.fotografias)
             {
-                word.Selection.TypeText("Fotografías - Recibido" + Environment.NewLine);
+                Microsoft.Office.Interop.Word.Paragraph parra12 = documento.Content.Paragraphs.Add(ref missing);
+                parra12.Range.set_Style(ref style2);
+                parra12.Range.Font.Size = 12;
+                parra12.Range.Text = "Fotografías - Recibido" + Environment.NewLine;
             }
-            word.Selection.TypeText("Recibió: " + Environment.NewLine);
-            word.Selection.TypeText(doc.recibioEmpleado);
+            Microsoft.Office.Interop.Word.Paragraph parra13 = documento.Content.Paragraphs.Add(ref missing);
+            parra13.Range.set_Style(ref style2);
+            parra13.Range.Font.Size = 12;
+            parra13.Range.Text= Environment.NewLine + "Recibió: " + control.obtenerNombreEmpleado(doc.recibioEmpleado) + Environment.NewLine + "Firma: __________________________________";
             //Hacemos visible el documento
             word.Visible = true;
             //Guardamos el documento
@@ -141,9 +176,28 @@ namespace IICAPS_v1.Control
                 Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
                 footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
                 HeaderFooter footer = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
-                footer.Range.ParagraphFormat.SpaceAfter = 0;
+                footer.Range.ParagraphFormat.SpaceAfter = 50;
                 footer.Shapes.AddPicture(imgFooter1);
             }
+            //Agregar parrafo de texto con estilo de titulo 1
+            Microsoft.Office.Interop.Word.Paragraph parra1 = documento.Content.Paragraphs.Add(ref missing);
+            object styleHeading1 = "Título 1";
+            parra1.Range.set_Style(ref styleHeading1);
+            parra1.Range.Font.Color = WdColor.wdColorDarkGreen;
+            parra1.Range.Text = Environment.NewLine + "Se recibió el pago de: " + control.obtenerNombreAlumno(pago.alumnoID);
+            parra1.Range.InsertParagraphAfter();
+            //Parrafos restantes del documento
+            documento.Content.SetRange(0, 0);
+            Microsoft.Office.Interop.Word.Paragraph parra2 = documento.Content.Paragraphs.Add(ref missing);
+            object style1 = "Normal";
+            parra2.Range.set_Style(ref style1);
+            parra2.Range.Font.Size = 12;
+            //parra1.Range.Text = "Recibo de documentos para: " + control.obtenerProgramaAlumno(doc.alumno);
+            parra2.Range.Text = "La cantidad de: $" + pago.cantidad + Environment.NewLine + 
+                "Por concepto de: " +pago.concepto + Environment.NewLine + 
+                "Fecha: "+pago.fechaPago+ Environment.NewLine + Environment.NewLine + 
+                "Recibió: "+ control.obtenerNombreEmpleado(pago.recibio) + Environment.NewLine + "Firma: ___________________________________________";
+            parra2.Range.InsertParagraphAfter();
             //Hacemos visible el documento
             word.Visible = true;
             //Guardamos el documento
@@ -153,7 +207,7 @@ namespace IICAPS_v1.Control
             //documento = null;
             //word.Quit(ref missing, ref missing, ref missing);
             //word = null;
-            MessageBox.Show("¡Recibo de documentos creado exitosamente!");
+            MessageBox.Show("¡Recibo de pago creado exitosamente!");
         }
     }
 }

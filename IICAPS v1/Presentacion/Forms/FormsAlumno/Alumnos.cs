@@ -95,7 +95,10 @@ namespace IICAPS_v1.Presentacion
                 a.nombre = txtNombre.Text;
                 a.direccion = txtDireccion.Text;
                 a.telefono1 = txtTelefono1.Text;
-                a.telefono2 = txtTelefono2.Text;
+                if (txtTelefono2.Text == null || txtTelefono2.Text == "")
+                    a.telefono2 = " ";
+                else
+                    a.telefono2 = txtTelefono2.Text;
                 a.correo = txtCorreo.Text;
                 a.facebook = txtFacebook.Text;
                 a.curp = txtCURP.Text;
@@ -106,6 +109,9 @@ namespace IICAPS_v1.Presentacion
                 a.carrera = txtCarrera.Text;
                 a.nivel = cmbNivel.SelectedItem.ToString();
                 a.programa = cmbPrograma.SelectedItem.ToString();
+                a.tipo = "Regular";
+                a.estado = "Registrado";
+                a.fecha = DateTime.Now;
                 if (modificacion)
                 {
                     a.rfc = txtRFC.Text;

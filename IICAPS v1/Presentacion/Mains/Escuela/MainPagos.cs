@@ -122,5 +122,35 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         {
             actualizarTablaPagos(control.obtenerPagosTable(txtBuscarCredito.Text));
         }
+
+        private void imprimirReciboToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            String id = dataGridViewPagos.CurrentRow.Cells[0].Value.ToString();
+            Pago pago = control.consultarPago(id);
+            DocumentosWord word = new DocumentosWord(pago);
+        }
+
+        private void cancelarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                String id = dataGridViewPagos.CurrentRow.Cells[0].Value.ToString();
+                DialogResult dialogresult = MessageBox.Show("¿Desea cancelar el pago?", "Cancelar Pago", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (dialogresult == DialogResult.OK)
+                {
+                    if (control.cancelarPago(id))
+                    {
+                        MessageBox.Show("Pago cancelado");
+                        actualizarTablaPagos(control.obtenerAlumnosTable());
+                    }
+                    else
+                        MessageBox.Show("Error al cancelar el pago");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

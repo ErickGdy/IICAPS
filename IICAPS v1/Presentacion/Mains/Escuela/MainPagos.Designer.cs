@@ -41,6 +41,8 @@
             this.dataGridViewPagos = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.consultarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imprimirReciboToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cancelarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPagos)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -57,10 +59,10 @@
             this.btnAgregar.ForeColor = System.Drawing.Color.White;
             this.btnAgregar.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregar.Image")));
             this.btnAgregar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAgregar.Location = new System.Drawing.Point(598, 44);
-            this.btnAgregar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAgregar.Location = new System.Drawing.Point(797, 54);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(153, 32);
+            this.btnAgregar.Size = new System.Drawing.Size(204, 39);
             this.btnAgregar.TabIndex = 49;
             this.btnAgregar.Text = "Agregar Nuevo";
             this.btnAgregar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -75,7 +77,8 @@
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(178, 81);
+            this.button1.Location = new System.Drawing.Point(237, 100);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(30, 30);
             this.button1.TabIndex = 48;
@@ -91,10 +94,9 @@
             this.limpiarBusqueda.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.limpiarBusqueda.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.limpiarBusqueda.LinkColor = System.Drawing.Color.Gray;
-            this.limpiarBusqueda.Location = new System.Drawing.Point(728, 83);
-            this.limpiarBusqueda.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.limpiarBusqueda.Location = new System.Drawing.Point(971, 102);
             this.limpiarBusqueda.Name = "limpiarBusqueda";
-            this.limpiarBusqueda.Size = new System.Drawing.Size(21, 20);
+            this.limpiarBusqueda.Size = new System.Drawing.Size(27, 25);
             this.limpiarBusqueda.TabIndex = 47;
             this.limpiarBusqueda.TabStop = true;
             this.limpiarBusqueda.Text = "X";
@@ -104,10 +106,10 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(522, 81);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.pictureBox2.Location = new System.Drawing.Point(696, 100);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(24, 23);
+            this.pictureBox2.Size = new System.Drawing.Size(32, 28);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 46;
             this.pictureBox2.TabStop = false;
@@ -116,20 +118,19 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(172, 44);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(229, 54);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 31);
+            this.label1.Size = new System.Drawing.Size(114, 39);
             this.label1.TabIndex = 45;
             this.label1.Text = "Pagos";
             // 
             // txtBuscarCredito
             // 
             this.txtBuscarCredito.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBuscarCredito.Location = new System.Drawing.Point(551, 81);
-            this.txtBuscarCredito.Margin = new System.Windows.Forms.Padding(2);
+            this.txtBuscarCredito.Location = new System.Drawing.Point(735, 100);
+            this.txtBuscarCredito.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtBuscarCredito.Name = "txtBuscarCredito";
-            this.txtBuscarCredito.Size = new System.Drawing.Size(200, 24);
+            this.txtBuscarCredito.Size = new System.Drawing.Size(265, 28);
             this.txtBuscarCredito.TabIndex = 44;
             // 
             // dataGridViewPagos
@@ -142,8 +143,8 @@
             this.dataGridViewPagos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewPagos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewPagos.ContextMenuStrip = this.contextMenuStrip1;
-            this.dataGridViewPagos.Location = new System.Drawing.Point(178, 112);
-            this.dataGridViewPagos.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridViewPagos.Location = new System.Drawing.Point(237, 138);
+            this.dataGridViewPagos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridViewPagos.MultiSelect = false;
             this.dataGridViewPagos.Name = "dataGridViewPagos";
             this.dataGridViewPagos.ReadOnly = true;
@@ -153,29 +154,46 @@
             this.dataGridViewPagos.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewPagos.RowTemplate.Height = 24;
             this.dataGridViewPagos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewPagos.Size = new System.Drawing.Size(573, 275);
+            this.dataGridViewPagos.Size = new System.Drawing.Size(764, 338);
             this.dataGridViewPagos.TabIndex = 43;
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.consultarToolStripMenuItem});
+            this.consultarToolStripMenuItem,
+            this.imprimirReciboToolStripMenuItem,
+            this.cancelarToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(126, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(211, 104);
             // 
             // consultarToolStripMenuItem
             // 
             this.consultarToolStripMenuItem.Name = "consultarToolStripMenuItem";
-            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.consultarToolStripMenuItem.Text = "Consultar";
             this.consultarToolStripMenuItem.Click += new System.EventHandler(this.consultarToolStripMenuItem_Click);
             // 
+            // imprimirReciboToolStripMenuItem
+            // 
+            this.imprimirReciboToolStripMenuItem.Name = "imprimirReciboToolStripMenuItem";
+            this.imprimirReciboToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.imprimirReciboToolStripMenuItem.Text = "Imprimir Recibo";
+            this.imprimirReciboToolStripMenuItem.Click += new System.EventHandler(this.imprimirReciboToolStripMenuItem_Click);
+            // 
+            // cancelarToolStripMenuItem
+            // 
+            this.cancelarToolStripMenuItem.Name = "cancelarToolStripMenuItem";
+            this.cancelarToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.cancelarToolStripMenuItem.Text = "Cancelar";
+            this.cancelarToolStripMenuItem.Click += new System.EventHandler(this.cancelarToolStripMenuItem_Click);
+            // 
             // MainPagos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1000, 464);
+            this.ClientSize = new System.Drawing.Size(1333, 571);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.limpiarBusqueda);
@@ -184,6 +202,7 @@
             this.Controls.Add(this.txtBuscarCredito);
             this.Controls.Add(this.dataGridViewPagos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainPagos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainPagos";
@@ -207,5 +226,7 @@
         private System.Windows.Forms.DataGridView dataGridViewPagos;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem consultarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem imprimirReciboToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cancelarToolStripMenuItem;
     }
 }
