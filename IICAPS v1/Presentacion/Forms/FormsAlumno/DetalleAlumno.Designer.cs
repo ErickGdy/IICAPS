@@ -252,11 +252,12 @@
             // 
             // lblProgramaHeader
             // 
+            this.lblProgramaHeader.AutoSize = true;
             this.lblProgramaHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProgramaHeader.Location = new System.Drawing.Point(190, 93);
             this.lblProgramaHeader.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblProgramaHeader.Name = "lblProgramaHeader";
-            this.lblProgramaHeader.Size = new System.Drawing.Size(508, 31);
+            this.lblProgramaHeader.Size = new System.Drawing.Size(375, 25);
             this.lblProgramaHeader.TabIndex = 48;
             this.lblProgramaHeader.Text = "Alumno no inscrito en algun programa";
             // 

@@ -30,6 +30,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainDocumentosInscripcion));
             this.dataGridViewDocumentos = new System.Windows.Forms.DataGridView();
             this.menuTablaAlumnos = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -51,6 +53,9 @@
             this.dataGridViewDocumentos.AllowUserToAddRows = false;
             this.dataGridViewDocumentos.AllowUserToDeleteRows = false;
             this.dataGridViewDocumentos.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            this.dataGridViewDocumentos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewDocumentos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewDocumentos.ContextMenuStrip = this.menuTablaAlumnos;
             this.dataGridViewDocumentos.Location = new System.Drawing.Point(178, 112);
@@ -59,6 +64,9 @@
             this.dataGridViewDocumentos.Name = "dataGridViewDocumentos";
             this.dataGridViewDocumentos.ReadOnly = true;
             this.dataGridViewDocumentos.RowHeadersVisible = false;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            this.dataGridViewDocumentos.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewDocumentos.RowTemplate.Height = 24;
             this.dataGridViewDocumentos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewDocumentos.Size = new System.Drawing.Size(573, 275);
@@ -71,19 +79,19 @@
             this.consultarToolStripMenuItem,
             this.modificarToolStripMenuItem});
             this.menuTablaAlumnos.Name = "menuTablaAlumnos";
-            this.menuTablaAlumnos.Size = new System.Drawing.Size(153, 70);
+            this.menuTablaAlumnos.Size = new System.Drawing.Size(126, 48);
             // 
             // consultarToolStripMenuItem
             // 
             this.consultarToolStripMenuItem.Name = "consultarToolStripMenuItem";
-            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.consultarToolStripMenuItem.Text = "Consultar";
             this.consultarToolStripMenuItem.Click += new System.EventHandler(this.consultarToolStripMenuItem_Click);
             // 
             // modificarToolStripMenuItem
             // 
             this.modificarToolStripMenuItem.Name = "modificarToolStripMenuItem";
-            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.modificarToolStripMenuItem.Text = "Modificar";
             this.modificarToolStripMenuItem.Click += new System.EventHandler(this.modificarToolStripMenuItem_Click);
             // 

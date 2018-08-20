@@ -16,7 +16,7 @@ namespace IICAPS_v1.Presentacion
     {
         ControlIicaps control;
         bool modificacion;
-        public FormInscricionGrupos(string grupo)
+        public FormInscricionGrupos(string grupo, string alumno)
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
@@ -43,6 +43,12 @@ namespace IICAPS_v1.Presentacion
                 cmbGrupoNombres.Enabled = false;
                 cmbGrupoID.SelectedItem = grupo;
                 cmbGrupoNombres.SelectedIndex = cmbGrupoID.SelectedIndex;
+            }
+            if (alumno != null)
+            {
+                cmbAlumnoNombres.Enabled = false;
+                cmbAlumnoID.SelectedItem = alumno;
+                cmbAlumnoNombres.SelectedIndex = cmbAlumnoID.SelectedIndex;
             }
         }
 
