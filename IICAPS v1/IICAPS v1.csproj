@@ -31,8 +31,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>IICAPS_Logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data, Version=8.0.11.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data">
+      <HintPath>.\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,15 +52,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Control\ControlIicaps.cs" />
+    <Compile Include="Control\DataGridViewPrinter.cs" />
     <Compile Include="Control\DocumentosWord.cs" />
     <Compile Include="DataObject\Empleados.cs" />
     <Compile Include="DataObject\Grupo.cs" />
     <Compile Include="DataObject\Pago.cs" />
+    <Compile Include="DataObject\PaseDeLista.cs" />
     <Compile Include="DataObject\Programa.cs" />
     <Compile Include="DataObject\Materia.cs" />
     <Compile Include="DataObject\Alumno.cs" />
     <Compile Include="DataObject\CreditoAlumno.cs" />
     <Compile Include="DataObject\DocumentosInscripcion.cs" />
+    <Compile Include="DataObject\PaseDeListaAlumno.cs" />
     <Compile Include="DataObject\Usuarios.cs" />
     <Compile Include="Presentacion\Forms\FormsAlumno\Alumnos.cs">
       <SubType>Form</SubType>
@@ -98,6 +106,12 @@
     </Compile>
     <Compile Include="Presentacion\Forms\FormsAlumno\DetalleAlumno.Designer.cs">
       <DependentUpon>DetalleAlumno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\DetalleGrupoListas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\DetalleGrupoListas.Designer.cs">
+      <DependentUpon>DetalleGrupoListas.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Forms\FormsEscuela\FormInscricionGrupos.cs">
       <SubType>Form</SubType>
@@ -224,6 +238,9 @@
     <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\DetalleAlumno.resx">
       <DependentUpon>DetalleAlumno.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\DetalleGrupoListas.resx">
+      <DependentUpon>DetalleGrupoListas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\FormInscricionGrupos.resx">
       <DependentUpon>FormInscricionGrupos.cs</DependentUpon>
     </EmbeddedResource>
@@ -301,6 +318,7 @@
   <ItemGroup>
     <None Include="img\footerLargo.fw.png" />
     <None Include="img\AgregarMaterias.fw.png" />
+    <Content Include="IICAPS_Logo.ico" />
     <Content Include="img\Icons\btnPluss.fw.png" />
     <Content Include="img\Icons\btnPlusss.fw.png" />
     <Content Include="img\Icons\locked-padlock.png" />
