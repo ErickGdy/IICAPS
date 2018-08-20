@@ -1456,7 +1456,7 @@ namespace IICAPS_v1.Control
                 }
                 catch (Exception e)
                 {
-                    throw new Exception("Error...!\n Error al actualizar la materia a la Base de datos");
+                    throw new Exception("Error...!\n Error al actualizar la grupo a la Base de datos");
                 }
             }
             catch (Exception e)
@@ -1820,6 +1820,387 @@ namespace IICAPS_v1.Control
                 {
                     conn.Close();
                     throw new Exception("Error...! Error al agregar Grupo a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...! Error al establecer conexion con el servidor");
+            }
+        }
+
+        //-------------------------------TALLERES-------------------------------//
+        public bool agregarTaller(Taller taller)
+        {
+            try
+            {
+                string agregar = "INSERT INTO taller (Nombre, Fecha, Costo, Capacidad, Requisitos) VALUES("
+                    + " ' " + taller.nombre + "','" + taller.fecha + "','" + taller.costo+ "','" + taller.capacidad + "','" + taller.requisitos + "');";
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + agregar
+                                    + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    conn.Close();
+                    throw new Exception("Error...! Error al agregar taller a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...! Error al establecer conexion con el servidor");
+            }
+        }
+        public bool actualizarTaller(Taller taller)
+        {
+            try
+            {
+                string update = "UPDATE taller SET Nombre='" + taller.nombre +
+                    "', Fecha='" + formatearFecha(taller.fecha) + "', Costo='" + taller.costo + 
+                    "', Capacidad='" + taller.capacidad + "', Requisitos='" + taller.requisitos
+                    + "', Estado='1' WHERE ID='" + taller.id + "';";
+
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + update
+                                    + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al actualizar la taller a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexion con el servidor");
+            }
+        }
+        public bool cancelarTaller(string id)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE taller SET Estado=0 WHERE ID='" + id + "';";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al eliminar taller a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerTalleresTable()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT ID, Nombre, Fecha, Costo, Capacidad, Requisitos FROM taller WHERE Estado=1", conn); conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de talleres de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerTalleresTable(string parameter)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT ID, Nombre, Fecha, Costo, Capacidad, Requisitos FROM taller WHERE  " +
+                        "(ID LIKE '%" + parameter + "%' or " +
+                        " Nombre LIKE '%" + parameter + "%' or " +
+                        " Fecha LIKE '%" + parameter + "%' or " +
+                        " Capacidad LIKE '%" + parameter + "%' or " +
+                        " Requisitos LIKE '%" + parameter + "%' or " +
+                        " Costo LIKE '%" + parameter + "%') AND Estado=1";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
+                    this.conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de las materias de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public Taller consultarTaller(string id)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM taller WHERE ID='" + id + "'";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Taller g = new Taller();
+                        g.id = reader.GetInt32(0);
+                        g.nombre = reader.GetString(1);
+                        g.fecha = reader.GetDateTime(2);
+                        g.costo = reader.GetDecimal(3);
+                        g.capacidad = reader.GetInt32(4);
+                        g.requisitos = reader.GetString(5);
+                        conn.Close();
+                        return g;
+                    }
+                    conn.Close();
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos del grupo de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public List<TallerAsistente> obtenerAsistentesTalleres(string taller)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT A.Nombre,  A.Telefono,  A.Correo, A.Pago FROM tallerAsistentes A, taller T WHERE T.ID = A.Taller AND T.ID='"+taller+"';";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<TallerAsistente> aux = new List<TallerAsistente>();
+                    while (reader.Read())
+                    {
+                        TallerAsistente a = new TallerAsistente();
+                        a.nombre = reader.GetString(0);
+                        a.telefono = reader.GetString(1);
+                        a.correo = reader.GetString(2);
+                        a.pago = reader.GetDecimal(3);
+                        a.correo = reader.GetString(4);
+                        aux.Add(a);
+                    }
+                    conn.Close();
+                    if (aux.Count != 0)
+                        return aux;
+                    else
+                        return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de los asistentes del taller de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerAsistentesTalleresTable(string taller)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT A.Nombre,  A.Telefono,  A.Correo, A.Pago FROM tallerAsistentes A, taller T WHERE T.ID = A.Taller AND T.ID='" + taller + "'", conn); conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de talleres de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerAsistentesTalleresTable(string taller, string parameter)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT A.Nombre,  A.Telefono,  A.Correo, A.Pago FROM tallerAsistentes A, taller T WHERE "+
+                        "(A.Nombre LIKE '%" + parameter + "%' or " +
+                        " A.Telefono LIKE '%" + parameter + "%' or " +
+                        " A.Correo LIKE '%" + parameter + "%') AND  T.ID = A.Taller AND T.ID = '" + taller + "';";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
+                    this.conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de las materias de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public List<Taller> obtenerTalleres()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM taller";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<Taller> aux = new List<Taller>();
+                    while (reader.Read())
+                    {
+                        Taller g = new Taller();
+                        g.id = reader.GetInt32(0);
+                        g.nombre = reader.GetString(1);
+                        g.fecha = reader.GetDateTime(2);
+                        g.costo = reader.GetDecimal(3);
+                        g.capacidad = reader.GetInt32(4);
+                        g.requisitos = reader.GetString(5);
+                        aux.Add(g);
+                    }
+                    conn.Close();
+                    if (aux.Count != 0)
+                        return aux;
+                    else
+                        return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de los talleres de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public bool registrarAsistenteTaller(TallerAsistente asistente)
+        {
+            try
+            {
+                string inscribir = "INSERT INTO tallerAsistentes (Taller, Nombre, Telefono, Correo, Pago) VALUES('"
+                    + asistente.taller + "','" + asistente.nombre + "','" + asistente.telefono + "','" + asistente.correo
+                    + "','" + asistente.pago + "'); ";
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + inscribir
+                                    + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    conn.Close();
+                    throw new Exception("Error...! Error al agregar asistencia a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...! Error al establecer conexion con el servidor");
+            }
+        }
+        public bool borrarAsistenteTaller(string telefono, string taller)
+        {
+            try
+            {
+                string inscribir = "DELETE FROM tallerAsistentes WHERE Telefono='" + telefono + "' AND Taller='"+taller+"'; ";
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + inscribir
+                                    + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    conn.Close();
+                    throw new Exception("Error...! Error al borrar asistencia a la Base de datos");
                 }
             }
             catch (Exception e)

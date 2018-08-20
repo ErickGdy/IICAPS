@@ -228,7 +228,11 @@ namespace IICAPS.Presentacion.Mains
 
         private void btnTalleres_Click(object sender, EventArgs e)
         {
-
+            minimizeForms();
+            MainTalleres form = MainTalleres.getInstance();
+            configurarForm(form);
+            form.Show();
+            inhabilitarBoton("Taller", "Escuela");
         }
     }
 }
