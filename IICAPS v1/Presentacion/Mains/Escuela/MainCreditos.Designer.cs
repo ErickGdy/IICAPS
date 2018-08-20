@@ -30,6 +30,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainCreditos));
             this.dataGridViewCreditos = new System.Windows.Forms.DataGridView();
             this.menuTablaAlumnos = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -52,6 +54,9 @@
             this.dataGridViewCreditos.AllowUserToAddRows = false;
             this.dataGridViewCreditos.AllowUserToDeleteRows = false;
             this.dataGridViewCreditos.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            this.dataGridViewCreditos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewCreditos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCreditos.ContextMenuStrip = this.menuTablaAlumnos;
             this.dataGridViewCreditos.Location = new System.Drawing.Point(178, 112);
@@ -60,6 +65,9 @@
             this.dataGridViewCreditos.Name = "dataGridViewCreditos";
             this.dataGridViewCreditos.ReadOnly = true;
             this.dataGridViewCreditos.RowHeadersVisible = false;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            this.dataGridViewCreditos.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewCreditos.RowTemplate.Height = 24;
             this.dataGridViewCreditos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewCreditos.Size = new System.Drawing.Size(573, 275);

@@ -15,9 +15,13 @@ namespace IICAPS.Presentacion
 {
     public partial class Login : Form
     {
+        ControlIicaps control;
         public Login()
         {
             InitializeComponent();
+            control = ControlIicaps.getInstance();
+            if (control.leerUserDoc() != null)
+                txtUsuario.Text = control.leerUserDoc();
         }
 
         private void textBox1_Enter(object sender, EventArgs e)
@@ -57,18 +61,38 @@ namespace IICAPS.Presentacion
 
         private void btnIniciarSesion_Click(object sender, EventArgs e)
         {
-            Principal p = new Principal();
-            p.Show();
-            this.Hide();
-        }
+            if (txtUsuario.Text != "" && txtPass.Text != "")
+            {
+                //Validaciones
+                try
+                {
+                    Usuarios user = control.consultarUsuario(txtUsuario.Text);
+                    if (user == null)
+                        MessageBox.Show("Usuario invalido");
+                    else
+                        if (user.contrasena != txtPass.Text)
+                        MessageBox.Show("Contraseña incorrecta");
+                    else
+                        abrirVentanaPrincipal(user);
+                }
+                catch (Exception ex)
+                {
+                    //Si fallo arroja una excepcion y la mostramos en un label
+                    MessageBox.Show("Ha ocurrido un error al intentar acceder a la base de datos");
+                }
+                //Si se agregó mostramos el mensaje en un label
 
-        private void checkRecordar_CheckedChanged(object sender, EventArgs e)
-        {
-            //Escribir usuario en un txt
+            }
+            else
+            {
+                MessageBox.Show("Ingrese usuario y contraseña");
+            }
+
         }
 
         private void olvidarPass_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            MessageBox.Show("Contacte a soporte tecnico para restablecer contraseña");
             //LoginOlvidarContrasena lc = new LoginOlvidarContrasena();
             //lc.Show();
         }
@@ -99,6 +123,18 @@ namespace IICAPS.Presentacion
             {
                 btnIniciarSesion_Click(null,null);
             }
+        }
+
+        private void abrirVentanaPrincipal(Usuarios user)
+        {
+            if (checkRecordar.Checked)
+                control.recordarUsuario(txtUsuario.Text);
+            else
+                control.recordarUsuario(null);
+
+            Principal p = new Principal(user);
+            p.Show();
+            this.Hide();
         }
     }
 }

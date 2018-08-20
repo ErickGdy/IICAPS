@@ -193,5 +193,20 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             }
            
         }
+
+        private void listasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                Grupo grupo = control.consultarGrupo(id);
+                DetalleGrupoListas dtg = new DetalleGrupoListas(grupo);
+                dtg.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

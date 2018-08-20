@@ -1,5 +1,6 @@
 ﻿using IICAPS.Presentacion.Mains.Escuela;
 using IICAPS_v1.Control;
+using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
 using IICAPS_v1.Presentacion.Mains.Escuela;
 using System;
@@ -16,15 +17,26 @@ namespace IICAPS.Presentacion.Mains
 {
     public partial class Principal : Form
     {
-        
-        public Principal()
+        Usuarios empleado;
+        public Principal(Usuarios usuario)
         {
             InitializeComponent();
+            empleado = usuario;
+            try
+            {
+                btnUsuario.Text = ControlIicaps.getInstance().consultarEmpleado(empleado.empleado).nombre;
+            }
+            catch (Exception ex)
+            {
+                btnUsuario.Text = empleado.usuario;
+            }
         }
 
         
         private void cambiarContraseñaToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("Contacte a soporte tecnico para restablecer contraseña");
+
             //LoginCambiarContrasena lc = new LoginCambiarContrasena(user);
             //lc.Show();
         }
@@ -199,11 +211,6 @@ namespace IICAPS.Presentacion.Mains
             inhabilitarBoton("Documentación", "Alumno");
         }
 
-        private void btnListaAlumnosEscuela_Click(object sender, EventArgs e)
-        {
-            btnAlumno_Click(null, null);
-        }
-
         private void btnPagosAlumno_Click(object sender, EventArgs e)
         {
             minimizeForms();
@@ -217,6 +224,11 @@ namespace IICAPS.Presentacion.Mains
         {
             ImpresionDocumentos fa = new ImpresionDocumentos();
             fa.Show();
+        }
+
+        private void btnTalleres_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainPagos));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.limpiarBusqueda = new System.Windows.Forms.LinkLabel();
@@ -136,6 +138,9 @@
             this.dataGridViewPagos.AllowUserToAddRows = false;
             this.dataGridViewPagos.AllowUserToDeleteRows = false;
             this.dataGridViewPagos.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            this.dataGridViewPagos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewPagos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewPagos.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridViewPagos.Location = new System.Drawing.Point(237, 138);
@@ -144,6 +149,9 @@
             this.dataGridViewPagos.Name = "dataGridViewPagos";
             this.dataGridViewPagos.ReadOnly = true;
             this.dataGridViewPagos.RowHeadersVisible = false;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            this.dataGridViewPagos.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewPagos.RowTemplate.Height = 24;
             this.dataGridViewPagos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewPagos.Size = new System.Drawing.Size(764, 338);

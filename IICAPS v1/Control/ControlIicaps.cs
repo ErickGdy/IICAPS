@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IICAPS_v1.DataObject;
-
+using System.IO;
 
 namespace IICAPS_v1.Control
 {
@@ -1548,6 +1548,57 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
+        public List<Alumno> obtenerAlumnosGrupos(string codigo)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT A.Nombre, A.Direccion, A.Telefono1, A.Telefono2, A.Correo, A.Facebook, A.CURP, A.RFC, A.Sexo, A.EstadoCivil, A.EscuelaProcedencia, A.Carrera, A.Programa, A.Nivel, A.Fecha, A.Estado, A.Tipo FROM alumnos A, grupoAlumno G WHERE G.Alumno=A.RFC AND G.Grupo ='" + codigo + "';";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<Alumno> aux = new List<Alumno>();
+                    while (reader.Read())
+                    {
+                        Alumno a = new Alumno();
+                        a.nombre = reader.GetString(0);
+                        a.direccion = reader.GetString(1);
+                        a.telefono1 = reader.GetString(2);
+                        a.telefono2 = reader.GetString(3);
+                        a.correo = reader.GetString(4);
+                        a.facebook = reader.GetString(5);
+                        a.curp = reader.GetString(6);
+                        a.rfc = reader.GetString(7);
+                        a.sexo = reader.GetString(8);
+                        a.estadoCivil = reader.GetString(9);
+                        a.escuelaProcedencia = reader.GetString(10);
+                        a.carrera = reader.GetString(11);
+                        a.programa = reader.GetString(12);
+                        a.nivel = reader.GetString(13);
+                        a.fecha = reader.GetDateTime(14);
+                        a.estado = reader.GetString(15);
+                        a.tipo = reader.GetString(16);
+                        aux.Add(a);
+                    }
+                    conn.Close();
+                    if (aux.Count != 0)
+                        return aux;
+                    else
+                        return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de las grupos de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
         public List<Grupo> obtenerGrupos()
         {
             try
@@ -1685,7 +1736,69 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-
+        public string consultarGrupoAlumno(string RFC)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Grupo FROM grupoAlumno WHERE Alumno='" + RFC + "'";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string grupo = reader.GetString(0);
+                        conn.Close();
+                        return grupo;
+                    }
+                    conn.Close();
+                    return "";
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos del alumno de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public bool quitarAlumnoDeGrupo(string grupo, string alumno)
+        {
+            try
+            {
+                string delete = "DELETE FROM grupoAlumno WHERE Alumno='" + alumno + "' AND Grupo='" + grupo + "';";
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + delete
+                                    + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    conn.Close();
+                    throw new Exception("Error...! Error al agregar Grupo a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...! Error al establecer conexion con el servidor");
+            }
+        }
 
         //-------------------------------ENTREGA DOCUMENTOS-------------------------------//
         public bool agregarEntregaDocumentos(DocumentosInscripcion doc)
@@ -1879,7 +1992,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error...!\n Error al establecer conexion con el servidor");
             }
         }
-        
         public bool actualizarEmpleado(Empleados empleado, Usuarios usuario)
         {
             try
@@ -2210,29 +2322,61 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error...! Error al establecer conexion con el servidor");
             }
         }
-        public string consultarGrupoAlumno(string RFC)
+
+
+        //-------------------------------ASISTENCIAS-------------------------------//
+        public List<PaseDeListaAlumno> obtenerAsistenciaAlumnosMateriaTable(string grupo, int materia, List<Alumno> alumnos)
         {
             try
             {
                 conn = new MySqlConnection(builder.ToString());
-                cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Grupo FROM grupoAlumno WHERE Alumno='" + RFC + "'";
                 conn.Open();
+                string sqlString = "SELECT G.Alumno, A.Nombre, P.Estado, P.Fecha FROM grupoAlumno G INNER JOIN alumnos A on A.RFC=G.Alumno inner JOIN pasesDeListaAlumnos P ON A.RFC=P.Alumno WHERE P.Grupo='" + grupo + "' AND P.Materia=' "+ materia.ToString() + "' ORDER BY P.Fecha ASC;";
+                cmd = conn.CreateCommand();
+                cmd.CommandText = sqlString;
                 try
                 {
                     MySqlDataReader reader = cmd.ExecuteReader();
+                    List<PaseDeListaAlumno> aux = new List<PaseDeListaAlumno>();
+                    foreach (Alumno alu in alumnos)
+                    {
+                        PaseDeListaAlumno pls = new PaseDeListaAlumno();
+                        pls.RFC = alu.rfc;
+                        pls.alumno = alu.nombre;
+                        pls.asistencias = null;
+                        aux.Add(pls);
+                    }
+                    string rfc;
+                    string nombre;
+                    Asistencias asistencia;
                     while (reader.Read())
                     {
-                        string grupo = reader.GetString(0);
-                        conn.Close();
-                        return grupo;
+                        rfc = reader.GetString(0);
+                        nombre = reader.GetString(1);
+                        asistencia = new Asistencias();
+                        asistencia.Estado = reader.GetString(2);
+                        asistencia.Fecha = reader.GetDateTime(3);
+                        int index = 0;
+                        foreach (PaseDeListaAlumno pl in aux )
+                        {
+                            if(pl.RFC == rfc)
+                            {
+                                if (aux.ElementAt(index).asistencias == null)
+                                    aux.ElementAt(index).asistencias = new List<Asistencias>();
+                                aux.ElementAt(index).asistencias.Add(asistencia);
+                            }
+                            index++;
+                        }
                     }
                     conn.Close();
-                    return "";
+                    if (aux.Count != 0)
+                        return aux;
+                    else
+                        return null;
                 }
                 catch (Exception e)
                 {
-                    throw new Exception("Error al obtener datos del alumno de la base de datos");
+                    throw new Exception("Error al obtener datos de los listas de la base de datos");
                 }
             }
             catch (Exception e)
@@ -2241,7 +2385,120 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
+        public bool registrarAsistencias(List<PaseDeListaAlumno> lista, string maestro, string grupo, string materia, string fecha)
+        {
+            try
+            {
+                string paseDeLista = "INSERT INTO pasesDeLista (Grupo, Materia, Fecha, Encargado) VALUES('"
+                    + grupo + "','" + materia +"','" + fecha + "','" + maestro + "'); ";
+                string paseDeListaAlumnos = "";
+                foreach (PaseDeListaAlumno aux in lista)
+                {
+                    paseDeListaAlumnos += " INSERT INTO pasesDeListaAlumnos (ID,Alumno, Estado, Fecha, Grupo, Materia) "
+                        + " SELECT AUTO_INCREMENT , '" + aux.RFC + "','" + aux.asistencias.First().Estado + "','" + fecha + "','" + grupo + "','" + materia + "' FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '" + this.database+"' AND TABLE_NAME = 'pasesDeLista'; ";
+                }
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + paseDeListaAlumnos
+                                    + paseDeLista
+                                    + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    conn.Close();
+                    throw new Exception("Error...! Error al agregar Prorgrama a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...! Error al establecer conexion con el servidor");
+            }
+        }
 
+
+        //-----------------------------------USUARIO------------------------------//
+        public Usuarios consultarUsuario(string id)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Empleado, Usuario, Contrasena FROM usuarios WHERE Empleado='" + id + "' or Usuario ='" + id + "'";
+                conn.Open();
+                try
+                {
+
+                    //int rowsAfected = cmd.ExecuteNonQuery();
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Usuarios pv = new Usuarios();
+                        pv.empleado = reader.GetString(0);
+                        pv.usuario = reader.GetString(1);
+                        pv.contrasena = reader.GetString(2);
+                        conn.Close();
+                        return pv;
+                    }
+                    conn.Close();
+                    return null;
+
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de Usuarios de la Base de Datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+
+        }
+        public bool actualizarUsuario(Usuarios usuario)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE usuarios SET Usuario= '" + usuario.usuario +
+                "',Contrasena='" + usuario.contrasena +
+                "',Estado = 1 WHERE Empleado='" + usuario.empleado + "'";
+                try
+                {
+                    //cmd.CommandText = "SELECT * FROM Servicios";
+                    conn.Open();
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    //MySqlDataReader reader = cmd.ExecuteReader();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error..! Error al actualizar usuario de la Base de Datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+
+        }
 
         //-------------------------------Configuracion-------------------------------//
         public string formatearFecha(DateTime fecha)
@@ -2280,6 +2537,111 @@ namespace IICAPS_v1.Control
 
             return aux.Year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
         }
-
+        public string leerUserDoc()
+        {
+            String line;
+            StreamReader sr = null;
+            string user = "";
+            try
+            {
+                string archivo = "thumbs.txt";
+                // comprobar si el fichero ya existe
+                if (File.Exists(archivo))
+                {
+                    //Pass the file path and file name to the StreamReader constructor
+                    sr = new StreamReader(archivo);
+                    //read de first line
+                    line = sr.ReadLine();
+                    //Continue to read until you reach end of file
+                    while (line != null)
+                    {
+                        if (line == "us")
+                        {
+                            user = sr.ReadLine();
+                            break;
+                        }
+                    }
+                    //close the file
+                    sr.Close();
+                    sr.Dispose();
+                }
+                return user;
+            }
+            catch (Exception e)
+            {
+                sr.Dispose();
+                return "";
+            }
+        }
+        public string leerPVDoc()
+        {
+            String line;
+            StreamReader sr = null;
+            string pv = "";
+            try
+            {
+                string archivo = "thumbs.txt";
+                // comprobar si el fichero ya existe
+                if (File.Exists(archivo))
+                {
+                    //Pass the file path and file name to the StreamReader constructor
+                    sr = new StreamReader(archivo);
+                    //read de first line
+                    line = sr.ReadLine();
+                    //Continue to read until you reach end of file
+                    while (line != null)
+                    {
+                        if (line == "pv")
+                        {
+                            pv = sr.ReadLine();
+                            break;
+                        }
+                        line = sr.ReadLine();
+                    }
+                    //close the file
+                    sr.Close();
+                    sr.Dispose();
+                }
+                return pv;
+            }
+            catch (Exception e)
+            {
+                sr.Dispose();
+                return "";
+            }
+        }
+        public bool recordarUsuario(string usuario)
+        {
+            StreamWriter sw = null;
+            try
+            {
+                string archivo = "thumbs.txt";
+                // comprobar si el fichero ya existe
+                if (!File.Exists(archivo))
+                {
+                    File.Create(archivo).Close();
+                }
+                //Pass the file path and file name to the StreamReader constructor
+                sw = new StreamWriter(archivo);
+                //Write a line of text
+                if (usuario != null)
+                {
+                    sw.WriteLine("us");
+                    sw.WriteLine(usuario);
+                }else
+                {
+                    sw.WriteLine();
+                }
+                //Close the file
+                sw.Close();
+                sw.Dispose();
+                return true;
+            }
+            catch (Exception e)
+            {
+                sw.Dispose();
+                return false;
+            }
+        }
     }
 }
