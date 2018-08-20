@@ -58,11 +58,11 @@ namespace IICAPS.Presentacion
             // txtUsuario
             // 
             this.txtUsuario.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtUsuario.Font = new System.Drawing.Font("Montserrat", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUsuario.ForeColor = System.Drawing.Color.Gray;
             this.txtUsuario.Location = new System.Drawing.Point(349, 135);
             this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(249, 24);
+            this.txtUsuario.Size = new System.Drawing.Size(249, 22);
             this.txtUsuario.TabIndex = 2;
             this.txtUsuario.Text = "Usuario";
             this.txtUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -73,11 +73,11 @@ namespace IICAPS.Presentacion
             // txtPass
             // 
             this.txtPass.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtPass.Font = new System.Drawing.Font("Montserrat", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPass.ForeColor = System.Drawing.Color.Gray;
             this.txtPass.Location = new System.Drawing.Point(349, 186);
             this.txtPass.Name = "txtPass";
-            this.txtPass.Size = new System.Drawing.Size(249, 24);
+            this.txtPass.Size = new System.Drawing.Size(249, 22);
             this.txtPass.TabIndex = 3;
             this.txtPass.Text = "Contraseña";
             this.txtPass.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -91,21 +91,22 @@ namespace IICAPS.Presentacion
             this.checkRecordar.BackColor = System.Drawing.Color.Transparent;
             this.checkRecordar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.checkRecordar.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkRecordar.Checked = true;
+            this.checkRecordar.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkRecordar.FlatAppearance.BorderSize = 0;
             this.checkRecordar.Location = new System.Drawing.Point(411, 274);
             this.checkRecordar.Name = "checkRecordar";
             this.checkRecordar.Size = new System.Drawing.Size(15, 14);
             this.checkRecordar.TabIndex = 4;
             this.checkRecordar.UseVisualStyleBackColor = false;
-            this.checkRecordar.CheckedChanged += new System.EventHandler(this.checkRecordar_CheckedChanged);
             // 
             // olvidarPass
             // 
             this.olvidarPass.AutoSize = true;
-            this.olvidarPass.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.olvidarPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.olvidarPass.Location = new System.Drawing.Point(394, 226);
             this.olvidarPass.Name = "olvidarPass";
-            this.olvidarPass.Size = new System.Drawing.Size(164, 18);
+            this.olvidarPass.Size = new System.Drawing.Size(156, 16);
             this.olvidarPass.TabIndex = 5;
             this.olvidarPass.TabStop = true;
             this.olvidarPass.Text = "Olvidaste la contraseña?";
