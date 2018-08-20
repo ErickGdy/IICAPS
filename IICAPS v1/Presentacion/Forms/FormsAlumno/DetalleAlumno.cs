@@ -261,13 +261,13 @@ namespace IICAPS_v1.Presentacion
                 DocumentosInscripcion al = control.consultarEntregaDocumentos(alumno.rfc);
                 if (tabControlDocumentacion.SelectedIndex == 0)
                 {
-                    FormDocumentosInscripcion fa = new FormDocumentosInscripcion(al);
+                    FormDocumentosInscripcion fa = new FormDocumentosInscripcion(al, false);
                     fa.FormClosed += new FormClosedEventHandler(form_ClosedDocumentos);
                     fa.Show();
                 }
                 else
                 {
-                    FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(al);
+                    FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(al, false);
                     fa.FormClosed += new FormClosedEventHandler(form_ClosedDocumentos);
                     fa.Show();
                 }

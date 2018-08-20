@@ -71,13 +71,13 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 "Agregar Documentos", MessageBoxButtons.YesNo,MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                FormDocumentosInscripcion fa = new FormDocumentosInscripcion(null);
+                FormDocumentosInscripcion fa = new FormDocumentosInscripcion(null, false);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
             }
             else
             {
-                FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(null);
+                FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(null, false);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
             }
@@ -96,13 +96,13 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 DocumentosInscripcion documentos = control.consultarEntregaDocumentos(rfc);
                 if (documentos.tipoInscripcion == 2)
                 {
-                    FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(documentos);
+                    FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(documentos, true);
                     fa.FormClosed += new FormClosedEventHandler(form_Closed);
                     fa.Show();
                 }
                 else if (documentos.tipoInscripcion == 1)
                 {
-                    FormDocumentosInscripcion fa = new FormDocumentosInscripcion(documentos);
+                    FormDocumentosInscripcion fa = new FormDocumentosInscripcion(documentos, true);
                     fa.FormClosed += new FormClosedEventHandler(form_Closed);
                     fa.Show();
                 }
@@ -121,13 +121,13 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 DocumentosInscripcion documentos = control.consultarEntregaDocumentos(rfc);
                 if (documentos.tipoInscripcion == 2)
                 {
-                    FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(documentos);
+                    FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(documentos, false);
                     fa.FormClosed += new FormClosedEventHandler(form_Closed);
                     fa.Show();
                 }
                 else if (documentos.tipoInscripcion == 1)
                 {
-                    FormDocumentosInscripcion fa = new FormDocumentosInscripcion(documentos);
+                    FormDocumentosInscripcion fa = new FormDocumentosInscripcion(documentos, false);
                     fa.FormClosed += new FormClosedEventHandler(form_Closed);
                     fa.Show();
                 }
