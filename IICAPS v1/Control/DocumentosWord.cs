@@ -11,8 +11,10 @@ namespace IICAPS_v1.Control
         ControlIicaps control;
         string imgHeader1 = "C:\\SistemaIICAPS\\imagenes\\logoaltacalidad.jpg";
         string imgFooter1 = "C:\\SistemaIICAPS\\imagenes\\piealtacalidad.jpg";
+        int contDocIns = 0, contPagos = 0;
         public DocumentosWord(DocumentosInscripcion doc)
         {
+            contDocIns++;
             control = ControlIicaps.getInstance();
             Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
             //Quitar animacion y visibilidad mientras se crea y edita
@@ -55,7 +57,7 @@ namespace IICAPS_v1.Control
             object style1 = "Normal";
             parra2.Range.set_Style(ref style1);
             //parra1.Range.Text = "Recibo de documentos para: " + control.obtenerProgramaAlumno(doc.alumno);
-            parra2.Range.Text = "Se han recibido los siguientes documentos del alumno: " + doc.alumno + Environment.NewLine;
+            parra2.Range.Text = "Se han recibido los siguientes documentos del alumno: " + control.obtenerNombreAlumno(doc.alumno) + Environment.NewLine;
             parra2.Range.InsertParagraphAfter();
             if (doc.actaNacimientoCop)
             {
@@ -102,7 +104,7 @@ namespace IICAPS_v1.Control
             //Hacemos visible el documento
             word.Visible = true;
             //Guardamos el documento
-            object filename = @"C:\\SistemaIICAPS\\Documentos\\ReciboDocumentos" + doc.alumno;
+            object filename = @"C:\\SistemaIICAPS\\Documentos\\ReciboDocumentos" + doc.alumno+"-"+contDocIns.ToString();
             documento.SaveAs2(ref filename);
             //documento.Close(ref missing, ref missing, ref missing);
             //documento = null;
@@ -114,6 +116,7 @@ namespace IICAPS_v1.Control
 
         public DocumentosWord(Pago pago)
         {
+            contPagos++;
             control = ControlIicaps.getInstance();
             Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
             //Quitar animacion y visibilidad mientras se crea y edita
@@ -141,19 +144,36 @@ namespace IICAPS_v1.Control
                 Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
                 footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
                 HeaderFooter footer = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
-                footer.Range.ParagraphFormat.SpaceAfter = 0;
+                footer.Range.ParagraphFormat.SpaceAfter = 50;
                 footer.Shapes.AddPicture(imgFooter1);
             }
+            //Agregar parrafo de texto con estilo de titulo 1
+            Microsoft.Office.Interop.Word.Paragraph parra1 = documento.Content.Paragraphs.Add(ref missing);
+            object styleHeading1 = "Título 1";
+            parra1.Range.set_Style(ref styleHeading1);
+            parra1.Range.Text = Environment.NewLine + "Se recibió el pago de: " + control.obtenerNombreAlumno(pago.alumnoID);
+            parra1.Range.InsertParagraphAfter();
+            //Parrafos restantes del documento
+            documento.Content.SetRange(0, 0);
+            Microsoft.Office.Interop.Word.Paragraph parra2 = documento.Content.Paragraphs.Add(ref missing);
+            object style1 = "Normal";
+            parra2.Range.set_Style(ref style1);
+            //parra1.Range.Text = "Recibo de documentos para: " + control.obtenerProgramaAlumno(doc.alumno);
+            parra2.Range.Text = "La cantidad de: $" + pago.cantidad + Environment.NewLine + 
+                "Por concepto de: " +pago.concepto + Environment.NewLine + 
+                "Fecha: "+pago.fechaPago+ Environment.NewLine + Environment.NewLine + 
+                "Recibió: "+ control.obtenerNombreEmpleado(pago.recibio) + Environment.NewLine + "Firma: ___________________________________________";
+            parra2.Range.InsertParagraphAfter();
             //Hacemos visible el documento
             word.Visible = true;
             //Guardamos el documento
-            object filename = @"C:\\SistemaIICAPS\\Documentos\\ReciboDePago" + pago.alumnoID;
+            object filename = @"C:\\SistemaIICAPS\\Documentos\\ReciboDePago" + pago.alumnoID + "-" +contPagos.ToString();
             documento.SaveAs2(ref filename);
             //documento.Close(ref missing, ref missing, ref missing);
             //documento = null;
             //word.Quit(ref missing, ref missing, ref missing);
             //word = null;
-            MessageBox.Show("¡Recibo de documentos creado exitosamente!");
+            MessageBox.Show("¡Recibo de pago creado exitosamente!");
         }
     }
 }

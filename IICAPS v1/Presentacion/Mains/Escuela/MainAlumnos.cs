@@ -50,11 +50,14 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 //Se asigna el datatable como origen de datos del datagridview
                 dataGridViewAlumnos.DataSource = dtDatos;
                 //Actualiza el valor de la etiqueta donde se muestra el total de productos
-                dataGridViewAlumnos.Columns[0].Width = 50;
-                dataGridViewAlumnos.Columns[1].Width = 50;
-                dataGridViewAlumnos.Columns[2].Width = 50;
-                dataGridViewAlumnos.Columns[3].Width = 50;
-                dataGridViewAlumnos.Columns[4].Width = 50;
+                if (dataGridViewAlumnos.Columns.Count != 0)
+                {
+                    int x = (dataGridViewAlumnos.Width - 20) / dataGridViewAlumnos.Columns.Count;
+                    foreach (DataGridViewColumn aux in dataGridViewAlumnos.Columns)
+                    {
+                        aux.Width = x;
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -171,6 +174,27 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             }
         }
 
-
+        private void darDeAltaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                String rfc = dataGridViewAlumnos.CurrentRow.Cells[0].Value.ToString();
+                DialogResult dialogresult = MessageBox.Show("¿Desea dar de Alta el alumno?", "Alta de Alumno", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (dialogresult == DialogResult.OK)
+                {
+                    if (control.darDeAltaAlumno(rfc))
+                    {
+                        MessageBox.Show("Alumno dado de Alta");
+                        actualizarTablaAlumnos(control.obtenerAlumnosTable());
+                    }
+                    else
+                        MessageBox.Show("Error al dar el Alta del alumno");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
