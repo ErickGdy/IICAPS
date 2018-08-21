@@ -1834,8 +1834,8 @@ namespace IICAPS_v1.Control
         {
             try
             {
-                string agregar = "INSERT INTO taller (Nombre, Fecha, Costo, Capacidad, Requisitos) VALUES("
-                    + " ' " + taller.nombre + "','" + taller.fecha + "','" + taller.costo+ "','" + taller.capacidad + "','" + taller.requisitos + "');";
+                string agregar = "INSERT INTO taller (Nombre, Fecha, Costo, Capacidad, Requisitos, Estado) VALUES("
+                    + " ' " + taller.nombre + "','" + formatearFecha(taller.fecha) + "','" + taller.costo+ "','" + taller.capacidad + "','" + taller.requisitos + "', 1);";
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "START TRANSACTION; "
@@ -1854,7 +1854,7 @@ namespace IICAPS_v1.Control
                 catch (Exception e)
                 {
                     conn.Close();
-                    throw new Exception("Error...! Error al agregar taller a la Base de datos");
+                    throw new Exception("Error...! Error al agregar el taller a la Base de datos");
                 }
             }
             catch (Exception e)
@@ -1889,7 +1889,7 @@ namespace IICAPS_v1.Control
                 }
                 catch (Exception e)
                 {
-                    throw new Exception("Error...!\n Error al actualizar la taller a la Base de datos");
+                    throw new Exception("Error...!\n Error al actualizar el taller de la Base de datos");
                 }
             }
             catch (Exception e)
@@ -1984,7 +1984,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM taller WHERE ID='" + id + "'";
+                cmd.CommandText = "SELECT ID, Nombre, Fecha, Costo, Capacidad, Requisitos FROM taller WHERE ID='" + id + "'";
                 conn.Open();
                 try
                 {

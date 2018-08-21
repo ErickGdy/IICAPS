@@ -42,6 +42,7 @@ namespace IICAPS_v1.Presentacion
             asistente.nombre = txtNombre.Text;
             asistente.telefono = txtTelefono.Text;
             asistente.correo = txtCorreo.Text;
+            asistente.pago = txtPago.Value;
             try
             {
                 if (control.registrarAsistenteTaller(asistente))
