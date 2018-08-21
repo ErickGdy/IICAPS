@@ -196,5 +196,18 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void historialDePagosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void historialDePagosToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            String rfc = dataGridViewAlumnos.CurrentRow.Cells[0].Value.ToString();
+            String programa = dataGridViewAlumnos.CurrentRow.Cells[3].Value.ToString();
+            FormHistorialPagosAlumno fa = new FormHistorialPagosAlumno(programa, rfc);
+            fa.Show();
+        }
     }
 }

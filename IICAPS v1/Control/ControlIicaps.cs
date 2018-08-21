@@ -51,10 +51,10 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO alumnos (Nombre, Direccion, Telefono1, Telefono2, Correo, Facebook, CURP, RFC, Sexo, EstadoCivil, EscuelaProcedencia, Carrera, Programa, Nivel, Fecha, Estado, Tipo) VALUES('" 
+                cmd.CommandText = "INSERT INTO alumnos (Nombre, Direccion, Telefono1, Telefono2, Correo, Facebook, CURP, RFC, Sexo, EstadoCivil, EscuelaProcedencia, Carrera, Programa, Nivel, Fecha, Estado, Tipo, Observaciones, Matricula) VALUES('" 
                     + alumno.nombre + "','" + alumno.direccion + "','" + alumno.telefono1 + "','" + alumno.telefono2 + "','" + alumno.correo + "','" + alumno.facebook + "','" + alumno.curp + "','"
                     + alumno.rfc + "','" + alumno.sexo + "','" + alumno.estadoCivil + "','" + alumno.escuelaProcedencia + "','" + alumno.carrera + "','" + alumno.programa + "','" + alumno.nivel + "','" +formatearFecha(alumno.fecha)+ 
-                    "','Registrado','" + alumno.tipo + "')";
+                    "','Registrado','" + alumno.tipo + "','" + alumno.observaciones + "','" + alumno.matricula + "')";
                 conn.Open();
                 try
                 {
@@ -159,6 +159,8 @@ namespace IICAPS_v1.Control
                         a.fecha = reader.GetDateTime(14);
                         a.estado = reader.GetString(15);
                         a.tipo = reader.GetString(16);
+                        a.observaciones = reader.GetString(17);
+                        a.matricula = reader.GetString(18);
                         conn.Close();
                         return a;
                     }
@@ -208,6 +210,8 @@ namespace IICAPS_v1.Control
                         a.fecha = reader.GetDateTime(14);
                         a.estado = reader.GetString(15);
                         a.tipo = reader.GetString(16);
+                        a.observaciones = reader.GetString(17);
+                        a.matricula = reader.GetString(18);
                         aux.Add(a);
                     }
                     conn.Close();
@@ -259,6 +263,8 @@ namespace IICAPS_v1.Control
                         a.fecha = reader.GetDateTime(14);
                         a.estado = reader.GetString(15);
                         a.tipo = reader.GetString(16);
+                        a.observaciones = reader.GetString(17);
+                        a.matricula = reader.GetString(18);
                         aux.Add(a);
                     }
                     conn.Close();
@@ -374,7 +380,7 @@ namespace IICAPS_v1.Control
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE alumnos SET Nombre= '"+alumno.nombre+"', Direccion= '"+alumno.direccion+"', Telefono1= '"+alumno.telefono1+"', Telefono2= '"
                     +alumno.telefono2+"', Correo= '"+alumno.correo+"', Facebook= '"+alumno.facebook+"', Sexo= '"+alumno.sexo+"', EstadoCivil= '"+alumno.estadoCivil+
-                    "', Programa= '"+alumno.programa+"', Fecha= '"+formatearFecha(alumno.fecha)+"', Estado= '"+alumno.estado+"', Tipo= '"+alumno.tipo+ "' WHERE RFC = '" + alumno.rfc + "'";
+                    "', Programa= '"+alumno.programa+"', Fecha= '"+formatearFecha(alumno.fecha)+"', Estado= '"+alumno.estado+"', Tipo= '"+alumno.tipo+ "',Observaciones= '"+alumno.observaciones+ "',Matricula= '" + alumno.matricula + "' WHERE RFC = '" + alumno.rfc + "'";
                 conn.Open();
                 try
                 {
@@ -585,7 +591,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM creditoAlumno WHERE ID=" + id;
+                cmd.CommandText = "UPDATE creditoAlumno SET Estado = 'Cancelado' WHERE ID=" + id;
                 conn.Open();
                 try
                 {
@@ -736,9 +742,17 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 conn.Open();
+                MySqlDataAdapter mdaDatos = new MySqlDataAdapter();
                 try
                 {
-                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID='" + rfc + "' AND Concepto='" + concepto + "'", conn);
+                    if(concepto.Contains("Colegiatura")) 
+                        mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID = '"+rfc+"' AND Concepto = 'Pago de Colegiatura' OR Concepto = 'Abono de Colegiatura'", conn);
+                    else if (concepto.Contains("Credito"))
+                        mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID = '" + rfc + "' AND Concepto = 'Pago de Credito' OR Concepto = 'Abono de Credito'", conn);
+                    else if (concepto.Contains("Taller"))
+                        mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID = '" + rfc + "' AND Concepto = 'Pago de Taller' OR Concepto = 'Abono de Taller'", conn);
+                    else if (concepto.Contains("Inscripcion"))
+                        mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID = '" + rfc + "' AND Concepto = 'Pago de Inscripcion'", conn);
                     conn.Close();
                     return mdaDatos;
                 }
@@ -796,7 +810,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "DELETE FROM pagosAlumno WHERE ID="+id;
+                cmd.CommandText = "UPDATE pagosAlumno SET Estado = 'Cancelado' WHERE ID="+id;
                 conn.Open();
                 try
                 {
@@ -1397,6 +1411,37 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
+        public string obtenerNombrePrograma(string codigo)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Nombre FROM programa WHERE Codigo = '" + codigo + "'";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string nombre = "";
+                        nombre = reader.GetString(0);
+                        return nombre;
+                    }
+                    conn.Close();
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error..! Error al obtener el nombre del programa de la Base de Datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
 
         //-------------------------------GRUPOS-------------------------------//
         public bool agregarGrupo(Grupo grupo)
@@ -1834,8 +1879,8 @@ namespace IICAPS_v1.Control
         {
             try
             {
-                string agregar = "INSERT INTO taller (Nombre, Fecha, Costo, Capacidad, Requisitos) VALUES("
-                    + " ' " + taller.nombre + "','" + taller.fecha + "','" + taller.costo+ "','" + taller.capacidad + "','" + taller.requisitos + "');";
+                string agregar = "INSERT INTO taller (Nombre, Fecha, Costo, Capacidad, Requisitos, Estado) VALUES("
+                    + " ' " + taller.nombre + "','" + formatearFecha(taller.fecha) + "','" + taller.costo+ "','" + taller.capacidad + "','" + taller.requisitos + "', 1);";
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "START TRANSACTION; "
@@ -1854,7 +1899,7 @@ namespace IICAPS_v1.Control
                 catch (Exception e)
                 {
                     conn.Close();
-                    throw new Exception("Error...! Error al agregar taller a la Base de datos");
+                    throw new Exception("Error...! Error al agregar el taller a la Base de datos");
                 }
             }
             catch (Exception e)
@@ -1889,7 +1934,7 @@ namespace IICAPS_v1.Control
                 }
                 catch (Exception e)
                 {
-                    throw new Exception("Error...!\n Error al actualizar la taller a la Base de datos");
+                    throw new Exception("Error...!\n Error al actualizar el taller de la Base de datos");
                 }
             }
             catch (Exception e)
@@ -1984,7 +2029,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM taller WHERE ID='" + id + "'";
+                cmd.CommandText = "SELECT ID, Nombre, Fecha, Costo, Capacidad, Requisitos FROM taller WHERE ID='" + id + "'";
                 conn.Open();
                 try
                 {

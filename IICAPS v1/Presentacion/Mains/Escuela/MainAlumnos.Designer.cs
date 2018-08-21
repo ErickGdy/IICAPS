@@ -37,14 +37,15 @@
             this.menuTablaAlumnos = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.consultarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modificarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.historialDePagosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.darDeBajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.darDeAltaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtBuscarAlumno = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.limpiarBusqueda = new System.Windows.Forms.LinkLabel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
-            this.darDeAltaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAlumnos)).BeginInit();
             this.menuTablaAlumnos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -60,8 +61,8 @@
             this.dataGridViewAlumnos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewAlumnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAlumnos.ContextMenuStrip = this.menuTablaAlumnos;
-            this.dataGridViewAlumnos.Location = new System.Drawing.Point(237, 138);
-            this.dataGridViewAlumnos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dataGridViewAlumnos.Location = new System.Drawing.Point(178, 112);
+            this.dataGridViewAlumnos.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridViewAlumnos.Name = "dataGridViewAlumnos";
             this.dataGridViewAlumnos.ReadOnly = true;
             this.dataGridViewAlumnos.RowHeadersVisible = false;
@@ -70,7 +71,7 @@
             this.dataGridViewAlumnos.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewAlumnos.RowTemplate.Height = 24;
             this.dataGridViewAlumnos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewAlumnos.Size = new System.Drawing.Size(764, 338);
+            this.dataGridViewAlumnos.Size = new System.Drawing.Size(573, 275);
             this.dataGridViewAlumnos.TabIndex = 0;
             // 
             // menuTablaAlumnos
@@ -79,48 +80,64 @@
             this.menuTablaAlumnos.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.consultarToolStripMenuItem,
             this.modificarToolStripMenuItem,
+            this.historialDePagosToolStripMenuItem,
             this.darDeBajaToolStripMenuItem,
             this.darDeAltaToolStripMenuItem});
             this.menuTablaAlumnos.Name = "menuTablaAlumnos";
-            this.menuTablaAlumnos.Size = new System.Drawing.Size(211, 128);
+            this.menuTablaAlumnos.Size = new System.Drawing.Size(170, 114);
             // 
             // consultarToolStripMenuItem
             // 
             this.consultarToolStripMenuItem.Name = "consultarToolStripMenuItem";
-            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.consultarToolStripMenuItem.Text = "Consultar";
             this.consultarToolStripMenuItem.Click += new System.EventHandler(this.consultarToolStripMenuItem_Click);
             // 
             // modificarToolStripMenuItem
             // 
             this.modificarToolStripMenuItem.Name = "modificarToolStripMenuItem";
-            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.modificarToolStripMenuItem.Text = "Modificar Datos";
             this.modificarToolStripMenuItem.Click += new System.EventHandler(this.modificarToolStripMenuItem_Click);
+            // 
+            // historialDePagosToolStripMenuItem
+            // 
+            this.historialDePagosToolStripMenuItem.Name = "historialDePagosToolStripMenuItem";
+            this.historialDePagosToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.historialDePagosToolStripMenuItem.Text = "Historial de Pagos";
+            this.historialDePagosToolStripMenuItem.Click += new System.EventHandler(this.historialDePagosToolStripMenuItem_Click_1);
             // 
             // darDeBajaToolStripMenuItem
             // 
             this.darDeBajaToolStripMenuItem.Name = "darDeBajaToolStripMenuItem";
-            this.darDeBajaToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.darDeBajaToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.darDeBajaToolStripMenuItem.Text = "Dar de Baja";
             this.darDeBajaToolStripMenuItem.Click += new System.EventHandler(this.darDeBajaToolStripMenuItem_Click);
+            // 
+            // darDeAltaToolStripMenuItem
+            // 
+            this.darDeAltaToolStripMenuItem.Name = "darDeAltaToolStripMenuItem";
+            this.darDeAltaToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.darDeAltaToolStripMenuItem.Text = "Dar de Alta";
+            this.darDeAltaToolStripMenuItem.Click += new System.EventHandler(this.darDeAltaToolStripMenuItem_Click);
             // 
             // txtBuscarAlumno
             // 
             this.txtBuscarAlumno.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBuscarAlumno.Location = new System.Drawing.Point(735, 101);
-            this.txtBuscarAlumno.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtBuscarAlumno.Location = new System.Drawing.Point(551, 82);
+            this.txtBuscarAlumno.Margin = new System.Windows.Forms.Padding(2);
             this.txtBuscarAlumno.Name = "txtBuscarAlumno";
-            this.txtBuscarAlumno.Size = new System.Drawing.Size(265, 28);
+            this.txtBuscarAlumno.Size = new System.Drawing.Size(200, 24);
             this.txtBuscarAlumno.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(229, 55);
+            this.label1.Location = new System.Drawing.Point(172, 45);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(150, 39);
+            this.label1.Size = new System.Drawing.Size(119, 31);
             this.label1.TabIndex = 3;
             this.label1.Text = "Alumnos";
             // 
@@ -133,9 +150,10 @@
             this.limpiarBusqueda.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.limpiarBusqueda.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.limpiarBusqueda.LinkColor = System.Drawing.Color.Gray;
-            this.limpiarBusqueda.Location = new System.Drawing.Point(971, 103);
+            this.limpiarBusqueda.Location = new System.Drawing.Point(728, 84);
+            this.limpiarBusqueda.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.limpiarBusqueda.Name = "limpiarBusqueda";
-            this.limpiarBusqueda.Size = new System.Drawing.Size(27, 25);
+            this.limpiarBusqueda.Size = new System.Drawing.Size(21, 20);
             this.limpiarBusqueda.TabIndex = 39;
             this.limpiarBusqueda.TabStop = true;
             this.limpiarBusqueda.Text = "X";
@@ -146,10 +164,10 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(696, 101);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pictureBox2.Location = new System.Drawing.Point(522, 82);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(32, 28);
+            this.pictureBox2.Size = new System.Drawing.Size(24, 23);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 38;
             this.pictureBox2.TabStop = false;
@@ -162,8 +180,7 @@
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(237, 101);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Location = new System.Drawing.Point(178, 82);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(30, 30);
             this.button1.TabIndex = 40;
@@ -181,29 +198,22 @@
             this.btnAgregar.ForeColor = System.Drawing.Color.White;
             this.btnAgregar.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregar.Image")));
             this.btnAgregar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAgregar.Location = new System.Drawing.Point(797, 55);
-            this.btnAgregar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnAgregar.Location = new System.Drawing.Point(598, 45);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(2);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(204, 39);
+            this.btnAgregar.Size = new System.Drawing.Size(153, 32);
             this.btnAgregar.TabIndex = 41;
             this.btnAgregar.Text = "Agregar Nuevo";
             this.btnAgregar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAgregar.UseVisualStyleBackColor = false;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregarAlumno_Click);
             // 
-            // darDeAltaToolStripMenuItem
-            // 
-            this.darDeAltaToolStripMenuItem.Name = "darDeAltaToolStripMenuItem";
-            this.darDeAltaToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
-            this.darDeAltaToolStripMenuItem.Text = "Dar de Alta";
-            this.darDeAltaToolStripMenuItem.Click += new System.EventHandler(this.darDeAltaToolStripMenuItem_Click);
-            // 
             // MainAlumnos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1333, 571);
+            this.ClientSize = new System.Drawing.Size(1000, 464);
             this.ControlBox = false;
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.button1);
@@ -213,7 +223,7 @@
             this.Controls.Add(this.txtBuscarAlumno);
             this.Controls.Add(this.dataGridViewAlumnos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainAlumnos";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -242,5 +252,6 @@
         private System.Windows.Forms.ToolStripMenuItem darDeBajaToolStripMenuItem;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.ToolStripMenuItem darDeAltaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem historialDePagosToolStripMenuItem;
     }
 }

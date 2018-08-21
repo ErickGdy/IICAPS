@@ -65,7 +65,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            FormRegistrarPago fa = new FormRegistrarPago(null);
+            FormRegistrarPago fa = new FormRegistrarPago(null, false);
             fa.FormClosed += new FormClosedEventHandler(form_Closed);
             fa.Show();
         }
@@ -86,7 +86,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             {
                 String id = dataGridViewPagos.CurrentRow.Cells[0].Value.ToString();
                 Pago pago = control.consultarPago(id);
-                FormRegistrarPago fa = new FormRegistrarPago(pago);
+                FormRegistrarPago fa = new FormRegistrarPago(pago, true);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
             }

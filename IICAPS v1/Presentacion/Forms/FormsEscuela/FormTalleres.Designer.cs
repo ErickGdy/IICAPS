@@ -52,9 +52,10 @@
             // btnAceptar
             // 
             this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAceptar.Location = new System.Drawing.Point(169, 341);
+            this.btnAceptar.Location = new System.Drawing.Point(225, 420);
+            this.btnAceptar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(103, 40);
+            this.btnAceptar.Size = new System.Drawing.Size(137, 49);
             this.btnAceptar.TabIndex = 7;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
@@ -64,18 +65,20 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(65, 130);
+            this.label2.Location = new System.Drawing.Point(87, 160);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(76, 20);
+            this.label2.Size = new System.Drawing.Size(94, 25);
             this.label2.TabIndex = 35;
             this.label2.Text = "Nombre:";
             // 
             // btnCancelar
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(297, 341);
+            this.btnCancelar.Location = new System.Drawing.Point(396, 420);
+            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(103, 40);
+            this.btnCancelar.Size = new System.Drawing.Size(137, 49);
             this.btnCancelar.TabIndex = 8;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
@@ -84,19 +87,19 @@
             // txtNombre
             // 
             this.txtNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombre.Location = new System.Drawing.Point(146, 128);
-            this.txtNombre.Margin = new System.Windows.Forms.Padding(2);
+            this.txtNombre.Location = new System.Drawing.Point(195, 158);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(315, 24);
+            this.txtNombre.Size = new System.Drawing.Size(419, 28);
             this.txtNombre.TabIndex = 1;
             // 
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(-4, 386);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox2.Location = new System.Drawing.Point(-5, 475);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(570, 102);
+            this.pictureBox2.Size = new System.Drawing.Size(760, 126);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 63;
             this.pictureBox2.TabStop = false;
@@ -104,10 +107,10 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(-4, -4);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox1.Location = new System.Drawing.Point(-5, -5);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(570, 120);
+            this.pictureBox1.Size = new System.Drawing.Size(760, 148);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 62;
             this.pictureBox1.TabStop = false;
@@ -116,9 +119,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(77, 158);
+            this.label1.Location = new System.Drawing.Point(103, 194);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 20);
+            this.label1.Size = new System.Drawing.Size(79, 25);
             this.label1.TabIndex = 67;
             this.label1.Text = "Fecha:";
             // 
@@ -126,9 +130,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(42, 214);
+            this.label4.Location = new System.Drawing.Point(56, 263);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(99, 20);
+            this.label4.Size = new System.Drawing.Size(123, 25);
             this.label4.TabIndex = 71;
             this.label4.Text = "Capacidad:";
             // 
@@ -136,76 +141,85 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(80, 186);
+            this.label5.Location = new System.Drawing.Point(107, 229);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(61, 20);
+            this.label5.Size = new System.Drawing.Size(76, 25);
             this.label5.TabIndex = 69;
             this.label5.Text = "Costo:";
             // 
             // txtRequisitos
             // 
             this.txtRequisitos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRequisitos.Location = new System.Drawing.Point(146, 242);
-            this.txtRequisitos.Margin = new System.Windows.Forms.Padding(2);
+            this.txtRequisitos.Location = new System.Drawing.Point(195, 298);
+            this.txtRequisitos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtRequisitos.Multiline = true;
             this.txtRequisitos.Name = "txtRequisitos";
-            this.txtRequisitos.Size = new System.Drawing.Size(315, 94);
+            this.txtRequisitos.Size = new System.Drawing.Size(419, 115);
             this.txtRequisitos.TabIndex = 72;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(42, 244);
+            this.label6.Location = new System.Drawing.Point(56, 300);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(99, 20);
+            this.label6.Size = new System.Drawing.Size(119, 25);
             this.label6.TabIndex = 73;
             this.label6.Text = "Requisitos:";
             // 
             // txtFecha
             // 
+            this.txtFecha.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFecha.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.txtFecha.Location = new System.Drawing.Point(147, 157);
+            this.txtFecha.Location = new System.Drawing.Point(196, 193);
+            this.txtFecha.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtFecha.Name = "txtFecha";
-            this.txtFecha.Size = new System.Drawing.Size(111, 20);
+            this.txtFecha.Size = new System.Drawing.Size(147, 28);
             this.txtFecha.TabIndex = 74;
             // 
             // txtCosto
             // 
             this.txtCosto.DecimalPlaces = 2;
+            this.txtCosto.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCosto.Increment = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.txtCosto.Location = new System.Drawing.Point(146, 186);
+            this.txtCosto.Location = new System.Drawing.Point(195, 229);
+            this.txtCosto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtCosto.Maximum = new decimal(new int[] {
             9999999,
             0,
             0,
             0});
             this.txtCosto.Name = "txtCosto";
-            this.txtCosto.Size = new System.Drawing.Size(112, 20);
+            this.txtCosto.Size = new System.Drawing.Size(149, 28);
             this.txtCosto.TabIndex = 75;
             // 
             // txtCapacidad
             // 
-            this.txtCapacidad.Location = new System.Drawing.Point(147, 214);
+            this.txtCapacidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCapacidad.Location = new System.Drawing.Point(196, 263);
+            this.txtCapacidad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtCapacidad.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
             this.txtCapacidad.Name = "txtCapacidad";
-            this.txtCapacidad.Size = new System.Drawing.Size(112, 20);
+            this.txtCapacidad.Size = new System.Drawing.Size(149, 28);
             this.txtCapacidad.TabIndex = 76;
             // 
             // FormTalleres
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(560, 482);
+            this.ClientSize = new System.Drawing.Size(747, 593);
             this.Controls.Add(this.txtCapacidad);
             this.Controls.Add(this.txtCosto);
             this.Controls.Add(this.txtFecha);
@@ -220,6 +234,7 @@
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.Name = "FormTalleres";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
