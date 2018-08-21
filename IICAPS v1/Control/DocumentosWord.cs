@@ -50,7 +50,7 @@ namespace IICAPS_v1.Control
             parra1.Range.set_Style(ref styleHeading1);
             parra1.Range.Font.Bold = 1;
             parra1.Range.Font.Color = WdColor.wdColorDarkGreen;
-            parra1.Range.Text = Environment.NewLine +"Recibo de documentos para: " + control.obtenerProgramaAlumno(doc.alumno);
+            parra1.Range.Text = Environment.NewLine + Environment.NewLine  +"Recibo de documentos para: " + control.obtenerNombrePrograma(control.obtenerProgramaAlumno(doc.alumno));
             parra1.Range.InsertParagraphAfter();
             //Parrafos restantes del documento
             Microsoft.Office.Interop.Word.Paragraph parra2 = documento.Content.Paragraphs.Add(ref missing);
@@ -185,7 +185,7 @@ namespace IICAPS_v1.Control
             object styleHeading1 = "Título 1";
             parra1.Range.set_Style(ref styleHeading1);
             parra1.Range.Font.Color = WdColor.wdColorDarkGreen;
-            parra1.Range.Text = Environment.NewLine + "Se recibió el pago de: " + control.obtenerNombreAlumno(pago.alumnoID);
+            parra1.Range.Text = Environment.NewLine + Environment.NewLine  +"Se recibió el pago de: " + control.obtenerNombreAlumno(pago.alumnoID);
             parra1.Range.InsertParagraphAfter();
             //Parrafos restantes del documento
             documento.Content.SetRange(0, 0);
@@ -250,7 +250,7 @@ namespace IICAPS_v1.Control
             parra1.Range.Font.Color = WdColor.wdColorDarkGreen;
             parra1.Range.Font.Bold = 1;
             parra1.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter; 
-            parra1.Range.Text = Environment.NewLine + "CONTRATO DE CRÉDITO EDUCATIVO";
+            parra1.Range.Text = Environment.NewLine + Environment.NewLine  +"CONTRATO DE CRÉDITO EDUCATIVO";
             parra1.Range.InsertParagraphAfter();
             //Parrafos restantes del documento
             Microsoft.Office.Interop.Word.Paragraph parra2 = documento.Content.Paragraphs.Add(ref missing);
@@ -266,7 +266,7 @@ namespace IICAPS_v1.Control
             parra3.Range.Font.Size = 12;
             parra3.Alignment = WdParagraphAlignment.wdAlignParagraphJustify;
             parra3.Range.Text = "Por medio de la presente autorizo la solicitud de crédito educativo a él(la) alumno(a) "+control.obtenerNombreAlumno(credito.alumno)+
-                ", inscrita actualmente en el programa "+control.obtenerProgramaAlumno(credito.alumno)+".";
+                ", inscrita actualmente en el programa "+control.obtenerNombrePrograma(control.obtenerProgramaAlumno(credito.alumno))+".";
             parra3.Range.InsertParagraphAfter();
             Microsoft.Office.Interop.Word.Paragraph parra4 = documento.Content.Paragraphs.Add(ref missing);
             parra4.Range.set_Style(ref style1);

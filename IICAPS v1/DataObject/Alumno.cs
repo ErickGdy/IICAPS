@@ -25,6 +25,7 @@ namespace IICAPS_v1.DataObject
         public DateTime fecha { get; set; }
         public string estado { get; set; }
         public string tipo { get; set; }
-
+        public string observaciones { get; set; }
+        public string matricula { get; set; }
     }
 }

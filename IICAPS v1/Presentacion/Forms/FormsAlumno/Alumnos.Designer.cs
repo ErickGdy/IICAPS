@@ -38,7 +38,7 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabDatosAlumno = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabInfoAlumno = new System.Windows.Forms.TabPage();
             this.btnNext = new System.Windows.Forms.Button();
             this.cmbSexo = new System.Windows.Forms.ComboBox();
             this.cmbEstadoCivil = new System.Windows.Forms.ComboBox();
@@ -70,11 +70,21 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lblFecha = new System.Windows.Forms.Label();
+            this.tabObserCons = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.txtObservaciones = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.label17 = new System.Windows.Forms.Label();
+            this.txtMatricula = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabDatosAlumno.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabInfoAlumno.SuspendLayout();
             this.tabInfoAcademica.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.tabObserCons.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmbNivel
@@ -167,8 +177,9 @@
             // 
             // tabDatosAlumno
             // 
-            this.tabDatosAlumno.Controls.Add(this.tabPage1);
+            this.tabDatosAlumno.Controls.Add(this.tabInfoAlumno);
             this.tabDatosAlumno.Controls.Add(this.tabInfoAcademica);
+            this.tabDatosAlumno.Controls.Add(this.tabObserCons);
             this.tabDatosAlumno.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabDatosAlumno.Location = new System.Drawing.Point(10, 129);
             this.tabDatosAlumno.Margin = new System.Windows.Forms.Padding(2);
@@ -177,38 +188,40 @@
             this.tabDatosAlumno.Size = new System.Drawing.Size(596, 253);
             this.tabDatosAlumno.TabIndex = 29;
             // 
-            // tabPage1
+            // tabInfoAlumno
             // 
-            this.tabPage1.Controls.Add(this.btnNext);
-            this.tabPage1.Controls.Add(this.cmbSexo);
-            this.tabPage1.Controls.Add(this.cmbEstadoCivil);
-            this.tabPage1.Controls.Add(this.txtRFC);
-            this.tabPage1.Controls.Add(this.txtCURP);
-            this.tabPage1.Controls.Add(this.txtFacebook);
-            this.tabPage1.Controls.Add(this.txtTelefono2);
-            this.tabPage1.Controls.Add(this.txtCorreo);
-            this.tabPage1.Controls.Add(this.txtTelefono1);
-            this.tabPage1.Controls.Add(this.txtDireccion);
-            this.tabPage1.Controls.Add(this.txtNombre);
-            this.tabPage1.Controls.Add(this.label11);
-            this.tabPage1.Controls.Add(this.label10);
-            this.tabPage1.Controls.Add(this.label8);
-            this.tabPage1.Controls.Add(this.label9);
-            this.tabPage1.Controls.Add(this.label7);
-            this.tabPage1.Controls.Add(this.label6);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage1.Location = new System.Drawing.Point(4, 27);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Size = new System.Drawing.Size(588, 222);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Datos del Alumno";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabInfoAlumno.Controls.Add(this.linkLabel2);
+            this.tabInfoAlumno.Controls.Add(this.linkLabel1);
+            this.tabInfoAlumno.Controls.Add(this.btnNext);
+            this.tabInfoAlumno.Controls.Add(this.cmbSexo);
+            this.tabInfoAlumno.Controls.Add(this.cmbEstadoCivil);
+            this.tabInfoAlumno.Controls.Add(this.txtRFC);
+            this.tabInfoAlumno.Controls.Add(this.txtCURP);
+            this.tabInfoAlumno.Controls.Add(this.txtFacebook);
+            this.tabInfoAlumno.Controls.Add(this.txtTelefono2);
+            this.tabInfoAlumno.Controls.Add(this.txtCorreo);
+            this.tabInfoAlumno.Controls.Add(this.txtTelefono1);
+            this.tabInfoAlumno.Controls.Add(this.txtDireccion);
+            this.tabInfoAlumno.Controls.Add(this.txtNombre);
+            this.tabInfoAlumno.Controls.Add(this.label11);
+            this.tabInfoAlumno.Controls.Add(this.label10);
+            this.tabInfoAlumno.Controls.Add(this.label8);
+            this.tabInfoAlumno.Controls.Add(this.label9);
+            this.tabInfoAlumno.Controls.Add(this.label7);
+            this.tabInfoAlumno.Controls.Add(this.label6);
+            this.tabInfoAlumno.Controls.Add(this.label5);
+            this.tabInfoAlumno.Controls.Add(this.label4);
+            this.tabInfoAlumno.Controls.Add(this.label3);
+            this.tabInfoAlumno.Controls.Add(this.label2);
+            this.tabInfoAlumno.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabInfoAlumno.Location = new System.Drawing.Point(4, 27);
+            this.tabInfoAlumno.Margin = new System.Windows.Forms.Padding(2);
+            this.tabInfoAlumno.Name = "tabInfoAlumno";
+            this.tabInfoAlumno.Padding = new System.Windows.Forms.Padding(2);
+            this.tabInfoAlumno.Size = new System.Drawing.Size(588, 222);
+            this.tabInfoAlumno.TabIndex = 0;
+            this.tabInfoAlumno.Text = "Datos del Alumno";
+            this.tabInfoAlumno.UseVisualStyleBackColor = true;
             // 
             // btnNext
             // 
@@ -341,21 +354,21 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.label8.Location = new System.Drawing.Point(37, 132);
+            this.label8.Location = new System.Drawing.Point(30, 132);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(63, 20);
+            this.label8.Size = new System.Drawing.Size(70, 20);
             this.label8.TabIndex = 48;
-            this.label8.Text = "CURP:";
+            this.label8.Text = "CURP*:";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.label9.Location = new System.Drawing.Point(326, 132);
+            this.label9.Location = new System.Drawing.Point(319, 132);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(50, 20);
+            this.label9.Size = new System.Drawing.Size(57, 20);
             this.label9.TabIndex = 47;
-            this.label9.Text = "RFC:";
+            this.label9.Text = "RFC*:";
             // 
             // label7
             // 
@@ -419,6 +432,7 @@
             // 
             // tabInfoAcademica
             // 
+            this.tabInfoAcademica.Controls.Add(this.button2);
             this.tabInfoAcademica.Controls.Add(this.cmbNombresPrograma);
             this.tabInfoAcademica.Controls.Add(this.btnPrev);
             this.tabInfoAcademica.Controls.Add(this.cmbPrograma);
@@ -455,7 +469,7 @@
             this.btnPrev.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrev.Image = ((System.Drawing.Image)(resources.GetObject("btnPrev.Image")));
             this.btnPrev.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrev.Location = new System.Drawing.Point(3, 192);
+            this.btnPrev.Location = new System.Drawing.Point(5, 192);
             this.btnPrev.Name = "btnPrev";
             this.btnPrev.Size = new System.Drawing.Size(74, 25);
             this.btnPrev.TabIndex = 55;
@@ -539,6 +553,107 @@
             this.lblFecha.TabIndex = 33;
             this.lblFecha.Text = "10/12/2010";
             // 
+            // tabObserCons
+            // 
+            this.tabObserCons.Controls.Add(this.txtMatricula);
+            this.tabObserCons.Controls.Add(this.label17);
+            this.tabObserCons.Controls.Add(this.label16);
+            this.tabObserCons.Controls.Add(this.txtObservaciones);
+            this.tabObserCons.Controls.Add(this.button1);
+            this.tabObserCons.Location = new System.Drawing.Point(4, 27);
+            this.tabObserCons.Name = "tabObserCons";
+            this.tabObserCons.Padding = new System.Windows.Forms.Padding(3);
+            this.tabObserCons.Size = new System.Drawing.Size(588, 222);
+            this.tabObserCons.TabIndex = 2;
+            this.tabObserCons.Text = "Observaciones";
+            this.tabObserCons.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(6, 191);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(74, 25);
+            this.button1.TabIndex = 56;
+            this.button1.Text = "Anterior";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
+            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button2.Location = new System.Drawing.Point(509, 192);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(74, 25);
+            this.button2.TabIndex = 52;
+            this.button2.Text = "Siguiente";
+            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // txtObservaciones
+            // 
+            this.txtObservaciones.Location = new System.Drawing.Point(224, 26);
+            this.txtObservaciones.Multiline = true;
+            this.txtObservaciones.Name = "txtObservaciones";
+            this.txtObservaciones.Size = new System.Drawing.Size(343, 102);
+            this.txtObservaciones.TabIndex = 57;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.label16.Location = new System.Drawing.Point(81, 26);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(137, 20);
+            this.label16.TabIndex = 54;
+            this.label16.Text = "Observaciones: ";
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(103, 194);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(114, 18);
+            this.linkLabel1.TabIndex = 52;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Consulta CURP";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // linkLabel2
+            // 
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Location = new System.Drawing.Point(272, 194);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(102, 18);
+            this.linkLabel2.TabIndex = 53;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "Consulta RFC";
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.label17.Location = new System.Drawing.Point(126, 134);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(92, 20);
+            this.label17.TabIndex = 55;
+            this.label17.Text = "Matrícula: ";
+            // 
+            // txtMatricula
+            // 
+            this.txtMatricula.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMatricula.Location = new System.Drawing.Point(223, 134);
+            this.txtMatricula.Name = "txtMatricula";
+            this.txtMatricula.Size = new System.Drawing.Size(344, 24);
+            this.txtMatricula.TabIndex = 34;
+            // 
             // Alumnos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -557,11 +672,13 @@
             this.Text = "Alumnos";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabDatosAlumno.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tabInfoAlumno.ResumeLayout(false);
+            this.tabInfoAlumno.PerformLayout();
             this.tabInfoAcademica.ResumeLayout(false);
             this.tabInfoAcademica.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.tabObserCons.ResumeLayout(false);
+            this.tabObserCons.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -577,7 +694,7 @@
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TabControl tabDatosAlumno;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabInfoAlumno;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox cmbSexo;
         private System.Windows.Forms.Label label10;
@@ -609,5 +726,14 @@
         private System.Windows.Forms.Button btnPrev;
         private System.Windows.Forms.Label lblFecha;
         private System.Windows.Forms.ComboBox cmbNombresPrograma;
+        private System.Windows.Forms.TabPage tabObserCons;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox txtObservaciones;
+        private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.TextBox txtMatricula;
+        private System.Windows.Forms.Label label17;
     }
 }

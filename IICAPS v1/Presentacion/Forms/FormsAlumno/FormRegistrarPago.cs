@@ -17,7 +17,7 @@ namespace IICAPS_v1.Presentacion
         ControlIicaps control;
         Pago pagos;
         bool modificacion = false;
-        public FormRegistrarPago(Pago pago)
+        public FormRegistrarPago(Pago pago, bool consultar)
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
@@ -52,15 +52,25 @@ namespace IICAPS_v1.Presentacion
             {
                 modificacion = true;
                 pagos = pago;
-                cmbPrograma.SelectedItem = control.obtenerProgramaAlumno(pago.alumnoID);
-                cmbAlumno.SelectedItem = pago.alumnoID;
-                cmbRecibio.SelectedItem = pago.recibio;
-                cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
-                cmbIDAlumno.SelectedIndex = cmbAlumno.SelectedIndex;
-                cmbIDRecibio.SelectedIndex = cmbRecibio.SelectedIndex;
+                cmbIDPrograma.SelectedItem = control.obtenerProgramaAlumno(pago.alumnoID);
+                cmbIDRecibio.SelectedItem = pago.recibio;
+                cmbPrograma.SelectedIndex = cmbIDPrograma.SelectedIndex;
+                cmbIDAlumno.SelectedItem = pago.alumnoID;
+                cmbAlumno.SelectedIndex = cmbIDAlumno.SelectedIndex;
+                cmbRecibio.SelectedIndex = cmbIDRecibio.SelectedIndex;
                 cmbConcepto.SelectedItem = pago.concepto;
                 numericUpDown1.Value = Convert.ToDecimal(pago.cantidad);
                 txtObservaciones.Text = pago.observaciones;
+                if (consultar)
+                {
+                    cmbPrograma.Enabled = false;
+                    cmbAlumno.Enabled = false;
+                    cmbRecibio.Enabled = false;
+                    numericUpDown1.Enabled = false;
+                    cmbConcepto.Enabled = false;
+                    txtObservaciones.Enabled = false;
+                    btnAceptar.Enabled = false;
+                }
             }
         }
 

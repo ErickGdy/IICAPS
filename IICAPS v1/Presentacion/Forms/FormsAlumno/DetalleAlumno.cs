@@ -137,6 +137,8 @@ namespace IICAPS_v1.Presentacion
                         lblSexo.Text = alumno.sexo;
                         lblTelefono1.Text = alumno.telefono1;
                         lblTelefono2.Text = alumno.telefono2;
+                        lblObservaciones.Text = alumno.observaciones;
+                        lblMatricula.Text = alumno.matricula;
                     }
                     catch (Exception ex) { }
                     break;
