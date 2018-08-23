@@ -17,7 +17,7 @@ namespace IICAPS_v1.Presentacion
         ControlIicaps control;
         bool modificacion;
         Materia materia;
-        public FormMaterias(Materia materia)
+        public FormMaterias(Materia materia, bool consultar)
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
@@ -41,12 +41,23 @@ namespace IICAPS_v1.Presentacion
                 txtCosto.Text = materia.costo.ToString();
                 if (materia.programa != null)
                 {
-                    checkPrograma.Enabled = false;
                     cmbIDProgramas.Enabled = false;
                     cmbProgramas.Enabled = false;
                     checkPrograma.Checked = true;
                     cmbIDProgramas.SelectedValue = materia.programa;
                     cmbProgramas.SelectedIndex = cmbIDProgramas.SelectedIndex;
+                    checkPrograma.Enabled = false;
+                }
+                if (consultar)
+                {
+                    txtNombre.Enabled = false;
+                    txtDuracion.Enabled = false;
+                    txtSemestre.Enabled = false;
+                    txtCosto.Enabled = false;
+                    checkPrograma.Checked = true;
+                    checkPrograma.Enabled = false;
+                    cmbProgramas.Enabled = false;
+                    btnAceptar.Enabled = false;
                 }
             }
         }

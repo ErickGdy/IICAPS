@@ -64,7 +64,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            FormMaterias fa = new FormMaterias(null);
+            FormMaterias fa = new FormMaterias(null, false);
             fa.FormClosed += new FormClosedEventHandler(form_Closed);
             fa.Show();
         }
@@ -80,10 +80,9 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 Materia materia = control.consultarMateria(id);
-                MessageBox.Show("Reporte referente a la materia " + materia.nombre);
-                //FormPrograma fa = new FormPrograma(programa);
-                //fa.FormClosed += new FormClosedEventHandler(form_Closed);
-                //fa.Show();
+                FormMaterias fa = new FormMaterias(materia, true);
+                fa.FormClosed += new FormClosedEventHandler(form_Closed);
+                fa.Show();
             }
             catch (Exception ex)
             {
@@ -97,7 +96,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 Materia materia = control.consultarMateria(id);
-                FormMaterias fa = new FormMaterias(materia);
+                FormMaterias fa = new FormMaterias(materia, false);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
             }
@@ -112,7 +111,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                DialogResult dialogresult = MessageBox.Show("¿Desea calcelar la materia?", "Cancelar materia", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                DialogResult dialogresult = MessageBox.Show("¿Desea quitar la materia?", "Quitar materia", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if(dialogresult == DialogResult.OK)
                 {
                     if (control.desactivarMateria(id))

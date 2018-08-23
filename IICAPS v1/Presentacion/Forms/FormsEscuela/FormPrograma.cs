@@ -68,7 +68,7 @@ namespace IICAPS_v1.Presentacion
                 }
                 catch (Exception ex)
                 {
-
+                    MessageBox.Show(ex.Message);
                 }
             }
             else
@@ -86,7 +86,7 @@ namespace IICAPS_v1.Presentacion
                 }
                 catch (Exception ex)
                 {
-
+                    MessageBox.Show(ex.Message);
                 }
             }
             foreach (string s in cmbMaterias.Items)
@@ -165,7 +165,7 @@ namespace IICAPS_v1.Presentacion
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message);
             }
         }
 

@@ -69,7 +69,16 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                     }
                 }
                 auxPendiente = auxPendiente - auxTotal;
-                lblTotalPagado.Text = "$"+auxTotal.ToString();
+                if (auxPendiente >= 0)
+                {
+                    lblTotalPagado.Text = "$" + auxTotal.ToString();
+                }
+                else
+                {
+                    auxTotal = 0;
+                    lblTotalPagado.Text = "$" + auxTotal.ToString();
+                }
+                
                 if (auxPendiente >= 0)
                 {
                     lblPendiente.Text = "$" + auxPendiente.ToString();

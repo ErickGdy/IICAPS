@@ -37,7 +37,6 @@
             this.menuTablaAlumnos = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.consultarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modificarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cancelarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.limpiarBusqueda = new System.Windows.Forms.LinkLabel();
@@ -77,10 +76,9 @@
             this.menuTablaAlumnos.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuTablaAlumnos.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.consultarToolStripMenuItem,
-            this.modificarToolStripMenuItem,
-            this.cancelarToolStripMenuItem});
+            this.modificarToolStripMenuItem});
             this.menuTablaAlumnos.Name = "menuTablaAlumnos";
-            this.menuTablaAlumnos.Size = new System.Drawing.Size(126, 70);
+            this.menuTablaAlumnos.Size = new System.Drawing.Size(126, 48);
             // 
             // consultarToolStripMenuItem
             // 
@@ -95,13 +93,6 @@
             this.modificarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.modificarToolStripMenuItem.Text = "Modificar";
             this.modificarToolStripMenuItem.Click += new System.EventHandler(this.modificarToolStripMenuItem_Click);
-            // 
-            // cancelarToolStripMenuItem
-            // 
-            this.cancelarToolStripMenuItem.Name = "cancelarToolStripMenuItem";
-            this.cancelarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.cancelarToolStripMenuItem.Text = "Cancelar";
-            this.cancelarToolStripMenuItem.Click += new System.EventHandler(this.cancelarToolStripMenuItem_Click);
             // 
             // txtBuscar
             // 
@@ -232,7 +223,6 @@
         private System.Windows.Forms.ContextMenuStrip menuTablaAlumnos;
         private System.Windows.Forms.ToolStripMenuItem consultarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem modificarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cancelarToolStripMenuItem;
         private System.Windows.Forms.Button btnAgregar;
     }
 }
