@@ -20,8 +20,14 @@ namespace IICAPS.Presentacion
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
-            if (control.leerUserDoc() != null)
-                txtUsuario.Text = control.leerUserDoc();
+            try
+            {
+                string user = control.leerUserDoc();
+                if (user != "")
+                    txtUsuario.Text = user;
+            }
+            catch (Exception ex) { }
+            this.Show();
         }
 
         private void textBox1_Enter(object sender, EventArgs e)
