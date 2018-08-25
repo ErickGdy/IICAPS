@@ -196,5 +196,24 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void txtBuscarAlumno_KeyUp(object sender, KeyEventArgs e)
+        {
+            string texto = txtBuscarAlumno.Text;
+            if (texto != "")
+            {
+                limpiarBusqueda.Visible = true;
+                if (texto.Length > 2)
+                {
+                    try
+                    {
+                        actualizarTablaAlumnos(control.obtenerAlumnosTable(txtBuscarAlumno.Text));
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
+        }
     }
 }
