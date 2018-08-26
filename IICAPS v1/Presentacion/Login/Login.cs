@@ -24,7 +24,10 @@ namespace IICAPS.Presentacion
             {
                 string user = control.leerUserDoc();
                 if (user != "")
+                {
                     txtUsuario.Text = user;
+                    txtUsuario.ForeColor = Color.Black;
+                }
             }
             catch (Exception ex) { }
             this.Show();
