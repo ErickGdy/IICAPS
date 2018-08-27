@@ -41,18 +41,21 @@
             this.txtRequisitos = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtFecha = new System.Windows.Forms.DateTimePicker();
-            this.txtCosto = new System.Windows.Forms.NumericUpDown();
+            this.txtCostoClientes = new System.Windows.Forms.NumericUpDown();
             this.txtCapacidad = new System.Windows.Forms.NumericUpDown();
+            this.txtCostoPublico = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCosto)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCostoClientes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtCapacidad)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCostoPublico)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAceptar
             // 
             this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAceptar.Location = new System.Drawing.Point(169, 341);
+            this.btnAceptar.Location = new System.Drawing.Point(176, 390);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(103, 40);
             this.btnAceptar.TabIndex = 7;
@@ -64,7 +67,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(65, 130);
+            this.label2.Location = new System.Drawing.Point(83, 129);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 20);
             this.label2.TabIndex = 35;
@@ -73,7 +76,7 @@
             // btnCancelar
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(297, 341);
+            this.btnCancelar.Location = new System.Drawing.Point(304, 390);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(103, 40);
             this.btnCancelar.TabIndex = 8;
@@ -84,7 +87,7 @@
             // txtNombre
             // 
             this.txtNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombre.Location = new System.Drawing.Point(146, 128);
+            this.txtNombre.Location = new System.Drawing.Point(164, 127);
             this.txtNombre.Margin = new System.Windows.Forms.Padding(2);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(315, 24);
@@ -93,7 +96,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(-4, 386);
+            this.pictureBox2.Location = new System.Drawing.Point(-4, 447);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(570, 102);
@@ -107,7 +110,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(-4, -4);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(570, 120);
+            this.pictureBox1.Size = new System.Drawing.Size(570, 117);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 62;
             this.pictureBox1.TabStop = false;
@@ -116,7 +119,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(77, 158);
+            this.label1.Location = new System.Drawing.Point(95, 158);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 20);
             this.label1.TabIndex = 67;
@@ -126,7 +129,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(42, 214);
+            this.label4.Location = new System.Drawing.Point(60, 243);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(99, 20);
             this.label4.TabIndex = 71;
@@ -136,16 +139,16 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(80, 186);
+            this.label5.Location = new System.Drawing.Point(13, 186);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(61, 20);
+            this.label5.Size = new System.Drawing.Size(161, 20);
             this.label5.TabIndex = 69;
-            this.label5.Text = "Costo:";
+            this.label5.Text = "Costo a Clientes: $";
             // 
             // txtRequisitos
             // 
             this.txtRequisitos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRequisitos.Location = new System.Drawing.Point(146, 242);
+            this.txtRequisitos.Location = new System.Drawing.Point(164, 271);
             this.txtRequisitos.Margin = new System.Windows.Forms.Padding(2);
             this.txtRequisitos.Multiline = true;
             this.txtRequisitos.Name = "txtRequisitos";
@@ -156,7 +159,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(42, 244);
+            this.label6.Location = new System.Drawing.Point(60, 273);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(99, 20);
             this.label6.TabIndex = 73;
@@ -164,50 +167,84 @@
             // 
             // txtFecha
             // 
+            this.txtFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.txtFecha.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.txtFecha.Location = new System.Drawing.Point(147, 157);
+            this.txtFecha.Location = new System.Drawing.Point(164, 157);
             this.txtFecha.Name = "txtFecha";
-            this.txtFecha.Size = new System.Drawing.Size(111, 20);
+            this.txtFecha.Size = new System.Drawing.Size(111, 23);
             this.txtFecha.TabIndex = 74;
             // 
-            // txtCosto
+            // txtCostoClientes
             // 
-            this.txtCosto.DecimalPlaces = 2;
-            this.txtCosto.Increment = new decimal(new int[] {
+            this.txtCostoClientes.DecimalPlaces = 2;
+            this.txtCostoClientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.txtCostoClientes.Increment = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.txtCosto.Location = new System.Drawing.Point(146, 186);
-            this.txtCosto.Maximum = new decimal(new int[] {
+            this.txtCostoClientes.Location = new System.Drawing.Point(171, 185);
+            this.txtCostoClientes.Maximum = new decimal(new int[] {
             9999999,
             0,
             0,
             0});
-            this.txtCosto.Name = "txtCosto";
-            this.txtCosto.Size = new System.Drawing.Size(112, 20);
-            this.txtCosto.TabIndex = 75;
+            this.txtCostoClientes.Name = "txtCostoClientes";
+            this.txtCostoClientes.Size = new System.Drawing.Size(105, 23);
+            this.txtCostoClientes.TabIndex = 75;
             // 
             // txtCapacidad
             // 
-            this.txtCapacidad.Location = new System.Drawing.Point(147, 214);
+            this.txtCapacidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.txtCapacidad.Location = new System.Drawing.Point(164, 243);
             this.txtCapacidad.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
             this.txtCapacidad.Name = "txtCapacidad";
-            this.txtCapacidad.Size = new System.Drawing.Size(112, 20);
+            this.txtCapacidad.Size = new System.Drawing.Size(112, 23);
             this.txtCapacidad.TabIndex = 76;
+            // 
+            // txtCostoPublico
+            // 
+            this.txtCostoPublico.DecimalPlaces = 2;
+            this.txtCostoPublico.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.txtCostoPublico.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.txtCostoPublico.Location = new System.Drawing.Point(171, 214);
+            this.txtCostoPublico.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.txtCostoPublico.Name = "txtCostoPublico";
+            this.txtCostoPublico.Size = new System.Drawing.Size(105, 23);
+            this.txtCostoPublico.TabIndex = 78;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(20, 214);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(154, 20);
+            this.label3.TabIndex = 77;
+            this.label3.Text = "Costo a Público: $";
             // 
             // FormTalleres
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(560, 482);
+            this.ClientSize = new System.Drawing.Size(560, 543);
+            this.Controls.Add(this.txtCostoPublico);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.txtCapacidad);
-            this.Controls.Add(this.txtCosto);
+            this.Controls.Add(this.txtCostoClientes);
             this.Controls.Add(this.txtFecha);
             this.Controls.Add(this.txtRequisitos);
             this.Controls.Add(this.label6);
@@ -226,8 +263,9 @@
             this.Text = "Registrar Taller";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtCosto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCostoClientes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtCapacidad)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCostoPublico)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -247,7 +285,9 @@
         private System.Windows.Forms.TextBox txtRequisitos;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DateTimePicker txtFecha;
-        private System.Windows.Forms.NumericUpDown txtCosto;
+        private System.Windows.Forms.NumericUpDown txtCostoClientes;
         private System.Windows.Forms.NumericUpDown txtCapacidad;
+        private System.Windows.Forms.NumericUpDown txtCostoPublico;
+        private System.Windows.Forms.Label label3;
     }
 }

@@ -37,6 +37,16 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             }
         }
 
+        public static DetalleTaller getInstance(Taller taller)
+        {
+            if (instance != null)
+            {
+                return instance = new DetalleTaller(taller);
+            }else
+            {
+                return instance;
+            }
+        }
         private void actualizarTabla(MySqlDataAdapter data)
         {
             try
@@ -47,11 +57,12 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 //Se asigna el datatable como origen de datos del datagridview
                 dataGridView1.DataSource = dtDatos;
                 //Actualiza el valor del ancho de la columnas
-                int x = (dataGridView1.Width - 20) / dataGridView1.Columns.Count;
+                int x = (dataGridView1.Width - 20) / (dataGridView1.Columns.Count-1);
                 foreach (DataGridViewColumn aux in dataGridView1.Columns)
                 {
                     aux.Width = x;
                 }
+                dataGridView1.Columns[0].Visible = false;
             }
             catch (Exception e)
             {
@@ -60,7 +71,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            FormInscricionTaller fa = new FormInscricionTaller(this.taller.id.ToString());
+            FormInscricionTaller fa = new FormInscricionTaller(this.taller.id.ToString(),null);
             fa.FormClosed += new FormClosedEventHandler(form_Closed);
             fa.ShowDialog();
         }
@@ -72,11 +83,11 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         {
             try
             {
-                String id = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 DialogResult dialogresult = MessageBox.Show("¿Desea remover al asistente del taller?", "Remover asistente", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dialogresult == DialogResult.OK)
                 {
-                    if (control.borrarAsistenteTaller(id, this.taller.id.ToString()))
+                    if (control.borrarAsistenteTaller(id))
                     {
                         MessageBox.Show("Asistente removido");
                         actualizarTabla(control.obtenerAsistentesTalleresTable(taller.id.ToString(), txtBuscar.Text));
@@ -151,7 +162,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 limpiarBusqueda.Visible = false;
                 try
                 {
-                    actualizarTabla(control.obtenerAsistentesTalleresTable(taller.id.ToString()));
+                    actualizarTabla(control.obtenerAsistentesTalleresTable(taller.id.ToString())) ;
                 }
                 catch (Exception ex)
                 {
@@ -161,5 +172,24 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
            
         }
 
+        private void modificiarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                String ID = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                FormInscricionTaller fa = new FormInscricionTaller(this.taller.id.ToString(), control.obtenerAsistenteTaller(ID));
+                fa.FormClosed += new FormClosedEventHandler(form_Closed);
+                fa.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void registrarPagoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

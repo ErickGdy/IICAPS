@@ -44,6 +44,8 @@
             this.btnAgregar = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.lblNombreGrupo = new System.Windows.Forms.Label();
+            this.modificiarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registrarPagoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuTablaAlumnos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBuscar)).BeginInit();
@@ -84,15 +86,17 @@
             // 
             this.menuTablaAlumnos.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuTablaAlumnos.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.quitarToolStripMenuItem});
+            this.modificiarToolStripMenuItem,
+            this.quitarToolStripMenuItem,
+            this.registrarPagoToolStripMenuItem});
             this.menuTablaAlumnos.Name = "menuTablaAlumnos";
-            this.menuTablaAlumnos.Size = new System.Drawing.Size(153, 48);
+            this.menuTablaAlumnos.Size = new System.Drawing.Size(153, 92);
             // 
             // quitarToolStripMenuItem
             // 
             this.quitarToolStripMenuItem.Name = "quitarToolStripMenuItem";
             this.quitarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.quitarToolStripMenuItem.Text = "Quitar";
+            this.quitarToolStripMenuItem.Text = "Eliminar";
             this.quitarToolStripMenuItem.Click += new System.EventHandler(this.quitarToolStripMenuItem_Click);
             // 
             // txtBuscar
@@ -191,9 +195,23 @@
             this.lblNombreGrupo.Location = new System.Drawing.Point(103, 16);
             this.lblNombreGrupo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNombreGrupo.Name = "lblNombreGrupo";
-            this.lblNombreGrupo.Size = new System.Drawing.Size(223, 31);
+            this.lblNombreGrupo.Size = new System.Drawing.Size(213, 31);
             this.lblNombreGrupo.TabIndex = 41;
-            this.lblNombreGrupo.Text = "Nombre de grupo";
+            this.lblNombreGrupo.Text = "Nombre de taller";
+            // 
+            // modificiarToolStripMenuItem
+            // 
+            this.modificiarToolStripMenuItem.Name = "modificiarToolStripMenuItem";
+            this.modificiarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.modificiarToolStripMenuItem.Text = "Modificar";
+            this.modificiarToolStripMenuItem.Click += new System.EventHandler(this.modificiarToolStripMenuItem_Click);
+            // 
+            // registrarPagoToolStripMenuItem
+            // 
+            this.registrarPagoToolStripMenuItem.Name = "registrarPagoToolStripMenuItem";
+            this.registrarPagoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.registrarPagoToolStripMenuItem.Text = "Registrar Pago";
+            this.registrarPagoToolStripMenuItem.Click += new System.EventHandler(this.registrarPagoToolStripMenuItem_Click);
             // 
             // DetalleTaller
             // 
@@ -215,7 +233,7 @@
             this.Name = "DetalleTaller";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "00";
+            this.Text = "Lista de asistentes";
             this.SizeChanged += new System.EventHandler(this.Main_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.menuTablaAlumnos.ResumeLayout(false);
@@ -237,5 +255,7 @@
         private System.Windows.Forms.ContextMenuStrip menuTablaAlumnos;
         private System.Windows.Forms.Label lblNombreGrupo;
         private System.Windows.Forms.ToolStripMenuItem quitarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem modificiarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registrarPagoToolStripMenuItem;
     }
 }
