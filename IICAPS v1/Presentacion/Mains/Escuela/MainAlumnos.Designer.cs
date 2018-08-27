@@ -37,6 +37,7 @@
             this.menuTablaAlumnos = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.consultarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modificarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.historialDePagosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.darDeBajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.darDeAltaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtBuscarAlumno = new System.Windows.Forms.TextBox();
@@ -79,6 +80,7 @@
             this.menuTablaAlumnos.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.consultarToolStripMenuItem,
             this.modificarToolStripMenuItem,
+            this.historialDePagosToolStripMenuItem,
             this.darDeBajaToolStripMenuItem,
             this.darDeAltaToolStripMenuItem});
             this.menuTablaAlumnos.Name = "menuTablaAlumnos";
@@ -97,6 +99,13 @@
             this.modificarToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.modificarToolStripMenuItem.Text = "Modificar Datos";
             this.modificarToolStripMenuItem.Click += new System.EventHandler(this.modificarToolStripMenuItem_Click);
+            // 
+            // historialDePagosToolStripMenuItem
+            // 
+            this.historialDePagosToolStripMenuItem.Name = "historialDePagosToolStripMenuItem";
+            this.historialDePagosToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.historialDePagosToolStripMenuItem.Text = "Historial de Pagos";
+            this.historialDePagosToolStripMenuItem.Click += new System.EventHandler(this.historialDePagosToolStripMenuItem_Click_1);
             // 
             // darDeBajaToolStripMenuItem
             // 
@@ -244,5 +253,6 @@
         private System.Windows.Forms.ToolStripMenuItem darDeBajaToolStripMenuItem;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.ToolStripMenuItem darDeAltaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem historialDePagosToolStripMenuItem;
     }
 }

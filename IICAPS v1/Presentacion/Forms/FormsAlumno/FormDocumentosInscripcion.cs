@@ -72,6 +72,7 @@ namespace IICAPS_v1.Presentacion
                     cmbAlumno.Enabled = false;
                     cmbRecibio.Enabled = false;
                     checkedListBox1.Enabled = false;
+                    btnAceptar.Enabled = false;
                 }
             }
         }

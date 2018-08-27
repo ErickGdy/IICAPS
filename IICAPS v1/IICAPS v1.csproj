@@ -102,6 +102,12 @@
     <Compile Include="Presentacion\Forms\FormsAlumno\CreditoAlumno.Designer.cs">
       <DependentUpon>CreditoAlumno.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentacion\Forms\FormsAlumno\FormHistorialPagosAlumno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAlumno\FormHistorialPagosAlumno.Designer.cs">
+      <DependentUpon>FormHistorialPagosAlumno.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Forms\FormsAlumno\InscripcionProgramaAlumno.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +137,12 @@
     </Compile>
     <Compile Include="Presentacion\Forms\FormsAlumno\DetalleAlumno.Designer.cs">
       <DependentUpon>DetalleAlumno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\DetallePagosAlumno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\DetallePagosAlumno.Designer.cs">
+      <DependentUpon>DetallePagosAlumno.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Forms\FormsEscuela\DetalleTaller.cs">
       <SubType>Form</SubType>
@@ -272,6 +284,9 @@
     <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\CreditoAlumno.resx">
       <DependentUpon>CreditoAlumno.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\FormHistorialPagosAlumno.resx">
+      <DependentUpon>FormHistorialPagosAlumno.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\InscripcionProgramaAlumno.resx">
       <DependentUpon>InscripcionProgramaAlumno.cs</DependentUpon>
     </EmbeddedResource>
@@ -286,6 +301,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\DetalleAlumno.resx">
       <DependentUpon>DetalleAlumno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\DetallePagosAlumno.resx">
+      <DependentUpon>DetallePagosAlumno.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\DetalleTaller.resx">
       <DependentUpon>DetalleTaller.cs</DependentUpon>

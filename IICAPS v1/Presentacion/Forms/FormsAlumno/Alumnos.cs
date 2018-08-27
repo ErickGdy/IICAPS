@@ -53,6 +53,8 @@ namespace IICAPS_v1.Presentacion
                 cmbPrograma.SelectedItem = a.programa;
                 cmbNombresPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
                 label12.Text = "Programa actual";
+                txtObservaciones.Text = a.observaciones;
+                txtMatricula.Text = a.matricula;
             }
         }
 
@@ -82,7 +84,7 @@ namespace IICAPS_v1.Presentacion
 
         private bool validarCampos()
         {
-            if (txtNombre.Text != "" && txtDireccion.Text != "" && txtCorreo.Text != "" && txtTelefono1.Text != "" && txtEscuelaProcedencia.Text != "" && txtCarrera.Text != "")
+            if (txtCURP.Text != "" && txtRFC.Text != "" && txtNombre.Text != "" && txtDireccion.Text != "" && txtCorreo.Text != "" && txtTelefono1.Text != "" && txtEscuelaProcedencia.Text != "" && txtCarrera.Text != "")
                 return true;
             return false;
         }
@@ -112,6 +114,8 @@ namespace IICAPS_v1.Presentacion
                 a.tipo = "Regular";
                 a.estado = "Registrado";
                 a.fecha = DateTime.Now;
+                a.observaciones = txtObservaciones.Text;
+                a.matricula = txtMatricula.Text;
                 if (modificacion)
                 {
                     a.rfc = txtRFC.Text;
@@ -165,6 +169,26 @@ namespace IICAPS_v1.Presentacion
         private void cmbNombresPrograma_SelectedValueChanged(object sender, EventArgs e)
         {
             cmbPrograma.SelectedIndex = cmbNombresPrograma.SelectedIndex;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            tabDatosAlumno.SelectTab(tabDatosAlumno.SelectedIndex - 1);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            tabDatosAlumno.SelectTab(tabDatosAlumno.SelectedIndex + 1);
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://consultas.curp.gob.mx/CurpSP/inicio2_2.jsp");
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.mi-rfc.com.mx/consulta-rfc-homoclave");
         }
     }
 }
