@@ -41,9 +41,10 @@ class DataGridViewPrinter
     private List<int[]> mColumnPoints;
     private List<float> mColumnPointsWidth;
     private int mColumnPoint;
+    private bool lista = false;
         
     // The class constructor
-    public DataGridViewPrinter(DataGridView aDataGridView, PrintDocument aPrintDocument, bool CenterOnPage, bool WithTitle, string aTitleText, Font aTitleFont, Color aTitleColor, bool WithPaging)
+    public DataGridViewPrinter(DataGridView aDataGridView, PrintDocument aPrintDocument, bool CenterOnPage, bool WithTitle, string aTitleText, Font aTitleFont, Color aTitleColor, bool WithPaging, bool isLista)
     {
         TheDataGridView = aDataGridView;
         ThePrintDocument = aPrintDocument;
@@ -53,7 +54,7 @@ class DataGridViewPrinter
         TheTitleFont = aTitleFont;
         TheTitleColor = aTitleColor;
         IsWithPaging = WithPaging;
-
+        lista = isLista;
         PageNumber = 0;
 
         RowsHeight = new List<float>();
@@ -121,6 +122,25 @@ class DataGridViewPrinter
                     TheDataGridViewWidth += tmpWidth;
                 ColumnsWidth.Add(tmpWidth);
             }
+            if (lista)
+            {
+                int count = ColumnsWidth.Count;
+                float total = 0;
+                for (int i = 1; i < count; i++)
+                {
+                    total+=ColumnsWidth[0];
+                }
+                int ancho = 1000;
+                if (total < ancho)
+                {
+                    ColumnsWidth[0] = Convert.ToInt32(ancho * .3);
+                    for (int i = 1; i < count - 1; i++)
+                    {
+                        ColumnsWidth[i] = Convert.ToInt32(ancho * .1);
+                    }
+                    ColumnsWidth[count - 1] = Convert.ToInt32((ancho-300) - (100 * (count - 2)));
+                }
+            }
 
             // Define the start/stop column points based on the page width and the DataGridView Width
             // We will use this to determine the columns which are drawn on each page and how wrapping will be handled
@@ -144,7 +164,11 @@ class DataGridViewPrinter
                 }
 
             float mTempWidth = TheDataGridViewWidth;
-            float mTempPrintArea = (float)PageWidth - (float)LeftMargin - (float)RightMargin;
+            if (lista)
+            {
+                mTempWidth = 1000;
+            }
+                float mTempPrintArea = (float)PageWidth - (float)LeftMargin - (float)RightMargin;
             
             // We only care about handling where the total datagridview width is bigger then the print area
             if (TheDataGridViewWidth > mTempPrintArea)
@@ -207,11 +231,7 @@ class DataGridViewPrinter
             StringFormat TitleFormat = new StringFormat();
             TitleFormat.Trimming = StringTrimming.Word;
             TitleFormat.FormatFlags = StringFormatFlags.NoWrap | StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
-            if (IsCenterOnPage)
-                TitleFormat.Alignment = StringAlignment.Center;
-            else
-                TitleFormat.Alignment = StringAlignment.Near;
-
+            TitleFormat.Alignment = StringAlignment.Center;
             RectangleF TitleRectangle = new RectangleF((float)LeftMargin, CurrentY, (float)PageWidth - (float)RightMargin - (float)LeftMargin, g.MeasureString(TheTitleText, TheTitleFont).Height);
 
             g.DrawString(TheTitleText, TheTitleFont, new SolidBrush(TheTitleColor), TitleRectangle, TitleFormat);
@@ -240,10 +260,12 @@ class DataGridViewPrinter
         Pen TheLinePen = new Pen(TheDataGridView.GridColor, 1);
 
         // Setting the HeaderFont style
+
         Font HeaderFont = TheDataGridView.ColumnHeadersDefaultCellStyle.Font;
         if (HeaderFont == null) // If there is no special HeaderFont style, then use the default DataGridView font style
             HeaderFont = TheDataGridView.DefaultCellStyle.Font;
-
+        HeaderFont = new System.Drawing.Font(HeaderFont.FontFamily, HeaderFont.Size, System.Drawing.FontStyle.Bold, 
+            System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         // Calculating and drawing the HeaderBounds        
         RectangleF HeaderBounds = new RectangleF(CurrentX, CurrentY, mColumnPointsWidth[mColumnPoint], RowHeaderHeight);
         g.FillRectangle(HeaderBackBrush, HeaderBounds);
