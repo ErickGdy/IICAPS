@@ -30,6 +30,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
+            cmbSabado.SelectedItem = 0;
             this.grupo = gru;
             alumnos = control.obtenerAlumnosGrupos(this.grupo.codigo);
             lblNombreGrupo.Text = "Grupo: "+ grupo.codigo + " - " + grupo.generacion;
@@ -68,7 +69,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             int ancho = this.Width;
             //Actualiza el tamaño de la tabla con respecto al tamaño de la ventana
             dataGridView1.Width = ancho - 50;
-            dataGridView1.Height = this.Height - 255;
+            dataGridView1.Height = this.Height - 265;
             //actualiza la posicion de los controles con respecto al tamaño de la ventana
             //btnBuscarLista.Location = new Point (ancho - 195, btnBuscarLista.Location.Y);
             lblNombreGrupo.Location = new Point( (ancho/2)- (lblNombreGrupo.Width/2),lblNombreGrupo.Location.Y);
@@ -160,8 +161,16 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 foreach(Asistencias aux in lista)
                 {
                     DataGridViewTextBoxColumn columna = new DataGridViewTextBoxColumn();
-                    columna.DataPropertyName = "Columna-"+aux.Fecha.ToShortDateString();
-                    columna.HeaderText = aux.Fecha.ToShortDateString();
+                    if (aux.isTarde)
+                    {
+                        columna.DataPropertyName = "Columna-" + aux.Fecha.ToShortDateString() + " - TARDE";
+                        columna.HeaderText = aux.Fecha.ToShortDateString() + " - TARDE";
+                    }
+                    else
+                    {
+                        columna.DataPropertyName = "Columna-" + aux.Fecha.ToShortDateString();
+                        columna.HeaderText = aux.Fecha.ToShortDateString();
+                    }
                     columna.DefaultCellStyle.NullValue = paseDeListaValues[2];
                     columna.Width = 85;
                     dataGridView1.Columns.Add(columna);
@@ -169,14 +178,6 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         } 
         private void agregarColumnaOpciones()
         {
-            //DataGridViewCheckBoxColumn columna = new DataGridViewCheckBoxColumn();
-            //columna.DataPropertyName = "Columna-" + DateTime.Now.ToShortDateString();
-            //columna.Name = "Columna-" + DateTime.Now.ToShortDateString();
-            //columna.HeaderText = DateTime.Now.ToShortDateString();
-            //columna.Width = 100;
-            //columna.DefaultCellStyle.NullValue = true;
-            //dataGridView1.Columns.Add(columna);
-
             DataGridViewComboBoxColumn column = new DataGridViewComboBoxColumn();
             column.DataPropertyName = "Columna-" + DateTime.Now.ToShortDateString();
             column.Name = "Columna-" + DateTime.Now.ToShortDateString();
@@ -202,7 +203,11 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                     pls.alumno = alumnos.ElementAt(i).nombre;
                     Asistencias asis = new Asistencias();
                     asis.Estado = dataGridView1.Rows[i].Cells[1].FormattedValue.ToString();
-                    asis.Fecha = DateTime.Now;
+                    asis.Fecha = dateTimePicker1.Value;
+                    if (cmbSabado.Visible&& cmbSabado.SelectedItem.ToString()=="Tarde")
+                            asis.isTarde = true;
+                    else
+                        asis.isTarde = false;
                     List<Asistencias> ls = new List<Asistencias>();
                     ls.Add(asis);
                     pls.asistencias = ls;
@@ -230,19 +235,48 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         }
         private void imprimirListaToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //AGREGAR COLUMNA PARA PASE DE LISTA
             DataGridViewTextBoxColumn columna = new DataGridViewTextBoxColumn();
-            columna.DataPropertyName = "Columna - " + DateTime.Now.ToShortDateString();
+            columna.DataPropertyName = "Columna - " + DateTime.Now.ToShortDateString() + "- inicio";
             columna.HeaderText = DateTime.Now.ToShortDateString();
             columna.Width = 85;
             dataGridView1.Columns.Add(columna);
-
-            if (SetupThePrinting())
+            //AGREGAR SEGUNDA COLUMNA  SI ES SABADO
+            DataGridViewTextBoxColumn columna2 = new DataGridViewTextBoxColumn();
+            if (DateTime.Now.DayOfWeek == DayOfWeek.Saturday)
             {
-                PrintPreviewDialog MyPrintPreviewDialog = new PrintPreviewDialog();
-                MyPrintPreviewDialog.Document = MyPrintDocument;
-                MyPrintPreviewDialog.ShowDialog();
+                columna2.DataPropertyName = "Columna - " + DateTime.Now.ToShortDateString() + "- fin";
+                columna2.HeaderText = DateTime.Now.ToShortDateString();
+                columna2.Width = 85;
+                dataGridView1.Columns.Add(columna2);
+            }
+            //AGREGAR COLUMNA DE OBSERVACIONES
+            DataGridViewTextBoxColumn columnaO = new DataGridViewTextBoxColumn();
+            columnaO.DataPropertyName = "Observaciones";
+            columnaO.HeaderText = "Observaciones";
+            columnaO.Width = 85;
+            dataGridView1.Columns.Add(columnaO);
+
+            try
+            {
+                if (SetupThePrinting())
+                {
+                    PrintPreviewDialog MyPrintPreviewDialog = new PrintPreviewDialog();
+                    MyPrintPreviewDialog.Document = MyPrintDocument;
+                    MyPrintPreviewDialog.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar documento de impresion");
             }
             dataGridView1.Columns.Remove(columna);
+            if (DateTime.Now.DayOfWeek == DayOfWeek.Saturday)
+            {
+                dataGridView1.Columns.Remove(columna2);
+            }
+            dataGridView1.Columns.Remove(columnaO);
+
         }
 
         private bool SetupThePrinting()
@@ -265,9 +299,22 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             MyPrintDocument.DefaultPageSettings.Margins = new Margins(40, 40, 40, 40);
             MyPrintDocument.DefaultPageSettings.Landscape = true;
 
-            MyDataGridViewPrinter = new DataGridViewPrinter(dataGridView1, MyPrintDocument, true, true, "Pase de lista" + lblNombreGrupo.Text + "\n Materia: " + materias.ElementAt(cmbMaterias.SelectedIndex).nombre + "\n \n \n Maestro:________________________________________", new Font("Tahoma", 14, FontStyle.Bold, GraphicsUnit.Point), Color.Black, true);
+            MyDataGridViewPrinter = new DataGridViewPrinter(dataGridView1, MyPrintDocument, false, true, "Pase de lista" + lblNombreGrupo.Text + "\n Materia: " + materias.ElementAt(cmbMaterias.SelectedIndex).nombre + "\n \n Maestro:__________________________________________ \n\n", new Font("Tahoma", 14, FontStyle.Bold, GraphicsUnit.Point), Color.Black, true,true);
 
             return true;
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            if (dateTimePicker1.Value.DayOfWeek == DayOfWeek.Saturday)
+            {
+                lblSabado.Visible = true;
+                cmbSabado.Visible = true;
+            }else
+            {
+                lblSabado.Visible = false;
+                cmbSabado.Visible = false;
+            }
         }
     }
 }

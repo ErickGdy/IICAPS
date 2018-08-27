@@ -15,7 +15,6 @@ namespace IICAPS_v1.Presentacion
     public partial class FormTalleres : Form
     {
         ControlIicaps control;
-        bool modificacion;
         Taller taller;    
         public FormTalleres(Taller taller)
         {
@@ -28,7 +27,8 @@ namespace IICAPS_v1.Presentacion
                 this.taller = taller;
                 txtNombre.Text = taller.nombre;
                 txtFecha.Value = taller.fecha;
-                txtCosto.Value = taller.costo;
+                txtCostoClientes.Value = taller.costoClientes;
+                txtCostoPublico.Value = taller.costoPublico;
                 txtCapacidad.Value = taller.capacidad;
                 txtRequisitos.Text = taller.requisitos;
             }
@@ -41,7 +41,8 @@ namespace IICAPS_v1.Presentacion
             {
                 this.taller.nombre = txtNombre.Text;
                 this.taller.fecha = txtFecha.Value;
-                this.taller.costo = txtCosto.Value;
+                this.taller.costoClientes = txtCostoClientes.Value;
+                this.taller.costoPublico = txtCostoPublico.Value;
                 this.taller.capacidad = Convert.ToInt32(txtCapacidad.Value);
                 this.taller.requisitos = txtRequisitos.Text;
                 try
