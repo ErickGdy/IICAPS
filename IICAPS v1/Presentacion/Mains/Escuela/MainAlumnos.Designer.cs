@@ -105,7 +105,7 @@
             this.historialDePagosToolStripMenuItem.Name = "historialDePagosToolStripMenuItem";
             this.historialDePagosToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.historialDePagosToolStripMenuItem.Text = "Historial de Pagos";
-            this.historialDePagosToolStripMenuItem.Click += new System.EventHandler(this.historialDePagosToolStripMenuItem_Click_1);
+            this.historialDePagosToolStripMenuItem.Click += new System.EventHandler(this.historialDePagosToolStripMenuItem_Click);
             // 
             // darDeBajaToolStripMenuItem
             // 
