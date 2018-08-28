@@ -27,10 +27,11 @@ namespace IICAPS.Presentacion
                 {
                     txtUsuario.Text = user;
                     txtUsuario.ForeColor = Color.Black;
-                }
+                    txtPass.Focus();
+                }else
+                    txtUsuario.Focus();
             }
             catch (Exception ex) { }
-            this.Show();
         }
 
         private void textBox1_Enter(object sender, EventArgs e)
