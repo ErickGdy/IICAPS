@@ -747,11 +747,11 @@ namespace IICAPS_v1.Control
                 try
                 {
                     if(concepto.Contains("Colegiatura")) 
-                        mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID = '"+rfc+"' AND Concepto = 'Pago de Colegiatura' OR Concepto = 'Abono de Colegiatura'", conn);
+                        mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID = '"+rfc+ "' AND Estado NOT LIKE 'Cancelado' AND Concepto = 'Pago de Colegiatura' OR 'Abono de Colegiatura'", conn);
                     else if (concepto.Contains("Credito"))
-                        mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID = '" + rfc + "' AND Concepto = 'Pago de Credito' OR Concepto = 'Abono de Credito'", conn);
+                        mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID = '" + rfc + "' AND Estado NOT LIKE 'Cancelado' AND Concepto = 'Pago de Credito' OR 'Abono de Credito'", conn);
                     else if (concepto.Contains("Taller"))
-                        mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID = '" + rfc + "' AND Concepto = 'Pago de Taller' OR Concepto = 'Abono de Taller'", conn);
+                        mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID = '" + rfc + "' AND Estado NOT LIKE 'Cancelado' AND Concepto = 'Pago de Taller' OR 'Abono de Taller'", conn);
                     else if (concepto.Contains("Inscripcion"))
                         mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID = '" + rfc + "' AND Concepto = 'Pago de Inscripcion'", conn);
                     conn.Close();
@@ -907,8 +907,8 @@ namespace IICAPS_v1.Control
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE materia SET "+
-                    "Nombre=" + materia.nombre + "',Duracion='" + materia.duracion + "',Semestre='" + materia.semestre + "',Costo='" + materia.costo + 
-                    "WHERE ID="+materia.id+";";
+                    "Nombre='" + materia.nombre + "', Duracion='" + materia.duracion + "', Semestre='" + materia.semestre + "', Costo='" + materia.costo + 
+                    "' WHERE ID="+materia.id+";";
                 conn.Open();
                 try
                 {
