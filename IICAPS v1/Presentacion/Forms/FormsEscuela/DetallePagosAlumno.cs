@@ -61,6 +61,12 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 }
                 List<Materia> materias = new List<Materia>(); 
                 materias = control.consultarMapaCurricularPrograma(control.obtenerProgramaAlumno(alumno));
+                double costoCredito = 0;
+                Programa programa = control.consultarPrograma(control.obtenerProgramaAlumno(alumno));
+                if (programa.Nivel.Contains("Maestria") || programa.Nivel.Contains("MAESTRIA") || programa.Nivel.Contains("Maestría") || programa.Nivel.Contains("MAESTRÍA"))
+                    costoCredito = 5000;
+                else
+                    costoCredito = 4000;
                 if (materias != null)
                 {
                     foreach (Materia m in materias)
@@ -68,7 +74,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                         auxPendiente += Convert.ToDouble(m.costo);
                     }
                 }
-                auxPendiente = auxPendiente - auxTotal;
+                auxPendiente = auxPendiente - auxTotal + costoCredito;
                 if (auxPendiente >= 0)
                 {
                     lblTotalPagado.Text = "$" + auxTotal.ToString();
