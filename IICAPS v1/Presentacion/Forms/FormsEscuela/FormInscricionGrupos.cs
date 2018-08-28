@@ -15,7 +15,6 @@ namespace IICAPS_v1.Presentacion
     public partial class FormInscricionGrupos : Form
     {
         ControlIicaps control;
-        bool modificacion;
         public FormInscricionGrupos(string grupo, string alumno)
         {
             InitializeComponent();

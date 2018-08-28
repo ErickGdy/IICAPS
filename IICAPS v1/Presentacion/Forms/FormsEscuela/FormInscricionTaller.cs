@@ -16,53 +16,114 @@ namespace IICAPS_v1.Presentacion
     {
         ControlIicaps control;
         List<String> auxId;
-        public FormInscricionTaller(string id)
+        Taller taller;
+        TallerAsistente asistenT;
+        public FormInscricionTaller(string id, TallerAsistente asistente)
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
             List<String> auxNombres = new List<string>();
             auxId = new List<string>();
-            foreach (Taller p in control.obtenerTalleres())
+            try
             {
-                auxNombres.Add(p.nombre);
-                auxId.Add(p.id.ToString());
+                foreach (Taller p in control.obtenerTalleres())
+                {
+                    auxNombres.Add(p.nombre);
+                    auxId.Add(p.id.ToString());
+                }
+                cmbTalleres.DataSource = auxNombres;
+                if (id != null)
+                {
+                    cmbTalleres.SelectedIndex = auxId.IndexOf(id);
+                    cmbTalleres.Enabled = false;
+                }
             }
-            cmbTalleres.DataSource = auxNombres;
-            if (id != null)
+            catch (Exception ex)
             {
-                cmbTalleres.SelectedIndex= auxId.IndexOf(id);
-                cmbTalleres.Enabled = false;
+            }
+            cmbTipoCosto.SelectedIndex = 0;
+            if (asistente != null)
+            {
+                asistenT = asistente;
+                cmbTalleres.SelectedIndex = auxId.IndexOf(asistente.taller.ToString());
+                txtNombre.Text = asistente.nombre;
+                txtTelefono.Text = asistente.telefono;
+                txtCorreo.Text = asistente.correo;
+                txtCurp.Text = asistente.curp;
+                txtRFC.Text = asistente.rfc;
+                txtAnticipo.Value = asistente.anticipo;
+                txtCosto.Value = asistente.costo;
+                txtObservaciones.Text = asistente.observaciones;
             }
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            TallerAsistente asistente = new TallerAsistente();
-            asistente.taller = Convert.ToInt32(auxId.ElementAt(cmbTalleres.SelectedIndex));
-            asistente.nombre = txtNombre.Text;
-            asistente.telefono = txtTelefono.Text;
-            asistente.correo = txtCorreo.Text;
-            asistente.pago = txtPago.Value;
-            try
-            {
-                if (control.registrarAsistenteTaller(asistente))
+                asistenT.taller = Convert.ToInt32(auxId.ElementAt(cmbTalleres.SelectedIndex));
+                asistenT.nombre = txtNombre.Text;
+                asistenT.telefono = txtTelefono.Text;
+                asistenT.correo = txtCorreo.Text;
+                asistenT.curp = txtCurp.Text;
+                asistenT.rfc = txtRFC.Text;
+                asistenT.anticipo = txtAnticipo.Value;
+                asistenT.costo = txtCosto.Value;
+                asistenT.observaciones = txtObservaciones.Text;
+                try
                 {
-                    MessageBox.Show("Asistencia registrada exitosamente!");
-                    Close();
-                    Dispose();
+                    if (control.registrarAsistenteTaller(asistenT))
+                    {
+                        MessageBox.Show("Asistencia registrada exitosamente!");
+                        Close();
+                        Dispose();
+                    }
+                    else
+                        MessageBox.Show("Error al guardar datos, verifique los campos y compruebe que el asistente no se encuentre registrado y vuelva a intentarlo");
                 }
-                else
-                    MessageBox.Show("Error al guardar datos, verifique los campos y vuelva a intentarlo");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Dispose();
         }
+
+        private void cmbTipoCosto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (cmbTipoCosto.SelectedIndex)
+            {
+                case 0:
+                    txtCosto.Enabled = false;
+                    txtCosto.Value = taller.costoPublico;
+                    break;
+                case 1:
+                    txtCosto.Enabled = false;
+                    txtCosto.Value = taller.costoClientes;
+                    break;
+                case 2:
+                    txtCosto.Enabled = true;
+                    break;
+                default:
+                    txtCosto.Enabled = false;
+                    txtCosto.Value = 0;
+                    break;
+            }
+        }
+
+        private void cmbTalleres_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                taller = control.consultarTaller(auxId.ElementAt(cmbTalleres.SelectedIndex));
+                cmbTipoCosto_SelectedIndexChanged(null,null);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error al obtener datos del taller");
+            }
+        }
+
     }
 }

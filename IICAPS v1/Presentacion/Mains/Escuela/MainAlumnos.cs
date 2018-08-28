@@ -199,15 +199,29 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void historialDePagosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
-        }
-
-        private void historialDePagosToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
             String rfc = dataGridViewAlumnos.CurrentRow.Cells[0].Value.ToString();
             String programa = dataGridViewAlumnos.CurrentRow.Cells[3].Value.ToString();
             FormHistorialPagosAlumno fa = new FormHistorialPagosAlumno(programa, rfc);
             fa.Show();
+        }
+
+        private void txtBuscarAlumno_KeyUp(object sender, KeyEventArgs e)
+        {
+            string texto = txtBuscarAlumno.Text;
+            if (texto != "")
+            {
+                limpiarBusqueda.Visible = true;
+                if (texto.Length > 2)
+                {
+                    try
+                    {
+                        actualizarTablaAlumnos(control.obtenerAlumnosTable(txtBuscarAlumno.Text));
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
         }
     }
 }
