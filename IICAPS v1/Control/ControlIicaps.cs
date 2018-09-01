@@ -769,13 +769,13 @@ namespace IICAPS_v1.Control
             }
         }
 
-        public List<String> obtenerConceptosDePago()
+        public List<String> obtenerConceptosDePago(string area)
         {
             try
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM conceptosDePago";
+                cmd.CommandText = "SELECT Concepto FROM conceptosDePago WHERE Area='"+area+"';";
                 conn.Open();
                 try
                 {
@@ -783,9 +783,7 @@ namespace IICAPS_v1.Control
                     List<String> aux = new List<String>();
                     while (reader.Read())
                     {
-                        String c = "";
-                        c = reader.GetString(0);
-                        aux.Add(c);
+                        aux.Add(reader.GetString(0));
                     }
                     conn.Close();
                     if (aux.Count != 0)

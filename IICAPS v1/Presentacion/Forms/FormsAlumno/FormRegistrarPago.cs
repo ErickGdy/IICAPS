@@ -28,7 +28,7 @@ namespace IICAPS_v1.Presentacion
             List<String> auxRecibio = new List<string>();
             List<String> auxIDRecibio = new List<string>();
             List<String> auxConcepto = new List<string>();
-            foreach (string c in control.obtenerConceptosDePago())
+            foreach (string c in control.obtenerConceptosDePago("Escuela"))
             {
                 auxConcepto.Add(c);
             }
