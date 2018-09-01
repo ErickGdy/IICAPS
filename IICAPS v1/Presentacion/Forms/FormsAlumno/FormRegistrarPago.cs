@@ -15,9 +15,9 @@ namespace IICAPS_v1.Presentacion
     public partial class FormRegistrarPago : Form
     {
         ControlIicaps control;
-        Pago pagos;
+        PagoAlumno pagos;
         bool modificacion = false;
-        public FormRegistrarPago(Pago pago, bool consultar)
+        public FormRegistrarPago(PagoAlumno pago, bool consultar)
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
@@ -103,7 +103,7 @@ namespace IICAPS_v1.Presentacion
             cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
             cmbIDAlumno.SelectedIndex = cmbAlumno.SelectedIndex;
             cmbIDRecibio.SelectedIndex = cmbRecibio.SelectedIndex;
-            Pago p = new Pago();
+            PagoAlumno p = new PagoAlumno();
             p.alumnoID = cmbIDAlumno.SelectedItem.ToString();
             p.cantidad = Convert.ToDouble(numericUpDown1.Value);
             p.concepto = cmbConcepto.SelectedItem.ToString();

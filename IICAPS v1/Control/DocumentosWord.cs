@@ -148,7 +148,7 @@ namespace IICAPS_v1.Control
         }
 
 
-        public DocumentosWord(Pago pago)
+        public DocumentosWord(PagoAlumno pago)
         {
             control = ControlIicaps.getInstance();
             Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();

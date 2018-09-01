@@ -617,7 +617,7 @@ namespace IICAPS_v1.Control
 
         //-------------------------------PAGOS--------------------------------------//
 
-        public bool agregarPago(Pago pago)
+        public bool agregarPago(PagoAlumno pago)
         {
             try
             {
@@ -698,7 +698,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-        public Pago consultarPago(string id)
+        public PagoAlumno consultarPago(string id)
         {
             try
             {
@@ -711,7 +711,7 @@ namespace IICAPS_v1.Control
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        Pago pago = new Pago();
+                        PagoAlumno pago = new PagoAlumno();
                         pago.id = reader.GetInt32(0);
                         pago.alumnoID = reader.GetString(1);
                         pago.fechaPago = reader.GetDateTime(2);

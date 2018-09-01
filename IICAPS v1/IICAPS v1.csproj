@@ -81,7 +81,7 @@
     <Compile Include="DataObject\Empleados.cs" />
     <Compile Include="DataObject\Taller.cs" />
     <Compile Include="DataObject\Grupo.cs" />
-    <Compile Include="DataObject\Pago.cs" />
+    <Compile Include="DataObject\PagoAlumno.cs" />
     <Compile Include="DataObject\PaseDeLista.cs" />
     <Compile Include="DataObject\Programa.cs" />
     <Compile Include="DataObject\Materia.cs" />

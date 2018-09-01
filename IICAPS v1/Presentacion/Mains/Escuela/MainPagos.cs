@@ -85,7 +85,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String id = dataGridViewPagos.CurrentRow.Cells[0].Value.ToString();
-                Pago pago = control.consultarPago(id);
+                PagoAlumno pago = control.consultarPago(id);
                 FormRegistrarPago fa = new FormRegistrarPago(pago, true);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -126,7 +126,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         private void imprimirReciboToolStripMenuItem_Click(object sender, EventArgs e)
         {
             String id = dataGridViewPagos.CurrentRow.Cells[0].Value.ToString();
-            Pago pago = control.consultarPago(id);
+            PagoAlumno pago = control.consultarPago(id);
             DocumentosWord word = new DocumentosWord(pago);
         }
 

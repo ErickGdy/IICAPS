@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IICAPS_v1.DataObject
 {
-    public class Pago
+    public class PagoAlumno
     {
         public int id { get; set; }
         public string alumnoID { get; set; }
