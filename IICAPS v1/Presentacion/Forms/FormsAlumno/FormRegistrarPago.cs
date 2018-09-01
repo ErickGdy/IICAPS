@@ -28,7 +28,7 @@ namespace IICAPS_v1.Presentacion
             List<String> auxRecibio = new List<string>();
             List<String> auxIDRecibio = new List<string>();
             List<String> auxConcepto = new List<string>();
-            foreach (string c in control.obtenerConceptosDePago("Escuela"))
+            foreach (string c in control.obtenerConceptosDePagoAlumno("Escuela"))
             {
                 auxConcepto.Add(c);
             }
@@ -108,7 +108,7 @@ namespace IICAPS_v1.Presentacion
             p.observaciones = txtObservaciones.Text;
             p.recibio = cmbIDRecibio.SelectedItem.ToString();
             p.fechaPago = DateTime.Now;
-                if (control.agregarPago(p))
+                if (control.agregarPagoAlumno(p))
                 {
                     DocumentosWord word = new DocumentosWord(p);
                     return true;

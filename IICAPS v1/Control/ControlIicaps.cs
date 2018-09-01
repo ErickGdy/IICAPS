@@ -616,8 +616,7 @@ namespace IICAPS_v1.Control
         }
 
         //-------------------------------PAGOS--------------------------------------//
-
-        public bool agregarPago(PagoAlumno pago)
+        public bool agregarPagoAlumno(PagoAlumno pago)
         {
             try
             {
@@ -647,7 +646,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-        public MySqlDataAdapter obtenerPagosTable()
+        public MySqlDataAdapter obtenerPagosAlumnoTable()
         {
             try
             {
@@ -670,7 +669,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-        public MySqlDataAdapter obtenerPagosTable(string parameter)
+        public MySqlDataAdapter obtenerPagosAlumnoTable(string parameter)
         {
             try
             {
@@ -698,7 +697,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-        public PagoAlumno consultarPago(string id)
+        public PagoAlumno consultarPagoAlumno(string id)
         {
             try
             {
@@ -736,7 +735,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-        
         public MySqlDataAdapter obtenerPagosAlumnoTable(String rfc, string concepto)
         {
             try
@@ -768,8 +766,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-
-        public List<String> obtenerConceptosDePago(string area)
+        public List<String> obtenerConceptosDePagoAlumno(string area)
         {
             try
             {
@@ -802,8 +799,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-
-        public bool cancelarPago(string id)
+        public bool cancelarPagoAlumno(string id)
         {
             try
             {
@@ -831,6 +827,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
+
         //-------------------------------MATERIAS-------------------------------//
         public bool agregarMateria(Materia materia)
         {

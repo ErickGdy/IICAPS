@@ -104,7 +104,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String id = dataGridViewPagos.CurrentRow.Cells[0].Value.ToString();
-                PagoAlumno pago = control.consultarPago(id);
+                PagoAlumno pago = control.consultarPagoAlumno(id);
                 FormRegistrarPago fa = new FormRegistrarPago(pago, true);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -140,7 +140,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 DialogResult dialogresult = MessageBox.Show("¿Desea cancelar el pago?", "Cancelar Pago", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dialogresult == DialogResult.OK)
                 {
-                    if (control.cancelarPago(id))
+                    if (control.cancelarPagoAlumno(id))
                     {
                         MessageBox.Show("Pago cancelado");
                         actualizarTabla(control.obtenerPagosAlumnoTable(alumno, concepto));
