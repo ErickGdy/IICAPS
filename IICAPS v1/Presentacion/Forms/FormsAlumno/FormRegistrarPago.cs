@@ -49,7 +49,6 @@ namespace IICAPS_v1.Presentacion
             cmbRecibio.Items.AddRange(auxRecibio.ToArray());
             if (pago != null)
             {
-                modificacion = true;
                 pagos = pago;
                 cmbIDPrograma.SelectedItem = control.obtenerProgramaAlumno(pago.alumnoID);
                 cmbIDRecibio.SelectedItem = pago.recibio;
