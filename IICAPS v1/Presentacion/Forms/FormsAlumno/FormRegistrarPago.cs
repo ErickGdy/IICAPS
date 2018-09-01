@@ -16,7 +16,6 @@ namespace IICAPS_v1.Presentacion
     {
         ControlIicaps control;
         PagoAlumno pagos;
-        bool modificacion = false;
         public FormRegistrarPago(PagoAlumno pago, bool consultar)
         {
             InitializeComponent();
@@ -110,19 +109,6 @@ namespace IICAPS_v1.Presentacion
             p.observaciones = txtObservaciones.Text;
             p.recibio = cmbIDRecibio.SelectedItem.ToString();
             p.fechaPago = DateTime.Now;
-            //if (modificacion)
-            //{
-            //    p.alumnoID = cmbIDAlumno.SelectedItem.ToString();
-            //    if (control.actualizarEntregaDocumentos(doc))
-            //    {
-            //        DocumentosWord word = new DocumentosWord(doc);
-            //        return true;
-            //    }
-            //    else
-            //        throw new Exception("Error al actualizar los datos de la entrega de documentos");
-            //}
-            //else
-            //{
                 if (control.agregarPago(p))
                 {
                     DocumentosWord word = new DocumentosWord(p);
@@ -130,7 +116,6 @@ namespace IICAPS_v1.Presentacion
                 }
                 else
                     throw new Exception("Error al agregar los datos de la entrega de documentos");
-            //}
         }
 
         private void cmbPrograma_SelectedIndexChanged(object sender, EventArgs e)
