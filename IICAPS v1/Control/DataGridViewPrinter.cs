@@ -16,6 +16,10 @@ class DataGridViewPrinter
     private string TheTitleText; // The title text to be printed in each page (if IsWithTitle is set to true)
     private Font TheTitleFont; // The font to be used with the title text (if IsWithTitle is set to true)
     private Color TheTitleColor; // The color to be used with the title text (if IsWithTitle is set to true)
+    private bool IsWithFooter; // Determine if the page contain title text
+    private string TheFooterText; // The title text to be printed in each page (if IsWithTitle is set to true)
+    private Font TheFooterFont; // The font to be used with the title text (if IsWithTitle is set to true)
+    private Color TheFooterColor; // The color to be used with the title text (if IsWithTitle is set to true)
     private bool IsWithPaging; // Determine if paging is used
 
     static int CurrentRow; // A static parameter that keep track on which Row (in the DataGridView control) that should be printed
@@ -44,16 +48,26 @@ class DataGridViewPrinter
     private bool lista = false;
         
     // The class constructor
-    public DataGridViewPrinter(DataGridView aDataGridView, PrintDocument aPrintDocument, bool CenterOnPage, bool WithTitle, string aTitleText, Font aTitleFont, Color aTitleColor, bool WithPaging, bool isLista)
+    public DataGridViewPrinter(DataGridView aDataGridView, PrintDocument aPrintDocument, bool CenterOnPage, string aTitleText, Font aTitleFont, Color aTitleColor, string aFooterText, Font aFooterFont, Color aFooterColor, bool isLista)
     {
         TheDataGridView = aDataGridView;
         ThePrintDocument = aPrintDocument;
         IsCenterOnPage = CenterOnPage;
-        IsWithTitle = WithTitle;
+        if (aTitleText != null)
+            IsWithTitle = true;
+        else
+            IsWithTitle = false;
         TheTitleText = aTitleText;
         TheTitleFont = aTitleFont;
         TheTitleColor = aTitleColor;
-        IsWithPaging = WithPaging;
+        if (aFooterText != null)
+            IsWithFooter = true;
+        else
+            IsWithFooter = false;
+        TheFooterText = aFooterText;
+        TheFooterFont = aFooterFont;
+        TheFooterColor = aFooterColor;
+        IsWithPaging = true;
         lista = isLista;
         PageNumber = 0;
 
@@ -63,7 +77,7 @@ class DataGridViewPrinter
         mColumnPoints = new List<int[]>();
         mColumnPointsWidth = new List<float>();
 
-        // Claculating the PageWidth and the PageHeight
+        // Calculating the PageWidth and the PageHeight
         if (!ThePrintDocument.DefaultPageSettings.Landscape)
         {
             PageWidth = ThePrintDocument.DefaultPageSettings.PaperSize.Width;
@@ -75,12 +89,15 @@ class DataGridViewPrinter
             PageWidth = ThePrintDocument.DefaultPageSettings.PaperSize.Height;
         }
 
-        // Claculating the page margins
+        // Calculating the page margins
         LeftMargin = ThePrintDocument.DefaultPageSettings.Margins.Left;
         TopMargin = ThePrintDocument.DefaultPageSettings.Margins.Top;
         RightMargin = ThePrintDocument.DefaultPageSettings.Margins.Right;
-        BottomMargin = ThePrintDocument.DefaultPageSettings.Margins.Bottom;
-
+        //if is with footer, add points in bottomMargin to give space to footerText
+        if (IsWithFooter)
+            BottomMargin = ThePrintDocument.DefaultPageSettings.Margins.Bottom + 20;
+        else
+            BottomMargin = ThePrintDocument.DefaultPageSettings.Margins.Bottom;
         // First, the current row to be printed is the first row in the DataGridView control
         CurrentRow = 0;
     }
@@ -200,30 +217,10 @@ class DataGridViewPrinter
         }
     }
 
-    // The funtion that print the title, page number, and the header row
+    // The funtion that print the title and the header row
     private void DrawHeader(Graphics g)
     {
         CurrentY = (float)TopMargin;
-
-        // Printing the page number (if isWithPaging is set to true)
-        if (IsWithPaging)
-        {
-            PageNumber++;
-            string PageString = "Page " + PageNumber.ToString();
-
-            StringFormat PageStringFormat = new StringFormat();
-            PageStringFormat.Trimming = StringTrimming.Word;
-            PageStringFormat.FormatFlags = StringFormatFlags.NoWrap | StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
-            PageStringFormat.Alignment = StringAlignment.Far;
-
-            Font PageStringFont = new Font("Tahoma", 8, FontStyle.Regular, GraphicsUnit.Point);
-
-            RectangleF PageStringRectangle = new RectangleF((float)LeftMargin, CurrentY, (float)PageWidth - (float)RightMargin - (float)LeftMargin, g.MeasureString(PageString, PageStringFont).Height);
-
-            g.DrawString(PageString, PageStringFont, new SolidBrush(Color.Black), PageStringRectangle, PageStringFormat);
-
-            CurrentY += g.MeasureString(PageString, PageStringFont).Height;
-        }
 
         // Printing the title (if IsWithTitle is set to true)
         if (IsWithTitle)
@@ -305,6 +302,47 @@ class DataGridViewPrinter
         }
 
         CurrentY += RowHeaderHeight;
+    }
+
+    // The funtion that print the footer and page number
+    private void DrawFooter(Graphics g)
+    {
+        CurrentY = (float)PageHeight - (float)BottomMargin;
+
+        // Printing the page number (if isWithPaging is set to true)
+        if (IsWithPaging)
+        {
+            PageNumber++;
+            string PageString = "Page " + PageNumber.ToString();
+
+            StringFormat PageStringFormat = new StringFormat();
+            PageStringFormat.Trimming = StringTrimming.Word;
+            PageStringFormat.FormatFlags = StringFormatFlags.NoWrap | StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
+            PageStringFormat.Alignment = StringAlignment.Far;
+
+            Font PageStringFont = new Font("Tahoma", 8, FontStyle.Regular, GraphicsUnit.Point);
+
+            RectangleF PageStringRectangle = new RectangleF((float)LeftMargin, CurrentY, (float)PageWidth - (float)RightMargin - (float)LeftMargin, g.MeasureString(PageString, PageStringFont).Height);
+
+            g.DrawString(PageString, PageStringFont, new SolidBrush(Color.Black), PageStringRectangle, PageStringFormat);
+
+            CurrentY += g.MeasureString(PageString, PageStringFont).Height;
+        }
+
+        // Printing the footer (if IsWithTitle is set to true)
+        if (IsWithFooter)
+        {
+            StringFormat FooterFormat = new StringFormat();
+            FooterFormat.Trimming = StringTrimming.Word;
+            FooterFormat.FormatFlags = StringFormatFlags.NoWrap | StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
+            FooterFormat.Alignment = StringAlignment.Center;
+            RectangleF FooterRectangle = new RectangleF((float)LeftMargin, CurrentY, (float)PageWidth - (float)RightMargin - (float)LeftMargin, g.MeasureString(TheTitleText, TheTitleFont).Height);
+
+            g.DrawString(TheFooterText, TheFooterFont, new SolidBrush(TheFooterColor), FooterRectangle, FooterFormat);
+
+            CurrentY += g.MeasureString(TheFooterText, TheFooterFont).Height;
+        }
+
     }
 
     // The function that print a bunch of rows that fit in one page
@@ -432,6 +470,7 @@ class DataGridViewPrinter
             Calculate(g);
             DrawHeader(g);
             bool bContinue = DrawRows(g);
+            DrawFooter(g);
             return bContinue;
         }
         catch (Exception ex)
