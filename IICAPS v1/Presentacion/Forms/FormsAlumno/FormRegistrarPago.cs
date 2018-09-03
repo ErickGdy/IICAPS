@@ -15,9 +15,8 @@ namespace IICAPS_v1.Presentacion
     public partial class FormRegistrarPago : Form
     {
         ControlIicaps control;
-        Pago pagos;
-        bool modificacion = false;
-        public FormRegistrarPago(Pago pago, bool consultar)
+        PagoAlumno pagos;
+        public FormRegistrarPago(PagoAlumno pago, bool consultar)
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
@@ -29,7 +28,7 @@ namespace IICAPS_v1.Presentacion
             List<String> auxRecibio = new List<string>();
             List<String> auxIDRecibio = new List<string>();
             List<String> auxConcepto = new List<string>();
-            foreach (string c in control.obtenerConceptosDePago())
+            foreach (string c in control.obtenerConceptosDePagoAlumno("Escuela"))
             {
                 auxConcepto.Add(c);
             }
@@ -50,7 +49,6 @@ namespace IICAPS_v1.Presentacion
             cmbRecibio.Items.AddRange(auxRecibio.ToArray());
             if (pago != null)
             {
-                modificacion = true;
                 pagos = pago;
                 cmbIDPrograma.SelectedItem = control.obtenerProgramaAlumno(pago.alumnoID);
                 cmbIDRecibio.SelectedItem = pago.recibio;
@@ -103,34 +101,20 @@ namespace IICAPS_v1.Presentacion
             cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
             cmbIDAlumno.SelectedIndex = cmbAlumno.SelectedIndex;
             cmbIDRecibio.SelectedIndex = cmbRecibio.SelectedIndex;
-            Pago p = new Pago();
+            PagoAlumno p = new PagoAlumno();
             p.alumnoID = cmbIDAlumno.SelectedItem.ToString();
             p.cantidad = Convert.ToDouble(numericUpDown1.Value);
             p.concepto = cmbConcepto.SelectedItem.ToString();
             p.observaciones = txtObservaciones.Text;
             p.recibio = cmbIDRecibio.SelectedItem.ToString();
             p.fechaPago = DateTime.Now;
-            //if (modificacion)
-            //{
-            //    p.alumnoID = cmbIDAlumno.SelectedItem.ToString();
-            //    if (control.actualizarEntregaDocumentos(doc))
-            //    {
-            //        DocumentosWord word = new DocumentosWord(doc);
-            //        return true;
-            //    }
-            //    else
-            //        throw new Exception("Error al actualizar los datos de la entrega de documentos");
-            //}
-            //else
-            //{
-                if (control.agregarPago(p))
+                if (control.agregarPagoAlumno(p))
                 {
                     DocumentosWord word = new DocumentosWord(p);
                     return true;
                 }
                 else
                     throw new Exception("Error al agregar los datos de la entrega de documentos");
-            //}
         }
 
         private void cmbPrograma_SelectedIndexChanged(object sender, EventArgs e)

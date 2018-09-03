@@ -23,7 +23,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             control = ControlIicaps.getInstance();
             try
             {
-                actualizarTablaPagos(control.obtenerPagosTable());
+                actualizarTablaPagos(control.obtenerPagosAlumnoTable());
             }
             catch (Exception e)
             {
@@ -72,7 +72,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTablaPagos(control.obtenerPagosTable(txtBuscarCredito.Text));
+            actualizarTablaPagos(control.obtenerPagosAlumnoTable(txtBuscarCredito.Text));
         }
 
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -85,7 +85,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String id = dataGridViewPagos.CurrentRow.Cells[0].Value.ToString();
-                Pago pago = control.consultarPago(id);
+                PagoAlumno pago = control.consultarPagoAlumno(id);
                 FormRegistrarPago fa = new FormRegistrarPago(pago, true);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -120,13 +120,13 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void button1_Click(object sender, EventArgs e)
         {
-            actualizarTablaPagos(control.obtenerPagosTable(txtBuscarCredito.Text));
+            actualizarTablaPagos(control.obtenerPagosAlumnoTable(txtBuscarCredito.Text));
         }
 
         private void imprimirReciboToolStripMenuItem_Click(object sender, EventArgs e)
         {
             String id = dataGridViewPagos.CurrentRow.Cells[0].Value.ToString();
-            Pago pago = control.consultarPago(id);
+            PagoAlumno pago = control.consultarPagoAlumno(id);
             DocumentosWord word = new DocumentosWord(pago);
         }
 
@@ -138,10 +138,10 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 DialogResult dialogresult = MessageBox.Show("¿Desea cancelar el pago?", "Cancelar Pago", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dialogresult == DialogResult.OK)
                 {
-                    if (control.cancelarPago(id))
+                    if (control.cancelarPagoAlumno(id))
                     {
                         MessageBox.Show("Pago cancelado");
-                        actualizarTablaPagos(control.obtenerPagosTable());
+                        actualizarTablaPagos(control.obtenerPagosAlumnoTable());
                     }
                     else
                         MessageBox.Show("Error al cancelar el pago");

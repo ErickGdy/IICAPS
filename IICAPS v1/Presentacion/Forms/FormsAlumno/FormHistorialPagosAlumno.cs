@@ -34,7 +34,7 @@ namespace IICAPS_v1.Presentacion
             cmbIDPrograma.Items.AddRange(auxIDPrograma.ToArray());
             cmbPrograma.Items.AddRange(auxPrograma.ToArray());
             List<String> auxConcepto = new List<string>();
-            foreach (string c in control.obtenerConceptosDePago())
+            foreach (string c in control.obtenerConceptosDePagoAlumno("Escuela"))
             {
                 auxConcepto.Add(c);
             }

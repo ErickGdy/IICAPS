@@ -372,7 +372,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
-
         public bool actualizarAlumno(Alumno alumno)
         {
             try
@@ -405,7 +404,6 @@ namespace IICAPS_v1.Control
         }
 
         //-------------------------------Credito de alumnos-------------------------------//
-
         public bool agregarCreditoAlumno(CreditoAlumno credito)
         {
             try
@@ -585,7 +583,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-
         public bool cancelarCredito(string id)
         {
             try
@@ -615,9 +612,8 @@ namespace IICAPS_v1.Control
             }
         }
 
-        //-------------------------------PAGOS--------------------------------------//
-
-        public bool agregarPago(Pago pago)
+        //-------------------------------PAGOS ALUMNO--------------------------------------//
+        public bool agregarPagoAlumno(PagoAlumno pago)
         {
             try
             {
@@ -647,7 +643,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-        public MySqlDataAdapter obtenerPagosTable()
+        public MySqlDataAdapter obtenerPagosAlumnoTable()
         {
             try
             {
@@ -670,7 +666,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-        public MySqlDataAdapter obtenerPagosTable(string parameter)
+        public MySqlDataAdapter obtenerPagosAlumnoTable(string parameter)
         {
             try
             {
@@ -698,7 +694,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-        public Pago consultarPago(string id)
+        public PagoAlumno consultarPagoAlumno(string id)
         {
             try
             {
@@ -711,7 +707,7 @@ namespace IICAPS_v1.Control
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        Pago pago = new Pago();
+                        PagoAlumno pago = new PagoAlumno();
                         pago.id = reader.GetInt32(0);
                         pago.alumnoID = reader.GetString(1);
                         pago.fechaPago = reader.GetDateTime(2);
@@ -736,7 +732,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-        
         public MySqlDataAdapter obtenerPagosAlumnoTable(String rfc, string concepto)
         {
             try
@@ -768,14 +763,13 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-
-        public List<String> obtenerConceptosDePago()
+        public List<String> obtenerConceptosDePagoAlumno(string area)
         {
             try
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM conceptosDePago";
+                cmd.CommandText = "SELECT Concepto FROM conceptosDePago WHERE Area='"+area+"';";
                 conn.Open();
                 try
                 {
@@ -783,9 +777,7 @@ namespace IICAPS_v1.Control
                     List<String> aux = new List<String>();
                     while (reader.Read())
                     {
-                        String c = "";
-                        c = reader.GetString(0);
-                        aux.Add(c);
+                        aux.Add(reader.GetString(0));
                     }
                     conn.Close();
                     if (aux.Count != 0)
@@ -804,8 +796,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-
-        public bool cancelarPago(string id)
+        public bool cancelarPagoAlumno(string id)
         {
             try
             {
@@ -833,6 +824,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
+
         //-------------------------------MATERIAS-------------------------------//
         public bool agregarMateria(Materia materia)
         {
@@ -2032,7 +2024,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT ID, Nombre, Fecha, Costo, Capacidad, Requisitos FROM taller WHERE ID='" + id + "'";
+                cmd.CommandText = "SELECT ID, Nombre, Fecha, CostoClientes, CostoPublico, Capacidad, Requisitos FROM taller WHERE ID='" + id + "'";
                 conn.Open();
                 try
                 {
@@ -2070,7 +2062,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT A.Nombre,A.Telefono,A.Correo,A.CURP,A.RFC,A.Costo,A.Anticipo,A.Pago, A.Taller FROM tallerAsistentes A, taller T WHERE T.ID = A.Taller AND A.ID='" + id + "';";
+                cmd.CommandText = "SELECT A.Nombre,A.Telefono,A.Correo,A.CURP,A.RFC,A.Costo,A.Pago, A.Taller FROM tallerAsistentes A, taller T WHERE T.ID = A.Taller AND A.ID='" + id + "';";
                 conn.Open();
                 try
                 {
@@ -2085,10 +2077,9 @@ namespace IICAPS_v1.Control
                         a.curp = reader.GetString(3);
                         a.rfc = reader.GetString(4);
                         a.costo = reader.GetDecimal(5);
-                        a.anticipo = reader.GetDecimal(6);
-                        a.pago = reader.GetDecimal(7);
-                        a.restante = a.costo - a.anticipo - a.pago;
-                        a.taller = reader.GetInt32(8);
+                        a.pago = reader.GetDecimal(6);
+                        a.restante = a.costo - a.pago;
+                        a.taller = reader.GetInt32(7);
                         conn.Close();
                         return a;
                     }
@@ -2111,7 +2102,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT A.Nombre,A.Telefono,A.Correo,A.CURP,A.RFC,A.Costo,A.Anticipo,A.Pago FROM tallerAsistentes A, taller T WHERE T.ID = A.Taller AND T.ID='" + taller+"';";
+                cmd.CommandText = "SELECT A.Nombre,A.Telefono,A.Correo,A.CURP,A.RFC,A.Costo,A.Pago FROM tallerAsistentes A, taller T WHERE T.ID = A.Taller AND T.ID='" + taller+"';";
                 conn.Open();
                 try
                 {
@@ -2126,9 +2117,8 @@ namespace IICAPS_v1.Control
                         a.curp = reader.GetString(3);
                         a.rfc = reader.GetString(4);
                         a.costo = reader.GetDecimal(5);
-                        a.anticipo = reader.GetDecimal(6);
-                        a.pago = reader.GetDecimal(7);
-                        a.restante = a.costo - a.anticipo - a.pago;
+                        a.pago = reader.GetDecimal(6);
+                        a.restante = a.costo - a.pago;
                         aux.Add(a);
                     }
                     conn.Close();
@@ -2156,7 +2146,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT A.ID, A.Nombre,A.Telefono,A.Correo,A.CURP,A.RFC,A.Costo,A.Anticipo,A.Pago, A.Costo-A.Anticipo-A.Pago AS 'Restante' FROM tallerAsistentes A, taller T WHERE T.ID = A.Taller AND T.ID='" + taller + "'", conn); conn.Close();
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT A.ID, A.Nombre,A.Telefono,A.Correo,A.CURP,A.RFC,A.Costo,A.Pago, A.Costo-A.Pago AS 'Restante' FROM tallerAsistentes A, taller T WHERE T.ID = A.Taller AND T.ID='" + taller + "'", conn); conn.Close();
                     return mdaDatos;
                 }
                 catch (Exception e)
@@ -2178,7 +2168,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    string sqlString = "SELECT A.ID, A.Nombre,A.Telefono,A.Correo,A.CURP,A.RFC,A.Costo,A.Anticipo,A.Pago,A.Costo-A.Anticipo-A.Pago AS 'Restante' FROM tallerAsistentes A, taller T WHERE " +
+                    string sqlString = "SELECT A.ID, A.Nombre,A.Telefono,A.Correo,A.CURP,A.RFC,A.Costo,A.Pago,A.Costo-A.Pago AS 'Restante' FROM tallerAsistentes A, taller T WHERE " +
                         "(A.Nombre LIKE '%" + parameter + "%' or " +
                         " A.Telefono LIKE '%" + parameter + "%' or " +
                         " A.CURP LIKE '%" + parameter + "%' or " +
@@ -2205,7 +2195,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM taller WHERE Estado=1";
+                cmd.CommandText = "SELECT ID, Nombre, Fecha, CostoClientes, CostoPublico, Capacidad, Requisitos FROM taller WHERE Estado=1";
                 conn.Open();
                 try
                 {
@@ -2244,15 +2234,15 @@ namespace IICAPS_v1.Control
         {
             try
             {
-                string inscribir = "INSERT INTO tallerAsistentes (Taller, Nombre, Telefono, Correo, CURP, RFC, Costo, Anticipo, Observaciones) VALUE ( '" 
+                string inscribir = "INSERT INTO tallerAsistentes (Taller, Nombre, Telefono, Correo, CURP, RFC, Costo, Observaciones) VALUE ( '" 
                     + asistente.taller + "','" + asistente.nombre + "','" + asistente.telefono + "','" + asistente.correo
                     + "','" + asistente.curp + "','" + asistente.rfc + "','" + asistente.costo
-                    + "','" + asistente.anticipo + "','" + asistente.observaciones + "');";
+                    + "','" + asistente.observaciones + "');";
                 if (asistente.ID > 0)
                 {
                     inscribir = "UPDATE tallerAsistentes SET Taller='" + asistente.taller + "',Nombre='" + asistente.nombre +
                     "',Telefono='" + asistente.telefono + "',Correo='" + asistente.correo + "',CURP='" + asistente.curp +
-                    "',RFC='" + asistente.rfc + "',Costo='" + asistente.costo + "',Anticipo='" + asistente.anticipo +
+                    "',RFC='" + asistente.rfc + "',Costo='" + asistente.costo +
                     "',Observaciones='" + asistente.observaciones + "' WHERE ID = " + asistente.ID + ";";
                 }
                 conn = new MySqlConnection(builder.ToString());
@@ -2274,38 +2264,6 @@ namespace IICAPS_v1.Control
                 {
                     conn.Close();
                     throw new Exception("Error...! Error al agregar asistencia a la Base de datos");
-                }
-            }
-            catch (Exception e)
-            {
-                conn.Close();
-                throw new Exception("Error...! Error al establecer conexion con el servidor");
-            }
-        }
-        public bool registrarPagoAsistenteTaller(int id, decimal pago)
-        {
-            try
-            {
-                string update = "UPDATE tallerAsistentes SET Pago='" + pago + "' WHERE ID = " + id + ";";
-                conn = new MySqlConnection(builder.ToString());
-                cmd = conn.CreateCommand();
-                cmd.CommandText = "START TRANSACTION; "
-                                    + update
-                                    + "COMMIT;";
-                conn.Open();
-                try
-                {
-                    int rowsAfected = cmd.ExecuteNonQuery();
-                    conn.Close();
-                    if (rowsAfected > 0)
-                        return true;
-                    else
-                        return false;
-                }
-                catch (Exception e)
-                {
-                    conn.Close();
-                    throw new Exception("Error...! Error al agregar pago de asistencia a la Base de datos");
                 }
             }
             catch (Exception e)
@@ -2338,6 +2296,43 @@ namespace IICAPS_v1.Control
                 {
                     conn.Close();
                     throw new Exception("Error...! Error al borrar asistencia a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...! Error al establecer conexion con el servidor");
+            }
+        }
+        public bool registrarPagoAsistenciaTaller(Pago pago, string idAsistente)
+        {
+            try
+            {
+                string updateAsistente = "UPDATE tallerAsistentes SET Pago = Pago + " + pago.cantidad +
+                                            " WHERE ID = " + idAsistente + ";";
+                string agregarPago = "INSERT INTO pagos (Emisor, FechaPago, Cantidad, Concepto, Observaciones, Recibio) VALUES ('"
+                    + pago.emisor + "', '" + formatearFecha(pago.fechaPago) + "'," + pago.cantidad + ", 'Pago de Taller', '"
+                    + pago.observaciones + "', '" + pago.recibio + "');";
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + updateAsistente
+                                    + agregarPago
+                                    + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    conn.Close();
+                    throw new Exception("Error...! Error al agregar Prorgrama a la Base de datos");
                 }
             }
             catch (Exception e)
@@ -2762,7 +2757,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
-
         public string obtenerNombreEmpleado(string correo)
         {
             try
@@ -2870,7 +2864,6 @@ namespace IICAPS_v1.Control
             }
         }
 
-
         //-------------------------------ASISTENCIAS-------------------------------//
         public List<PaseDeListaAlumno> obtenerAsistenciaAlumnosMateriaTable(string grupo, int materia, List<Alumno> alumnos)
         {
@@ -2973,7 +2966,189 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error...! Error al establecer conexion con el servidor");
             }
         }
-
+        //-------------------------------PAGOS--------------------------------------//
+        public bool agregarPago(Pago pago)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "INSERT INTO pagos (Emisor, FechaPago, Cantidad, Concepto, Observaciones, Recibio) VALUES ('"
+                    + pago.emisor + "', '" + formatearFecha(pago.fechaPago) + "'," + pago.cantidad + ", '" + pago.concepto + "', '"
+                    + pago.observaciones + "', '" + pago.recibio + "')";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception E)
+                {
+                    throw new Exception("Error al agregar el pago del alumno a la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerPagosTable()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT ID, Emisor, FechaPago AS 'Fecha De Pago', Cantidad, Concepto, Observaciones, Recibio  FROM pagos", conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de los pagos de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerPagosTable(string parameter)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT ID, Emisor, FechaPago AS 'Fecha De Pago', Cantidad, Concepto, Observaciones, Recibio FROM pagos WHERE" +
+                        "(Emisor LIKE '%" + parameter + "%' or " +
+                        "Cantidad LIKE '%" + parameter + "%' or " +
+                        "Concepto LIKE '%" + parameter + "%' or " +
+                        "FechaPago LIKE '%" + parameter + "%' or " +
+                        "Recibio LIKE '%" + parameter + "%')";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de los pagos de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public Pago consultarPago(string id)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM pagos WHERE ID='" + id + "'";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Pago pago = new Pago();
+                        pago.id = reader.GetInt32(0);
+                        pago.emisor = reader.GetString(1);
+                        pago.fechaPago = reader.GetDateTime(2);
+                        pago.cantidad = reader.GetInt32(3);
+                        pago.concepto = reader.GetString(4);
+                        pago.observaciones = reader.GetString(5);
+                        pago.recibio = reader.GetString(6);
+                        pago.estado = reader.GetString(7);
+                        conn.Close();
+                        return pago;
+                    }
+                    conn.Close();
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos del pago de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public List<String> obtenerConceptosDePagos(string area)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Concepto FROM conceptosDePago WHERE Area='" + area + "';";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<String> aux = new List<String>();
+                    while (reader.Read())
+                    {
+                        aux.Add(reader.GetString(0));
+                    }
+                    conn.Close();
+                    if (aux.Count != 0)
+                        return aux;
+                    else
+                        return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de los conceptos de pago de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public bool cancelarPago(string id)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE pagos SET Estado = 'Cancelado' WHERE ID=" + id;
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al cancelar el pago en la Base de Datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
 
         //-----------------------------------USUARIO------------------------------//
         public Usuarios consultarUsuario(string id)

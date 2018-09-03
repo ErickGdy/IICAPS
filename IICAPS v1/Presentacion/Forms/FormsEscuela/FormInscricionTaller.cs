@@ -18,7 +18,7 @@ namespace IICAPS_v1.Presentacion
         List<String> auxId;
         Taller taller;
         TallerAsistente asistenT;
-        public FormInscricionTaller(string id, TallerAsistente asistente)
+        public FormInscricionTaller(string idTaller, TallerAsistente asistente)
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
@@ -32,9 +32,9 @@ namespace IICAPS_v1.Presentacion
                     auxId.Add(p.id.ToString());
                 }
                 cmbTalleres.DataSource = auxNombres;
-                if (id != null)
+                if (idTaller != null)
                 {
-                    cmbTalleres.SelectedIndex = auxId.IndexOf(id);
+                    cmbTalleres.SelectedIndex = auxId.IndexOf(idTaller);
                     cmbTalleres.Enabled = false;
                 }
             }
@@ -51,7 +51,9 @@ namespace IICAPS_v1.Presentacion
                 txtCorreo.Text = asistente.correo;
                 txtCurp.Text = asistente.curp;
                 txtRFC.Text = asistente.rfc;
-                txtAnticipo.Value = asistente.anticipo;
+                txtAnticipo.Value = asistente.pago;
+                lblAnticipo.Text="Pago: $";
+                txtAnticipo.ReadOnly = true;
                 txtCosto.Value = asistente.costo;
                 txtObservaciones.Text = asistente.observaciones;
             }
@@ -65,19 +67,33 @@ namespace IICAPS_v1.Presentacion
                 asistenT.correo = txtCorreo.Text;
                 asistenT.curp = txtCurp.Text;
                 asistenT.rfc = txtRFC.Text;
-                asistenT.anticipo = txtAnticipo.Value;
+                asistenT.pago = txtAnticipo.Value;
                 asistenT.costo = txtCosto.Value;
                 asistenT.observaciones = txtObservaciones.Text;
                 try
                 {
-                    if (control.registrarAsistenteTaller(asistenT))
+                if (control.registrarAsistenteTaller(asistenT))
+                {
+                    MessageBox.Show("Asistencia registrada exitosamente!");
+                    this.Hide();
+                    if (!txtAnticipo.ReadOnly)
                     {
-                        MessageBox.Show("Asistencia registrada exitosamente!");
-                        Close();
-                        Dispose();
+                        FormPago fp = new FormPago(asistenT.pago, "Pago de Taller");
+                        fp.ShowDialog();
+                        Pago pago = fp.getPagos();
+                        if (control.registrarPagoAsistenciaTaller(pago, control.obtenerAsistentesTalleres(asistenT.taller.ToString()).Last().ID.ToString()))
+                        {
+                            MessageBox.Show("Pago registrado exitosamente");
+                            DocumentosWord word = new DocumentosWord(pago);
+                        }
+                        else
+                            throw new Exception("Error al registrar pago");
                     }
-                    else
-                        MessageBox.Show("Error al guardar datos, verifique los campos y compruebe que el asistente no se encuentre registrado y vuelva a intentarlo");
+                    Close();
+                    Dispose();
+                }
+                else
+                    MessageBox.Show("Error al guardar datos, verifique los campos y compruebe que el asistente no se encuentre registrado y vuelva a intentarlo");
                 }
                 catch (Exception ex)
                 {
