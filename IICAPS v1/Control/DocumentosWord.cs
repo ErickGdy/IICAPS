@@ -1,6 +1,7 @@
 ﻿using IICAPS_v1.DataObject;
 using Microsoft.Office.Interop.Word;
 using System;
+using System.IO;
 using System.Windows.Forms;
 using word = Microsoft.Office.Interop.Word;
 
@@ -9,8 +10,8 @@ namespace IICAPS_v1.Control
     class DocumentosWord
     {
         ControlIicaps control;
-        string imgHeader1 = "C:\\SistemaIICAPS\\imagenes\\logoaltacalidad.jpg";
-        string imgFooter1 = "C:\\SistemaIICAPS\\imagenes\\piealtacalidad.jpg";
+        string imgHeader1 = Directory.GetCurrentDirectory() + @"\Imagenes\logoaltacalidad.jpg";
+        string imgFooter1 = Directory.GetCurrentDirectory() + @"\Imagenes\piealtacalidad.jpg";
 
         public DocumentosWord(DocumentosInscripcion doc)
         {
@@ -32,7 +33,8 @@ namespace IICAPS_v1.Control
                 headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
                 HeaderFooter header = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
                 header.Range.ParagraphFormat.SpaceAfter = 0;
-                header.Shapes.AddPicture(imgHeader1);
+                if (File.Exists(imgHeader1))
+                    header.Shapes.AddPicture(imgHeader1);
             }
             //Agregar pie de pagina
             foreach (Microsoft.Office.Interop.Word.Section wordSection in documento.Sections)
@@ -42,7 +44,8 @@ namespace IICAPS_v1.Control
                 footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
                 HeaderFooter footer = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
                 footer.Range.ParagraphFormat.SpaceAfter = 50;
-                footer.Shapes.AddPicture(imgFooter1);
+                if (File.Exists(imgFooter1))
+                    footer.Shapes.AddPicture(imgFooter1);
             }
             //Agregar parrafo de texto con estilo de titulo 1
             Microsoft.Office.Interop.Word.Paragraph parra1 = documento.Content.Paragraphs.Add(ref missing);
@@ -138,7 +141,13 @@ namespace IICAPS_v1.Control
             //Hacemos visible el documento
             word.Visible = true;
             //Guardamos el documento
-            object filename = @"C:\\SistemaIICAPS\\Documentos\\ReciboDocumentos" + doc.alumno;
+            string path = Directory.GetCurrentDirectory() + @"\Documentos";
+            object filename = Directory.GetCurrentDirectory() + @"\Documentos\ReciboDocumentos" + doc.alumno;
+            // comprobar si el fichero ya existe
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
             documento.SaveAs2(ref filename);
             //documento.Close(ref missing, ref missing, ref missing);
             //documento = null;
@@ -146,7 +155,6 @@ namespace IICAPS_v1.Control
             //word = null;
             MessageBox.Show("¡Recibo de documentos creado exitosamente!");
         }
-
 
         public DocumentosWord(PagoAlumno pago)
         {
@@ -168,7 +176,8 @@ namespace IICAPS_v1.Control
                 headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
                 HeaderFooter header = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
                 header.Range.ParagraphFormat.SpaceAfter = 0;
-                header.Shapes.AddPicture(imgHeader1);
+                if (File.Exists(imgHeader1))
+                    header.Shapes.AddPicture(imgHeader1);
             }
             //Agregar pie de pagina
             foreach (Microsoft.Office.Interop.Word.Section wordSection in documento.Sections)
@@ -178,7 +187,8 @@ namespace IICAPS_v1.Control
                 footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
                 HeaderFooter footer = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
                 footer.Range.ParagraphFormat.SpaceAfter = 50;
-                footer.Shapes.AddPicture(imgFooter1);
+                if (File.Exists(imgFooter1))
+                    footer.Shapes.AddPicture(imgFooter1);
             }
             //Agregar parrafo de texto con estilo de titulo 1
             Microsoft.Office.Interop.Word.Paragraph parra1 = documento.Content.Paragraphs.Add(ref missing);
@@ -202,7 +212,13 @@ namespace IICAPS_v1.Control
             //Hacemos visible el documento
             word.Visible = true;
             //Guardamos el documento
-            object filename = @"C:\\SistemaIICAPS\\Documentos\\ReciboDePago" + pago.alumnoID;
+            string path = Directory.GetCurrentDirectory() + @"\PagosAlumnos";
+            object filename = Directory.GetCurrentDirectory() + @"\PagosAlumnos\ReciboDePago" + pago.alumnoID;
+            // comprobar si el fichero ya existe
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
             documento.SaveAs2(ref filename);
             //documento.Close(ref missing, ref missing, ref missing);
             //documento = null;
@@ -231,7 +247,8 @@ namespace IICAPS_v1.Control
                 headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
                 HeaderFooter header = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
                 header.Range.ParagraphFormat.SpaceAfter = 0;
-                header.Shapes.AddPicture(imgHeader1);
+                if (File.Exists(imgHeader1))
+                    header.Shapes.AddPicture(imgHeader1);
             }
             //Agregar pie de pagina
             foreach (Microsoft.Office.Interop.Word.Section wordSection in documento.Sections)
@@ -241,7 +258,8 @@ namespace IICAPS_v1.Control
                 footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
                 HeaderFooter footer = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
                 footer.Range.ParagraphFormat.SpaceAfter = 50;
-                footer.Shapes.AddPicture(imgFooter1);
+                if (File.Exists(imgFooter1))
+                    footer.Shapes.AddPicture(imgFooter1);
             }
             //Agregar parrafo de texto con estilo de titulo 1
             Microsoft.Office.Interop.Word.Paragraph parra1 = documento.Content.Paragraphs.Add(ref missing);
@@ -326,7 +344,13 @@ namespace IICAPS_v1.Control
             //Hacemos visible el documento
             word.Visible = true;
             //Guardamos el documento
-            object filename = @"C:\\SistemaIICAPS\\Documentos\\ContratoCreditoEducativo" + credito.alumno;
+            string path = Directory.GetCurrentDirectory() + @"\Documentos";
+            object filename = Directory.GetCurrentDirectory() + @"\Documentos\ContratoCreditoEducativo" + credito.alumno;
+            // comprobar si el fichero ya existe
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
             documento.SaveAs2(ref filename);
             //documento.Close(ref missing, ref missing, ref missing);
             //documento = null;
@@ -334,5 +358,85 @@ namespace IICAPS_v1.Control
             //word = null;
             MessageBox.Show("¡Contrato de crédito educativo creado exitosamente!");
         }
+
+        /// <summary>
+        /// Metodo constructor para generar recibos de pago en formato word .doc
+        /// </summary>
+        /// <param name="pago"></param>
+        public DocumentosWord(Pago pago)
+        {
+            control = ControlIicaps.getInstance();
+            Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
+            //Quitar animacion y visibilidad mientras se crea y edita
+            word.ShowAnimation = false;
+            word.Visible = false;
+            //Missing para rellenar parametros de creacion
+            object missing = System.Reflection.Missing.Value;
+            //Creacion del documento
+            Microsoft.Office.Interop.Word.Document documento = word.Documents.Add(ref missing, ref missing, ref missing);
+            //Agregar encabezado
+            foreach (Microsoft.Office.Interop.Word.Section section in documento.Sections)
+            {
+                //Encabezado y configuracion
+                Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
+                headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                HeaderFooter header = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
+                header.Range.ParagraphFormat.SpaceAfter = 0;
+                if (File.Exists(imgHeader1))
+                    header.Shapes.AddPicture(imgHeader1);
+            }
+            //Agregar pie de pagina
+            foreach (Microsoft.Office.Interop.Word.Section wordSection in documento.Sections)
+            {
+                //Pie de pagina y configuracion
+                Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                HeaderFooter footer = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
+                footer.Range.ParagraphFormat.SpaceAfter = 50;
+                if(File.Exists(imgFooter1))
+                    footer.Shapes.AddPicture(imgFooter1);
+
+            }
+            //Agregar parrafo de texto con estilo de titulo 1
+            Microsoft.Office.Interop.Word.Paragraph parra1 = documento.Content.Paragraphs.Add(ref missing);
+            object styleHeading1 = "Título 1";
+            parra1.Range.set_Style(ref styleHeading1);
+            parra1.Range.Font.Color = WdColor.wdColorDarkGreen;
+            parra1.Range.Text = Environment.NewLine + Environment.NewLine + "Se recibió el pago de: " + pago.emisor;
+            parra1.Range.InsertParagraphAfter();
+            //Parrafos restantes del documento
+            documento.Content.SetRange(0, 0);
+            Microsoft.Office.Interop.Word.Paragraph parra2 = documento.Content.Paragraphs.Add(ref missing);
+            object style1 = "Normal";
+            parra2.Range.set_Style(ref style1);
+            parra2.Range.Font.Size = 12;
+            //parra1.Range.Text = "Recibo de documentos para: " + control.obtenerProgramaAlumno(doc.alumno);
+            parra2.Range.Text = "La cantidad de: $" + pago.cantidad + Environment.NewLine +
+                "Por concepto de: " + pago.concepto + Environment.NewLine +
+                "Fecha: " + pago.fechaPago + Environment.NewLine 
+                + Environment.NewLine + 
+                "Recibió: " + control.obtenerNombreEmpleado(pago.recibio) + Environment.NewLine
+                + Environment.NewLine 
+                + "Firma: ___________________________________________";
+            parra2.Range.InsertParagraphAfter();
+            //Hacemos visible el documento
+            word.Visible = true;
+            //Guardamos el documento
+            string path = Directory.GetCurrentDirectory() + @"\Recibos de pagos";
+            object filename = Directory.GetCurrentDirectory() + @"\Recibos de pagos\ReciboDePago" + pago.formatoFolio();
+            // comprobar si el fichero ya existe
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            documento.SaveAs2(ref filename); 
+            //documento.Close(ref missing, ref missing, ref missing);
+            //documento = null;
+            //word.Quit(ref missing, ref missing, ref missing);
+            //word = null;
+            MessageBox.Show("¡Recibo de pago creado exitosamente!");
+        }
+
     }
 }
