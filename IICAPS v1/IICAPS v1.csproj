@@ -77,6 +77,7 @@
     <Compile Include="Control\ControlIicaps.cs" />
     <Compile Include="Control\DataGridViewPrinter.cs" />
     <Compile Include="Control\DocumentosWord.cs" />
+    <Compile Include="DataObject\Pago.cs" />
     <Compile Include="DataObject\TallerAsistente.cs" />
     <Compile Include="DataObject\Empleados.cs" />
     <Compile Include="DataObject\Taller.cs" />
@@ -161,6 +162,12 @@
     </Compile>
     <Compile Include="Presentacion\Forms\FormsEscuela\FormInscricionTaller.Designer.cs">
       <DependentUpon>FormInscricionTaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\FormPago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\FormPago.Designer.cs">
+      <DependentUpon>FormPago.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Forms\FormsEscuela\FormTalleres.cs">
       <SubType>Form</SubType>
@@ -313,6 +320,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\FormInscricionTaller.resx">
       <DependentUpon>FormInscricionTaller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\FormPago.resx">
+      <DependentUpon>FormPago.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\FormTalleres.resx">
       <DependentUpon>FormTalleres.cs</DependentUpon>

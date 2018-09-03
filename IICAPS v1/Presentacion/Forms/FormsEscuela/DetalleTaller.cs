@@ -189,7 +189,27 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void registrarPagoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                String ID = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                TallerAsistente asisT =  control.obtenerAsistenteTaller(ID);
+                FormPago fp = new FormPago(asisT.restante, "Pago de Taller");
+                fp.ShowDialog();
+                Pago pago = fp.getPagos();
+                fp.Dispose();
+                if (control.registrarPagoAsistenciaTaller(pago, asisT.ID.ToString()))
+                {
+                    MessageBox.Show("Pago registrado exitosamente");
+                    DocumentosWord word = new DocumentosWord(pago);
+                    btnActualizar_Click(null,null);
+                }
+                else
+                    throw new Exception("Error al registrar pago");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

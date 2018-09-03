@@ -18,7 +18,7 @@ namespace IICAPS_v1.Presentacion
         Pago pago;
         List<String> empleados;
         bool consultar;
-        public FormPago(Pago pago, bool cons, string concepto)
+        public FormPago(Pago pago, bool cons)
         {
             InitializeComponent();
             pago = new Pago();
@@ -32,7 +32,7 @@ namespace IICAPS_v1.Presentacion
                 aux.Add(c);
             }
             cmbConcepto.Items.AddRange(aux.ToArray());
-            cmbConcepto.SelectedItem = concepto;
+            cmbConcepto.SelectedItem = pago.concepto;
             aux.Clear();
             foreach (Empleados e in control.obtenerEmpleados())
             {
@@ -84,6 +84,7 @@ namespace IICAPS_v1.Presentacion
             }
             cmbRecibio.Items.AddRange(aux.ToArray());
             txtCantidad.Value = cantidad;
+            txtCantidad.Maximum = cantidad;
         }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -96,13 +97,18 @@ namespace IICAPS_v1.Presentacion
             {
                 if(consultar)
                     Dispose();
-                pago.cantidad = Convert.ToDouble(txtCantidad.Value);
-                pago.concepto = cmbConcepto.SelectedItem.ToString();
-                pago.observaciones = txtObservaciones.Text;
-                pago.recibio = empleados.ElementAt(cmbRecibio.SelectedIndex);
-                pago.fechaPago = DateTime.Now;
-                pago.emisor = txtEmisor.Text;
-                Dispose();
+                if (validarCampos()) {
+                    pago.cantidad = Convert.ToDouble(txtCantidad.Value);
+                    pago.concepto = cmbConcepto.SelectedItem.ToString();
+                    pago.observaciones = txtObservaciones.Text;
+                    pago.recibio = empleados.ElementAt(cmbRecibio.SelectedIndex);
+                    pago.fechaPago = DateTime.Now;
+                    pago.emisor = txtEmisor.Text;
+                    Close();
+                }else
+                {
+                    MessageBox.Show("No dejar campos vacios");
+                }
             }
             catch (Exception ex)
             {
@@ -112,6 +118,14 @@ namespace IICAPS_v1.Presentacion
         public Pago getPagos()
         {
             return pago;
+        }
+         
+        private bool validarCampos()
+        {
+            if (txtCantidad.Value > 0 && cmbConcepto.SelectedIndex >= 0 && cmbRecibio.SelectedIndex >= 0 && txtEmisor.Text != "")
+                return true;
+            else
+                return false;
         }
 
     }

@@ -18,7 +18,6 @@ namespace IICAPS_v1.DataObject
         public string correo { get; set; }
         public decimal pago { get; set; }
         public decimal costo { get; set; }
-        public decimal anticipo { get; set; }
         public decimal restante { get; set; }
     }
 }
