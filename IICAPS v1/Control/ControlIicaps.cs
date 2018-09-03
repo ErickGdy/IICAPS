@@ -3088,6 +3088,37 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexion con el servidor");
             }
         }
+        public int obtenerUltimoIDPagos()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '" + this.database + "' AND TABLE_NAME = 'pagos'; ";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int id = reader.GetInt32(0);
+                        conn.Close();
+                        return id;
+                    }
+                    conn.Close();
+                    return 0;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener id de pagos de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
         public List<String> obtenerConceptosDePagos(string area)
         {
             try

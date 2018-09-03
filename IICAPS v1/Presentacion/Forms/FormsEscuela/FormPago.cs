@@ -104,6 +104,7 @@ namespace IICAPS_v1.Presentacion
                     pago.recibio = empleados.ElementAt(cmbRecibio.SelectedIndex);
                     pago.fechaPago = DateTime.Now;
                     pago.emisor = txtEmisor.Text;
+                    pago.id = control.obtenerUltimoIDPagos();
                     Close();
                 }else
                 {
