@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         ControlIicaps control;
         string alumno="", concepto="";
         double auxTotal = 0, auxPendiente = 0;
+        DataGridViewPrinter MyDataGridViewPrinter;
         public DetallePagosAlumno(string rfc, string con)
         {
             InitializeComponent();
@@ -224,5 +226,53 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
            
         }
 
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (SetupThePrinting())
+                {
+                    PrintPreviewDialog MyPrintPreviewDialog = new PrintPreviewDialog();
+                    MyPrintPreviewDialog.Document = MyPrintDocument;
+                    MyPrintPreviewDialog.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar documento de impresion");
+            }
+        }
+
+        private void MyPrintDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            bool more = MyDataGridViewPrinter.DrawDataGridView(e.Graphics);
+            if (more == true)
+                e.HasMorePages = true;
+        }
+
+        private bool SetupThePrinting()
+        {
+            PrintDialog MyPrintDialog = new PrintDialog();
+            MyPrintDialog.AllowCurrentPage = false;
+            MyPrintDialog.AllowPrintToFile = false;
+            MyPrintDialog.AllowSelection = false;
+            MyPrintDialog.AllowSomePages = false;
+            MyPrintDialog.PrintToFile = false;
+            MyPrintDialog.ShowHelp = false;
+            MyPrintDialog.ShowNetwork = false;
+
+            //if (MyPrintDialog.ShowDialog() != DialogResult.OK)
+            //    return false;
+
+            MyPrintDocument.DocumentName = "HistorialPagos"+alumno;
+            MyPrintDocument.PrinterSettings = MyPrintDialog.PrinterSettings;
+            MyPrintDocument.DefaultPageSettings = MyPrintDialog.PrinterSettings.DefaultPageSettings;
+            MyPrintDocument.DefaultPageSettings.Margins = new Margins(40, 40, 40, 40);
+            MyPrintDocument.DefaultPageSettings.Landscape = true;
+
+            MyDataGridViewPrinter = new DataGridViewPrinter(dataGridViewPagos, MyPrintDocument, false, true, "Alumno: " + lblNombreAlumno .Text + "\n Concepto: " + concepto, new Font("Arial", 14, FontStyle.Bold, GraphicsUnit.Point), Color.Black, true, false);
+
+            return true;
+        }
     }
 }
