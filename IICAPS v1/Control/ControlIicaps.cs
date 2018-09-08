@@ -2957,7 +2957,7 @@ namespace IICAPS_v1.Control
                 catch (Exception e)
                 {
                     conn.Close();
-                    throw new Exception("Error...! Error al agregar Prorgrama a la Base de datos");
+                    throw new Exception("Error...! Error al registrar asistencias a la Base de datos");
                 }
             }
             catch (Exception e)
@@ -2966,6 +2966,109 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error...! Error al establecer conexion con el servidor");
             }
         }
+       
+        //-------------------------------CALIFICACIONES-------------------------------//
+        public List<CalificacionesAlumno> obtenerCalificacionesAlumnosMateriaTable(string grupo, int materia, List<Alumno> alumnos)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                string sqlString = "SELECT G.Alumno, A.Nombre, C.CalificacionTareas, C.CalificacionFinal FROM grupoAlumno G INNER JOIN alumnos A on A.RFC=G.Alumno inner JOIN calificacionAlumno C ON A.RFC=C.Alumno WHERE C.Grupo='" + grupo + "' AND C.Materia=' " + materia.ToString() + "' ;";
+                cmd = conn.CreateCommand();
+                cmd.CommandText = sqlString;
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<CalificacionesAlumno> aux = new List<CalificacionesAlumno>();
+                    foreach (Alumno alu in alumnos)
+                    {
+                        CalificacionesAlumno pls = new CalificacionesAlumno();
+                        pls.RFC = alu.rfc;
+                        pls.alumno = alu.nombre;
+                        pls.calificaciones = null;
+                        aux.Add(pls);
+                    }
+                    string rfc;
+                    string nombre;
+                    Calificacion calificacion;
+                    while (reader.Read())
+                    {
+                        rfc = reader.GetString(0);
+                        nombre = reader.GetString(1);
+                        calificacion = new Calificacion();
+                        calificacion.calificacionTareas = reader.GetFloat(2);
+                        calificacion.calificacionFinal = reader.GetFloat(3);
+                        calificacion.materia = materia;
+                        int index = 0;
+                        foreach (CalificacionesAlumno pl in aux)
+                        {
+                            if (pl.RFC == rfc)
+                            {
+                                if (aux.ElementAt(index).calificaciones == null)
+                                    aux.ElementAt(index).calificaciones = new List<Calificacion>();
+                                aux.ElementAt(index).calificaciones.Add(calificacion);
+                            }
+                            index++;
+                        }
+                    }
+                    conn.Close();
+                    if (aux.Count != 0)
+                        return aux;
+                    else
+                        return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de las calificaciones de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public bool registrarCalificaciones(List<CalificacionesAlumno> lista, string grupo, string materia)
+        {
+            try
+            {
+                
+                string calificaciones = "";
+                foreach (CalificacionesAlumno aux in lista)
+                {
+                    calificaciones += "INSERT INTO calificacionAlumno (Grupo, Materia, Alumno, CalificacionTareas,CalificacionFinal) SELECT '" + grupo + "','" + materia + "','" + aux.RFC + "','" + aux.calificaciones.ElementAt(0).calificacionTareas + "','"
+                    + aux.calificaciones.ElementAt(0).calificacionFinal + "' FROM DUAL WHERE NOT EXISTS (SELECT * FROM calificacionAlumno WHERE Grupo='" + grupo + "' AND Materia ='" + materia + "' AND Alumno ='" + aux.RFC + "'); ";
+
+                }
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + calificaciones
+                                    + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    conn.Close();
+                    throw new Exception("Error...! Error al agregar calificaciones a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...! Error al establecer conexion con el servidor");
+            }
+        }
+
         //-------------------------------PAGOS--------------------------------------//
         public bool agregarPago(Pago pago)
         {

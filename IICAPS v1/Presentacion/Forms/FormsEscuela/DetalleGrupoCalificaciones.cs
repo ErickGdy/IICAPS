@@ -21,7 +21,6 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         private static DetalleGrupoCalificaciones instance;
         ControlIicaps control;
         Grupo grupo;
-        List<Empleados> empleados;
         List<Materia> materias;
         List<Alumno> alumnos;
         DataGridViewPrinter MyDataGridViewPrinter;
@@ -36,12 +35,6 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             this.Text = lblNombreGrupo.Text;
             try
             {
-                empleados = control.obtenerEmpleados();
-                if(empleados != null)
-                foreach (Empleados emp in empleados)
-                {
-                    cmbMaestros.Items.Add(emp.nombre);
-                }
                 materias = control.consultarMapaCurricularPrograma(this.grupo.programa);
                 if(materias!= null)
                 foreach (Materia mat in materias)
@@ -87,30 +80,21 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         {
             try
             {
-                if (cmbMaestros.SelectedIndex >= 0)
+
+                dataGridView1.DataSource = null;
+                dataGridView1.Columns.Clear();
+                agregarColumnas(true,true);
+                foreach (CalificacionesAlumno cal in control.obtenerCalificacionesAlumnosMateriaTable(this.grupo.codigo, materias.ElementAt(cmbMaterias.SelectedIndex).id, alumnos))
                 {
-                    dataGridView1.DataSource = null;
-                    dataGridView1.Columns.Clear();
-                    agregarColumnas(true);
-                    foreach (CalificacionesAlumno cal in control.obtenerCalificacionesAlumnosMateriaTable(this.grupo.codigo, materias.ElementAt(cmbMaterias.SelectedIndex).id, alumnos))
-                    {
-                        if (cal.calificaciones != null)
-                            dataGridView1.Rows.Add(cal.alumno, cal.calificaciones.ElementAt(0).calificacionTareas, cal.calificaciones.ElementAt(0).calificacionTareas);
-                        else
-                            dataGridView1.Rows.Add(cal.alumno, null, null);
-                    }
-                    dataGridView1.ReadOnly = false;
-                    btnGuardar.Visible = true;
-                    imprimirListaToolStripMenuItem1.Enabled = false;
-                    Main_SizeChanged(null, null);
+                    if (cal.calificaciones != null)
+                        dataGridView1.Rows.Add(cal.alumno, cal.calificaciones.ElementAt(0).calificacionTareas, cal.calificaciones.ElementAt(0).calificacionTareas);
+                    else
+                        dataGridView1.Rows.Add(cal.alumno, null, null);
                 }
-                else
-                {
-                    MessageBox.Show("Seleccione maestro");
-                    cmbMaestros.Visible = true;
-                    lblMaestro.Visible = true;
-                    dataGridView1.ReadOnly = true;
-                }
+                dataGridView1.ReadOnly = false;
+                btnGuardar.Visible = true;
+                imprimirListaToolStripMenuItem1.Enabled = false;
+                Main_SizeChanged(null, null);
             } catch (Exception ex) 
             {
                 MessageBox.Show("Error al obtener datos para capturacion de calificaciones");
@@ -127,7 +111,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 List<CalificacionesAlumno> calificaciones = control.obtenerCalificacionesAlumnosMateriaTable(this.grupo.codigo, materias.ElementAt(cmbMaterias.SelectedIndex).id, this.alumnos);
                 if (calificaciones != null)
                 {
-                    agregarColumnas(true);
+                    agregarColumnas(true,false);
                     foreach (CalificacionesAlumno p in calificaciones)
                     {
                         List<string> valores = new List<string>();
@@ -142,7 +126,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 }
                 else
                 {
-                    agregarColumnas(false);
+                    agregarColumnas(false,false);
                 }
                 imprimirListaToolStripMenuItem1.Enabled = true;
                 capturarCalificacionesToolStripMenuItem1.Enabled = true;
@@ -155,7 +139,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 MessageBox.Show(ex.Message);
             }
         }
-        private void agregarColumnas(bool columnasCalificaciones)
+        private void agregarColumnas(bool columnasCalificaciones, bool capturaCalificaciones )
         {
             DataGridViewTextBoxColumn column = new DataGridViewTextBoxColumn();
             column.DataPropertyName = "columnaNombre";
@@ -173,7 +157,6 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 columnaCalificacionTareas.Name = "columnaCalificacionTareas";
                 columnaCalificacionTareas.HeaderText = "Calificacion Tareas";
                 columnaCalificacionTareas.Width = 150;
-                columnaCalificacionTareas.DefaultCellStyle.NullValue = "0";
                 dataGridView1.Columns.Add(columnaCalificacionTareas);
                 //AGREGAR COLUMNA CALIFICACION FINAL
                 DataGridViewTextBoxColumn columnaCalificacionFinal = new DataGridViewTextBoxColumn();
@@ -181,8 +164,11 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 columnaCalificacionFinal.Name = "CalificacionFinal";
                 columnaCalificacionFinal.HeaderText = "Calificacion Final";
                 columnaCalificacionFinal.Width = 150;
-                columnaCalificacionFinal.DefaultCellStyle.NullValue = "0";
                 dataGridView1.Columns.Add(columnaCalificacionFinal);
+                if (capturaCalificaciones) { 
+                    columnaCalificacionTareas.DefaultCellStyle.NullValue = "0";
+                    columnaCalificacionFinal.DefaultCellStyle.NullValue = "0";
+                }
             }
         } 
 
@@ -190,21 +176,21 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         {
             try
             {
-                List<PaseDeListaAlumno> aux = new List<PaseDeListaAlumno>();
+                List<CalificacionesAlumno> aux = new List<CalificacionesAlumno>();
                 for (int i = 0; i < dataGridView1.RowCount; i++)
                 {
-                    PaseDeListaAlumno pls = new PaseDeListaAlumno();
+                    CalificacionesAlumno pls = new CalificacionesAlumno();
                     pls.RFC = alumnos.ElementAt(i).rfc;
                     pls.alumno = alumnos.ElementAt(i).nombre;
-                    Asistencias asis = new Asistencias();
-                    asis.Estado = dataGridView1.Rows[i].Cells[1].FormattedValue.ToString();
-                    asis.Fecha = dateTimePicker1.Value;
-                    List<Asistencias> ls = new List<Asistencias>();
-                    ls.Add(asis);
-                    pls.asistencias = ls;
+                    Calificacion cal = new Calificacion();
+                    cal.calificacionTareas = Convert.ToSingle(dataGridView1.Rows[i].Cells[1].FormattedValue.ToString());
+                    cal.calificacionFinal = Convert.ToSingle(dataGridView1.Rows[i].Cells[2].FormattedValue.ToString());
+                    List<Calificacion> ls = new List<Calificacion>();
+                    ls.Add(cal);
+                    pls.calificaciones = ls;
                     aux.Add(pls);
                 }
-                if (control.registrarAsistencias(aux, empleados.ElementAt(cmbMaestros.SelectedIndex).correo, this.grupo.codigo, materias.ElementAt(cmbMaterias.SelectedIndex).id.ToString(), control.formatearFecha(dateTimePicker1.Value)))
+                if (control.registrarCalificaciones(aux, this.grupo.codigo, materias.ElementAt(cmbMaterias.SelectedIndex).id.ToString()))
                 {
                     MessageBox.Show("Datos guardados exitosamente");
                     this.Close();
@@ -228,11 +214,12 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         {
             dataGridView1.DataSource = null;
             dataGridView1.Columns.Clear();
-            agregarColumnas(true);
+            agregarColumnas(true, false);
             foreach  (Alumno al in alumnos)
             {
                 dataGridView1.Rows.Add(al.nombre,null,null);
             }
+            Main_SizeChanged(null,null);
             try
             {
                 if (SetupThePrinting())
@@ -269,7 +256,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             MyPrintDocument.DefaultPageSettings.Margins = new Margins(40, 40, 40, 40);
             MyPrintDocument.DefaultPageSettings.Landscape = true;
 
-            MyDataGridViewPrinter = new DataGridViewPrinter(dataGridView1, MyPrintDocument, false, "Pase de lista" + lblNombreGrupo.Text + "\n Materia: " + materias.ElementAt(cmbMaterias.SelectedIndex).nombre + "\n \n Maestro:__________________________________________ \n\n", new Font("Tahoma", 14, FontStyle.Bold, GraphicsUnit.Point), Color.Black, "FOOTER GIGANTE PARA VER QUE PASA CUANDO QUIERO IMPRIMIR UN SUPPER FOOTER GIGANTESCO" ,new Font("Tahoma", 14, FontStyle.Bold, GraphicsUnit.Point), Color.Black, true);
+            MyDataGridViewPrinter = new DataGridViewPrinter(dataGridView1, MyPrintDocument, false, "Captura de Calificaciones" + lblNombreGrupo.Text + "\n Materia: " + materias.ElementAt(cmbMaterias.SelectedIndex).nombre + "\n \n Maestro:__________________________________________ \n\n", new Font("Tahoma", 14, FontStyle.Bold, GraphicsUnit.Point), Color.Black, "FOOTER GIGANTE PARA VER QUE PASA CUANDO QUIERO IMPRIMIR UN SUPPER FOOTER GIGANTESCO" ,new Font("Tahoma", 14, FontStyle.Bold, GraphicsUnit.Point), Color.Black, false);
 
             return true;
         }
