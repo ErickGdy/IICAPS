@@ -36,7 +36,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DetalleTaller));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.menuTablaAlumnos = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.modificiarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registrarPagoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.limpiarBusqueda = new System.Windows.Forms.LinkLabel();
@@ -44,8 +46,6 @@
             this.btnAgregar = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.lblNombreGrupo = new System.Windows.Forms.Label();
-            this.modificiarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registrarPagoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuTablaAlumnos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBuscar)).BeginInit();
@@ -90,14 +90,28 @@
             this.quitarToolStripMenuItem,
             this.registrarPagoToolStripMenuItem});
             this.menuTablaAlumnos.Name = "menuTablaAlumnos";
-            this.menuTablaAlumnos.Size = new System.Drawing.Size(153, 92);
+            this.menuTablaAlumnos.Size = new System.Drawing.Size(151, 70);
+            // 
+            // modificiarToolStripMenuItem
+            // 
+            this.modificiarToolStripMenuItem.Name = "modificiarToolStripMenuItem";
+            this.modificiarToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.modificiarToolStripMenuItem.Text = "Modificar";
+            this.modificiarToolStripMenuItem.Click += new System.EventHandler(this.modificiarToolStripMenuItem_Click);
             // 
             // quitarToolStripMenuItem
             // 
             this.quitarToolStripMenuItem.Name = "quitarToolStripMenuItem";
-            this.quitarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.quitarToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
             this.quitarToolStripMenuItem.Text = "Eliminar";
             this.quitarToolStripMenuItem.Click += new System.EventHandler(this.quitarToolStripMenuItem_Click);
+            // 
+            // registrarPagoToolStripMenuItem
+            // 
+            this.registrarPagoToolStripMenuItem.Name = "registrarPagoToolStripMenuItem";
+            this.registrarPagoToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.registrarPagoToolStripMenuItem.Text = "Registrar Pago";
+            this.registrarPagoToolStripMenuItem.Click += new System.EventHandler(this.registrarPagoToolStripMenuItem_Click);
             // 
             // txtBuscar
             // 
@@ -199,20 +213,6 @@
             this.lblNombreGrupo.TabIndex = 41;
             this.lblNombreGrupo.Text = "Nombre de taller";
             // 
-            // modificiarToolStripMenuItem
-            // 
-            this.modificiarToolStripMenuItem.Name = "modificiarToolStripMenuItem";
-            this.modificiarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.modificiarToolStripMenuItem.Text = "Modificar";
-            this.modificiarToolStripMenuItem.Click += new System.EventHandler(this.modificiarToolStripMenuItem_Click);
-            // 
-            // registrarPagoToolStripMenuItem
-            // 
-            this.registrarPagoToolStripMenuItem.Name = "registrarPagoToolStripMenuItem";
-            this.registrarPagoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.registrarPagoToolStripMenuItem.Text = "Registrar Pago";
-            this.registrarPagoToolStripMenuItem.Click += new System.EventHandler(this.registrarPagoToolStripMenuItem_Click);
-            // 
             // DetalleTaller
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -232,7 +232,7 @@
             this.MinimumSize = new System.Drawing.Size(800, 450);
             this.Name = "DetalleTaller";
             this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Lista de asistentes";
             this.SizeChanged += new System.EventHandler(this.Main_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

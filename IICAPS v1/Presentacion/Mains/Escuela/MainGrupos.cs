@@ -208,5 +208,20 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void calificacionesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                Grupo grupo = control.consultarGrupo(id);
+                DetalleGrupoCalificaciones dtg = new DetalleGrupoCalificaciones(grupo);
+                dtg.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
