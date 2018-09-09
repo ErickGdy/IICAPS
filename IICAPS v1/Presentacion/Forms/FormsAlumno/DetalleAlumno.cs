@@ -20,6 +20,8 @@ namespace IICAPS_v1.Presentacion
         private static FormDetalleAlumno instance;
         ControlIicaps control;
         Alumno alumno;
+        List<Programa> programas;
+        List<string> programasAlumno;
         public FormDetalleAlumno(Alumno al)
         {
             InitializeComponent();
@@ -30,6 +32,7 @@ namespace IICAPS_v1.Presentacion
                 actualizarPanel(0);
                 lblNombreHeader.Text = al.nombre;
                 lblProgramaHeader.Text = control.consultarPrograma(al.programa).Nombre;
+                programas = control.obtenerProgramas();
             }
             catch (Exception e)
             {
@@ -162,6 +165,24 @@ namespace IICAPS_v1.Presentacion
                 case 4:
                     panelSituacionAcademica.Visible = true;
                     //Generar documento Kardex
+                    cmbProgramaSitacionAcademica.Items.Clear();
+                    try
+                    {
+                        programasAlumno = control.obtenerProgramasAlumno(alumno.rfc);
+                        foreach (Programa aux in programas)
+                        {
+                            foreach (string codigo in programasAlumno)
+                            {
+                                if (codigo == aux.Codigo)
+                                    cmbProgramaSitacionAcademica.Items.Add(aux.Nombre);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al obtener datos de programa del alumno");
+                    }
+                    
                     break;
                 case 5:
                     try
@@ -270,7 +291,23 @@ namespace IICAPS_v1.Presentacion
 
         private void btnBuscarSituacionAcademica_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Generando pdf con situacion académica");
+            try
+            {
+                string programa = programasAlumno.ElementAt(cmbProgramaSitacionAcademica.SelectedIndex);
+                string grupo = control.consultarGrupoAlumno(alumno.rfc);
+                foreach (Programa aux in programas)
+                {
+                    if (aux.Codigo == programa)
+                    {
+                        DocumentosWord word = new DocumentosWord(alumno, control.obtenerCalificacionesAlumno(alumno.rfc, grupo), grupo, aux.Nombre);
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al obtener datos del alumno");
+            }
         }
 
         private void btnActualizarDocumentos_Click(object sender, EventArgs e)

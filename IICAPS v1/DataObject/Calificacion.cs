@@ -11,5 +11,6 @@ namespace IICAPS_v1.DataObject
         public float calificacionTareas { get; set; }
         public float calificacionFinal { get; set; }
         public int materia { get; set; }
+        public string materiaNombre { get; set; }
     }
 }

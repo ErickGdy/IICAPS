@@ -40,6 +40,7 @@
             this.lblCentroAlumnado = new System.Windows.Forms.Label();
             this.lblLineaHeader = new System.Windows.Forms.Label();
             this.panelCalificaciones = new System.Windows.Forms.Panel();
+            this.dataGridViewCalificaciones = new System.Windows.Forms.DataGridView();
             this.label10 = new System.Windows.Forms.Label();
             this.panelDocumentacion = new System.Windows.Forms.Panel();
             this.btnActualizarDocumentos = new System.Windows.Forms.Button();
@@ -119,9 +120,9 @@
             this.label33 = new System.Windows.Forms.Label();
             this.cmbGrupos = new System.Windows.Forms.ComboBox();
             this.label34 = new System.Windows.Forms.Label();
-            this.dataGridViewCalificaciones = new System.Windows.Forms.DataGridView();
             this.groupMenus.SuspendLayout();
             this.panelCalificaciones.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCalificaciones)).BeginInit();
             this.panelDocumentacion.SuspendLayout();
             this.tabControlDocumentacion.SuspendLayout();
             this.tabPage7.SuspendLayout();
@@ -129,7 +130,6 @@
             this.panelInformacionPersonal.SuspendLayout();
             this.panelSituacionAcademica.SuspendLayout();
             this.panelInscripcion.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCalificaciones)).BeginInit();
             this.SuspendLayout();
             // 
             // lblNombreHeader
@@ -260,6 +260,20 @@
             this.panelCalificaciones.Size = new System.Drawing.Size(578, 422);
             this.panelCalificaciones.TabIndex = 52;
             this.panelCalificaciones.SizeChanged += new System.EventHandler(this.panelCalificaciones_SizeChanged);
+            // 
+            // dataGridViewCalificaciones
+            // 
+            this.dataGridViewCalificaciones.AllowUserToAddRows = false;
+            this.dataGridViewCalificaciones.AllowUserToDeleteRows = false;
+            this.dataGridViewCalificaciones.AllowUserToOrderColumns = true;
+            this.dataGridViewCalificaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCalificaciones.Location = new System.Drawing.Point(9, 50);
+            this.dataGridViewCalificaciones.Name = "dataGridViewCalificaciones";
+            this.dataGridViewCalificaciones.ReadOnly = true;
+            this.dataGridViewCalificaciones.RowHeadersVisible = false;
+            this.dataGridViewCalificaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewCalificaciones.Size = new System.Drawing.Size(557, 364);
+            this.dataGridViewCalificaciones.TabIndex = 54;
             // 
             // label10
             // 
@@ -1079,6 +1093,7 @@
             // 
             // cmbProgramaSitacionAcademica
             // 
+            this.cmbProgramaSitacionAcademica.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbProgramaSitacionAcademica.FormattingEnabled = true;
             this.cmbProgramaSitacionAcademica.Location = new System.Drawing.Point(131, 72);
             this.cmbProgramaSitacionAcademica.Name = "cmbProgramaSitacionAcademica";
@@ -1162,20 +1177,6 @@
             this.label34.TabIndex = 53;
             this.label34.Text = "Inscripciones";
             // 
-            // dataGridViewCalificaciones
-            // 
-            this.dataGridViewCalificaciones.AllowUserToAddRows = false;
-            this.dataGridViewCalificaciones.AllowUserToDeleteRows = false;
-            this.dataGridViewCalificaciones.AllowUserToOrderColumns = true;
-            this.dataGridViewCalificaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCalificaciones.Location = new System.Drawing.Point(9, 50);
-            this.dataGridViewCalificaciones.Name = "dataGridViewCalificaciones";
-            this.dataGridViewCalificaciones.ReadOnly = true;
-            this.dataGridViewCalificaciones.RowHeadersVisible = false;
-            this.dataGridViewCalificaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewCalificaciones.Size = new System.Drawing.Size(557, 364);
-            this.dataGridViewCalificaciones.TabIndex = 54;
-            // 
             // FormDetalleAlumno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1187,11 +1188,11 @@
             this.Controls.Add(this.lblNombreHeader);
             this.Controls.Add(this.lblLineaHeader);
             this.Controls.Add(this.lblProgramaHeader);
+            this.Controls.Add(this.panelSituacionAcademica);
+            this.Controls.Add(this.panelInscripcion);
             this.Controls.Add(this.panelCalificaciones);
             this.Controls.Add(this.panelInformacionPersonal);
             this.Controls.Add(this.panelDocumentacion);
-            this.Controls.Add(this.panelSituacionAcademica);
-            this.Controls.Add(this.panelInscripcion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormDetalleAlumno";
@@ -1204,6 +1205,7 @@
             this.groupMenus.PerformLayout();
             this.panelCalificaciones.ResumeLayout(false);
             this.panelCalificaciones.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCalificaciones)).EndInit();
             this.panelDocumentacion.ResumeLayout(false);
             this.panelDocumentacion.PerformLayout();
             this.tabControlDocumentacion.ResumeLayout(false);
@@ -1217,7 +1219,6 @@
             this.panelSituacionAcademica.PerformLayout();
             this.panelInscripcion.ResumeLayout(false);
             this.panelInscripcion.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCalificaciones)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
