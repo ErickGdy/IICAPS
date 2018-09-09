@@ -1,7 +1,10 @@
 ﻿using IICAPS_v1.DataObject;
 using Microsoft.Office.Interop.Word;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using word = Microsoft.Office.Interop.Word;
 
@@ -12,6 +15,9 @@ namespace IICAPS_v1.Control
         ControlIicaps control;
         string imgHeader1 = Directory.GetCurrentDirectory() + @"\Imagenes\logoaltacalidad.jpg";
         string imgFooter1 = Directory.GetCurrentDirectory() + @"\Imagenes\piealtacalidad.jpg";
+        object formatoArchivoPDF = Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatPDF;
+        object formatoArchivoWORD = Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatDocument;
+        object guardarCambios = false;
 
         public DocumentosWord(DocumentosInscripcion doc)
         {
@@ -430,12 +436,167 @@ namespace IICAPS_v1.Control
             {
                 Directory.CreateDirectory(path);
             }
-            documento.SaveAs2(ref filename); 
-            //documento.Close(ref missing, ref missing, ref missing);
-            //documento = null;
-            //word.Quit(ref missing, ref missing, ref missing);
-            //word = null;
+            documento.SaveAs2(ref filename);
             MessageBox.Show("¡Recibo de pago creado exitosamente!");
+        }
+
+        public DocumentosWord(Alumno alumno, List<Calificacion> calificaciones, string grupo, string programa)
+        {
+            control = ControlIicaps.getInstance();
+            Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
+            //Quitar animacion y visibilidad mientras se crea y edita
+            word.ShowAnimation = false;
+            word.Visible = false;
+            //Missing para rellenar parametros de creacion
+            object missing = System.Reflection.Missing.Value;
+            //Creacion del documento
+            Microsoft.Office.Interop.Word.Document documento = word.Documents.Add(ref missing, ref missing, ref missing);
+            //Agregar encabezado
+            foreach (Microsoft.Office.Interop.Word.Section section in documento.Sections)
+            {
+                //Encabezado y configuracion
+                Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
+                headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                HeaderFooter header = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
+                header.Range.ParagraphFormat.SpaceAfter = 0;
+                if (File.Exists(imgHeader1))
+                    header.Shapes.AddPicture(imgHeader1);
+            }
+            //Agregar pie de pagina
+            foreach (Microsoft.Office.Interop.Word.Section wordSection in documento.Sections)
+            {
+                //Pie de pagina y configuracion
+                Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                HeaderFooter footer = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
+                footer.Range.ParagraphFormat.SpaceAfter = 50;
+                if (File.Exists(imgFooter1))
+                    footer.Shapes.AddPicture(imgFooter1);
+
+            }
+            //Agregar parrafo de texto con estilo de titulo 1
+            Microsoft.Office.Interop.Word.Paragraph parra1 = documento.Content.Paragraphs.Add(ref missing);
+            object styleHeading1 = "Título 1";
+            parra1.Range.set_Style(ref styleHeading1);
+            parra1.Range.Font.Color = WdColor.wdColorDarkGreen;
+            parra1.Range.Font.Bold = 1;
+            parra1.Range.Text = Environment.NewLine + "REPORTE DE PROGRESO ACADÉMICO";
+            parra1.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+            parra1.Range.InsertParagraphAfter();
+            //Agregar parrafo de texto con estilo de titulo 2
+            //Microsoft.Office.Interop.Word.Paragraph subParra1 = documento.Content.Paragraphs.Add(ref missing);
+            //object styleHeading2 = "Título 2";
+            //subParra1.Range.set_Style(ref styleHeading2);
+            //subParra1.Range.Font.Color = WdColor.wdColorDarkGreen;
+            //subParra1.Range.Text = Environment.NewLine + "REPORTE DE PROGRESO ACADÉMICO";
+            //subParra1.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+            //subParra1.Range.InsertParagraphAfter();
+
+            //Parrafos restantes del documento
+            Microsoft.Office.Interop.Word.Table objTableDatosAlumno;
+            Microsoft.Office.Interop.Word.Range wrdRng;// = documento.Bookmarks.get_Item(ref missing).Range;
+            Microsoft.Office.Interop.Word.Paragraph parra2 = documento.Content.Paragraphs.Add(ref missing);
+            parra2.Alignment = WdParagraphAlignment.wdAlignParagraphLeft;
+            object style2 = "Tabla Normal 4";
+            objTableDatosAlumno = documento.Tables.Add(parra2.Range, 4, 2, ref missing, ref missing);
+            objTableDatosAlumno.Range.set_Style(ref style2);
+            objTableDatosAlumno.Range.Font.Size = 12;
+            objTableDatosAlumno.Rows.Alignment = WdRowAlignment.wdAlignRowLeft;
+            objTableDatosAlumno.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphLeft;
+            objTableDatosAlumno.Rows.Shading.BackgroundPatternColor = WdColor.wdColorWhite;
+            objTableDatosAlumno.Columns[1].Width = 70;
+            objTableDatosAlumno.Columns[2].Width = 300;
+            //objTable.Range.ParagraphFormat.SpaceAfter = 7;
+            string[] datosAlumno = new string[] { "Matrícula: ","Nombre: ", "Programa: ","Grupo: " };
+            //Tabla de datos del alumno
+            objTableDatosAlumno.Cell(1, 1).Range.Font.Bold = 1;
+            objTableDatosAlumno.Cell(1, 1).Range.Text = datosAlumno[0];
+            objTableDatosAlumno.Cell(2, 1).Range.Font.Bold = 1;
+            objTableDatosAlumno.Cell(2, 1).Range.Text = datosAlumno[1];
+            objTableDatosAlumno.Cell(3, 1).Range.Font.Bold = 1;
+            objTableDatosAlumno.Cell(3, 1).Range.Text = datosAlumno[2];
+            objTableDatosAlumno.Cell(4, 1).Range.Font.Bold = 1;
+            objTableDatosAlumno.Cell(4, 1).Range.Text = datosAlumno[3];
+
+            objTableDatosAlumno.Cell(1, 2).Range.Font.Bold = 1;
+            objTableDatosAlumno.Cell(1, 2).Range.Text = alumno.matricula;
+            objTableDatosAlumno.Cell(2, 2).Range.Font.Bold = 1;
+            objTableDatosAlumno.Cell(2, 2).Range.Text = alumno.nombre;
+            objTableDatosAlumno.Cell(3, 2).Range.Font.Bold = 1;
+            objTableDatosAlumno.Cell(3, 2).Range.Text = programa;
+            objTableDatosAlumno.Cell(4, 2).Range.Font.Bold = 1;
+            objTableDatosAlumno.Cell(4, 2).Range.Text = grupo;
+
+            //DATOS DE CALIFICACIONES
+            Microsoft.Office.Interop.Word.Paragraph parra3 = documento.Content.Paragraphs.Add(ref missing);
+            //HEADER TABLA
+            parra3.Range.Font.Bold = 1;
+            parra3.Range.Font.Size = 12;
+            parra3.Range.Text = Environment.NewLine + "Asignaturas del Plan de Estudios Vigente";
+            parra3.Range.InsertParagraphAfter();
+            
+            List<Materia> materias = control.consultarMapaCurricularPrograma(alumno.programa);
+            string[] headerTabla = new string[] { "ID","Materia","Calificación Tareas","Calificación Final" };
+
+            //TABLA DE CALIFICACIONES
+            object oEndOfDoc = "\\endofdoc";
+            Microsoft.Office.Interop.Word.Table objTableCalificaciones;
+            wrdRng = documento.Bookmarks.get_Item(ref oEndOfDoc).Range;
+            object style3 = "Tabla Normal 2";
+            objTableCalificaciones = documento.Tables.Add(wrdRng, calificaciones.Count+1, 4, ref missing, ref missing);
+            objTableCalificaciones.Range.set_Style(ref style3);
+            objTableCalificaciones.Range.Font.Size = 12;
+            //objTable.Range.ParagraphFormat.SpaceAfter = 7;
+            objTableCalificaciones.Cell(1, 1).Range.Text = headerTabla[0];
+            objTableCalificaciones.Cell(1, 1).Range.Font.Bold = 1;
+            objTableCalificaciones.Cell(1, 2).Range.Font.Bold = 1;
+            objTableCalificaciones.Cell(1, 2).Range.Text = headerTabla[1];
+            objTableCalificaciones.Cell(1, 3).Range.Font.Bold = 1;
+            objTableCalificaciones.Cell(1, 3).Range.Text = headerTabla[2];
+            objTableCalificaciones.Cell(1, 4).Range.Font.Bold = 1;
+            objTableCalificaciones.Cell(1, 4).Range.Text = headerTabla[3];
+            objTableCalificaciones.Rows[1].Range.Font.Bold = 1;
+
+            for (int i = 2; i <= calificaciones.Count+1; i++)
+            {
+                objTableCalificaciones.Cell(i, 1).Range.Text = calificaciones.ElementAt(i-2).materia.ToString();
+                objTableCalificaciones.Cell(i, 2).Range.Text = calificaciones.ElementAt(i-2).materiaNombre;
+                objTableCalificaciones.Cell(i, 3).Range.Text = calificaciones.ElementAt(i-2).calificacionTareas.ToString();
+                objTableCalificaciones.Cell(i, 4).Range.Text = calificaciones.ElementAt(i-2).calificacionFinal.ToString();
+
+            }
+            objTableCalificaciones.Columns[1].Width = 38;
+            objTableCalificaciones.Columns[2].Width = 300;
+            objTableCalificaciones.Columns[3].Width = 68;
+            objTableCalificaciones.Columns[4].Width = 68;
+
+
+            //Hacemos visible el documento
+            //word.Visible = true;
+            //Guardamos el documento
+            string path = Directory.GetCurrentDirectory() + @"\Reportes Academicos";
+            object filename = Directory.GetCurrentDirectory() + @"\Reportes Academicos\Reportes_Academico_" + alumno.matricula;
+            // comprobar si el fichero ya existe
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            
+            object newFileName = Directory.GetCurrentDirectory() + @"\Reportes Academicos\Reportes_Academico_" + alumno.matricula+".pdf";
+            documento.SaveAs2(ref filename);
+            documento.SaveAs2(ref newFileName, ref formatoArchivoPDF);
+            //word.Visible = true;
+            
+            documento.Close(ref guardarCambios, ref formatoArchivoWORD, ref filename);
+            documento = null;
+            word.Quit(ref guardarCambios, ref formatoArchivoWORD, ref filename);
+            word = null;
+
+            Process.Start(newFileName.ToString());
+
+            MessageBox.Show("¡Reporte de progreso académico creado exitosamente!");
+
         }
 
     }

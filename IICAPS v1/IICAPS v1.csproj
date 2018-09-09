@@ -78,6 +78,8 @@
     <Compile Include="Control\DataGridViewPrinter.cs" />
     <Compile Include="Control\DocumentosWord.cs" />
     <Compile Include="DataObject\Pago.cs" />
+    <Compile Include="DataObject\Calificacion.cs" />
+    <Compile Include="DataObject\CalificacionesAlumno.cs" />
     <Compile Include="DataObject\TallerAsistente.cs" />
     <Compile Include="DataObject\Empleados.cs" />
     <Compile Include="DataObject\Taller.cs" />
@@ -138,6 +140,12 @@
     </Compile>
     <Compile Include="Presentacion\Forms\FormsAlumno\DetalleAlumno.Designer.cs">
       <DependentUpon>DetalleAlumno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\DetalleGrupoCalificaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsEscuela\DetalleGrupoCalificaciones.Designer.cs">
+      <DependentUpon>DetalleGrupoCalificaciones.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Forms\FormsEscuela\DetallePagosAlumno.cs">
       <SubType>Form</SubType>
@@ -308,6 +316,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\DetalleAlumno.resx">
       <DependentUpon>DetalleAlumno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\DetalleGrupoCalificaciones.resx">
+      <DependentUpon>DetalleGrupoCalificaciones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\DetallePagosAlumno.resx">
       <DependentUpon>DetallePagosAlumno.cs</DependentUpon>

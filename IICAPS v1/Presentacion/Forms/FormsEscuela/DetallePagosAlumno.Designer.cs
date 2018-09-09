@@ -94,19 +94,21 @@
             this.quitarToolStripMenuItem,
             this.cancelarToolStripMenuItem});
             this.menuTablaAlumnos.Name = "menuTablaAlumnos";
-            this.menuTablaAlumnos.Size = new System.Drawing.Size(141, 52);
+            this.menuTablaAlumnos.Size = new System.Drawing.Size(126, 48);
+
+
             // 
             // quitarToolStripMenuItem
             // 
             this.quitarToolStripMenuItem.Name = "quitarToolStripMenuItem";
-            this.quitarToolStripMenuItem.Size = new System.Drawing.Size(140, 24);
+            this.quitarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.quitarToolStripMenuItem.Text = "Consultar";
             this.quitarToolStripMenuItem.Click += new System.EventHandler(this.quitarToolStripMenuItem_Click);
             // 
             // cancelarToolStripMenuItem
             // 
             this.cancelarToolStripMenuItem.Name = "cancelarToolStripMenuItem";
-            this.cancelarToolStripMenuItem.Size = new System.Drawing.Size(140, 24);
+            this.cancelarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.cancelarToolStripMenuItem.Text = "Cancelar";
             this.cancelarToolStripMenuItem.Click += new System.EventHandler(this.cancelarToolStripMenuItem_Click);
             // 
@@ -299,7 +301,7 @@
             this.MinimumSize = new System.Drawing.Size(1061, 543);
             this.Name = "DetallePagosAlumno";
             this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Historial de pagos de Alumno";
             this.SizeChanged += new System.EventHandler(this.Main_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPagos)).EndInit();
