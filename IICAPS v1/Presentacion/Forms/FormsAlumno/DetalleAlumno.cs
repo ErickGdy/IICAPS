@@ -20,6 +20,8 @@ namespace IICAPS_v1.Presentacion
         private static FormDetalleAlumno instance;
         ControlIicaps control;
         Alumno alumno;
+        List<Programa> programas;
+        List<string> programasAlumno;
         public FormDetalleAlumno(Alumno al)
         {
             InitializeComponent();
@@ -30,6 +32,7 @@ namespace IICAPS_v1.Presentacion
                 actualizarPanel(0);
                 lblNombreHeader.Text = al.nombre;
                 lblProgramaHeader.Text = control.consultarPrograma(al.programa).Nombre;
+                programas = control.obtenerProgramas();
             }
             catch (Exception e)
             {
@@ -96,7 +99,24 @@ namespace IICAPS_v1.Presentacion
             {
                 case 1:
                     panelCalificaciones.Visible = true;
-                    
+                    try
+                    {
+                        DataTable dtDatos = new DataTable();
+                        //Con la informacion del adaptador se llena el datatable
+                        control.consultarCalificacionesAlumno(alumno.rfc, control.consultarGrupoAlumno(alumno.rfc)).Fill(dtDatos);
+                        //Se asigna el datatable como origen de datos del datagridview
+                        dataGridViewCalificaciones.DataSource = dtDatos;
+                        //Actualiza el valor del ancho de la columnas
+                        int x = (dataGridViewCalificaciones.Width - 20) / dataGridViewCalificaciones.Columns.Count;
+                        foreach (DataGridViewColumn aux in dataGridViewCalificaciones.Columns)
+                        {
+                            aux.Width = x;
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message);
+                    }
                     break;
                 case 2:
                     panelDocumentacion.Visible = true;
@@ -144,7 +164,25 @@ namespace IICAPS_v1.Presentacion
                     break;
                 case 4:
                     panelSituacionAcademica.Visible = true;
-
+                    //Generar documento Kardex
+                    cmbProgramaSitacionAcademica.Items.Clear();
+                    try
+                    {
+                        programasAlumno = control.obtenerProgramasAlumno(alumno.rfc);
+                        foreach (Programa aux in programas)
+                        {
+                            foreach (string codigo in programasAlumno)
+                            {
+                                if (codigo == aux.Codigo)
+                                    cmbProgramaSitacionAcademica.Items.Add(aux.Nombre);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al obtener datos de programa del alumno");
+                    }
+                    
                     break;
                 case 5:
                     try
@@ -253,7 +291,23 @@ namespace IICAPS_v1.Presentacion
 
         private void btnBuscarSituacionAcademica_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Generando pdf con situacion académica");
+            try
+            {
+                string programa = programasAlumno.ElementAt(cmbProgramaSitacionAcademica.SelectedIndex);
+                string grupo = control.consultarGrupoAlumno(alumno.rfc);
+                foreach (Programa aux in programas)
+                {
+                    if (aux.Codigo == programa)
+                    {
+                        DocumentosWord word = new DocumentosWord(alumno, control.obtenerCalificacionesAlumno(alumno.rfc, grupo), grupo, aux.Nombre);
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al obtener datos del alumno");
+            }
         }
 
         private void btnActualizarDocumentos_Click(object sender, EventArgs e)
@@ -361,6 +415,18 @@ namespace IICAPS_v1.Presentacion
             panelSituacionAcademica.Location = new Point(panelSituacionAcademica.Location.X - distancia, panelSituacionAcademica.Location.Y);
         }
 
-
+        private void panelCalificaciones_SizeChanged(object sender, EventArgs e)
+        {
+            dataGridViewCalificaciones.Width = panelCalificaciones.Width - 30;
+            dataGridViewCalificaciones.Height = panelCalificaciones.Height - 60;
+            if (dataGridViewCalificaciones.Columns.Count != 0)
+            {
+                int x = (dataGridViewCalificaciones.Width - 20) / dataGridViewCalificaciones.Columns.Count;
+                foreach (DataGridViewColumn aux in dataGridViewCalificaciones.Columns)
+                {
+                    aux.Width = x;
+                }
+            }
+        }
     }
 }

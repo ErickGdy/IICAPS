@@ -281,6 +281,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.pictureBox1);
             this.Name = "FormPago";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Registrar Pago";
             ((System.ComponentModel.ISupportInitialize)(this.txtCantidad)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

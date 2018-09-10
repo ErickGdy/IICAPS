@@ -95,6 +95,8 @@
             this.cancelarToolStripMenuItem});
             this.menuTablaAlumnos.Name = "menuTablaAlumnos";
             this.menuTablaAlumnos.Size = new System.Drawing.Size(126, 48);
+
+
             // 
             // quitarToolStripMenuItem
             // 
@@ -297,7 +299,7 @@
             this.MinimumSize = new System.Drawing.Size(800, 449);
             this.Name = "DetallePagosAlumno";
             this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Historial de pagos de Alumno";
             this.SizeChanged += new System.EventHandler(this.Main_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPagos)).EndInit();
