@@ -77,9 +77,13 @@
     <Compile Include="Control\ControlIicaps.cs" />
     <Compile Include="Control\DataGridViewPrinter.cs" />
     <Compile Include="Control\DocumentosWord.cs" />
+    <Compile Include="DataObject\Agenda.cs" />
+    <Compile Include="DataObject\Paciente.cs" />
     <Compile Include="DataObject\Pago.cs" />
     <Compile Include="DataObject\Calificacion.cs" />
     <Compile Include="DataObject\CalificacionesAlumno.cs" />
+    <Compile Include="DataObject\Evaluacion.cs" />
+    <Compile Include="DataObject\Sesion.cs" />
     <Compile Include="DataObject\TallerAsistente.cs" />
     <Compile Include="DataObject\Empleados.cs" />
     <Compile Include="DataObject\Taller.cs" />
@@ -219,6 +223,12 @@
     <Compile Include="Presentacion\Forms\FormsEscuela\FormMaterias.Designer.cs">
       <DependentUpon>FormMaterias.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormPaciente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormPaciente.Designer.cs">
+      <DependentUpon>FormPaciente.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Login\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -291,6 +301,18 @@
     <Compile Include="Presentacion\Forms\FormsAlumno\FormRegistrarPago.Designer.cs">
       <DependentUpon>FormRegistrarPago.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentacion\Mains\Psicoterapia\MainAgenda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Psicoterapia\MainAgenda.Designer.cs">
+      <DependentUpon>MainAgenda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Psicoterapia\MainPacientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Psicoterapia\MainPacientes.Designer.cs">
+      <DependentUpon>MainPacientes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\Alumnos.resx">
@@ -356,6 +378,9 @@
     <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\FormMaterias.resx">
       <DependentUpon>FormMaterias.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsPsicoterapia\FormPaciente.resx">
+      <DependentUpon>FormPaciente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Login\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -391,6 +416,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\FormRegistrarPago.resx">
       <DependentUpon>FormRegistrarPago.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Mains\Psicoterapia\MainAgenda.resx">
+      <DependentUpon>MainAgenda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Mains\Psicoterapia\MainPacientes.resx">
+      <DependentUpon>MainPacientes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -487,5 +518,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

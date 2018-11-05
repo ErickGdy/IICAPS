@@ -3,6 +3,7 @@ using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
 using IICAPS_v1.Presentacion.Mains.Escuela;
+using IICAPS_v1.Presentacion.Mains.Psicoterapia;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -69,7 +70,6 @@ namespace IICAPS.Presentacion.Mains
             form.MdiParent = this;
             form.Size = new Size(this.Size.Width - 20, this.Size.Height - 45);
         } 
-
         private void inhabilitarBoton(string boton, string modulo)
         {
             ocultarPaneles(modulo);
@@ -77,6 +77,10 @@ namespace IICAPS.Presentacion.Mains
             this.btnMenuEscuela.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             btnMenuMaestros.Enabled = true;
             this.btnMenuMaestros.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            btnMenuPsicoterapia.Enabled = true;
+            this.btnMenuPsicoterapia.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            btnMenuPacientes.Enabled = true;
+            this.btnMenuPacientes.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             switch (modulo)
             {
                 case "Escuela":
@@ -87,41 +91,46 @@ namespace IICAPS.Presentacion.Mains
                     btnMenuMaestros.Enabled = false;
                     btnMenuMaestros.Font = new System.Drawing.Font("Montserrat", 9.749999F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                     break;
+                case "Psicoterapia":
+                    btnMenuPsicoterapia.Enabled = false;
+                    btnMenuPsicoterapia.Font = new System.Drawing.Font("Montserrat", 9.749999F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    break;
+                case "Paciente":
+                    btnMenuPacientes.Enabled = false;
+                    btnMenuPacientes.Font = new System.Drawing.Font("Montserrat", 9.749999F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    break;
                 default:
                     break;
             }
         }
-
-        private void Principal_SizeChanged(object sender, EventArgs e)
-        {
-            foreach (Form aux in MdiChildren)
-            {
-                configurarForm(aux);
-            }
-            menuStrip.Width = this.Width-15;
-            panelMenuSuperior.Width = this.Width-15;
-            actualizarPaneles();
-        }
-
         private void actualizarPaneles()
         {
             panelMenuEscuela.Height = this.Height - 85;
+            panelMenuPsicoterapia.Height = this.Height - 85;
             logoDisgrawMenuEscuela.Location = new Point(4, this.Height - 125);
+            logoDisgrawMenuPsicoterapia.Location = new Point(4, this.Height - 125);
         }
         private void ocultarPaneles(string modulo)
         {
+            panelMenuPsicoterapia.Visible = false;
+            panelMenuEscuela.Visible = false;
             switch (modulo)
             {
                 case "Escuela":
                     panelMenuEscuela.Visible = true;
-
                     break;
                 case "Alumno":
                     panelMenuEscuela.Visible = true;
-
+                    break;
+                case "Paciente":
+                    panelMenuPsicoterapia.Visible = true;
+                    break;
+                case "Psicoterapia":
+                    panelMenuPsicoterapia.Visible = true;
                     break;
                 default:
                     panelMenuEscuela.Visible = false;
+                    panelMenuPsicoterapia.Visible = false;
                     break;
             }
 
@@ -131,8 +140,19 @@ namespace IICAPS.Presentacion.Mains
             closeForms();
             ocultarPaneles("");
         }
+        private void Principal_SizeChanged(object sender, EventArgs e)
+        {
+            foreach (Form aux in MdiChildren)
+            {
+                configurarForm(aux);
+            }
+            menuStrip.Width = this.Width - 15;
+            panelMenuSuperior.Width = this.Width - 15;
+            actualizarPaneles();
+        }
 
 
+        /** ACCIONES DE BOTONES DE ESCUELA**/
         private void btnMenuEscuela_Click(object sender, EventArgs e)
         {
             minimizeForms();
@@ -141,10 +161,14 @@ namespace IICAPS.Presentacion.Mains
             form.Show();
             inhabilitarBoton("Escuela", "Escuela");
         }
-        
+        //EN CASO DE REQUERIR ALGO ESPECIAL PARA MAESTROS USAR ESTE BOTON
         private void btnMenuMaestros_Click(object sender, EventArgs e)
         {
-            
+            minimizeForms();
+            EscuelaMain form = EscuelaMain.getInstance();
+            configurarForm(form);
+            form.Show();
+            inhabilitarBoton("Maestro", "Escuela");
         }
 
         private void btnAlumno_Click(object sender, EventArgs e)
@@ -233,6 +257,26 @@ namespace IICAPS.Presentacion.Mains
             configurarForm(form);
             form.Show();
             inhabilitarBoton("Taller", "Escuela");
+        }
+
+
+        /** ACCIONES DE BOTONES DE PSICOTERAPIA**/
+        private void btnMenuPsicoterapia_Click(object sender, EventArgs e)
+        {
+            minimizeForms();
+            MainAgenda form = MainAgenda.getInstance();
+            configurarForm(form);
+            form.Show();
+            inhabilitarBoton("Psicoterapia", "Psicoterapia");
+        }
+
+        private void btnMenuPacientes_Click(object sender, EventArgs e)
+        {
+            minimizeForms();
+            MainPacientes form = MainPacientes.getInstance();
+            configurarForm(form);
+            form.Show();
+            inhabilitarBoton("Paciente", "Paciente");
         }
     }
 }

@@ -3167,6 +3167,295 @@ namespace IICAPS_v1.Control
             }
         }
 
+        //------------------------------PACIENTES-------------------------------//
+        public bool agregarPaciente(Paciente paciente)
+        {
+            try
+            {
+                string pacienteQuery = "INSERT INTO pacientes (Nombre, Apellidos, EscuelaEmpresa, CostoPaciente, Telefono, TutorNombre, TutorTelefono, Psicoterapeuta) VALUES ('"
+                    + paciente.nombre + "','" + paciente.apellidos + "','" + paciente.institucion + "','" + paciente.costoEspecial + "','" + paciente.telefono + "', '" + paciente.nombre_tutor + "','" + paciente.telefono_tutor + "'," + paciente.psicoterapeuta + "); ";
+                if(paciente.psicoterapeuta==null)
+                    pacienteQuery = "INSERT INTO pacientes (Nombre, Apellidos, EscuelaEmpresa, CostoPaciente, Telefono, TutorNombre, TutorTelefono, Psicoterapeuta) VALUES ('"+ paciente.nombre + "','" + paciente.apellidos + "','" + paciente.institucion + "','" + paciente.costoEspecial + "','" + paciente.telefono + "', '" + paciente.nombre_tutor + "','" + paciente.telefono_tutor + "',NULL); ";
+                string facturacionQuery = "";
+                if (paciente.datos_facturacion != null)
+                {
+                    facturacionQuery = " INSERT INTO datosFacturacion (PacienteID, RFC, Nombre, RazonSocial, Direccion)"
+                    + " SELECT AUTO_INCREMENT-1, '" + paciente.datos_facturacion[0] + "','" + paciente.datos_facturacion[1] + "','" + paciente.datos_facturacion[2] + "','" + paciente.datos_facturacion[3] + "' FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '" + this.database + "' AND TABLE_NAME = 'pacientes'; "; ;
+                }
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; " 
+                                    +pacienteQuery 
+                                    + facturacionQuery 
+                                    +"COMMIT;";
+                try
+                {
+                    conn.Open();
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected >= 1)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...! Error al agregar datos de praciente de la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexion con el servidor");
+            }
+        }
+        public bool actualizarPaciente(Paciente paciente)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                string facturacionQuery = "";
+                string pacienteQuery = "UPDATE pacientes SET Nombre='" + paciente.nombre + "' ,Apellidos='" + paciente.apellidos + "',EscuelaEmpresa='" + paciente.institucion
+                    + "',CostoPaciente='" + paciente.costoEspecial + "',Telefono='" + paciente.telefono + "',Estado=1, TutorNombre='"+paciente.nombre_tutor+
+                    "',TutorTelefono='"+paciente.telefono_tutor+"',Psicoterapeuta='" + paciente.psicoterapeuta + "' WHERE ID=" + paciente.id + ";";
+                if(paciente.psicoterapeuta==null)
+                    pacienteQuery = "UPDATE pacientes SET Nombre='" + paciente.nombre + "' ,Apellidos='" + paciente.apellidos + "',EscuelaEmpresa='" + paciente.institucion
+                    + "',CostoPaciente='" + paciente.costoEspecial + "',Telefono='" + paciente.telefono + "',Estado=1, TutorNombre='" + paciente.nombre_tutor +
+                    "',TutorTelefono='" + paciente.telefono_tutor + "',Psicoterapeuta=NULL WHERE ID=" + paciente.id + ";";
+                if (paciente.datos_facturacion != null)
+                {
+                    facturacionQuery = "UPDATE datosFacturacion SET RFC='" + paciente.datos_facturacion[0] +
+                        "', Nombre='" + paciente.datos_facturacion[1] +
+                        "', RazonSocial='" + paciente.datos_facturacion[2] + 
+                        "', Direccion='" + paciente.datos_facturacion[3] + 
+                        "' WHERE PacienteID =  "+paciente.id+";";
+                }
+                cmd.CommandText = "START TRANSACTION; "
+                                    +pacienteQuery 
+                                    + facturacionQuery
+                                    + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al actualizar el paciente de la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexion con el servidor");
+            }
+        }
+        public bool eliminarPaciente(string id)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE pacientes SET Estado=0 WHERE ID =" + id + ";";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al desactivar el usuario de la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerPacientesTable()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT P.ID, concat_ws(' ',P.Nombre, P.Apellidos) AS 'Nombre', P.EscuelaEmpresa AS 'Institucion',P.Telefono, T.Nombre AS 'Psicoterapeuta' FROM pacientes P LEFT JOIN psicoterapeutas T on P.Psicoterapeuta=T.ID  WHERE P.Estado = 1", conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de pacientes de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerPacientesTable(string parameter)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT P.ID, concat_ws(' ',P.Nombre, P.Apellidos) AS 'Nombre', P.EscuelaEmpresa AS 'Institucion',P.Telefono, T.Nombre AS 'Psicoterapeuta' FROM pacientes P LEFT JOIN psicoterapeutas T on P.Psicoterapeuta=T.ID  WHERE " +
+                        "(P.Nombre LIKE '%" + parameter + "%' or " +
+                        " P.Apellidos LIKE '%" + parameter + "%' or " +
+                        " P.EscuelaEmpresa LIKE '%" + parameter + "%' or " +
+                        " P.Telefono LIKE '%" + parameter + "%' or " +
+                        " T.Nombre LIKE '%"  + parameter + "%') AND " +
+                        " (P.Estado = 1)";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
+                    this.conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de los empleados de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public Paciente consultarPaciente(string ID)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT P.ID, P.Nombre, P.Apellidos, P.EscuelaEmpresa, P.CostoPaciente, P.Telefono, P.Estado, P.TutorNombre, P.TutorTelefono, P.Psicoterapeuta, F.RFC,F.Nombre,F.RazonSocial,F.Direccion FROM pacientes P LEFT JOIN datosFacturacion F ON P.ID = F.PacienteID WHERE P.ID=" + ID + ";";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Paciente p = new Paciente();
+                        p.id = reader.GetInt32(0);
+                        p.nombre = reader.GetString(1);
+                        p.apellidos = reader.GetString(2);
+                        p.institucion = reader.GetString(3);
+                        p.costoEspecial = reader.GetDecimal(4);
+                        p.telefono = reader.GetString(5);
+                        p.estado = reader.GetString(6);
+                        p.nombre_tutor = reader.GetString(7);
+                        p.telefono_tutor = reader.GetString(8);
+                        try
+                        {
+                            reader.GetString(10);
+                            p.datos_facturacion = new string[4];
+                            p.datos_facturacion[0] = reader.GetString(10);
+                            p.datos_facturacion[1] = reader.GetString(11);
+                            p.datos_facturacion[2] = reader.GetString(12);
+                            p.datos_facturacion[3] = reader.GetString(13);
+                        }
+                        catch (Exception e)
+                        { }
+                        try {
+                        p.psicoterapeuta = reader.GetString(9);
+                        }
+                        catch (Exception e)
+                        { }
+                        conn.Close();
+                        return p;
+                    }
+                    conn.Close();
+                    return null;
+                }
+                catch (Exception e)
+                {
+                   throw new Exception("Error al obtener datos del paciente de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+        public List<Paciente> obtenerPacientes()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT P.ID, P.Nombre, P.Apellidos, P.EscuelaEmpresa, P.CostoPaciente, P.Telefono, P.Estado, P.TutorNombre, P.TutorTelefono, P.Psicoterapeuta, F.RFC,F.Nombre,F.RazonSocial,F.Direccion FROM pacientes P LEFT JOIN datosFacturacion F ON P.ID = F.PacienteID WHERE P.Estado = 1";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<Paciente> aux = new List<Paciente>();
+                    while (reader.Read())
+                    {
+                        Paciente p = new Paciente();
+                        p.id = reader.GetInt32(0);
+                        p.nombre = reader.GetString(1);
+                        p.apellidos = reader.GetString(2);
+                        p.institucion = reader.GetString(3);
+                        p.costoEspecial = reader.GetDecimal(4);
+                        p.telefono = reader.GetString(5);
+                        p.estado = reader.GetString(6);
+                        p.nombre_tutor = reader.GetString(7);
+                        p.telefono_tutor = reader.GetString(8);
+                        try
+                        {
+                            reader.GetString(10);
+                            p.datos_facturacion = new string[4];
+                            p.datos_facturacion[0] = reader.GetString(10);
+                            p.datos_facturacion[1] = reader.GetString(11);
+                            p.datos_facturacion[2] = reader.GetString(12);
+                            p.datos_facturacion[3] = reader.GetString(13);
+                        }
+                        catch (Exception e)
+                        { }
+                        try
+                        {
+                            p.psicoterapeuta = reader.GetString(9);
+                        }
+                        catch (Exception e)
+                        { };
+                        aux.Add(p);
+                    }
+                    conn.Close();
+                    if (aux.Count != 0)
+                        return aux;
+                    else
+                        return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de los pacientes de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexion con el servidor");
+            }
+        }
+
+
+
         //-------------------------------PAGOS--------------------------------------//
         public bool agregarPago(Pago pago)
         {
