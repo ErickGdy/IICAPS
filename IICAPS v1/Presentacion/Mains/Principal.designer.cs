@@ -57,10 +57,25 @@
             this.btnProgramasEscuela = new System.Windows.Forms.Button();
             this.btnAlumno = new System.Windows.Forms.Button();
             this.btnEscuela = new System.Windows.Forms.Button();
+            this.panelMenuPsicoterapia = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnPsicoterapeutasPsicoterapia = new System.Windows.Forms.Button();
+            this.logoDisgrawMenuPsicoterapia = new System.Windows.Forms.PictureBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.btnPagosPacientePsicoterapia = new System.Windows.Forms.Button();
+            this.btnRegistroPacientePsicoterapia = new System.Windows.Forms.Button();
+            this.btnNominaPsicoterapia = new System.Windows.Forms.Button();
+            this.btnClubDeTareasPsicoterapia = new System.Windows.Forms.Button();
+            this.btnAgendaPsicoterapia = new System.Windows.Forms.Button();
+            this.btnPacientesPsicoterapia = new System.Windows.Forms.Button();
+            this.btnPsicoterapia = new System.Windows.Forms.Button();
             this.panelMenuSuperior.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.panelMenuEscuela.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoDisgrawMenuEscuela)).BeginInit();
+            this.panelMenuPsicoterapia.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logoDisgrawMenuPsicoterapia)).BeginInit();
             this.SuspendLayout();
             // 
             // panelMenuSuperior
@@ -96,6 +111,7 @@
             this.btnMenuPsicoterapia.Text = "Psicoterapia";
             this.btnMenuPsicoterapia.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnMenuPsicoterapia.UseVisualStyleBackColor = false;
+            this.btnMenuPsicoterapia.Click += new System.EventHandler(this.btnMenuPsicoterapia_Click);
             // 
             // btnMenuPacientes
             // 
@@ -114,6 +130,7 @@
             this.btnMenuPacientes.Text = "Pacientes";
             this.btnMenuPacientes.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnMenuPacientes.UseVisualStyleBackColor = false;
+            this.btnMenuPacientes.Click += new System.EventHandler(this.btnMenuPacientes_Click);
             // 
             // btnMenuAdministracion
             // 
@@ -395,9 +412,9 @@
             this.btnTalleres.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTalleres.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTalleres.ForeColor = System.Drawing.Color.White;
-            this.btnTalleres.Location = new System.Drawing.Point(37, 163);
+            this.btnTalleres.Location = new System.Drawing.Point(-2, 163);
             this.btnTalleres.Name = "btnTalleres";
-            this.btnTalleres.Size = new System.Drawing.Size(117, 26);
+            this.btnTalleres.Size = new System.Drawing.Size(156, 26);
             this.btnTalleres.TabIndex = 5;
             this.btnTalleres.Text = "Talleres";
             this.btnTalleres.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -467,12 +484,213 @@
             this.btnEscuela.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEscuela.UseVisualStyleBackColor = true;
             // 
+            // panelMenuPsicoterapia
+            // 
+            this.panelMenuPsicoterapia.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(193)))), ((int)(((byte)(56)))), ((int)(((byte)(61)))));
+            this.panelMenuPsicoterapia.Controls.Add(this.button1);
+            this.panelMenuPsicoterapia.Controls.Add(this.btnPsicoterapeutasPsicoterapia);
+            this.panelMenuPsicoterapia.Controls.Add(this.logoDisgrawMenuPsicoterapia);
+            this.panelMenuPsicoterapia.Controls.Add(this.button3);
+            this.panelMenuPsicoterapia.Controls.Add(this.button4);
+            this.panelMenuPsicoterapia.Controls.Add(this.btnPagosPacientePsicoterapia);
+            this.panelMenuPsicoterapia.Controls.Add(this.btnRegistroPacientePsicoterapia);
+            this.panelMenuPsicoterapia.Controls.Add(this.btnNominaPsicoterapia);
+            this.panelMenuPsicoterapia.Controls.Add(this.btnClubDeTareasPsicoterapia);
+            this.panelMenuPsicoterapia.Controls.Add(this.btnAgendaPsicoterapia);
+            this.panelMenuPsicoterapia.Controls.Add(this.btnPacientesPsicoterapia);
+            this.panelMenuPsicoterapia.Controls.Add(this.btnPsicoterapia);
+            this.panelMenuPsicoterapia.Location = new System.Drawing.Point(2, 44);
+            this.panelMenuPsicoterapia.Margin = new System.Windows.Forms.Padding(4);
+            this.panelMenuPsicoterapia.Name = "panelMenuPsicoterapia";
+            this.panelMenuPsicoterapia.Size = new System.Drawing.Size(157, 491);
+            this.panelMenuPsicoterapia.TabIndex = 43;
+            this.panelMenuPsicoterapia.Visible = false;
+            // 
+            // button1
+            // 
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(0, 368);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(156, 32);
+            this.button1.TabIndex = 12;
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // btnPsicoterapeutasPsicoterapia
+            // 
+            this.btnPsicoterapeutasPsicoterapia.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnPsicoterapeutasPsicoterapia.FlatAppearance.BorderSize = 0;
+            this.btnPsicoterapeutasPsicoterapia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPsicoterapeutasPsicoterapia.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPsicoterapeutasPsicoterapia.ForeColor = System.Drawing.Color.White;
+            this.btnPsicoterapeutasPsicoterapia.Location = new System.Drawing.Point(0, 95);
+            this.btnPsicoterapeutasPsicoterapia.Name = "btnPsicoterapeutasPsicoterapia";
+            this.btnPsicoterapeutasPsicoterapia.Size = new System.Drawing.Size(156, 32);
+            this.btnPsicoterapeutasPsicoterapia.TabIndex = 11;
+            this.btnPsicoterapeutasPsicoterapia.Text = "Psicoterapeutas";
+            this.btnPsicoterapeutasPsicoterapia.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPsicoterapeutasPsicoterapia.UseVisualStyleBackColor = true;
+            // 
+            // logoDisgrawMenuPsicoterapia
+            // 
+            this.logoDisgrawMenuPsicoterapia.Image = ((System.Drawing.Image)(resources.GetObject("logoDisgrawMenuPsicoterapia.Image")));
+            this.logoDisgrawMenuPsicoterapia.Location = new System.Drawing.Point(4, 453);
+            this.logoDisgrawMenuPsicoterapia.Margin = new System.Windows.Forms.Padding(4);
+            this.logoDisgrawMenuPsicoterapia.Name = "logoDisgrawMenuPsicoterapia";
+            this.logoDisgrawMenuPsicoterapia.Size = new System.Drawing.Size(151, 35);
+            this.logoDisgrawMenuPsicoterapia.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.logoDisgrawMenuPsicoterapia.TabIndex = 10;
+            this.logoDisgrawMenuPsicoterapia.TabStop = false;
+            // 
+            // button3
+            // 
+            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.ForeColor = System.Drawing.Color.White;
+            this.button3.Location = new System.Drawing.Point(0, 337);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(156, 32);
+            this.button3.TabIndex = 9;
+            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button4.FlatAppearance.BorderSize = 0;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.ForeColor = System.Drawing.Color.White;
+            this.button4.Location = new System.Drawing.Point(0, 305);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(156, 32);
+            this.button4.TabIndex = 8;
+            this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // btnPagosPacientePsicoterapia
+            // 
+            this.btnPagosPacientePsicoterapia.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnPagosPacientePsicoterapia.FlatAppearance.BorderSize = 0;
+            this.btnPagosPacientePsicoterapia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPagosPacientePsicoterapia.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPagosPacientePsicoterapia.ForeColor = System.Drawing.Color.White;
+            this.btnPagosPacientePsicoterapia.Location = new System.Drawing.Point(0, 273);
+            this.btnPagosPacientePsicoterapia.Margin = new System.Windows.Forms.Padding(4);
+            this.btnPagosPacientePsicoterapia.Name = "btnPagosPacientePsicoterapia";
+            this.btnPagosPacientePsicoterapia.Size = new System.Drawing.Size(156, 32);
+            this.btnPagosPacientePsicoterapia.TabIndex = 7;
+            this.btnPagosPacientePsicoterapia.Text = "Pagos";
+            this.btnPagosPacientePsicoterapia.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPagosPacientePsicoterapia.UseVisualStyleBackColor = true;
+            // 
+            // btnRegistroPacientePsicoterapia
+            // 
+            this.btnRegistroPacientePsicoterapia.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnRegistroPacientePsicoterapia.FlatAppearance.BorderSize = 0;
+            this.btnRegistroPacientePsicoterapia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRegistroPacientePsicoterapia.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRegistroPacientePsicoterapia.ForeColor = System.Drawing.Color.White;
+            this.btnRegistroPacientePsicoterapia.Location = new System.Drawing.Point(0, 241);
+            this.btnRegistroPacientePsicoterapia.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRegistroPacientePsicoterapia.Name = "btnRegistroPacientePsicoterapia";
+            this.btnRegistroPacientePsicoterapia.Size = new System.Drawing.Size(156, 32);
+            this.btnRegistroPacientePsicoterapia.TabIndex = 6;
+            this.btnRegistroPacientePsicoterapia.Text = "Registro";
+            this.btnRegistroPacientePsicoterapia.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnRegistroPacientePsicoterapia.UseVisualStyleBackColor = true;
+            // 
+            // btnNominaPsicoterapia
+            // 
+            this.btnNominaPsicoterapia.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnNominaPsicoterapia.FlatAppearance.BorderSize = 0;
+            this.btnNominaPsicoterapia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNominaPsicoterapia.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNominaPsicoterapia.ForeColor = System.Drawing.Color.White;
+            this.btnNominaPsicoterapia.Location = new System.Drawing.Point(4, 163);
+            this.btnNominaPsicoterapia.Name = "btnNominaPsicoterapia";
+            this.btnNominaPsicoterapia.Size = new System.Drawing.Size(150, 26);
+            this.btnNominaPsicoterapia.TabIndex = 5;
+            this.btnNominaPsicoterapia.Text = "Nomina";
+            this.btnNominaPsicoterapia.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNominaPsicoterapia.UseVisualStyleBackColor = true;
+            // 
+            // btnClubDeTareasPsicoterapia
+            // 
+            this.btnClubDeTareasPsicoterapia.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnClubDeTareasPsicoterapia.FlatAppearance.BorderSize = 0;
+            this.btnClubDeTareasPsicoterapia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClubDeTareasPsicoterapia.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClubDeTareasPsicoterapia.ForeColor = System.Drawing.Color.White;
+            this.btnClubDeTareasPsicoterapia.Location = new System.Drawing.Point(0, 127);
+            this.btnClubDeTareasPsicoterapia.Name = "btnClubDeTareasPsicoterapia";
+            this.btnClubDeTareasPsicoterapia.Size = new System.Drawing.Size(156, 32);
+            this.btnClubDeTareasPsicoterapia.TabIndex = 3;
+            this.btnClubDeTareasPsicoterapia.Text = "Club de Tareas";
+            this.btnClubDeTareasPsicoterapia.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnClubDeTareasPsicoterapia.UseVisualStyleBackColor = true;
+            // 
+            // btnAgendaPsicoterapia
+            // 
+            this.btnAgendaPsicoterapia.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnAgendaPsicoterapia.FlatAppearance.BorderSize = 0;
+            this.btnAgendaPsicoterapia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgendaPsicoterapia.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgendaPsicoterapia.ForeColor = System.Drawing.Color.White;
+            this.btnAgendaPsicoterapia.Location = new System.Drawing.Point(0, 61);
+            this.btnAgendaPsicoterapia.Name = "btnAgendaPsicoterapia";
+            this.btnAgendaPsicoterapia.Size = new System.Drawing.Size(156, 32);
+            this.btnAgendaPsicoterapia.TabIndex = 2;
+            this.btnAgendaPsicoterapia.Text = "Agenda";
+            this.btnAgendaPsicoterapia.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAgendaPsicoterapia.UseVisualStyleBackColor = true;
+            // 
+            // btnPacientesPsicoterapia
+            // 
+            this.btnPacientesPsicoterapia.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnPacientesPsicoterapia.FlatAppearance.BorderSize = 0;
+            this.btnPacientesPsicoterapia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPacientesPsicoterapia.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            this.btnPacientesPsicoterapia.ForeColor = System.Drawing.Color.White;
+            this.btnPacientesPsicoterapia.Location = new System.Drawing.Point(0, 194);
+            this.btnPacientesPsicoterapia.Name = "btnPacientesPsicoterapia";
+            this.btnPacientesPsicoterapia.Size = new System.Drawing.Size(156, 47);
+            this.btnPacientesPsicoterapia.TabIndex = 1;
+            this.btnPacientesPsicoterapia.Text = "Pacientes";
+            this.btnPacientesPsicoterapia.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPacientesPsicoterapia.UseVisualStyleBackColor = true;
+            // 
+            // btnPsicoterapia
+            // 
+            this.btnPsicoterapia.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnPsicoterapia.FlatAppearance.BorderSize = 0;
+            this.btnPsicoterapia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPsicoterapia.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            this.btnPsicoterapia.ForeColor = System.Drawing.Color.White;
+            this.btnPsicoterapia.Location = new System.Drawing.Point(0, 15);
+            this.btnPsicoterapia.Name = "btnPsicoterapia";
+            this.btnPsicoterapia.Size = new System.Drawing.Size(156, 47);
+            this.btnPsicoterapia.TabIndex = 0;
+            this.btnPsicoterapia.Text = "Psicoterapia";
+            this.btnPsicoterapia.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPsicoterapia.UseVisualStyleBackColor = true;
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1072, 605);
+            this.Controls.Add(this.panelMenuPsicoterapia);
             this.Controls.Add(this.panelMenuEscuela);
             this.Controls.Add(this.panelMenuSuperior);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -489,6 +707,8 @@
             this.menuStrip.PerformLayout();
             this.panelMenuEscuela.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.logoDisgrawMenuEscuela)).EndInit();
+            this.panelMenuPsicoterapia.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.logoDisgrawMenuPsicoterapia)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -521,5 +741,18 @@
         private System.Windows.Forms.Button btnEscuela;
         private System.Windows.Forms.Button btnMateriasEscuela;
         private System.Windows.Forms.Button btnImprimir;
+        private System.Windows.Forms.Panel panelMenuPsicoterapia;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnPsicoterapeutasPsicoterapia;
+        private System.Windows.Forms.PictureBox logoDisgrawMenuPsicoterapia;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnPagosPacientePsicoterapia;
+        private System.Windows.Forms.Button btnRegistroPacientePsicoterapia;
+        private System.Windows.Forms.Button btnNominaPsicoterapia;
+        private System.Windows.Forms.Button btnClubDeTareasPsicoterapia;
+        private System.Windows.Forms.Button btnAgendaPsicoterapia;
+        private System.Windows.Forms.Button btnPacientesPsicoterapia;
+        private System.Windows.Forms.Button btnPsicoterapia;
     }
 }
