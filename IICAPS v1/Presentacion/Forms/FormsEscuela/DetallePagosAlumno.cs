@@ -270,7 +270,8 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             MyPrintDocument.DefaultPageSettings.Margins = new Margins(40, 40, 40, 40);
             MyPrintDocument.DefaultPageSettings.Landscape = true;
 
-            MyDataGridViewPrinter = new DataGridViewPrinter(dataGridViewPagos, MyPrintDocument, false, "Alumno: " + lblNombreAlumno.Text + "\n Concepto: " + concepto, new Font("Arial", 14, FontStyle.Bold, GraphicsUnit.Point), Color.Black, "pie de página", new Font("Arial", 8, FontStyle.Bold, GraphicsUnit.Point), Color.Black, false);
+            MyDataGridViewPrinter = new DataGridViewPrinter(dataGridViewPagos, MyPrintDocument, false, "Alumno: " + lblNombreAlumno .Text + "\n Concepto: " + concepto, new Font("Arial", 14, FontStyle.Bold, GraphicsUnit.Point), Color.Black,
+                "Total pagado: "+auxTotal+" \nPendiente: "+auxPendiente, new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point), Color.Black, false);
 
             return true;
         }
