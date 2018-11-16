@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -2346,9 +2346,9 @@ namespace IICAPS_v1.Control
             {
                 string updateAsistente = "UPDATE tallerAsistentes SET Pago = Pago + " + pago.cantidad +
                                             " WHERE ID = " + idAsistente + ";";
-                string agregarPago = "INSERT INTO pagos (Emisor, FechaPago, Cantidad, Concepto, Observaciones, Recibio) VALUES ('"
+                string agregarPago = "INSERT INTO pagos (Emisor, FechaPago, Cantidad, Concepto, Observaciones, Recibio, Parent_ID) VALUES ('"
                     + pago.emisor + "', '" + formatearFecha(pago.fechaPago) + "'," + pago.cantidad + ", 'Pago de Taller', '"
-                    + pago.observaciones + "', '" + pago.recibio + "');";
+                    + pago.observaciones + "', '" + pago.recibio + "', '" + idAsistente + "');";
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "START TRANSACTION; "
@@ -2368,7 +2368,7 @@ namespace IICAPS_v1.Control
                 catch (Exception e)
                 {
                     conn.Close();
-                    throw new Exception("Error...! Error al agregar Prorgrama a la Base de datos");
+                    throw new Exception("Error...! Error al agregar Pago de taller a la Base de datos");
                 }
             }
             catch (Exception e)
@@ -3463,9 +3463,9 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO pagos (Emisor, FechaPago, Cantidad, Concepto, Observaciones, Recibio) VALUES ('"
+                cmd.CommandText = "INSERT INTO pagos (Emisor, FechaPago, Cantidad, Concepto, Observaciones, Recibio, Parent_ID) VALUES ('"
                     + pago.emisor + "', '" + formatearFecha(pago.fechaPago) + "'," + pago.cantidad + ", '" + pago.concepto + "', '"
-                    + pago.observaciones + "', '" + pago.recibio + "')";
+                    + pago.observaciones + "', '" + pago.recibio + "', '" + pago.parent_id + "')";
                 conn.Open();
                 try
                 {
@@ -3478,7 +3478,7 @@ namespace IICAPS_v1.Control
                 }
                 catch (Exception E)
                 {
-                    throw new Exception("Error al agregar el pago del alumno a la base de datos");
+                    throw new Exception("Error al agregar el pago a la base de datos");
                 }
             }
             catch (Exception e)
@@ -3545,7 +3545,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM pagos WHERE ID='" + id + "'";
+                cmd.CommandText = "SELECT ID, Emisor, FechaPago, Cantidad, Concepto, Parent_ID, Observaciones, Recibio, Estado FROM pagos WHERE ID='" + id + "'";
                 conn.Open();
                 try
                 {
@@ -3558,9 +3558,10 @@ namespace IICAPS_v1.Control
                         pago.fechaPago = reader.GetDateTime(2);
                         pago.cantidad = reader.GetInt32(3);
                         pago.concepto = reader.GetString(4);
-                        pago.observaciones = reader.GetString(5);
-                        pago.recibio = reader.GetString(6);
-                        pago.estado = reader.GetString(7);
+                        pago.parent_id = reader.GetInt32(5);
+                        pago.observaciones = reader.GetString(6);
+                        pago.recibio = reader.GetString(7);
+                        pago.estado = reader.GetString(8);
                         conn.Close();
                         return pago;
                     }

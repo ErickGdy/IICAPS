@@ -9,6 +9,7 @@ namespace IICAPS_v1.DataObject
     public class Pago
     {
         public int id { get; set; }
+        public int parent_id { get; set; }
         public string emisor { get; set; }
         public DateTime fechaPago { get; set; }
         public double cantidad { get; set; }

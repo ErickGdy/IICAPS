@@ -78,7 +78,7 @@ namespace IICAPS_v1.Presentacion
                     this.Hide();
                     if (!txtAnticipo.ReadOnly)
                     {
-                        FormPago fp = new FormPago(asistenT.pago, "Pago de Taller");
+                        FormPago fp = new FormPago(asistenT.pago, "Pago de Taller", "Escuela");
                         fp.ShowDialog();
                         Pago pago = fp.getPagos();
                         if (control.registrarPagoAsistenciaTaller(pago, control.obtenerAsistentesTalleres(asistenT.taller.ToString()).Last().ID.ToString()))

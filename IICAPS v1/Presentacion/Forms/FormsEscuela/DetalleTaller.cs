@@ -193,7 +193,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             {
                 String ID = dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 TallerAsistente asisT =  control.obtenerAsistenteTaller(ID);
-                FormPago fp = new FormPago(asisT.restante, "Pago de Taller");
+                FormPago fp = new FormPago(asisT.restante, "Pago de Taller", "Escuela");
                 fp.ShowDialog();
                 Pago pago = fp.getPagos();
                 fp.Dispose();
