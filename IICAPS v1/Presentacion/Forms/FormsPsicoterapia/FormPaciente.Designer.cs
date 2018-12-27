@@ -58,10 +58,10 @@
             this.txtRFC = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cmbPsicoterapeutas = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.txtInsitutcion = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.cmbPsicoterapeutas = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtCosto)).BeginInit();
@@ -117,7 +117,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(-9, 441);
+            this.pictureBox2.Location = new System.Drawing.Point(2, 441);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(1162, 98);
@@ -293,7 +293,7 @@
             this.groupBox2.Controls.Add(this.txtRFC);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(511, 221);
+            this.groupBox2.Location = new System.Drawing.Point(513, 221);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(476, 173);
             this.groupBox2.TabIndex = 85;
@@ -405,6 +405,25 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Datos de paciente";
             // 
+            // cmbPsicoterapeutas
+            // 
+            this.cmbPsicoterapeutas.FormattingEnabled = true;
+            this.cmbPsicoterapeutas.Location = new System.Drawing.Point(183, 231);
+            this.cmbPsicoterapeutas.Name = "cmbPsicoterapeutas";
+            this.cmbPsicoterapeutas.Size = new System.Drawing.Size(251, 26);
+            this.cmbPsicoterapeutas.TabIndex = 83;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(41, 232);
+            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(135, 20);
+            this.label13.TabIndex = 82;
+            this.label13.Text = "Psicoterapeuta:";
+            // 
             // txtInsitutcion
             // 
             this.txtInsitutcion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -424,25 +443,6 @@
             this.label12.Size = new System.Drawing.Size(92, 20);
             this.label12.TabIndex = 81;
             this.label12.Text = "Insitución:";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(41, 232);
-            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(135, 20);
-            this.label13.TabIndex = 82;
-            this.label13.Text = "Psicoterapeuta:";
-            // 
-            // cmbPsicoterapeutas
-            // 
-            this.cmbPsicoterapeutas.FormattingEnabled = true;
-            this.cmbPsicoterapeutas.Location = new System.Drawing.Point(183, 231);
-            this.cmbPsicoterapeutas.Name = "cmbPsicoterapeutas";
-            this.cmbPsicoterapeutas.Size = new System.Drawing.Size(251, 26);
-            this.cmbPsicoterapeutas.TabIndex = 83;
             // 
             // FormPaciente
             // 

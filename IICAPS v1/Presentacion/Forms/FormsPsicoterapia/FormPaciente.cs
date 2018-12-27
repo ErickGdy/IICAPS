@@ -33,6 +33,7 @@ namespace IICAPS_v1.Presentacion
                 txtNombreTutor.Text = paciente.nombre_tutor;
                 txtTelefonoTutor.Text = paciente.telefono_tutor;
                 txtInsitutcion.Text = paciente.institucion;
+                txtFecha.Text = paciente.fechaNacimiento.ToShortDateString();
                 if (paciente.datos_facturacion != null)
                 {
                     txtRFC.Text = paciente.datos_facturacion[0];
@@ -51,6 +52,7 @@ namespace IICAPS_v1.Presentacion
             {
                 paciente.nombre = txtNombre.Text;
                 paciente.apellidos = txtApellidos.Text;
+                paciente.fechaNacimiento = txtFecha.Value;
                 paciente.costoEspecial= Convert.ToDecimal(txtCosto.Value);
                 paciente.telefono = txtTelefono.Text;
                 paciente.nombre_tutor=txtNombreTutor.Text;

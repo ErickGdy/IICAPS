@@ -12,6 +12,7 @@ namespace IICAPS_v1.DataObject
         public string nombre { get; set; }
         public string apellidos { get; set; }
         public string institucion { get; set; }
+        public DateTime fechaNacimiento { get; set; }
         public string telefono { get; set; }
         public decimal costoEspecial { get; set; }
         public string nombre_tutor { get; set; }

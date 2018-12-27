@@ -37,13 +37,14 @@
             this.menuTabla = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.consultarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modificarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.limpiarBusqueda = new System.Windows.Forms.LinkLabel();
             this.pictureBoxBuscar = new System.Windows.Forms.PictureBox();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
-            this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.agendarSesiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuTabla.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBuscar)).BeginInit();
@@ -78,23 +79,31 @@
             this.menuTabla.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.consultarToolStripMenuItem,
             this.modificarToolStripMenuItem,
-            this.eliminarToolStripMenuItem});
+            this.eliminarToolStripMenuItem,
+            this.agendarSesiónToolStripMenuItem});
             this.menuTabla.Name = "menuTablaAlumnos";
-            this.menuTabla.Size = new System.Drawing.Size(153, 92);
+            this.menuTabla.Size = new System.Drawing.Size(157, 114);
             // 
             // consultarToolStripMenuItem
             // 
             this.consultarToolStripMenuItem.Name = "consultarToolStripMenuItem";
-            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.consultarToolStripMenuItem.Text = "Consultar";
             this.consultarToolStripMenuItem.Click += new System.EventHandler(this.consultarToolStripMenuItem_Click);
             // 
             // modificarToolStripMenuItem
             // 
             this.modificarToolStripMenuItem.Name = "modificarToolStripMenuItem";
-            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.modificarToolStripMenuItem.Text = "Modificar";
             this.modificarToolStripMenuItem.Click += new System.EventHandler(this.modificarToolStripMenuItem_Click);
+            // 
+            // eliminarToolStripMenuItem
+            // 
+            this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
+            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.eliminarToolStripMenuItem.Text = "Eliminar";
+            this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.cancelarToolStripMenuItem_Click);
             // 
             // txtBuscar
             // 
@@ -184,12 +193,11 @@
             this.btnAgregar.UseVisualStyleBackColor = false;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
-            // eliminarToolStripMenuItem
+            // agendarSesiónToolStripMenuItem
             // 
-            this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
-            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.eliminarToolStripMenuItem.Text = "Eliminar";
-            this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.cancelarToolStripMenuItem_Click);
+            this.agendarSesiónToolStripMenuItem.Name = "agendarSesiónToolStripMenuItem";
+            this.agendarSesiónToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.agendarSesiónToolStripMenuItem.Text = "Agendar Sesión";
             // 
             // MainPacientes
             // 
@@ -234,5 +242,6 @@
         private System.Windows.Forms.ToolStripMenuItem modificarToolStripMenuItem;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem agendarSesiónToolStripMenuItem;
     }
 }
