@@ -27,7 +27,7 @@ namespace IICAPS_v1.Presentacion
             lblFecha.Text = DateTime.Now.ToShortDateString();
             empleados = new List<string>();
             List<String> aux = new List<string>();
-            foreach (string c in control.obtenerConceptosDePagos(modulo))
+            foreach (string c in control.obtenerConceptos("Pago",modulo))
             {
                 aux.Add(c);
             }
@@ -70,7 +70,7 @@ namespace IICAPS_v1.Presentacion
             empleados = new List<string>();
             List<String> aux = new List<string>();
             pago = new Pago();
-            foreach (string c in control.obtenerConceptosDePagos(modulo))
+            foreach (string c in control.obtenerConceptos("Pago", modulo))
             {
                 aux.Add(c);
             }
