@@ -9,14 +9,11 @@ namespace IICAPS_v1.DataObject
     public class Evaluacion
     {
         public int id { get; set; }
+        public int psicoterapeuta { get; set; }
         public decimal costo { get; set; }
         public int paciente { get; set; }
-        public int reservacion { get; set; }
-        public DateTime fecha { get; set; }
-        public TimeSpan Hora { get; set; }
-        public string ubicacion { get; set; }
+        public Reservacion reservacion { get; set; }
         public string observaciones { get; set; }
-        public decimal pago { get; set; }
         public string pruebas { get; set; }
         public string estado { get; set; }
     }
