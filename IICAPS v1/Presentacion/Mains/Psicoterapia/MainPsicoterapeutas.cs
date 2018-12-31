@@ -14,18 +14,18 @@ using MySql.Data.MySqlClient;
 
 namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
 {
-    public partial class MainEmpleados : Form
+    public partial class MainPsicoterapeutas : Form
     {
 
-        private static MainEmpleados instance;
+        private static MainPsicoterapeutas instance;
         ControlIicaps control;
-        public MainEmpleados()
+        public MainPsicoterapeutas()
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
             try
             {
-                actualizarTabla(control.obtenerEmpleadosTable());
+                actualizarTabla(control.obtenerPsicoterapeutasTable());
             }
             catch (Exception e)
             {
@@ -33,10 +33,10 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
             }
         }
 
-        public static MainEmpleados getInstance()
+        public static MainPsicoterapeutas getInstance()
         {
             if (instance == null)
-                instance = new MainEmpleados();
+                instance = new MainPsicoterapeutas();
             return instance;
         }
 
@@ -65,14 +65,14 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            FormEmpleados fa = new FormEmpleados(null,null);
+            FormPsicoterapeuta fa = new FormPsicoterapeuta(null,null);
             fa.FormClosed += new FormClosedEventHandler(form_Closed);
             fa.Show();
         }
 
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTabla(control.obtenerEmpleadosTable(txtBuscar.Text));
+            actualizarTabla(control.obtenerPsicoterapeutasTable(txtBuscar.Text));
         }
 
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -95,9 +95,9 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                Empleado Empleado = control.consultarEmpleado(id);
+                Psicoterapeuta Psicoterapeuta = control.consultarPsicoterapeuta(id);
                 Usuario usuario = control.consultarUsuario(id);
-                FormEmpleados fa = new FormEmpleados(Empleado,usuario);
+                FormPsicoterapeuta fa = new FormPsicoterapeuta(Psicoterapeuta,usuario);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
             }
@@ -106,14 +106,13 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                 try
                 {
                     String id = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                    Empleado Empleado = control.consultarEmpleado(id);
+                    Psicoterapeuta Psicoterapeuta = control.consultarPsicoterapeuta(id);
                     Usuario usuario = control.consultarUsuario(id);
-                    FormEmpleados fa = new FormEmpleados(Empleado, usuario);
+                    FormPsicoterapeuta fa = new FormPsicoterapeuta(Psicoterapeuta, usuario);
                     fa.FormClosed += new FormClosedEventHandler(form_Closed);
                     fa.Show();
                 }
-                catch (Exception exc)
-                {
+                catch (Exception exc) {
                     MessageBox.Show(exc.Message);
                 }
             }
@@ -123,17 +122,17 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
         {
             try
             {
-                String matricula = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                DialogResult dialogresult = MessageBox.Show("¿Desea eliminar Empleado?", "Eliminar Empleado", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                DialogResult dialogresult = MessageBox.Show("¿Desea eliminar Psicoterapeuta?", "Eliminar Psicoterapeuta", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if(dialogresult == DialogResult.OK)
                 {
-                    if (control.desactivarEmpleado(matricula))
+                    if (control.desactivarPsicoterapeuta(Convert.ToInt32(id)))
                     {
-                        MessageBox.Show("Empleado eliminado");
-                        actualizarTabla(control.obtenerEmpleadosTable());
+                        MessageBox.Show("Psicoterapeuta eliminado");
+                        actualizarTabla(control.obtenerPsicoterapeutasTable());
                     }
                     else
-                        MessageBox.Show("Error al eliminar Empleado");
+                        MessageBox.Show("Error al eliminar Psicoterapeuta");
                 }
             }
             catch (Exception ex)
@@ -148,7 +147,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
             txtBuscar.Text = "";
             try
             {
-                actualizarTabla(control.obtenerEmpleadosTable());
+                actualizarTabla(control.obtenerPsicoterapeutasTable());
             }
             catch (Exception ex)
             {
@@ -158,7 +157,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTabla(control.obtenerEmpleadosTable(txtBuscar.Text));
+            actualizarTabla(control.obtenerPsicoterapeutasTable(txtBuscar.Text));
         }
 
         private void txtBuscar_KeyUp(object sender, KeyEventArgs e)
@@ -171,7 +170,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                 {
                     try
                     {
-                        actualizarTabla(control.obtenerEmpleadosTable(texto));
+                        actualizarTabla(control.obtenerPsicoterapeutasTable(texto));
                     }
                     catch (Exception ex)
                     {
@@ -184,7 +183,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                 limpiarBusqueda.Visible = false;
                 try
                 {
-                    actualizarTabla(control.obtenerEmpleadosTable());
+                    actualizarTabla(control.obtenerPsicoterapeutasTable());
                 }
                 catch (Exception ex)
                 {

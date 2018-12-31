@@ -12,26 +12,28 @@ using System.Windows.Forms;
 
 namespace IICAPS_v1.Presentacion
 {
-    public partial class FormEmpleados : Form
+    public partial class FormPsicoterapeuta : Form
     {
         ControlIicaps control;
-        Usuario usuario;
-        Empleado empleado;  
-        public FormEmpleados(Empleado empleado, Usuario user)
+        Usuario usuario;  
+        Psicoterapeuta psicoterapeuta;  
+        public FormPsicoterapeuta(Psicoterapeuta psicoterapeuta, Usuario user)
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
-            if (empleado == null)
-                this.empleado = new Empleado();
+            if (psicoterapeuta == null)
+                this.psicoterapeuta = new Psicoterapeuta();
             else
             {
-                this.empleado = empleado;
-                txtMatricula.Text = empleado.Matricula;
-                txtNombre.Text = empleado.Nombre;
-                //txtFecha.Value = empleado.fecha;
-                txtCorreo.Text = empleado.Correo;
-                txtTelefono.Text = empleado.Telefono;
-                txtPuesto.Text = empleado.Puesto;
+                this.psicoterapeuta = psicoterapeuta;
+                txtMatricula.Text = psicoterapeuta.Matricula;
+                txtNombre.Text = psicoterapeuta.Nombre;
+                //txtFecha.Value = psicoterapeuta.fecha;
+                txtCarrera.Text = psicoterapeuta.Carrera;
+                txtTelefono.Text = psicoterapeuta.Telefono;
+                txtEspecialidad.Text = psicoterapeuta.Especialidad;
+                txtHorario.Text = psicoterapeuta.Horario;
+                txtObservaciones.Text = psicoterapeuta.Observaciones;
             }
             if (user != null)
             {
@@ -53,13 +55,15 @@ namespace IICAPS_v1.Presentacion
             {
                 if (validarContraseña())
                 {
-                    if(txtMatricula.Text=="")
+                    if (txtMatricula.Text == "")
                         GenerarMatricula();
-                    empleado.Matricula = txtMatricula.Text;
-                    empleado.Nombre = txtNombre.Text;
-                    empleado.Telefono = txtTelefono.Text;
-                    empleado.Correo = txtCorreo.Text;
-                    empleado.Puesto = txtPuesto.Text;
+                    psicoterapeuta.Matricula = txtMatricula.Text;
+                    psicoterapeuta.Nombre = txtNombre.Text;
+                    psicoterapeuta.Telefono = txtTelefono.Text;
+                    psicoterapeuta.Carrera = txtCarrera.Text;
+                    psicoterapeuta.Especialidad = txtEspecialidad.Text;
+                    psicoterapeuta.Horario = txtHorario.Text;
+                    psicoterapeuta.Observaciones = txtObservaciones.Text;
                     Usuario user_aux = usuario;
                     if (checkBox1.Checked)
                     {
@@ -88,11 +92,11 @@ namespace IICAPS_v1.Presentacion
                     }
                     try
                     {
-                        if (this.empleado.ID != 0)
+                        if (this.psicoterapeuta.ID != 0)
                         {
-                            if (control.actualizarEmpleado(this.empleado, user_aux))
+                            if (control.actualizarPsicoterapeuta(this.psicoterapeuta, user_aux))
                             {
-                                MessageBox.Show("Datos de empleado actualizados exitosamente!");
+                                MessageBox.Show("Datos de psicoterapeuta actualizados exitosamente!");
                                 Close();
                                 Dispose();
                             }
@@ -101,7 +105,7 @@ namespace IICAPS_v1.Presentacion
                         }
                         else
                         {
-                            if (control.agregarEmpleado(this.empleado, user_aux))
+                            if (control.agregarPsicoterapeuta(this.psicoterapeuta, user_aux))
                             {
                                 MessageBox.Show("Datos guardados exitosamente!");
                                 Close();
@@ -130,7 +134,7 @@ namespace IICAPS_v1.Presentacion
 
         private bool validarCampos()
         {
-            if (txtNombre.Text != "" && txtTelefono.Text != "" && txtCorreo.Text != "" )
+            if (txtNombre.Text != "" && txtTelefono.Text != "" && txtCarrera.Text != "" )
                 return true;
             return false;
         }
@@ -159,7 +163,8 @@ namespace IICAPS_v1.Presentacion
                 txtContraseña.Enabled = true;
                 txtContraseña2.Enabled = true;
                 cmbNivelAcceso.Enabled = true;
-            }else
+            }
+            else
             {
                 txtUsuario.Enabled = false;
                 txtContraseña.Enabled = false;
@@ -172,7 +177,8 @@ namespace IICAPS_v1.Presentacion
         {
             string matricula = "";
             string validacion = "";
-            do {
+            do
+            {
                 string[] nombre = txtNombre.Text.Split(new Char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 string iniciales = "";
                 int numeroLetra = 0;
@@ -186,19 +192,18 @@ namespace IICAPS_v1.Presentacion
                         }
                         catch (Exception re)
                         {
-                            iniciales += nombre[i].Substring(nombre[i].Length-1, 1);
+                            iniciales += nombre[i].Substring(nombre[i].Length - 1, 1);
                         }
                     }
                     numeroLetra++;
                 } while (iniciales.Length < 4);
                 Random rdm = new Random();
-                matricula =rdm.Next(1, 99).ToString("00") + "-" + iniciales.Substring(0,4).ToUpper() + "-" + rdm.Next(1, 9999).ToString("0000");
+                matricula = rdm.Next(1, 99).ToString("00") + "-" + iniciales.Substring(0, 4).ToUpper() + "-" + rdm.Next(1, 9999).ToString("0000");
                 validacion = control.validarMatricula(matricula);
-            } while (validacion!=null);
-            txtMatricula.Text= matricula;
+            } while (validacion != null);
+            txtMatricula.Text = matricula;
             return matricula;
         }
-
         private void onlyNumber_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (Char.IsSeparator(e.KeyChar))
