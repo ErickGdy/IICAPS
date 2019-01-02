@@ -40,10 +40,10 @@ namespace IICAPS_v1.Presentacion
             }
             cmbIDPrograma.Items.AddRange(auxIDPrograma.ToArray());
             cmbPrograma.Items.AddRange(auxPrograma.ToArray());
-            foreach (Empleados e in control.obtenerEmpleados())
+            foreach (Empleado e in control.obtenerEmpleados())
             {
-                auxRecibio.Add(e.nombre);
-                auxIDRecibio.Add(e.correo);
+                auxRecibio.Add(e.Nombre);
+                auxIDRecibio.Add(e.Matricula);
             }
             cmbIDRecibio.Items.AddRange(auxIDRecibio.ToArray());
             cmbRecibio.Items.AddRange(auxRecibio.ToArray());
