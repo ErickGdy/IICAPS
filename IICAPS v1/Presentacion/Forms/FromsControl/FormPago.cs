@@ -34,10 +34,10 @@ namespace IICAPS_v1.Presentacion
             cmbConcepto.Items.AddRange(aux.ToArray());
             cmbConcepto.SelectedItem = pago.concepto;
             aux.Clear();
-            foreach (Empleados e in control.obtenerEmpleados())
+            foreach (Empleado e in control.obtenerEmpleados())
             {
-                aux.Add(e.nombre);
-                empleados.Add(e.correo);
+                aux.Add(e.Nombre);
+                empleados.Add(e.Matricula);
             }
             cmbRecibio.Items.AddRange(aux.ToArray());
             if (pago != null)
@@ -77,10 +77,10 @@ namespace IICAPS_v1.Presentacion
             cmbConcepto.Items.AddRange(aux.ToArray());
             cmbConcepto.SelectedItem = concepto;
             aux.Clear();
-            foreach (Empleados e in control.obtenerEmpleados())
+            foreach (Empleado e in control.obtenerEmpleados())
             {
-                aux.Add(e.nombre);
-                empleados.Add(e.correo);
+                aux.Add(e.Nombre);
+                empleados.Add(e.Matricula);
             }
             cmbRecibio.Items.AddRange(aux.ToArray());
             txtCantidad.Value = cantidad;
