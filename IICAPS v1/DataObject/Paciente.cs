@@ -20,5 +20,17 @@ namespace IICAPS_v1.DataObject
         public string estado { get; set; }
         public string[] datos_facturacion { get; set; }
         public string psicoterapeuta { get; set; }
+
+        public string NombreCompleto()
+        {
+            try
+            {
+                return this.nombre + " " + apellidos;
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+        }
     }
 }

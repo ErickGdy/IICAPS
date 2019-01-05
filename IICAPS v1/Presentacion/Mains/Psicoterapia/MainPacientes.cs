@@ -81,7 +81,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 //Paciente paciente = control.consultarPaciente(id);
-                ReporteDeSesiones fa = new ReporteDeSesiones(id);
+                ReporteDePaciente fa = new ReporteDePaciente(id);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
             }
@@ -202,6 +202,34 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                 {
                     aux.Width = x;
                 }
+            }
+        }
+
+        private void agendarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                FormSesiones fr = new FormSesiones(id,null);
+                fr.Show();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void agendarEvaluaciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                FormEvaluacion fr = new FormEvaluacion(id, null,false);
+                fr.Show();
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }

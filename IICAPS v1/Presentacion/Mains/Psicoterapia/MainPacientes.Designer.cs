@@ -38,13 +38,14 @@
             this.consultarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modificarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.agendarSesiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.agendarEvaluaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.limpiarBusqueda = new System.Windows.Forms.LinkLabel();
             this.pictureBoxBuscar = new System.Windows.Forms.PictureBox();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
-            this.agendarSesiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuTabla.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBuscar)).BeginInit();
@@ -80,30 +81,45 @@
             this.consultarToolStripMenuItem,
             this.modificarToolStripMenuItem,
             this.eliminarToolStripMenuItem,
-            this.agendarSesiónToolStripMenuItem});
+            this.agendarSesiónToolStripMenuItem,
+            this.agendarEvaluaciónToolStripMenuItem});
             this.menuTabla.Name = "menuTablaAlumnos";
-            this.menuTabla.Size = new System.Drawing.Size(157, 114);
+            this.menuTabla.Size = new System.Drawing.Size(180, 136);
             // 
             // consultarToolStripMenuItem
             // 
             this.consultarToolStripMenuItem.Name = "consultarToolStripMenuItem";
-            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.consultarToolStripMenuItem.Text = "Consultar";
             this.consultarToolStripMenuItem.Click += new System.EventHandler(this.consultarToolStripMenuItem_Click);
             // 
             // modificarToolStripMenuItem
             // 
             this.modificarToolStripMenuItem.Name = "modificarToolStripMenuItem";
-            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.modificarToolStripMenuItem.Text = "Modificar";
             this.modificarToolStripMenuItem.Click += new System.EventHandler(this.modificarToolStripMenuItem_Click);
             // 
             // eliminarToolStripMenuItem
             // 
             this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
-            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.eliminarToolStripMenuItem.Text = "Eliminar";
             this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.cancelarToolStripMenuItem_Click);
+            // 
+            // agendarSesiónToolStripMenuItem
+            // 
+            this.agendarSesiónToolStripMenuItem.Name = "agendarSesiónToolStripMenuItem";
+            this.agendarSesiónToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.agendarSesiónToolStripMenuItem.Text = "Agendar Sesión";
+            this.agendarSesiónToolStripMenuItem.Click += new System.EventHandler(this.agendarSesiónToolStripMenuItem_Click);
+            // 
+            // agendarEvaluaciónToolStripMenuItem
+            // 
+            this.agendarEvaluaciónToolStripMenuItem.Name = "agendarEvaluaciónToolStripMenuItem";
+            this.agendarEvaluaciónToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.agendarEvaluaciónToolStripMenuItem.Text = "Agendar Evaluación";
+            this.agendarEvaluaciónToolStripMenuItem.Click += new System.EventHandler(this.agendarEvaluaciónToolStripMenuItem_Click);
             // 
             // txtBuscar
             // 
@@ -193,12 +209,6 @@
             this.btnAgregar.UseVisualStyleBackColor = false;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
-            // agendarSesiónToolStripMenuItem
-            // 
-            this.agendarSesiónToolStripMenuItem.Name = "agendarSesiónToolStripMenuItem";
-            this.agendarSesiónToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
-            this.agendarSesiónToolStripMenuItem.Text = "Agendar Sesión";
-            // 
             // MainPacientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -243,5 +253,6 @@
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem agendarSesiónToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem agendarEvaluaciónToolStripMenuItem;
     }
 }

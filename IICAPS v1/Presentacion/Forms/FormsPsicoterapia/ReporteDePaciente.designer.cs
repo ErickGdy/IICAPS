@@ -1,6 +1,6 @@
 ﻿namespace IICAPS_v1.Presentacion
 {
-    partial class ReporteDeSesiones
+    partial class ReporteDePaciente
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReporteDeSesiones));
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReporteDePaciente));
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -49,6 +50,8 @@
             this.label13 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label4 = new System.Windows.Forms.Label();
             this.panelTabla = new System.Windows.Forms.Panel();
             this.btnCerrar = new System.Windows.Forms.Button();
@@ -66,12 +69,16 @@
             this.label7 = new System.Windows.Forms.Label();
             this.myPrintDocument = new System.Drawing.Printing.PrintDocument();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.editarDatosDePacienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imprimirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.evaluacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.agendarNuevaSesiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editarDatosDePacienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pagosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelDatos = new System.Windows.Forms.Panel();
             this.pictureFooter = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.panelTabla.SuspendLayout();
             this.groupFacturacion.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -126,9 +133,9 @@
             this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.Location = new System.Drawing.Point(251, 1);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(381, 42);
+            this.lblTitulo.Size = new System.Drawing.Size(374, 42);
             this.lblTitulo.TabIndex = 21;
-            this.lblTitulo.Text = "Reporte de sesiones";
+            this.lblTitulo.Text = "Reporte de paciente";
             // 
             // txtnombre
             // 
@@ -170,8 +177,9 @@
             // lblFecha
             // 
             this.lblFecha.AutoSize = true;
+            this.lblFecha.BackColor = System.Drawing.Color.WhiteSmoke;
             this.lblFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFecha.Location = new System.Drawing.Point(8, 4);
+            this.lblFecha.Location = new System.Drawing.Point(3, 4);
             this.lblFecha.Name = "lblFecha";
             this.lblFecha.Size = new System.Drawing.Size(99, 20);
             this.lblFecha.TabIndex = 38;
@@ -265,9 +273,11 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridView1.Enabled = false;
-            this.dataGridView1.Location = new System.Drawing.Point(4, 30);
+            this.dataGridView1.Location = new System.Drawing.Point(8, 30);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -276,12 +286,26 @@
             this.dataGridView1.Size = new System.Drawing.Size(868, 201);
             this.dataGridView1.TabIndex = 28;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.eliminarToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(118, 26);
+            // 
+            // eliminarToolStripMenuItem
+            // 
+            this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
+            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.eliminarToolStripMenuItem.Text = "Eliminar";
+            this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold);
-            this.label4.Location = new System.Drawing.Point(368, -2);
+            this.label4.Location = new System.Drawing.Point(365, -2);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(134, 31);
             this.label4.TabIndex = 52;
@@ -292,16 +316,16 @@
             this.panelTabla.Controls.Add(this.btnCerrar);
             this.panelTabla.Controls.Add(this.label4);
             this.panelTabla.Controls.Add(this.dataGridView1);
-            this.panelTabla.Location = new System.Drawing.Point(3, 260);
+            this.panelTabla.Location = new System.Drawing.Point(0, 260);
             this.panelTabla.Name = "panelTabla";
-            this.panelTabla.Size = new System.Drawing.Size(882, 285);
+            this.panelTabla.Size = new System.Drawing.Size(884, 285);
             this.panelTabla.TabIndex = 53;
             // 
             // btnCerrar
             // 
             this.btnCerrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCerrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCerrar.Location = new System.Drawing.Point(388, 242);
+            this.btnCerrar.Location = new System.Drawing.Point(382, 242);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(99, 38);
             this.btnCerrar.TabIndex = 53;
@@ -447,13 +471,43 @@
             // 
             this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.imprimirToolStripMenuItem,
+            this.evaluacionesToolStripMenuItem,
+            this.agendarNuevaSesiónToolStripMenuItem,
             this.editarDatosDePacienteToolStripMenuItem,
-            this.imprimirToolStripMenuItem});
+            this.pagosToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(884, 29);
             this.menuStrip1.TabIndex = 90;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // imprimirToolStripMenuItem
+            // 
+            this.imprimirToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.imprimirToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("imprimirToolStripMenuItem.Image")));
+            this.imprimirToolStripMenuItem.Name = "imprimirToolStripMenuItem";
+            this.imprimirToolStripMenuItem.Size = new System.Drawing.Size(99, 25);
+            this.imprimirToolStripMenuItem.Text = "Imprimir";
+            this.imprimirToolStripMenuItem.Click += new System.EventHandler(this.printPreviewButton_Click);
+            // 
+            // evaluacionesToolStripMenuItem
+            // 
+            this.evaluacionesToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.evaluacionesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("evaluacionesToolStripMenuItem.Image")));
+            this.evaluacionesToolStripMenuItem.Name = "evaluacionesToolStripMenuItem";
+            this.evaluacionesToolStripMenuItem.Size = new System.Drawing.Size(127, 25);
+            this.evaluacionesToolStripMenuItem.Text = "Evaluaciones";
+            this.evaluacionesToolStripMenuItem.Click += new System.EventHandler(this.evaluacionesToolStripMenuItem_Click);
+            // 
+            // agendarNuevaSesiónToolStripMenuItem
+            // 
+            this.agendarNuevaSesiónToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.agendarNuevaSesiónToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("agendarNuevaSesiónToolStripMenuItem.Image")));
+            this.agendarNuevaSesiónToolStripMenuItem.Name = "agendarNuevaSesiónToolStripMenuItem";
+            this.agendarNuevaSesiónToolStripMenuItem.Size = new System.Drawing.Size(200, 25);
+            this.agendarNuevaSesiónToolStripMenuItem.Text = "Registrar Nueva Sesión";
+            this.agendarNuevaSesiónToolStripMenuItem.Click += new System.EventHandler(this.agendarNuevaSesiónToolStripMenuItem_Click);
             // 
             // editarDatosDePacienteToolStripMenuItem
             // 
@@ -464,14 +518,14 @@
             this.editarDatosDePacienteToolStripMenuItem.Text = "Editar Datos de Paciente";
             this.editarDatosDePacienteToolStripMenuItem.Click += new System.EventHandler(this.editarDatosDePacienteToolStripMenuItem_Click);
             // 
-            // imprimirToolStripMenuItem
+            // pagosToolStripMenuItem
             // 
-            this.imprimirToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.imprimirToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("imprimirToolStripMenuItem.Image")));
-            this.imprimirToolStripMenuItem.Name = "imprimirToolStripMenuItem";
-            this.imprimirToolStripMenuItem.Size = new System.Drawing.Size(99, 25);
-            this.imprimirToolStripMenuItem.Text = "Imprimir";
-            this.imprimirToolStripMenuItem.Click += new System.EventHandler(this.printPreviewButton_Click);
+            this.pagosToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.pagosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("pagosToolStripMenuItem.Image")));
+            this.pagosToolStripMenuItem.Name = "pagosToolStripMenuItem";
+            this.pagosToolStripMenuItem.Size = new System.Drawing.Size(79, 25);
+            this.pagosToolStripMenuItem.Text = "Pagos";
+            this.pagosToolStripMenuItem.Click += new System.EventHandler(this.pagosToolStripMenuItem_Click);
             // 
             // panelDatos
             // 
@@ -505,7 +559,7 @@
             this.pictureFooter.TabIndex = 92;
             this.pictureFooter.TabStop = false;
             // 
-            // ReporteDeSesiones
+            // ReporteDePaciente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -519,12 +573,13 @@
             this.Controls.Add(this.panelDatos);
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(900, 600);
-            this.Name = "ReporteDeSesiones";
+            this.Name = "ReporteDePaciente";
             this.Text = "ReporteDeSesiones";
             this.SizeChanged += new System.EventHandler(this.ReporteDeSesiones_SizeChanged);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.panelTabla.ResumeLayout(false);
             this.panelTabla.PerformLayout();
             this.groupFacturacion.ResumeLayout(false);
@@ -592,5 +647,10 @@
         private System.Windows.Forms.ToolStripMenuItem imprimirToolStripMenuItem;
         private System.Windows.Forms.Panel panelDatos;
         private System.Windows.Forms.PictureBox pictureFooter;
+        private System.Windows.Forms.ToolStripMenuItem agendarNuevaSesiónToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem evaluacionesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pagosToolStripMenuItem;
     }
 }

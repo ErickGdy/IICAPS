@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace IICAPS_v1.Presentacion
 {
-    public partial class ReporteDeSesiones : Form
+    public partial class ReporteDePaciente : Form
     {
         ControlIicaps control;
         string id_Paciente;
@@ -23,7 +23,7 @@ namespace IICAPS_v1.Presentacion
         private PrintDocument printDocument1 = new PrintDocument();
         Boolean datosFacturacion_Showed=false;
 
-        public ReporteDeSesiones(String id_Paciente)
+        public ReporteDePaciente(String id_Paciente)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace IICAPS_v1.Presentacion
                 control = ControlIicaps.getInstance();
                 this.paciente = control.consultarPaciente(id_Paciente);
                 actualizarDatos();
-                actualizarTabla(control.obtenerSesionesPacienteTable(id_Paciente));
+                actualizarTabla();
             }
             catch (Exception ex) {
                 MessageBox.Show("Error al obtener datos del paciente");
@@ -51,7 +51,7 @@ namespace IICAPS_v1.Presentacion
             txtNombreTutor.Text = paciente.nombre_tutor;
             txtTelefonoTutor.Text = paciente.telefono_tutor;
             if (paciente.psicoterapeuta != null)
-                txtPsicoterapeuta.Text = control.consultarEmpleado(paciente.psicoterapeuta).nombre;
+                txtPsicoterapeuta.Text = control.consultarEmpleado(paciente.psicoterapeuta).Nombre;
             if (paciente.datos_facturacion != null)
             {
                 txtFacturacionRFC.Text = paciente.datos_facturacion[0];
@@ -60,10 +60,11 @@ namespace IICAPS_v1.Presentacion
                 txtFacturacionDireccion.Text = paciente.datos_facturacion[3];
             }
         }
-        private void actualizarTabla(MySqlDataAdapter data)
+        private void actualizarTabla()
         {
             try
             {
+                MySqlDataAdapter data = control.obtenerSesionesPacienteTable(id_Paciente);
                 DataTable dtDatos = new DataTable();
                 //Con la informacion del adaptador se llena el datatable
                 data.Fill(dtDatos);
@@ -90,11 +91,14 @@ namespace IICAPS_v1.Presentacion
         }
         private void printPreviewButton_Click(object sender, EventArgs e)
         {
+            menuStrip1.Visible = false;
             CaptureScreen();
+            menuStrip1.Visible = true;
             printDocument1.DocumentName = "Reporte de paciente No. "+id_Paciente;
             printDocument1.DefaultPageSettings.Landscape = true;
             printPreviewDialog1.Document = printDocument1;
             printPreviewDialog1.ShowDialog();
+
         }
 
         Bitmap memoryImage;
@@ -161,6 +165,48 @@ namespace IICAPS_v1.Presentacion
             btnCerrar.Location = new Point(btnCerrar.Location.X, panelTabla.Height - 45);
             dataGridView1.Height = panelTabla.Height - 80;
             pictureFooter.Location = new Point(pictureFooter.Location.X,this.Height-105);
+        }
+
+        private void agendarNuevaSesiónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormSesiones fs = new FormSesiones(paciente.id.ToString(),null);
+            fs.ShowDialog();
+            actualizarTabla();
+        }
+
+        private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                DialogResult dialogresult = MessageBox.Show("¿Desea eliminar sesión?", "Eliminar sesión", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (dialogresult == DialogResult.OK)
+                {
+                    if (control.cancelarSesion(id))
+                    {
+                        MessageBox.Show("Sesión cancelada");
+                        actualizarTabla();
+                    }
+                    else
+                        MessageBox.Show("Error al cancelar sesión");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void evaluacionesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EvaluacionesPaciente fev = new EvaluacionesPaciente(paciente.id.ToString());
+            fev.Show();
+        }
+
+        private void pagosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PagosPaciente pp = new PagosPaciente(paciente.id.ToString());
+            pp.Show();
         }
     }
 }
