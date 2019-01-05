@@ -39,25 +39,40 @@ namespace IICAPS_v1.Presentacion
             cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
             List<String> auxAlumno = new List<string>();
             List<String> auxIDAlumno = new List<string>();
-            foreach (Alumno a in control.obtenerAlumnosByPrograma(cmbIDPrograma.SelectedItem.ToString()))
+            try
             {
-                auxAlumno.Add(a.nombre);
-                auxIDAlumno.Add(a.rfc.ToString());
+                foreach (Alumno a in control.obtenerAlumnosByPrograma(cmbIDPrograma.SelectedItem.ToString()))
+                {
+                    auxAlumno.Add(a.nombre);
+                    auxIDAlumno.Add(a.rfc.ToString());
+                }
+                cmbIDAlumno.Items.AddRange(auxIDAlumno.ToArray());
+                cmbAlumno.Items.AddRange(auxAlumno.ToArray());
+                cmbAlumno.SelectedIndex = 0;
             }
-            cmbIDAlumno.Items.AddRange(auxIDAlumno.ToArray());
-            cmbAlumno.Items.AddRange(auxAlumno.ToArray());
-            cmbAlumno.SelectedIndex = 0;
+            catch (Exception ex) { }
         }
 
         private void btnGenerar_Click(object sender, EventArgs e)
         {
-            if (cmbTipoDocumento.SelectedItem.Equals("Constancia"))
+            try
             {
+                cmbIDAlumno.SelectedIndex = cmbAlumno.SelectedIndex;
+                Alumno alumno = control.consultarAlumno(cmbIDAlumno.SelectedItem.ToString());
+                string grupo = control.consultarGrupoAlumno(alumno.rfc);
+                string programa = control.obtenerProgramaAlumno(alumno.rfc);
+                if (cmbTipoDocumento.SelectedItem.Equals("Constancia"))
+                {
 
+                }
+                if (cmbTipoDocumento.SelectedItem.Equals("Kardex"))
+                {
+                    DocumentosWord word = new DocumentosWord(alumno, control.obtenerCalificacionesAlumno(alumno.rfc, grupo), grupo,programa);
+                }
             }
-            if (cmbTipoDocumento.SelectedItem.Equals("Kardex"))
+            catch (Exception ex)
             {
-
+                MessageBox.Show("Error al obtener datos de l alumno");
             }
         }
     }
