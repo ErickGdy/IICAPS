@@ -72,7 +72,7 @@ namespace IICAPS_v1.Presentacion
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al obtener datos de l alumno");
+                MessageBox.Show("Error al obtener datos del alumno");
             }
         }
     }
