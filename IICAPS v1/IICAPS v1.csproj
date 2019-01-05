@@ -88,6 +88,7 @@
     <Compile Include="Control\ControlIicaps.cs" />
     <Compile Include="Control\DataGridViewPrinter.cs" />
     <Compile Include="Control\DocumentosWord.cs" />
+    <Compile Include="DataObject\Psicoterapeuta.cs" />
     <Compile Include="DataObject\Reservacion.cs" />
     <Compile Include="DataObject\Paciente.cs" />
     <Compile Include="DataObject\Pago.cs" />
@@ -95,8 +96,10 @@
     <Compile Include="DataObject\CalificacionesAlumno.cs" />
     <Compile Include="DataObject\Evaluacion.cs" />
     <Compile Include="DataObject\Sesion.cs" />
+    <Compile Include="DataObject\ClubDeTareas.cs" />
+    <Compile Include="DataObject\ClubDeTareasAsistentes.cs" />
     <Compile Include="DataObject\TallerAsistente.cs" />
-    <Compile Include="DataObject\Empleados.cs" />
+    <Compile Include="DataObject\Empleado.cs" />
     <Compile Include="DataObject\Taller.cs" />
     <Compile Include="DataObject\Grupo.cs" />
     <Compile Include="DataObject\PagoAlumno.cs" />
@@ -107,7 +110,13 @@
     <Compile Include="DataObject\CreditoAlumno.cs" />
     <Compile Include="DataObject\DocumentosInscripcion.cs" />
     <Compile Include="DataObject\PaseDeListaAlumno.cs" />
-    <Compile Include="DataObject\Usuarios.cs" />
+    <Compile Include="DataObject\Usuario.cs" />
+    <Compile Include="Presentacion\Forms\FormsAdministracion\FormEmpleados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAdministracion\FormEmpleados.Designer.cs">
+      <DependentUpon>FormEmpleados.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Forms\FormsAlumno\Alumnos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -186,22 +195,70 @@
     <Compile Include="Presentacion\Forms\FormsEscuela\FormInscricionTaller.Designer.cs">
       <DependentUpon>FormInscricionTaller.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentacion\Forms\FormsPsicoterapia\ReporteDeSesiones.cs">
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\PagosPaciente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentacion\Forms\FormsPsicoterapia\ReporteDeSesiones.designer.cs">
-      <DependentUpon>ReporteDeSesiones.cs</DependentUpon>
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\PagosPaciente.Designer.cs">
+      <DependentUpon>PagosPaciente.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentacion\Forms\FromsControl\FormConsultarAgenda.cs">
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\EvaluacionesPaciente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentacion\Forms\FromsControl\FormConsultarAgenda.designer.cs">
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\EvaluacionesPaciente.Designer.cs">
+      <DependentUpon>EvaluacionesPaciente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\DetalleClubDeTareas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\DetalleClubDeTareas.Designer.cs">
+      <DependentUpon>DetalleClubDeTareas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormEvaluacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormEvaluacion.Designer.cs">
+      <DependentUpon>FormEvaluacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormInscricionClubDeTareas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormInscricionClubDeTareas.Designer.cs">
+      <DependentUpon>FormInscricionClubDeTareas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormPsicoterapeuta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormPsicoterapeuta.Designer.cs">
+      <DependentUpon>FormPsicoterapeuta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormSesiones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormSesiones.Designer.cs">
+      <DependentUpon>FormSesiones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormClubDeTareas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormClubDeTareas.Designer.cs">
+      <DependentUpon>FormClubDeTareas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\ReporteDePaciente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\ReporteDePaciente.designer.cs">
+      <DependentUpon>ReporteDePaciente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormConsultarAgenda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormConsultarAgenda.designer.cs">
       <DependentUpon>FormConsultarAgenda.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentacion\Forms\FromsControl\FormReservacion.cs">
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormReservacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentacion\Forms\FromsControl\FormReservacion.Designer.cs">
+    <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormReservacion.Designer.cs">
       <DependentUpon>FormReservacion.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Forms\FromsControl\FormPago.cs">
@@ -263,6 +320,30 @@
     </Compile>
     <Compile Include="Presentacion\Login\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Administracion\AdministracionMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Administracion\AdministracionMain.Designer.cs">
+      <DependentUpon>AdministracionMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Libreria\LibreriaMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Libreria\LibreriaMain.Designer.cs">
+      <DependentUpon>LibreriaMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Mains\MainIICAPS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Mains\MainIICAPS.Designer.cs">
+      <DependentUpon>MainIICAPS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Administracion\MainEmpleados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Administracion\MainEmpleados.Designer.cs">
+      <DependentUpon>MainEmpleados.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Mains\Escuela\EscuelaMain.cs">
       <SubType>Form</SubType>
@@ -330,6 +411,12 @@
     <Compile Include="Presentacion\Forms\FormsAlumno\FormRegistrarPago.Designer.cs">
       <DependentUpon>FormRegistrarPago.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentacion\Mains\Psicoterapia\PsicoterapiaMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Psicoterapia\PsicoterapiaMain.Designer.cs">
+      <DependentUpon>PsicoterapiaMain.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Mains\Psicoterapia\FormSeleccionReservacion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -348,6 +435,18 @@
     <Compile Include="Presentacion\Mains\Psicoterapia\MainAgenda.Designer.cs">
       <DependentUpon>MainAgenda.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentacion\Mains\Psicoterapia\MainClubDeTareas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Psicoterapia\MainClubDeTareas.Designer.cs">
+      <DependentUpon>MainClubDeTareas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Administracion\MainPsicoterapeutas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Administracion\MainPsicoterapeutas.Designer.cs">
+      <DependentUpon>MainPsicoterapeutas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Mains\Psicoterapia\MainPacientes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -356,6 +455,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Presentacion\Forms\FormsAdministracion\FormEmpleados.resx">
+      <DependentUpon>FormEmpleados.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\Alumnos.resx">
       <DependentUpon>Alumnos.cs</DependentUpon>
     </EmbeddedResource>
@@ -395,13 +497,37 @@
     <EmbeddedResource Include="Presentacion\Forms\FormsEscuela\FormInscricionTaller.resx">
       <DependentUpon>FormInscricionTaller.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentacion\Forms\FormsPsicoterapia\ReporteDeSesiones.resx">
-      <DependentUpon>ReporteDeSesiones.cs</DependentUpon>
+    <EmbeddedResource Include="Presentacion\Forms\FormsPsicoterapia\PagosPaciente.resx">
+      <DependentUpon>PagosPaciente.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentacion\Forms\FromsControl\FormConsultarAgenda.resx">
+    <EmbeddedResource Include="Presentacion\Forms\FormsPsicoterapia\EvaluacionesPaciente.resx">
+      <DependentUpon>EvaluacionesPaciente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsPsicoterapia\DetalleClubDeTareas.resx">
+      <DependentUpon>DetalleClubDeTareas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsPsicoterapia\FormEvaluacion.resx">
+      <DependentUpon>FormEvaluacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsPsicoterapia\FormInscricionClubDeTareas.resx">
+      <DependentUpon>FormInscricionClubDeTareas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsPsicoterapia\FormPsicoterapeuta.resx">
+      <DependentUpon>FormPsicoterapeuta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsPsicoterapia\FormSesiones.resx">
+      <DependentUpon>FormSesiones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsPsicoterapia\FormClubDeTareas.resx">
+      <DependentUpon>FormClubDeTareas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsPsicoterapia\ReporteDePaciente.resx">
+      <DependentUpon>ReporteDePaciente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsPsicoterapia\FormConsultarAgenda.resx">
       <DependentUpon>FormConsultarAgenda.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentacion\Forms\FromsControl\FormReservacion.resx">
+    <EmbeddedResource Include="Presentacion\Forms\FormsPsicoterapia\FormReservacion.resx">
       <DependentUpon>FormReservacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FromsControl\FormPago.resx">
@@ -433,6 +559,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Login\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Mains\Administracion\AdministracionMain.resx">
+      <DependentUpon>AdministracionMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Mains\Libreria\LibreriaMain.resx">
+      <DependentUpon>LibreriaMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Mains\MainIICAPS.resx">
+      <DependentUpon>MainIICAPS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Mains\Administracion\MainEmpleados.resx">
+      <DependentUpon>MainEmpleados.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Mains\Escuela\EscuelaMain.resx">
       <DependentUpon>EscuelaMain.cs</DependentUpon>
@@ -467,6 +605,9 @@
     <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\FormRegistrarPago.resx">
       <DependentUpon>FormRegistrarPago.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Mains\Psicoterapia\PsicoterapiaMain.resx">
+      <DependentUpon>PsicoterapiaMain.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Mains\Psicoterapia\FormSeleccionReservacion.resx">
       <DependentUpon>FormSeleccionReservacion.cs</DependentUpon>
     </EmbeddedResource>
@@ -475,6 +616,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Mains\Psicoterapia\MainAgenda.resx">
       <DependentUpon>MainAgenda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Mains\Psicoterapia\MainClubDeTareas.resx">
+      <DependentUpon>MainClubDeTareas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Mains\Administracion\MainPsicoterapeutas.resx">
+      <DependentUpon>MainPsicoterapeutas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Mains\Psicoterapia\MainPacientes.resx">
       <DependentUpon>MainPacientes.cs</DependentUpon>

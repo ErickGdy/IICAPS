@@ -22,8 +22,11 @@ namespace IICAPS_v1.Control
         string password = "Logamel82";
         //string database = "logacell_iicaps";
         string database = "logacell_iicaps_devs";
-        
+
         /*-------HOSTING ALDEAHOST-----------*/
+        //string userID = "iic2ps1d";
+        //string pass = "ConejoVolador11";
+
         //string server = "iicaps.edu.mx";
         ////string server = "138.128.160.26";
         //string userID = "iic2ps1d_devs";
@@ -637,7 +640,6 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
-
         public bool cancelarCredito(string id)
         {
             try
@@ -800,8 +802,8 @@ namespace IICAPS_v1.Control
                         mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID = '"+rfc+ "' AND Estado NOT LIKE 'Cancelado' AND Concepto = 'Pago de Colegiatura' OR 'Abono de Colegiatura'", conn);
                     else if (concepto.Contains("Credito"))
                         mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID = '" + rfc + "' AND Estado NOT LIKE 'Cancelado' AND Concepto = 'Pago de Credito' OR 'Abono de Credito'", conn);
-                    else if (concepto.Contains("Taller"))
-                        mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID = '" + rfc + "' AND Estado NOT LIKE 'Cancelado' AND Concepto = 'Pago de Taller' OR 'Abono de Taller'", conn);
+                    else if (concepto.Contains("ClubDeTareas"))
+                        mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID = '" + rfc + "' AND Estado NOT LIKE 'Cancelado' AND Concepto = 'Pago de ClubDeTareas' OR 'Abono de ClubDeTareas'", conn);
                     else if (concepto.Contains("Inscripcion"))
                         mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID = '" + rfc + "' AND Concepto = 'Pago de Inscripcion'", conn);
                     conn.Close();
@@ -2201,7 +2203,8 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT A.ID, A.Nombre,A.Telefono,A.Correo,A.CURP,A.RFC,A.Costo,A.Pago, A.Costo-A.Pago AS 'Restante' FROM tallerAsistentes A, taller T WHERE T.ID = A.Taller AND T.ID='" + taller + "'", conn); conn.Close();
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT A.ID, A.Nombre,A.Telefono,A.Correo,A.CURP,A.RFC,A.Costo,A.Pago, A.Costo-A.Pago AS 'Restante' FROM tallerAsistentes A, taller T WHERE T.ID = A.Taller AND T.ID='" + taller + "'", conn);
+                    conn.Close();
                     return mdaDatos;
                 }
                 catch (Exception e)
@@ -2365,8 +2368,8 @@ namespace IICAPS_v1.Control
             {
                 string updateAsistente = "UPDATE tallerAsistentes SET Pago = Pago + " + pago.cantidad +
                                             " WHERE ID = " + idAsistente + ";";
-                string agregarPago = "INSERT INTO pagos (Emisor, FechaPago, Cantidad, Concepto, Observaciones, Recibio, Parent_ID) VALUES ('"
-                    + pago.emisor + "', '" + formatearFecha(pago.fechaPago) + "'," + pago.cantidad + ", 'Pago de Taller', '"
+                string agregarPago = "INSERT INTO pagos (Emisor, FechaPago, Cantidad, Concepto, Area, Observaciones, Recibio, Parent_ID) VALUES ('"
+                    + pago.emisor + "', '" + formatearFecha(pago.fechaPago) + "'," + pago.cantidad + ", 'Pago de Taller', 'Escuela', '"
                     + pago.observaciones + "', '" + pago.recibio + "', '" + idAsistente + "');";
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
@@ -2554,20 +2557,19 @@ namespace IICAPS_v1.Control
         }
 
         //-------------------------------EMPLEADOS-------------------------------//
-        public bool agregarEmpleado(Empleados empleado, Usuarios usuario)
+        public bool agregarEmpleado(Empleado empleado, Usuario usuario)
         {
             try
             {
-                string empleados = "INSERT INTO empleados (Correo, Nombre, Telefono, Puesto, NivelDeAcceso) VALUES('"
-                    + empleado.correo + "','" + empleado.nombre + "','" + empleado.telefono + "','" + empleado.puesto + "'," + empleado.niveldeacceso+");";
+                string empleados = " INSERT INTO empleados (Matricula, Correo, Nombre, Telefono, Puesto) VALUES('"
+                    + empleado.Matricula + "','" + empleado.Correo + "','" + empleado.Nombre + "','" + empleado.Telefono + "','" + empleado.Puesto + "');";
                 string usuarios = "";
                 if (usuario != null) {
-                    usuarios = "INSERT INTO usuarios (Estado, Empleado, Usuario, Contrasena) VALUES("
-                        + usuario.estado + ",'" + usuario.empleado + "','" + usuario.usuario + "','" + usuario.contrasena + "');";
+                    usuarios = " INSERT INTO usuarios (Estado, Matricula, Usuario, Contrasena, Nivel_Acceso) VALUES(1,'" + empleado.Matricula + "','" + usuario.Nombre_De_Usuario + "','" + usuario.Contrasena + "','" + usuario.Nivel_Acceso + "');";
                 }
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = empleados + usuarios;
+                cmd.CommandText = "START TRANSACTION; " + empleados + usuarios + " COMMIT;";
                 try
                 {
                     conn.Open();
@@ -2589,18 +2591,22 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error...!\n Error al establecer conexión con el servidor");
             }
         }
-        public bool actualizarEmpleado(Empleados empleado, Usuarios usuario)
+        public bool actualizarEmpleado(Empleado empleado, Usuario usuario)
         {
             try
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                string emp = "UPDATE empleados SET " +
-                    "Nombre=" + empleado.nombre + "',Telefono='" + empleado.telefono + "Puesto='" + empleado.puesto + "',NivelDeAcceso='" + empleado.niveldeacceso +
-                    "WHERE Correo=" + empleado.correo + ";";
-                string user = "UPDATE usuarios SET " +
-                    "Usuario=" + usuario.usuario + "',Contrasena='" + usuario.contrasena + "Estado='" + usuario.estado + 
-                    "WHERE Empleado=" + usuario.empleado + ";";
+                string emp = "UPDATE empleados SET Nombre='" + empleado.Nombre + "',Telefono='" + empleado.Telefono + 
+                    "',Puesto='" + empleado.Puesto + "',Correo='" + empleado.Correo +
+                    "' WHERE ID=" + empleado.ID + " OR Matricula='"+empleado.Matricula+"';";
+                string user = "";
+                if (usuario != null)
+                {
+                    user = "INSERT INTO usuarios(Estado, Matricula, Usuario, Contrasena, Nivel_Acceso) SELECT 1,'" + empleado.Matricula + "','" + usuario.Nombre_De_Usuario + "','" + usuario.Contrasena + "','" + usuario.Nivel_Acceso + "' FROM DUAL WHERE NOT EXISTS(SELECT * FROM usuarios WHERE Matricula = '" + empleado.Matricula + "';";
+                    user += " UPDATE usuarios SET " + "Usuario='" + usuario.Nombre_De_Usuario + "',Contrasena='" + usuario.Contrasena + "', Estado='"
+                    + usuario.Estado + "' WHERE Matricula='" + empleado.Matricula + "';";
+                }
                 cmd.CommandText = "START TRANSACTION; " +
                     emp + user + "COMMIT;";
                 conn.Open();
@@ -2624,15 +2630,15 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error...!\n Error al establecer conexión con el servidor");
             }
         }
-        public bool actualizarEmpleado(Empleados empleado)
+        public bool actualizarEmpleado(Empleado empleado)
         {
             try
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "UPDATE empleados SET " +
-                    "Nombre=" + empleado.nombre + "',Telefono='" + empleado.telefono + "Puesto='" + empleado.puesto + "',NivelDeAcceso='" + empleado.niveldeacceso +
-                    "WHERE Correo=" + empleado.correo + ";";
+                    "Nombre='" + empleado.Nombre + "',Telefono='" + empleado.Telefono + "',Puesto='" + empleado.Puesto + "',Correo='" + empleado.Correo +
+                    "' WHERE ID=" + empleado.ID + " OR Matricula='" + empleado.Matricula + "';";
                 conn.Open();
                 try
                 {
@@ -2654,13 +2660,47 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error...!\n Error al establecer conexión con el servidor");
             }
         }
-        public bool desactivarEmpleado(string correo)
+        public bool desactivarEmpleado(int id)
         {
             try
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE usuarios SET Estado=0 WHERE Empleado=" + correo + ";";
+                cmd.CommandText = "UPDATE empleados SET Estado=0 WHERE ID='" + id + "';";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al eliminar el empleado de la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexión con el servidor");
+            }
+        }
+        public bool desactivarEmpleado(string matricula)
+        {
+            try
+            {
+                string empleados = "UPDATE empleados SET Estado=0 WHERE Matricula='" + matricula + "';";
+                string usuariosQuery = "UPDATE usuarios SET Estado=0 WHERE Matricula='" + matricula + "';";
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+
+                cmd.CommandText = "START TRANSACTION; "
+                                    + empleados
+                                    + usuariosQuery
+                                    + "COMMIT;";
                 conn.Open();
                 try
                 {
@@ -2690,7 +2730,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT E.Correo,E.Nombre,E.Telefono,E.Puesto,E.NivelDeAcceso FROM empleados E, usuarios U WHERE E.Correo = U.Empleado AND U.Estado = 1", conn);
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT E.ID, E.Matricula, E.Nombre,E.Telefono,E.Puesto, E.Correo FROM empleados E WHERE E.Estado = 1", conn);
                     conn.Close();
                     return mdaDatos;
                 }
@@ -2713,14 +2753,13 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    string sqlString = "SELECT E.Correo,E.Nombre,E.Telefono,E.Puesto,E.NivelDeAcceso FROM empleados E LEFT JOIN usuarios U ON E.Correo = U.Empleado" +
-                        " WHERE " +
-                        "(Correo LIKE '%" + parameter + "%' or " +
-                        " Nombre LIKE '%" + parameter + "%' or " +
-                        " Telefono LIKE '%" + parameter + "%' or " +
-                        " Puesto LIKE '%" + parameter + "%' or " +
-                        " NivelDeAcceso = " + parameter + ") and " +
-                        " Estado = 1 ORDER BY Nombre ASC";
+                    string sqlString = "SELECT E.ID, E.Matricula, E.Nombre,E.Telefono,E.Puesto, E.Correo FROM empleados E WHERE " +
+                        "(E.Correo LIKE '%" + parameter + "%' or " +
+                        " E.Nombre LIKE '%" + parameter + "%' or " +
+                        " E.Telefono LIKE '%" + parameter + "%' or " +
+                        " E.Puesto LIKE '%" + parameter + "%' or " +
+                        " E.Matricula LIKE '%" + parameter + "%') and " +
+                        " E.Estado = 1 ORDER BY E.Nombre ASC";
                     MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
                     this.conn.Close();
                     return mdaDatos;
@@ -2736,25 +2775,26 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
-        public Empleados consultarEmpleado(string correo)
+        public Empleado consultarEmpleado(string matricula)
         {
             try
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT E.Correo,E.Nombre,E.Telefono,E.Puesto,E.NivelDeAcceso FROM empleados E LEFT JOIN usuarios U ON E.Correo = U.Empleado WHERE U.Estado = 1 AND E.Correo='" + correo + "'";
+                cmd.CommandText = "SELECT E.ID, E.Matricula, E.Nombre, E.Telefono, E.Puesto, E.Correo FROM empleados E WHERE E.Matricula='" + matricula + "'";
                 conn.Open();
                 try
                 {
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        Empleados a = new Empleados();
-                        a.correo = reader.GetString(0);
-                        a.nombre = reader.GetString(1);
-                        a.telefono = reader.GetString(2);
-                        a.puesto = reader.GetString(3);
-                        a.niveldeacceso = reader.GetInt32(4);
+                        Empleado a = new Empleado();
+                        a.ID = reader.GetInt32(0);
+                        a.Matricula = reader.GetString(1);
+                        a.Nombre = reader.GetString(2);
+                        a.Telefono = reader.GetString(3);
+                        a.Puesto = reader.GetString(4);
+                        a.Correo = reader.GetString(5);
                         conn.Close();
                         return a;
                     }
@@ -2772,27 +2812,27 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
-        public List<Empleados> obtenerEmpleados()
+        public List<Empleado> obtenerEmpleados()
         {
             try
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT E.Correo,E.Nombre,E.Telefono,E.Puesto,E.NivelDeAcceso FROM empleados E LEFT JOIN usuarios U ON E.Correo = U.Empleado WHERE U.Estado = 1";
+                cmd.CommandText = "SELECT E.ID, E.Matricula, E.Nombre, E.Telefono, E.Puesto, E.Correo FROM empleados E WHERE E.Estado = 1";
                 conn.Open();
                 try
                 {
                     MySqlDataReader reader = cmd.ExecuteReader();
-                    List<Empleados> aux = new List<Empleados>();
+                    List<Empleado> aux = new List<Empleado>();
                     while (reader.Read())
                     {
-
-                        Empleados a = new Empleados();
-                        a.correo = reader.GetString(0);
-                        a.nombre = reader.GetString(1);
-                        a.telefono = reader.GetString(2);
-                        a.puesto = reader.GetString(3);
-                        a.niveldeacceso = reader.GetInt32(4);
+                        Empleado a = new Empleado();
+                        a.ID = reader.GetInt32(0);
+                        a.Matricula = reader.GetString(1);
+                        a.Nombre = reader.GetString(2);
+                        a.Telefono = reader.GetString(3);
+                        a.Puesto = reader.GetString(4);
+                        a.Correo = reader.GetString(5);
                         aux.Add(a);
                     }
                     conn.Close();
@@ -2812,13 +2852,13 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
-        public string obtenerNombreEmpleado(string correo)
+        public string obtenerNombreEmpleado(string matricula)
         {
             try
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Nombre FROM empleados WHERE Correo = '" + correo + "'";
+                cmd.CommandText = "SELECT Nombre FROM empleados WHERE Matricula = '" + matricula + "'";
                 conn.Open();
                 try
                 {
@@ -2843,6 +2883,47 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
+        public string validarMatricula(string matricula)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Matricula FROM empleados WHERE Matricula = '" + matricula + "'; SELECT Matricula FROM psicoterapeutas WHERE Matricula = '" + matricula + "';";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string nombre = "";
+                        try
+                        {
+                            nombre += reader.GetString(0);
+                        }
+                        catch (Exception ex) { }
+                        try
+                        {
+                            nombre += reader.GetString(1);
+                        }
+                        catch (Exception ex) { }
+                        return nombre;
+                    }
+                    conn.Close();
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error..! Error al obtener el nombre del empleado de la Base de Datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+
 
         //-----------------------------INSCRIPCIONES---------------------------------//
         public bool inscribirAlumnoPrograma(string RFC, string programa)
@@ -3186,6 +3267,318 @@ namespace IICAPS_v1.Control
             }
         }
 
+        //-------------------------------PSICOTERAPEUTAS-------------------------------//
+        public bool agregarPsicoterapeuta(Psicoterapeuta psicoterapeuta, Usuario usuario)
+        {
+            try
+            {
+                string psicoterapeutaQuery = "INSERT INTO psicoterapeutas (Matricula, Nombre, Telefono, Carrera, Especialidad, Horario, Observaciones, Estado) VALUES('"
+                    + psicoterapeuta.Matricula + "','" + psicoterapeuta.Nombre + "','" + psicoterapeuta.Telefono + "','" + psicoterapeuta.Carrera + 
+                    "','" + psicoterapeuta.Especialidad + "','" + psicoterapeuta.Horario + "','" + psicoterapeuta.Observaciones + "',1);";
+                string usuariosQuery = "";
+                if (usuario != null)
+                {
+                    usuariosQuery = "INSERT INTO usuarios (Estado, Matricula, Usuario, Contrasena, Nivel_Acceso) VALUES("
+                        + usuario.Estado + ",'" + psicoterapeuta.Matricula + "','" + usuario.Nombre_De_Usuario + "','" + usuario.Contrasena + "','" + usuario.Nivel_Acceso + "');";
+                }
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + psicoterapeutaQuery
+                                    + usuariosQuery
+                                    + "COMMIT;";
+                try
+                {
+                    conn.Open();
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected >= 1)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...! Error al agregar al Psicoterapeuta de la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexión con el servidor");
+            }
+        }
+        public bool actualizarPsicoterapeuta(Psicoterapeuta psicoterapeuta, Usuario usuario)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                string psicoterapeutaQuery = "UPDATE psicoterapeutas SET Matricula='" + psicoterapeuta.Matricula + "', Nombre='" + psicoterapeuta.Nombre +
+                    "', Telefono='" + psicoterapeuta.Telefono + "', Carrera='" + psicoterapeuta.Carrera + "', Especialidad='" + psicoterapeuta.Especialidad +
+                    "', Horario='" + psicoterapeuta.Horario + "', Observaciones='" + psicoterapeuta.Observaciones + 
+                    "', Estado=1 WHERE ID = " + psicoterapeuta.ID + " OR Matricula = '"+psicoterapeuta.Matricula+"';";
+                string usuariosQuery = "";
+                if (usuario != null)
+                {
+                    usuariosQuery = "INSERT INTO usuarios(Estado, Matricula, Usuario, Contrasena, Nivel_Acceso) SELECT 1,'" + psicoterapeuta.Matricula + "','" + usuario.Nombre_De_Usuario + "','" + usuario.Contrasena + "','" + usuario.Nivel_Acceso + "' FROM DUAL WHERE NOT EXISTS(SELECT * FROM usuarios WHERE Matricula = '" + psicoterapeuta.Matricula + "';";
+                    usuariosQuery += " UPDATE usuarios SET " + "Usuario='" + usuario.Nombre_De_Usuario + "',Contrasena='" + usuario.Contrasena + "', Estado=1 WHERE Matricula='" + psicoterapeuta.Matricula + "';";
+                }
+                cmd.CommandText = "START TRANSACTION; " +
+                                    psicoterapeutaQuery +
+                                    usuariosQuery + 
+                                    "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected >= 1)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al actualizar al psicoterapeuta de la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexión con el servidor");
+            }
+        }
+        public bool actualizarPsicoterapeuta(Psicoterapeuta psicoterapeuta)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE psicoterapeutas SET Matricula='" + psicoterapeuta.Matricula + "', Nombre='" + psicoterapeuta.Nombre +
+                    "', Telefono='" + psicoterapeuta.Telefono + "', Carrera='" + psicoterapeuta.Carrera + "', Especialidad='" + psicoterapeuta.Especialidad +
+                    "', Horario='" + psicoterapeuta.Horario + "', Observaciones='" + psicoterapeuta.Observaciones +
+                    "', Estado=1 WHERE ID = " + psicoterapeuta.ID + " OR Matricula = '" + psicoterapeuta.Matricula + "';";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al actualizar al psicoterapeuta de la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexión con el servidor");
+            }
+        }
+        public bool desactivarPsicoterapeuta(int id)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE psicoterapeutas SET Estado=0 WHERE ID=" + id + ";";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al desactivar al psicoterapeuta de la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexión con el servidor");
+            }
+        }
+        public bool desactivarPsicoterapeuta(string matricula)
+        {
+            try
+            {
+                string psicoterapeutasQuery = "UPDATE psicoterapeutas SET Estado=0 WHERE Matricula='" + matricula + "';";
+                string usuariosQuery = "UPDATE usuarios SET Estado=0 WHERE Matricula='" + matricula + "';";
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + psicoterapeutasQuery
+                                    + usuariosQuery
+                                    + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al desactivar al psicoterapeuta de la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexión con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerPsicoterapeutasTable()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT ID, Matricula, Nombre, Telefono, Carrera, Especialidad, Horario FROM psicoterapeutas WHERE Estado = 1", conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de los psicoterapeutas de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerPsicoterapeutasTable(string parameter)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT ID, Matricula, Nombre, Telefono, Carrera, Especialidad, Horario FROM psicoterapeutas WHERE "+
+                        "(Matricula LIKE '%" + parameter + "%' or " +
+                        " Nombre LIKE '%" + parameter + "%' or " +
+                        " Telefono LIKE '%" + parameter + "%' or " +
+                        " Carrera LIKE '%" + parameter + "%' or " +
+                        " Horario LIKE '%" + parameter + "%' or " +
+                        " Especialidad  LIKE '%" + parameter + "%') and " +
+                        " Estado = 1";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
+                    this.conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de los psicoterapeutas de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public Psicoterapeuta consultarPsicoterapeuta(string matricula)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT ID, Matricula, Nombre, Telefono, Carrera, Especialidad, Horario, Observaciones, Estado FROM psicoterapeutas WHERE Matricula='" + matricula + "'";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Psicoterapeuta a = new Psicoterapeuta();
+                        a.ID = reader.GetInt32(0);
+                        a.Matricula = reader.GetString(1);
+                        a.Nombre = reader.GetString(2);
+                        a.Telefono = reader.GetString(3);
+                        a.Carrera = reader.GetString(4);
+                        a.Especialidad = reader.GetString(5);
+                        a.Horario = reader.GetString(6);
+                        a.Observaciones = reader.GetString(7);
+                        a.Estado = reader.GetString(8);
+                        conn.Close();
+                        return a;
+                    }
+                    conn.Close();
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos del Psicoterapeuta de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public List<Psicoterapeuta> obtenerPsicoterapeutas()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT ID, Matricula, Nombre, Telefono, Carrera, Especialidad, Horario, Observaciones, Estado FROM psicoterapeutas WHERE Estado = 1";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<Psicoterapeuta> aux = new List<Psicoterapeuta>();
+                    while (reader.Read())
+                    {
+                        Psicoterapeuta a = new Psicoterapeuta();
+                        a.ID = reader.GetInt32(0);
+                        a.Matricula = reader.GetString(1);
+                        a.Nombre = reader.GetString(2);
+                        a.Telefono = reader.GetString(3);
+                        a.Carrera = reader.GetString(4);
+                        a.Especialidad = reader.GetString(5);
+                        a.Horario = reader.GetString(6);
+                        a.Observaciones = reader.GetString(7);
+                        a.Estado = reader.GetString(8);
+                        aux.Add(a);
+                    }
+                    conn.Close();
+                    if (aux.Count != 0)
+                        return aux;
+                    else
+                        return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de los Psicoterapeuta de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+
         //------------------------------PACIENTES-------------------------------//
         public bool agregarPaciente(Paciente paciente)
         {
@@ -3481,11 +3874,18 @@ namespace IICAPS_v1.Control
         {
             try
             {
-                string reservacionQuery = "INSERT INTO reservaciones (Reservante, Fecha, Codigo_Reservacion, Hora_Inicio, Duracion, Hora_Fin, Concepto, ID_Parent, Ubicacion, Observaciones) VALUES ('"
-                    + sesion.reservacion.reservante + "','" + formatearFecha(sesion.reservacion.fecha) + "','" + sesion.reservacion.codigo_Reservacion + "','" + sesion.reservacion.hora_Inicio + "','" + sesion.reservacion.duracion+ "','" + sesion.reservacion.hora_Fin + "','" + sesion.reservacion.concepto + "','" + sesion.id+ "','" + sesion.reservacion.ubicacion + "','" + sesion.reservacion.observaciones + "'); ";
-                string sesionQuery  = " INSERT INTO sesiones ( Reservacion_ID, Costo, Tipo, Observaciones, Paciente_ID, Psicoterapeuta_ID, Estado)"
-                    + " SELECT AUTO_INCREMENT-1, '" + sesion.Costo+ "','" + sesion.tipo + "','" + sesion.observaciones + 
-                    "','" + sesion.paciente + "','" + sesion.psicoterapeuta + "','Activa' FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '" + this.database + "' AND TABLE_NAME = 'reservaciones'; "; ;
+                string reservacionQuery = "";
+                string sesionQuery="";
+                if (sesion.reservacion != null)
+                {
+                    reservacionQuery = "UPDATE reservaciones SET ID_Parent = (SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '" + this.database + "' AND TABLE_NAME = 'sesiones') WHERE ID=" + sesion.reservacion.id + ";";
+                    sesionQuery = " INSERT INTO sesiones ( Reservacion_ID, Costo, Pago, Pendiente ,Fecha, Hora, Tipo, Observaciones, Paciente_ID, Psicoterapeuta_ID, Estado)"
+                        + " VALUES ('" + sesion.reservacion.id + "','" + sesion.Costo + "','" + sesion.Pago + "', Costo-Pago,'" + formatearFecha(sesion.fecha) + "','" + sesion.hora + "','" + sesion.tipo + "','" + sesion.observaciones + "','" + sesion.paciente + "','" + sesion.psicoterapeuta + "','Activa');";
+                }else
+                {
+                    sesionQuery = " INSERT INTO sesiones ( Costo, Pago, Pendiente, Fecha, Hora, Tipo, Observaciones, Paciente_ID, Psicoterapeuta_ID, Estado)"
+                        + " VALUES ('" + sesion.Costo + "','" + sesion.Pago + "', Costo-Pago,'" + formatearFecha(sesion.fecha) + "','" + sesion.hora + "','" + sesion.tipo + "','" + sesion.observaciones + "','" + sesion.paciente + "','" + sesion.psicoterapeuta + "','Activa');";
+                }
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "START TRANSACTION; "
@@ -3517,12 +3917,14 @@ namespace IICAPS_v1.Control
         {
             try
             {
-                string reservacionQuery = "UPDATE reservaciones SET Reservante='" + sesion.reservacion.reservante + "', Fecha='" + formatearFecha(sesion.reservacion.fecha) +
-                     "Codigo_Reservacion='"+sesion.reservacion.codigo_Reservacion+ "', Hora_Inicio='"+sesion.reservacion.hora_Inicio+"', Duracion='"+sesion.reservacion.duracion+
-                    "', Hora_Fin='"+sesion.reservacion.hora_Fin+"', Concepto='"+sesion.reservacion.concepto+"', ID_Parent='" +sesion.id+
-                    "', Ubicacion='" + sesion.reservacion.ubicacion + "', Observaciones='" + sesion.reservacion.observaciones +
-                    "' WHERE ID="+sesion.reservacion.id+"; ";
-                string sesionQuery  = " UPDATE sesiones SET Costo='" + sesion.Costo+ "', Tipo='" + sesion.tipo + "', Observaciones='" + sesion.observaciones + 
+                string reservacionQuery = "";
+                if (sesion.reservacion != null)
+                    reservacionQuery = "UPDATE reservaciones SET Reservante='" + sesion.reservacion.reservante + "', Fecha='" + formatearFecha(sesion.reservacion.fecha) +
+                         "Codigo_Reservacion='"+sesion.reservacion.codigo_Reservacion+ "', Hora_Inicio='"+sesion.reservacion.hora_Inicio+"', Duracion='"+sesion.reservacion.duracion+
+                        "', Hora_Fin='"+sesion.reservacion.hora_Fin+"', Concepto='"+sesion.reservacion.concepto+"', ID_Parent='" +sesion.id+
+                        "', Ubicacion='" + sesion.reservacion.ubicacion + "', Observaciones='" + sesion.reservacion.observaciones +
+                        "' WHERE ID="+sesion.reservacion.id+"; ";
+                string sesionQuery  = " UPDATE sesiones SET Costo='" + sesion.Costo+ "', Tipo='" + sesion.tipo + "',Fecha='" + formatearFecha(sesion.fecha) + "',Hora='" + sesion.hora + "', Observaciones='" + sesion.observaciones + 
                     "',Paciente='" + sesion.paciente + "',Psicoterapeuta='" + sesion.psicoterapeuta + "',Estado='" + sesion.estado + "' WHERE ID="+sesion.id+"; " ;
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
@@ -3551,16 +3953,14 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error...!\n Error al establecer conexión con el servidor");
             }
         }
-        public bool cancelarSesion(Sesion sesion)
+        public bool cancelarSesion(string id)
         {
             try
             {
-                string reservacionQuery = "DELETE FROM reservaciones WHERE ID=" + sesion.reservacion.id + "; ";
-                string sesionQuery = " UPDATE sesiones SET Estado='Cancelada' WHERE ID=" + sesion.id + "; ";
+                string sesionQuery = " UPDATE sesiones SET Estado='Cancelada' WHERE ID=" + id + "; ";
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "START TRANSACTION; "
-                                    + reservacionQuery
                                     + sesionQuery
                                     + "COMMIT;";
                 try
@@ -3592,7 +3992,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT S.ID,  S.Tipo, R.Fecha, concat_ws(' ',P.Nombre, P.Apellidos) AS 'Paciente', S.Costo, S.Observaciones, Ps.Nombre AS 'Psicoterapeuta' FROM sesiones S INNER JOIN reservaciones R ON R.ID = S.Reservacion_ID INNER JOIN pacientes P ON S.Paciente_ID=P.ID INNER JOIN psicoterapeutas Ps on S.Psicoterapeuta_ID=Ps.ID WHERE S.Estado = 'Activa'", conn);
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT S.ID,  S.Tipo, E.Fecha, concat_ws(' ',P.Nombre, P.Apellidos) AS 'Paciente', S.Costo, S.Observaciones, Ps.Nombre AS 'Psicoterapeuta' FROM sesiones S INNER JOIN pacientes P ON S.Paciente_ID=P.ID INNER JOIN psicoterapeutas Ps on S.Psicoterapeuta_ID=Ps.ID WHERE S.Estado = 'Activa'", conn);
                     conn.Close();
                     return mdaDatos;
                 }
@@ -3615,9 +4015,9 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    string sqlString = "SELECT S.ID,  S.Tipo, R.Fecha, concat_ws(' ',P.Nombre, P.Apellidos) AS 'Paciente', S.Costo, S.Observaciones, Ps.Nombre AS 'Psicoterapeuta' FROM sesiones S INNER JOIN reservaciones R ON R.ID = S.Reservacion_ID INNER JOIN pacientes P ON S.Paciente_ID=P.ID INNER JOIN psicoterapeutas Ps on S.Psicoterapeuta_ID=Ps.ID WHERE " +
+                    string sqlString = "SELECT S.ID,  S.Tipo, E.Fecha, concat_ws(' ',P.Nombre, P.Apellidos) AS 'Paciente', S.Costo, S.Observaciones, Ps.Nombre AS 'Psicoterapeuta' FROM sesiones S INNER JOIN pacientes P ON S.Paciente_ID=P.ID INNER JOIN psicoterapeutas Ps on S.Psicoterapeuta_ID=Ps.ID WHERE " +
                         "(S.Tipo LIKE '%" + parameter + "%' or " +
-                        " R.Fecha LIKE '%" + parameter + "%' or " +
+                        " E.Fecha LIKE '%" + parameter + "%' or " +
                         " concat_ws(' ',P.Nombre, P.Apellidos) LIKE '%" + parameter + "%' or " +
                         " Ps.Nombre LIKE '%" + parameter + "%') AND " +
                         " (S.Estado = 'Activa')";
@@ -3642,7 +4042,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT S.ID, S.Costo,S.Tipo, S.Observaciones, S.Paciente_ID, S.Psicoterapeuta_ID, S.Estado, R.ID, R.Reservante, R.Fecha,R.Codigo_Reservacion, R.Hora_Inicio, R.Duracion, R.Hora_Fin, R.Concepto, R.ID_Parent, R.Ubicacion, R.Observaciones FROM sesiones S LEFT JOIN reservaciones R ON R.ID=S.Reservacion_ID WHERE S.ID=" + ID + ";";
+                cmd.CommandText = "SELECT S.ID, S.Costo,S.Tipo, S.Observaciones, S.Paciente_ID, S.Psicoterapeuta_ID, S.Estado, R.ID, R.Reservante, R.Fecha,R.Codigo_Reservacion, R.Hora_Inicio, R.Duracion, R.Hora_Fin, R.Concepto, R.ID_Parent, R.Ubicacion, R.Observaciones, S.Fecha, S.Hora, S.Pago, S.Pendiente FROM sesiones S LEFT JOIN reservaciones R ON R.ID=S.Reservacion_ID WHERE S.ID=" + ID + ";";
                 conn.Open();
                 try
                 {
@@ -3656,6 +4056,10 @@ namespace IICAPS_v1.Control
                         s.observaciones = reader.GetString(3);
                         s.paciente = reader.GetInt32(4);
                         s.estado = reader.GetString(6);
+                        s.fecha = reader.GetDateTime(18);
+                        s.hora = reader.GetTimeSpan(19);
+                        s.Pago = reader.GetDecimal(20);
+                        s.Pendiente = reader.GetDecimal(21);
                         try
                         {
                             reader.GetInt32(7);
@@ -3677,7 +4081,7 @@ namespace IICAPS_v1.Control
                         { }
                         try
                         {
-                            s.psicoterapeuta = reader.GetInt32(5);
+                            s.psicoterapeuta = reader.GetString(5);
                         }
                         catch (Exception e)
                         { }
@@ -3703,7 +4107,7 @@ namespace IICAPS_v1.Control
             try
             {
                 conn = new MySqlConnection(builder.ToString());
-                string sqlString = "SELECT S.ID, S.Tipo, S.Psicoterapeuta_ID,R.Fecha, R.Hora_Inicio, S.Observaciones FROM sesiones S LEFT JOIN reservaciones R ON R.ID=S.Reservacion_ID WHERE S.Paciente_ID=" + paciente + ";";
+                string sqlString = "SELECT S.ID, S.Tipo, S.Psicoterapeuta_ID,S.Fecha, S.Hora, S.Observaciones FROM sesiones S WHERE S.Paciente_ID=" + paciente + " AND S.Estado='Activa'  ORDER BY S.Fecha ASC;";
                 conn.Open();
                 try
                 {
@@ -3728,7 +4132,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT S.ID, S.Costo,S.Tipo, S.Observaciones, S.Paciente_ID, S.Psicoterapeuta_ID, S.Estado, R.ID, R.Reservante, R.Fecha, R.Codigo_Reservacion, R.Hora_Inicio, R.Duracion, R.Hora_Fin, R.Concepto, R.ID_Parent, R.Ubicacion, R.Observaciones FROM sesiones S LEFT JOIN reservaciones R ON R.ID=S.Reservacion_ID WHERE S.Paciente_ID=" + paciente + ";";
+                cmd.CommandText = "SELECT S.ID, S.Costo,S.Tipo, S.Observaciones, S.Paciente_ID, S.Psicoterapeuta_ID, S.Estado, R.ID, R.Reservante, R.Fecha, R.Codigo_Reservacion, R.Hora_Inicio, R.Duracion, R.Hora_Fin, R.Concepto, R.ID_Parent, R.Ubicacion, R.Observaciones, S.Fecha, S.Hora, S.Pago, S.Pendiente FROM sesiones S LEFT JOIN reservaciones R ON R.ID=S.Reservacion_ID WHERE S.Paciente_ID=" + paciente + ";";
                 conn.Open();
                 try
                 {
@@ -3743,6 +4147,10 @@ namespace IICAPS_v1.Control
                         s.observaciones = reader.GetString(3);
                         s.paciente = reader.GetInt32(4);
                         s.estado = reader.GetString(6);
+                        s.fecha = reader.GetDateTime(18);
+                        s.hora = reader.GetTimeSpan(19);
+                        s.Pago = reader.GetDecimal(20);
+                        s.Pendiente = reader.GetDecimal(21);
                         try
                         {
                             reader.GetInt32(7);
@@ -3764,7 +4172,7 @@ namespace IICAPS_v1.Control
                         { }
                         try
                         {
-                            s.psicoterapeuta = reader.GetInt32(5);
+                            s.psicoterapeuta = reader.GetString(5);
                         }
                         catch (Exception e)
                         { }
@@ -3787,17 +4195,235 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
-
+        public List<Sesion> obtenerSesionesPendietesDePagoPaciente(string paciente)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT S.ID, S.Costo,S.Tipo, S.Observaciones, S.Paciente_ID, S.Psicoterapeuta_ID, S.Estado, R.ID, R.Reservante, R.Fecha, R.Codigo_Reservacion, R.Hora_Inicio, R.Duracion, R.Hora_Fin, R.Concepto, R.ID_Parent, R.Ubicacion, R.Observaciones, S.Fecha, S.Hora, S.Pago, S.Pendiente FROM sesiones S LEFT JOIN reservaciones R ON R.ID=S.Reservacion_ID WHERE S.Paciente_ID=" + paciente + " AND S.Pendiente > 0.0 ORDER BY S.Fecha DESC;";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<Sesion> aux = new List<Sesion>();
+                    while (reader.Read())
+                    {
+                        Sesion s = new Sesion();
+                        s.id = reader.GetInt32(0);
+                        s.Costo = reader.GetDecimal(1);
+                        s.tipo = reader.GetString(2);
+                        s.observaciones = reader.GetString(3);
+                        s.paciente = reader.GetInt32(4);
+                        s.estado = reader.GetString(6);
+                        s.fecha = reader.GetDateTime(18);
+                        s.hora = reader.GetTimeSpan(19);
+                        s.Pago = reader.GetDecimal(20);
+                        s.Pendiente = reader.GetDecimal(21);
+                        try
+                        {
+                            reader.GetInt32(7);
+                            Reservacion r = new Reservacion();
+                            r.id = reader.GetInt32(7);
+                            r.reservante = reader.GetString(8);
+                            r.fecha = reader.GetDateTime(9);
+                            r.codigo_Reservacion = reader.GetString(10);
+                            r.hora_Inicio = reader.GetTimeSpan(11);
+                            r.duracion = reader.GetTimeSpan(12);
+                            r.hora_Fin = reader.GetTimeSpan(13);
+                            r.concepto = reader.GetString(14);
+                            r.id_parent = reader.GetString(15);
+                            r.ubicacion = reader.GetString(16);
+                            r.observaciones = reader.GetString(17);
+                            s.reservacion = r;
+                        }
+                        catch (Exception e)
+                        { }
+                        try
+                        {
+                            s.psicoterapeuta = reader.GetString(5);
+                        }
+                        catch (Exception e)
+                        { }
+                        aux.Add(s);
+                    }
+                    conn.Close();
+                    if (aux.Count != 0)
+                        return aux;
+                    else
+                        return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de las sesiones de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public bool registrarPagoDeSesion(Pago pago, List<Sesion> sesionesPagadas)
+        {
+            try
+            {
+                string sesionesPagadasQuery = "";
+                foreach (Sesion aux in sesionesPagadas)
+                {
+                    sesionesPagadasQuery += "UPDATE sesiones SET Pago = " + aux.Pago + ", Pendiente=" + aux.Pendiente + " WHERE ID = " + aux.id + "; ";
+                }
+                string agregarPago = "INSERT INTO pagos (Emisor, FechaPago, Cantidad, Concepto, Area, Observaciones, Recibio, Parent_ID) VALUES ('"
+                    + pago.emisor + "', '" + formatearFecha(pago.fechaPago) + "'," + pago.cantidad + ", 'Pago de Sesión', 'Psicoterapia', '"
+                    + pago.observaciones + "', '" + pago.recibio + "', '" + sesionesPagadas.ElementAt(0).paciente + "');";
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + sesionesPagadasQuery
+                                    + agregarPago
+                                    + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    conn.Close();
+                    throw new Exception("Error...! Error al agregar Pago de sesiones a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...! Error al establecer conexión con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerPagosPacienteTable(string paciente)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT ID, Emisor, FechaPago AS 'Fecha De Pago', Cantidad, Observaciones, Recibio FROM pagos WHERE Concepto='Pago de sesion' AND Area='Psicoterapia' AND Parent_ID='"+paciente+"';", conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de los pagos de sesiones de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerPagosPacienteTable(string paciente, string parameter)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT ID, Emisor, FechaPago AS 'Fecha De Pago', Cantidad, Observaciones, Recibio FROM pagos WHERE Concepto='Pago de sesion' AND Area='Psicoterapia' AND Parent_ID='" + paciente + "' AND "+
+                        "(Emisor LIKE '%" + parameter + "%' or " +
+                        "Cantidad LIKE '%" + parameter + "%' or " +
+                        "FechaPago LIKE '%" + parameter + "%' or " +
+                        "Recibio LIKE '%" + parameter + "%')";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de los pagos de sesiones de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerPagosSesionesPacienteTable(string paciente)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT S.ID, S.Fecha, S.Hora, S.Costo, S.Pago, S.Pendiente FROM sesiones S WHERE S.Paciente_ID=" + paciente + " AND S.Estado='Activa'  ORDER BY S.Fecha ASC;", conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de sesiones de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerPagosSesionesPacienteTable(string paciente, string parameter)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT S.ID, S.Fecha, S.Hora, S.Costo, S.Pago, S.Pendiente FROM sesiones S WHERE S.Paciente_ID=" + paciente + " AND S.Estado='Activa' AND " +
+                        "(S.ID LIKE '%" + parameter + "%' or " +
+                        "S.Fecha LIKE '%" + parameter + "%' or " +
+                        "S.Psicoterapeuta_ID LIKE '%" + parameter + "%')  ORDER BY S.Fecha ASC;";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de sesiones de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
         //---------------------------EVALUACIONES------------------------//
         public bool agregarEvaluacion(Evaluacion evaluacion)
         {
             try
             {
-                string reservacionQuery = "INSERT INTO reservaciones (Reservante, Fecha, Codigo_Reservacion, Hora_Inicio, Duracion, Hora_Fin, Concepto, ID_Parent, Ubicacion, Observaciones) VALUES ('"
-                    + evaluacion.reservacion.reservante + "','" + formatearFecha(evaluacion.reservacion.fecha) + "','" + evaluacion.reservacion.codigo_Reservacion + "','" + evaluacion.reservacion.hora_Inicio + "','" + evaluacion.reservacion.duracion + "','" + evaluacion.reservacion.hora_Fin + "','" + evaluacion.reservacion.concepto + "','" + evaluacion.reservacion.id_parent + "','" + evaluacion.reservacion.ubicacion + "','" + evaluacion.reservacion.observaciones + "'); ";
-                string evaluacionQuery = " INSERT INTO sesiones ( Reservacion_ID, Costo, pruebas, Observaciones, Paciente_ID, Psicoterapeuta_ID, Estado)"
-                    + " SELECT AUTO_INCREMENT-1, '" + evaluacion.costo + "','" + evaluacion.pruebas + "','" + evaluacion.observaciones +
-                    "','" + evaluacion.paciente + "','" + evaluacion.psicoterapeuta + "','Activa' FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '" + this.database + "' AND TABLE_NAME = 'reservaciones'; "; ;
+                string reservacionQuery = "";
+                string evaluacionQuery = "";
+                if (evaluacion.reservacion != null)
+                {
+                    reservacionQuery = "UPDATE reservaciones SET ID_Parent = (SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '" + this.database + "' AND TABLE_NAME = 'sesiones') WHERE ID=" + evaluacion.reservacion.id + ";";
+                    evaluacionQuery = " INSERT INTO evaluaciones (Reservacion_ID, Costo, pruebas, Observaciones, Paciente_ID, Psicoterapeuta_ID, Estado) VALUES ('" 
+                        + evaluacion.reservacion.id + "','" + evaluacion.costo + "','" + evaluacion.pruebas + "','" + evaluacion.observaciones +
+                        "','" + evaluacion.paciente + "','" + evaluacion.psicoterapeuta + "','Activa');"; 
+                }
+                else
+                {
+                    evaluacionQuery = " INSERT INTO evaluaciones ( Paciente_ID, Psicoterapeuta_ID, Fecha, Hora, Observaciones, Pruebas, Costo, Estado)"
+                        + " VALUES ('" + evaluacion.paciente + "','" + evaluacion.psicoterapeuta + "','" + formatearFecha(evaluacion.fecha) + "','" + evaluacion.hora + "','" + evaluacion.observaciones + "','" + evaluacion.pruebas + "','" + evaluacion.costo + "','Activa');";
+                }
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "START TRANSACTION; "
@@ -3829,13 +4455,15 @@ namespace IICAPS_v1.Control
         {
             try
             {
-                string reservacionQuery = "UPDATE reservaciones SET Reservante='" + evaluacion.reservacion.reservante + "', Fecha='" + formatearFecha(evaluacion.reservacion.fecha) +
-                    "Codigo_Reservacion='" + evaluacion.reservacion.codigo_Reservacion + "', Hora_Inicio='" + evaluacion.reservacion.hora_Inicio + "', Duracion='" + evaluacion.reservacion.duracion +
-                   "', Hora_Fin='" + evaluacion.reservacion.hora_Fin + "', Concepto='" + evaluacion.reservacion.concepto + "', ID_Parent='" + evaluacion.id +
-                   "', Ubicacion='" + evaluacion.reservacion.ubicacion + "', Observaciones='" + evaluacion.reservacion.observaciones +
-                   "' WHERE ID=" + evaluacion.reservacion.id + "; ";
+                string reservacionQuery="";
+                if (evaluacion.reservacion!=null)
+                    reservacionQuery = "UPDATE reservaciones SET Reservante='" + evaluacion.reservacion.reservante + "', Fecha='" + formatearFecha(evaluacion.reservacion.fecha) +
+                        "Codigo_Reservacion='" + evaluacion.reservacion.codigo_Reservacion + "', Hora_Inicio='" + evaluacion.reservacion.hora_Inicio + "', Duracion='" + evaluacion.reservacion.duracion +
+                       "', Hora_Fin='" + evaluacion.reservacion.hora_Fin + "', Concepto='" + evaluacion.reservacion.concepto + "', ID_Parent='" + evaluacion.id +
+                       "', Ubicacion='" + evaluacion.reservacion.ubicacion + "', Observaciones='" + evaluacion.reservacion.observaciones +
+                       "' WHERE ID=" + evaluacion.reservacion.id + "; ";
                 string evaluacionQuery = " UPDATE evaluaciones SET Costo='" + evaluacion.costo + "', Pruebas='" + evaluacion.pruebas + "', Observaciones='" + evaluacion.observaciones +
-                   "', Paciente_ID'" + evaluacion.paciente + "', Psicoterapeuta_ID'" + evaluacion.psicoterapeuta + "', Estado='Activa' WHERE ID="+evaluacion.id +"; ";
+                   "', Paciente_ID'" + evaluacion.paciente + "', Psicoterapeuta_ID'" + evaluacion.psicoterapeuta + "',Fecha='" + formatearFecha(evaluacion.fecha) + "',Hora='" + evaluacion.hora + "', Estado='Activa' WHERE ID="+evaluacion.id +"; ";
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "START TRANSACTION; "
@@ -3904,7 +4532,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT E.ID, E.Pruebas, R.Fecha, concat_ws(' ',P.Nombre, P.Apellidos) AS 'Paciente', E.Costo, E.Observaciones, Ps.Nombre AS 'Psicoterapeuta' FROM evaluaciones E INNER JOIN reservaciones R ON R.ID = E.Reservacion_ID INNER JOIN pacientes P ON E.Paciente_ID=P.ID INNER JOIN psicoterapeutas Ps on E.Psicoterapeuta_ID=Ps.ID WHERE E.Estado = 'Activa';", conn);
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT E.ID, E.Pruebas, E.Fecha, concat_ws(' ',P.Nombre, P.Apellidos) AS 'Paciente', E.Costo, E.Observaciones, Ps.Nombre AS 'Psicoterapeuta' FROM evaluaciones E INNER JOIN pacientes P ON E.Paciente_ID=P.ID INNER JOIN psicoterapeutas Ps on E.Psicoterapeuta_ID=Ps.ID WHERE E.Estado = 'Activa';", conn);
                     conn.Close();
                     return mdaDatos;
                 }
@@ -3927,9 +4555,9 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    string sqlString = "SELECT E.ID, E.Pruebas, R.Fecha, concat_ws(' ',P.Nombre, P.Apellidos) AS 'Paciente', E.Costo, E.Observaciones, Ps.Nombre AS 'Psicoterapeuta' FROM evaluaciones E INNER JOIN reservaciones R ON R.ID = E.Reservacion_ID INNER JOIN pacientes P ON E.Paciente_ID=P.ID INNER JOIN psicoterapeutas Ps on E.Psicoterapeuta_ID=Ps.ID WHERE " +
+                    string sqlString = "SELECT E.ID, E.Pruebas, E.Fecha, concat_ws(' ',P.Nombre, P.Apellidos) AS 'Paciente', E.Costo, E.Observaciones, Ps.Nombre AS 'Psicoterapeuta' FROM evaluaciones E INNER JOIN pacientes P ON E.Paciente_ID=P.ID INNER JOIN psicoterapeutas Ps on E.Psicoterapeuta_ID=Ps.ID WHERE " +
                         "(E.Pruebas LIKE '%" + parameter + "%' or " +
-                        " R.Fecha LIKE '%" + parameter + "%' or " +
+                        " E.Fecha LIKE '%" + parameter + "%' or " +
                         " concat_ws(' ',P.Nombre, P.Apellidos) LIKE '%" + parameter + "%' or " +
                         " Ps.Nombre LIKE '%" + parameter + "%') AND " +
                         " (E.Estado = 'Activa')";
@@ -3954,7 +4582,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT E.ID, E.Costo, E.Pruebas, E.Observaciones, E.Paciente_ID, E.Psicoterapeuta_ID, E.Estado, R.ID, R.Reservante, R.Fecha, R.Codigo_Reservacion, R.Hora_Inicio, R.Duracion, R.Hora_Fin, R.Concepto, R.ID_Parent, R.Ubicacion, R.Observaciones FROM evaluaciones E LEFT JOIN reservaciones R ON R.ID=E.Reservacion_ID WHERE E.ID=" + ID + ";";
+                cmd.CommandText = "SELECT E.ID, E.Costo, E.Pruebas, E.Observaciones, E.Paciente_ID, E.Psicoterapeuta_ID, E.Estado, R.ID, R.Reservante, R.Fecha, R.Codigo_Reservacion, R.Hora_Inicio, R.Duracion, R.Hora_Fin, R.Concepto, R.ID_Parent, R.Ubicacion, R.Observaciones, E.Fecha, E.Hora FROM evaluaciones E LEFT JOIN reservaciones R ON R.ID=E.Reservacion_ID WHERE E.ID=" + ID + ";";
                 conn.Open();
                 try
                 {
@@ -3968,6 +4596,8 @@ namespace IICAPS_v1.Control
                         s.observaciones = reader.GetString(3);
                         s.paciente = reader.GetInt32(4);
                         s.estado = reader.GetString(6);
+                        s.fecha = reader.GetDateTime(18);
+                        s.hora = reader.GetTimeSpan(19);
                         try
                         {
                             reader.GetInt32(7);
@@ -3989,7 +4619,7 @@ namespace IICAPS_v1.Control
                         { }
                         try
                         {
-                            s.psicoterapeuta = reader.GetInt32(5);
+                            s.psicoterapeuta = reader.GetString(5);
                         }
                         catch (Exception e)
                         { }
@@ -4010,13 +4640,66 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
+        public MySqlDataAdapter obtenerEvaluacionPacienteTable(string paciente)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT E.ID, E.Pruebas, E.Fecha, E.Observaciones, Ps.Nombre AS 'Psicoterapeuta' FROM evaluaciones E INNER JOIN pacientes P ON E.Paciente_ID=P.ID INNER JOIN psicoterapeutas Ps on E.Psicoterapeuta_ID=Ps.ID WHERE E.Paciente_ID="+paciente+" AND E.Estado = 'Activa';";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
+                    this.conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de los evaluaciones de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerEvaluacionPacienteTable(string paciente, string parameter)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT E.ID, E.Pruebas, E.Fecha, E.Observaciones, Ps.Nombre AS 'Psicoterapeuta' FROM evaluaciones E INNER JOIN pacientes P ON E.Paciente_ID=P.ID INNER JOIN psicoterapeutas Ps on E.Psicoterapeuta_ID=Ps.Matricula WHERE E.Paciente_ID="+paciente+" AND E.Estado = 'Activa' AND ("+
+                        "E.ID LIKE '%" + parameter + "%' or " +
+                        "E.Fecha LIKE '%" + parameter + "%' or " +
+                        "E.Pruebas LIKE '%" + parameter + "%' or " +
+                        "E.Observaciones LIKE '%" + parameter + "%' or " +
+                        "Ps.Nombre LIKE '%" + parameter + "%');";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
+                    this.conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de los evaluaciones de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
         public List<Evaluacion> obtenerEvaluacionPaciente(string paciente)
         {
             try
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT E.ID, E.Costo, E.Pruebas, E.Observaciones, E.Paciente_ID, E.Psicoterapeuta_ID, E.Estado, R.ID, R.Reservante, R.Fecha,R.Codigo_Reservacion, R.Hora_Inicio, R.Duracion, R.Hora_Fin, R.Concepto, R.ID_Parent, R.Ubicacion, R.Observaciones FROM evaluaciones E LEFT JOIN reservaciones R ON R.ID=E.Reservacion_ID WHERE E.Paciente_ID=" + paciente + ";";
+                cmd.CommandText = "SELECT E.ID, E.Costo, E.Pruebas, E.Observaciones, E.Paciente_ID, E.Psicoterapeuta_ID, E.Estado, R.ID, R.Reservante, R.Fecha,R.Codigo_Reservacion, R.Hora_Inicio, R.Duracion, R.Hora_Fin, R.Concepto, R.ID_Parent, R.Ubicacion, R.Observaciones, E.Fecha, E.Hora FROM evaluaciones E LEFT JOIN reservaciones R ON R.ID=E.Reservacion_ID WHERE E.Paciente_ID=" + paciente + ";";
                 conn.Open();
                 try
                 {
@@ -4031,6 +4714,8 @@ namespace IICAPS_v1.Control
                         s.observaciones = reader.GetString(3);
                         s.paciente = reader.GetInt32(4);
                         s.estado = reader.GetString(6);
+                        s.fecha = reader.GetDateTime(18);
+                        s.hora = reader.GetTimeSpan(19);
                         try
                         {
                             reader.GetInt32(7);
@@ -4052,7 +4737,7 @@ namespace IICAPS_v1.Control
                         { }
                         try
                         {
-                            s.psicoterapeuta = reader.GetInt32(5);
+                            s.psicoterapeuta = reader.GetString(5);
                         }
                         catch (Exception e)
                         { }
@@ -4076,6 +4761,542 @@ namespace IICAPS_v1.Control
             }
         }
 
+        //-------------------------------CLUB DE TAREAS-------------------------------//
+        public bool agregarClubDeTareas(ClubDeTareas club)
+        {
+            try
+            {
+                string reservacionQuery = "";
+                string clubTareasQuery = "";
+                if (club.reservacion != null)
+                {
+                    reservacionQuery = "UPDATE reservaciones SET ID_Parent = (SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '" + this.database + "' AND TABLE_NAME = 'clubDeTareas') WHERE ID=" + club.reservacion.id + ";";
+                    clubTareasQuery = "INSERT INTO clubDeTareas (Reservacion_ID, Fecha, Hora, Observaciones, Costo, Psicoterapeuta, Estado) VALUES('"
+                     + club.reservacion.id + "','" + formatearFecha(club.fecha) + "','" + club.Hora + "','" + club.Observaciones + "','" + club.Costo + "','" + club.Psicoterapeuta + "','Activo');";
+                }
+                else
+                {
+                    clubTareasQuery = "INSERT INTO clubDeTareas (Fecha, Hora, Observaciones, Costo, Psicoterapeuta, Estado) VALUES("
+                    + " ' " + formatearFecha(club.fecha) + "','" + club.Hora + "','" + club.Observaciones + "','" + club.Costo + "','" + club.Psicoterapeuta + "','Activo');";
+                }
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + reservacionQuery
+                                    + clubTareasQuery
+                                    + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    conn.Close();
+                    throw new Exception("Error...! Error al agregar el club a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...! Error al establecer conexión con el servidor");
+            }
+        }
+        public bool actualizarClubDeTareas(ClubDeTareas club)
+        {
+            try
+            {
+                string reservacionQuery = "";
+                if (club.reservacion != null)
+                    reservacionQuery = "UPDATE reservaciones SET Reservante='" + club.reservacion.reservante + "', Fecha='" + formatearFecha(club.reservacion.fecha) +
+                        "Codigo_Reservacion='" + club.reservacion.codigo_Reservacion + "', Hora_Inicio='" + club.reservacion.hora_Inicio + "', Duracion='" + club.reservacion.duracion +
+                       "', Hora_Fin='" + club.reservacion.hora_Fin + "', Concepto='" + club.reservacion.concepto + "', ID_Parent='" + club.id +
+                       "', Ubicacion='" + club.reservacion.ubicacion + "', Observaciones='" + club.reservacion.observaciones +
+                       "' WHERE ID=" + club.reservacion.id + "; ";
+                string update = "UPDATE clubDeTareas SET Fecha='" + formatearFecha(club.fecha) + "', Hora='" + club.Hora +
+                    "', Costo='" + club.Costo + "', Psicoterapeuta='" + club.Psicoterapeuta +
+                    "', Observaciones='" + club.Observaciones +"', Estado='Activo' WHERE ID='" + club.id + "';";
+
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + reservacionQuery
+                                    + update
+                                    + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al actualizar el club de la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexión con el servidor");
+            }
+        }
+        public bool cancelarClubDeTareas(string id)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE clubDeTareas SET Estado='Cancelado' WHERE ID='" + id + "';";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...!\n Error al eliminar club De Tareasa la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexión con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerClubDeTareasTable()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT C.ID, C.Fecha, C.Hora, C.Costo, P.Nombre, C.Observaciones FROM clubDeTareas C INNER JOIN empleados P ON P.ID=C.Psicoterapeuta WHERE C.Estado='Activo'", conn); conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de clubes de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerClubDeTareasTable(string parameter)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT C.ID, C.Fecha, C.Hora, C.Costo, P.Nombre, C.Observaciones FROM clubDeTareas C INNER JOIN empleados P ON P.ID=C.Psicoterapeuta WHERE " +
+                        "(C.ID LIKE '%" + parameter + "%' or " +
+                        " P.Nombre LIKE '%" + parameter + "%' or " +
+                        " C.Fecha LIKE '%" + parameter + "%') AND C.Estado='Activo'";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
+                    this.conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de clubes de tarea de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public ClubDeTareas consultarClubDeTareas(string id)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT C.ID, C.Fecha, C.Hora, C.Costo, C.Psicoterapeuta, C.Observaciones, C.Estado ,R.ID, R.Reservante, R.Fecha, R.Codigo_Reservacion, R.Hora_Inicio, R.Duracion, R.Hora_Fin, R.Concepto, R.ID_Parent, R.Ubicacion, R.Observaciones FROM clubDeTareas C LEFT JOIN reservaciones R ON R.ID=C.Reservacion_ID WHERE C.ID='" + id + "'";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        ClubDeTareas c = new ClubDeTareas();
+                        c.id = reader.GetInt32(0);
+                        c.fecha = reader.GetDateTime(1);
+                        c.Hora = reader.GetTimeSpan(2);
+                        c.Costo = reader.GetDecimal(3);
+                        c.Observaciones = reader.GetString(5);
+                        c.Estado = reader.GetString(6);
+                        try
+                        {
+                            reader.GetInt32(7);
+                            Reservacion r = new Reservacion();
+                            r.id = reader.GetInt32(7);
+                            r.reservante = reader.GetString(8);
+                            r.fecha = reader.GetDateTime(9);
+                            r.codigo_Reservacion = reader.GetString(10);
+                            r.hora_Inicio = reader.GetTimeSpan(11);
+                            r.duracion = reader.GetTimeSpan(12);
+                            r.hora_Fin = reader.GetTimeSpan(13);
+                            r.concepto = reader.GetString(14);
+                            r.id_parent = reader.GetString(15);
+                            r.ubicacion = reader.GetString(16);
+                            r.observaciones = reader.GetString(17);
+                            c.reservacion = r;
+                        }
+                        catch (Exception e)
+                        { }
+                        try
+                        {
+                            c.Psicoterapeuta = reader.GetInt32(4);
+                        }
+                        catch (Exception e)
+                        { }
+                        conn.Close();
+                        return c;
+                    }
+                    conn.Close();
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos del grupo de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public ClubDeTareasAsistente obtenerAsistenteClubDeTareas(string id)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Club_Tareas_ID, Nombre, Apellidos, Nombre_Tutor, Telefono_Tutor, Costo, Pago, Observaciones FROM ClubDeTareasAsistente WHERE ID='" + id + "';";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        ClubDeTareasAsistente a = new ClubDeTareasAsistente();
+                        a.ID = Convert.ToInt32(id);
+                        a.Club_Tareas_ID = reader.GetInt32(0);
+                        a.Nombres = reader.GetString(1);
+                        a.Apellidos = reader.GetString(2);
+                        a.NombreTutor = reader.GetString(3);
+                        a.TelefonoTutor = reader.GetString(4);
+                        a.Costo = reader.GetDecimal(5);
+                        a.Pago = reader.GetDecimal(6);
+                        a.Restante = a.Costo - a.Pago;
+                        a.Observaciones = reader.GetString(7);
+                        conn.Close();
+                        return a;
+                    }
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de los asistentes del club de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public List<ClubDeTareasAsistente> obtenerAsistentesClubDeTareas(string club)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT ID, Club_Tareas_ID, Nombre, Apellidos, Nombre_Tutor, Telefono_Tutor, Costo, Pago, Observaciones FROM ClubDeTareasAsistente WHERE Club_Tareas_ID='" + club + "';";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<ClubDeTareasAsistente> aux = new List<ClubDeTareasAsistente>();
+                    while (reader.Read())
+                    {
+                        ClubDeTareasAsistente a = new ClubDeTareasAsistente();
+                        a.ID = reader.GetInt32(0);
+                        a.Club_Tareas_ID = reader.GetInt32(1);
+                        a.Nombres = reader.GetString(2);
+                        a.Apellidos = reader.GetString(3);
+                        a.NombreTutor = reader.GetString(4);
+                        a.TelefonoTutor = reader.GetString(5);
+                        a.Costo = reader.GetDecimal(6);
+                        a.Pago = reader.GetDecimal(7);
+                        a.Restante = a.Costo - a.Pago;
+                        a.Observaciones = reader.GetString(8);
+                        aux.Add(a);
+                    }
+                    conn.Close();
+                    if (aux.Count != 0)
+                        return aux;
+                    else
+                        return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de los asistentes del club de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerAsistentesClubDeTareasTable(string club)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT ID, Club_Tareas_ID, Nombre, Apellidos, Nombre_Tutor, Telefono_Tutor, Costo, Pago, Observaciones FROM ClubDeTareasAsistente WHERE Club_Tareas_ID='" + club + "'", conn); conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de clubes de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerAsistentesClubDeTareasTable(string club, string parameter)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string sqlString = "SELECT ID, Club_Tareas_ID, Nombre, Apellidos, Nombre_Tutor, Telefono_Tutor, Costo, Pago, Observaciones FROM ClubDeTareasAsistente WHERE Club_Tareas_ID='" + club + "' AND " +
+                        "(Nombre LIKE '%" + parameter + "%' or " +
+                        " Apellidos LIKE '%" + parameter + "%' or " +
+                        " Nombre_Tutor LIKE '%" + parameter + "%' or " +
+                        " Telefono_Tutor LIKE '%" + parameter + "%');";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
+                    this.conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos del club de tareas de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public List<ClubDeTareas> obtenerClubDeTareas()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT C.ID, C.Fecha, C.Hora, C.Costo, C.Psicoterapeuta, C.Observaciones, C.Estado ,R.ID, R.Reservante, R.Fecha, R.Codigo_Reservacion, R.Hora_Inicio, R.Duracion, R.Hora_Fin, R.Concepto, R.ID_Parent, R.Ubicacion, R.Observaciones FROM clubDeTareas C LEFT JOIN reservaciones R ON R.ID=C.Reservacion_ID WHERE C.Estado='Activo'";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<ClubDeTareas> aux = new List<ClubDeTareas>();
+                    while (reader.Read())
+                    {
+                        ClubDeTareas c = new ClubDeTareas();
+                        c.id = reader.GetInt32(0);
+                        c.fecha = reader.GetDateTime(1);
+                        c.Hora = reader.GetTimeSpan(2);
+                        c.Costo = reader.GetDecimal(3);
+                        c.Observaciones = reader.GetString(5);
+                        c.Estado = reader.GetString(6);
+                        try
+                        {
+                            reader.GetInt32(7);
+                            Reservacion r = new Reservacion();
+                            r.id = reader.GetInt32(7);
+                            r.reservante = reader.GetString(8);
+                            r.fecha = reader.GetDateTime(9);
+                            r.codigo_Reservacion = reader.GetString(10);
+                            r.hora_Inicio = reader.GetTimeSpan(11);
+                            r.duracion = reader.GetTimeSpan(12);
+                            r.hora_Fin = reader.GetTimeSpan(13);
+                            r.concepto = reader.GetString(14);
+                            r.id_parent = reader.GetString(15);
+                            r.ubicacion = reader.GetString(16);
+                            r.observaciones = reader.GetString(17);
+                            c.reservacion = r;
+                        }
+                        catch (Exception e)
+                        { }
+                        try
+                        {
+                            c.Psicoterapeuta = reader.GetInt32(4);
+                        }
+                        catch (Exception e)
+                        { }
+                        aux.Add(c);
+                    }
+                    conn.Close();
+                    if (aux.Count != 0)
+                        return aux;
+                    else
+                        return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de los clubes de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public bool registrarAsistenteClubDeTareas(ClubDeTareasAsistente asistente)
+        {
+            try
+            {
+                string inscribir = "INSERT INTO clubDeTareasAsistentes (Club_Tareas_ID, Nombres, Apellidos, Nombre_Tutor, Telefono_Tutor, Costo, Observaciones) VALUE ( '"
+                    + asistente.Club_Tareas_ID + "','" + asistente.Nombres + "','" + asistente.Apellidos + "','" + asistente.NombreTutor
+                    + "','" + asistente.TelefonoTutor + "','" + asistente.Costo + "','" + asistente.Observaciones + "');";
+                if (asistente.ID > 0)
+                {
+                    inscribir = "UPDATE clubDeTareasAsistentes SET Club_Tareas_ID='" + asistente.Club_Tareas_ID + "',Nombres='" + asistente.Nombres +
+                    "',Apellidos='" + asistente.Apellidos + "', Nomre_Tutor='" + asistente.NombreTutor + "', Telefono_Tutor='" + asistente.TelefonoTutor +
+                    "', Costo='" + asistente.Costo + "',Observaciones='" + asistente.Observaciones + "' WHERE ID = " + asistente.ID + ";";
+                }
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + inscribir
+                                    + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    conn.Close();
+                    throw new Exception("Error...! Error al agregar asistencia a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...! Error al establecer conexión con el servidor");
+            }
+        }
+        public bool borrarAsistenteClubDeTareas(string id)
+        {
+            try
+            {
+                string borrarAsistente = "DELETE FROM clubDeTareasAsistentes WHERE ID=" + id + "; ";
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + borrarAsistente
+                                    + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    conn.Close();
+                    throw new Exception("Error...! Error al borrar asistencia a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...! Error al establecer conexión con el servidor");
+            }
+        }
+        public bool registrarPagoAsistenciaClubDeTareas(Pago pago, string idAsistente)
+        {
+            try
+            {
+                string updateAsistente = "UPDATE cluDeTareasAsistentes SET Pago = Pago + " + pago.cantidad +
+                                            " WHERE ID = " + idAsistente + ";";
+                string agregarPago = "INSERT INTO pagos (Emisor, FechaPago, Cantidad, Concepto, Area, Observaciones, Recibio, Parent_ID) VALUES ('"
+                    + pago.emisor + "', '" + formatearFecha(pago.fechaPago) + "'," + pago.cantidad + ", 'Pago de Club De Tareas', 'Psicoterapia','"
+                    + pago.observaciones + "', '" + pago.recibio + "', '" + idAsistente + "');";
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + updateAsistente
+                                    + agregarPago
+                                    + "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    conn.Close();
+                    throw new Exception("Error...! Error al agregar Pago de club a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...! Error al establecer conexión con el servidor");
+            }
+        }
+
         //-------------------------------PAGOS--------------------------------------//
         public bool agregarPago(Pago pago)
         {
@@ -4083,8 +5304,8 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO pagos (Emisor, FechaPago, Cantidad, Concepto, Observaciones, Recibio, Parent_ID) VALUES ('"
-                    + pago.emisor + "', '" + formatearFecha(pago.fechaPago) + "'," + pago.cantidad + ", '" + pago.concepto + "', '"
+                cmd.CommandText = "INSERT INTO pagos (Emisor, FechaPago, Cantidad, Concepto, Area, Observaciones, Recibio, Parent_ID) VALUES ('"
+                    + pago.emisor + "', '" + formatearFecha(pago.fechaPago) + "'," + pago.cantidad + ", '" + pago.concepto + "', '" + pago.area + "', '"
                     + pago.observaciones + "', '" + pago.recibio + "', '" + pago.parent_id + "')";
                 conn.Open();
                 try
@@ -4107,7 +5328,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
-        public MySqlDataAdapter obtenerPagosTable()
+        public MySqlDataAdapter obtenerPagosTable(string area)
         {
             try
             {
@@ -4115,7 +5336,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT ID, Emisor, FechaPago AS 'Fecha De Pago', Cantidad, Concepto, Observaciones, Recibio  FROM pagos", conn);
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT ID, Emisor, FechaPago AS 'Fecha De Pago', Cantidad, Concepto, Observaciones, Recibio  FROM pagos WHERE Area='"+area+"'", conn);
                     conn.Close();
                     return mdaDatos;
                 }
@@ -4130,7 +5351,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
-        public MySqlDataAdapter obtenerPagosTable(string parameter)
+        public MySqlDataAdapter obtenerPagosTable(string parameter, string area)
         {
             try
             {
@@ -4143,7 +5364,7 @@ namespace IICAPS_v1.Control
                         "Cantidad LIKE '%" + parameter + "%' or " +
                         "Concepto LIKE '%" + parameter + "%' or " +
                         "FechaPago LIKE '%" + parameter + "%' or " +
-                        "Recibio LIKE '%" + parameter + "%')";
+                        "Recibio LIKE '%" + parameter + "%') AND Area='" + area + "'";
                     MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, conn);
                     conn.Close();
                     return mdaDatos;
@@ -4165,7 +5386,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT ID, Emisor, FechaPago, Cantidad, Concepto, Parent_ID, Observaciones, Recibio, Estado FROM pagos WHERE ID='" + id + "'";
+                cmd.CommandText = "SELECT ID, Emisor, FechaPago, Cantidad, Concepto, Area, Parent_ID, Observaciones, Recibio, Estado FROM pagos WHERE ID='" + id + "'";
                 conn.Open();
                 try
                 {
@@ -4178,10 +5399,11 @@ namespace IICAPS_v1.Control
                         pago.fechaPago = reader.GetDateTime(2);
                         pago.cantidad = reader.GetInt32(3);
                         pago.concepto = reader.GetString(4);
-                        pago.parent_id = reader.GetInt32(5);
-                        pago.observaciones = reader.GetString(6);
-                        pago.recibio = reader.GetString(7);
-                        pago.estado = reader.GetString(8);
+                        pago.area = reader.GetString(5);
+                        pago.parent_id = reader.GetInt32(6);
+                        pago.observaciones = reader.GetString(7);
+                        pago.recibio = reader.GetString(8);
+                        pago.estado = reader.GetString(9);
                         conn.Close();
                         return pago;
                     }
@@ -4432,6 +5654,49 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
+        public Reservacion consultarReservacion(TimeSpan hora, DateTime fecha, string psicoterapeuta)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT R.ID, R.Reservante, R.Fecha, R.Codigo_Reservacion, R.Hora_Inicio, R.Duracion, R.Hora_Fin, R.Concepto, R.ID_Parent, R.Ubicacion, R.Observaciones FROM reservaciones R WHERE R.Reservante='" + psicoterapeuta + "' AND R.Fecha='"+formatearFecha(fecha)+"' AND R.Hora_Inicio='"+hora+"';";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        
+                        Reservacion r = new Reservacion();
+                        r.id = reader.GetInt32(0);
+                        r.reservante = reader.GetString(1);
+                        r.fecha = reader.GetDateTime(2);
+                        r.codigo_Reservacion = reader.GetString(3);
+                        r.hora_Inicio = reader.GetTimeSpan(4);
+                        r.duracion = reader.GetTimeSpan(5);
+                        r.hora_Fin = reader.GetTimeSpan(6);
+                        r.concepto = reader.GetString(7);
+                        r.id_parent = reader.GetString(8);
+                        r.ubicacion = reader.GetString(9);
+                        r.observaciones = reader.GetString(10);
+                        conn.Close();
+                        return r;
+                    }
+                    conn.Close();
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de la reservación de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
         public Reservacion consultarReservacion(string ID)
         {
             try
@@ -4553,13 +5818,13 @@ namespace IICAPS_v1.Control
         }
 
         //-----------------------------------USUARIO------------------------------//
-        public Usuarios consultarUsuario(string id)
+        public Usuario consultarUsuario(string id)
         {
             try
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Empleado, Usuario, Contrasena FROM usuarios WHERE Empleado='" + id + "' or Usuario ='" + id + "'";
+                cmd.CommandText = "SELECT Matricula, Usuario, Contrasena, Nivel_Acceso FROM usuarios WHERE Matricula='" + id + "' or Usuario ='" + id + "'";
                 conn.Open();
                 try
                 {
@@ -4568,10 +5833,11 @@ namespace IICAPS_v1.Control
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        Usuarios pv = new Usuarios();
-                        pv.empleado = reader.GetString(0);
-                        pv.usuario = reader.GetString(1);
-                        pv.contrasena = reader.GetString(2);
+                        Usuario pv = new Usuario();
+                        pv.Matricula = reader.GetString(0);
+                        pv.Nombre_De_Usuario = reader.GetString(1);
+                        pv.Contrasena = reader.GetString(2);
+                        pv.Nivel_Acceso = reader.GetInt32(3);
                         conn.Close();
                         return pv;
                     }
@@ -4591,15 +5857,16 @@ namespace IICAPS_v1.Control
             }
 
         }
-        public bool actualizarUsuario(Usuarios usuario)
+        public bool actualizarUsuario(Usuario usuario)
         {
             try
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE usuarios SET Usuario= '" + usuario.usuario +
-                "',Contrasena='" + usuario.contrasena +
-                "',Estado = 1 WHERE Empleado='" + usuario.empleado + "'";
+                cmd.CommandText = "UPDATE usuarios SET Usuario= '" + usuario.Nombre_De_Usuario +
+                "',Contrasena='" + usuario.Contrasena +
+                "',Nivel_Acceso='" + usuario.Nivel_Acceso +
+                "',Estado = 1 WHERE Matricula='" + usuario.Matricula + "'";
                 try
                 {
                     //cmd.CommandText = "SELECT * FROM Servicios";
@@ -4615,6 +5882,37 @@ namespace IICAPS_v1.Control
                 catch (Exception e)
                 {
                     throw new Exception("Error..! Error al actualizar usuario de la Base de Datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+
+        }
+        public bool eliminarUsuario(string matricula)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "UPDATE usuarios SET Estado = 0 WHERE Matricula='" + matricula + "'";
+                try
+                {
+                    //cmd.CommandText = "SELECT * FROM Servicios";
+                    conn.Open();
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    //MySqlDataReader reader = cmd.ExecuteReader();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error..! Error al desactivar usuario de la Base de Datos");
                 }
             }
             catch (Exception e)
@@ -4694,9 +5992,7 @@ namespace IICAPS_v1.Control
             }
         }
 
-
-
-        //-------------------------------Configuracion-------------------------------//
+        //--------------------------CONFIGURACIÓN--------------------------//
         public string formatearFecha(DateTime fecha)
         {
             DateTime aux;
@@ -4840,5 +6136,6 @@ namespace IICAPS_v1.Control
                 return false;
             }
         }
+
     }
 }
