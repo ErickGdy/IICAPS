@@ -21,7 +21,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         private static DetalleGrupoListas instance;
         ControlIicaps control;
         Grupo grupo;
-        List<Empleados> empleados;
+        List<Empleado> empleados;
         List<Materia> materias;
         List<Alumno> alumnos;
         DataGridViewPrinter MyDataGridViewPrinter;
@@ -39,9 +39,9 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             {
                 empleados = control.obtenerEmpleados();
                 if(empleados != null)
-                foreach (Empleados emp in empleados)
+                foreach (Empleado emp in empleados)
                 {
-                    cmbMaestros.Items.Add(emp.nombre);
+                    cmbMaestros.Items.Add(emp.Nombre);
                 }
                 materias = control.consultarMapaCurricularPrograma(this.grupo.programa);
                 if(materias!= null)
@@ -213,7 +213,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                     pls.asistencias = ls;
                     aux.Add(pls);
                 }
-                if (control.registrarAsistencias(aux, empleados.ElementAt(cmbMaestros.SelectedIndex).correo, this.grupo.codigo, materias.ElementAt(cmbMaterias.SelectedIndex).id.ToString(), control.formatearFecha(dateTimePicker1.Value)))
+                if (control.registrarAsistencias(aux, empleados.ElementAt(cmbMaestros.SelectedIndex).Matricula, this.grupo.codigo, materias.ElementAt(cmbMaterias.SelectedIndex).id.ToString(), control.formatearFecha(dateTimePicker1.Value)))
                 {
                     MessageBox.Show("Datos guardados exitosamente");
                     this.Close();
