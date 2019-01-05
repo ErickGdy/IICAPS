@@ -111,7 +111,6 @@ namespace IICAPS.Presentacion
             this.olvidarPass.TabStop = true;
             this.olvidarPass.Text = "Olvidaste la contraseña?";
             this.olvidarPass.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.olvidarPass.Visible = false;
             this.olvidarPass.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.olvidarPass_LinkClicked);
             // 
             // Login
