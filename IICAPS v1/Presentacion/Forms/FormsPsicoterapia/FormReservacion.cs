@@ -48,10 +48,10 @@ namespace IICAPS_v1.Presentacion
                 cmbConcepto.Items.AddRange(aux.ToArray());
                 cmbConcepto.Items.Add("Otro");
                 aux.Clear();
-                foreach (Empleados e in control.obtenerEmpleados())
+                foreach (Empleado e in control.obtenerEmpleados())
                 {
-                    aux.Add(e.nombre);
-                    empleados.Add(e.correo);
+                    aux.Add(e.Nombre);
+                    empleados.Add(e.Matricula);
                 }
                 cmbReservante.Items.AddRange(aux.ToArray());
                 cmbUbicacion.SelectedIndex = 0;
@@ -119,10 +119,10 @@ namespace IICAPS_v1.Presentacion
                 cmbConcepto.Items.Add("Otro");
                 cmbUbicacion.Items.AddRange(control.consultarUbicaciones().ToArray());
                 aux.Clear();
-                foreach (Empleados e in control.obtenerEmpleados())
+                foreach (Empleado e in control.obtenerEmpleados())
                 {
-                    aux.Add(e.nombre);
-                    empleados.Add(e.correo);
+                    aux.Add(e.Nombre);
+                    empleados.Add(e.Matricula);
                 }
                 cmbReservante.Items.AddRange(aux.ToArray());
                 //Validar datos y setearlos a los campos de texto
