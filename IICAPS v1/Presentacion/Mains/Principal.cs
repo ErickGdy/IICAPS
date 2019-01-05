@@ -151,6 +151,7 @@ namespace IICAPS.Presentacion.Mains
             panelMenuPsicoterapia.Height = this.Height - 85;
             panelMenuAdministracion.Height = this.Height - 85;
             panelMenuLibreria.Height = this.Height - 85;
+            btnParametrosAdministracion.Location = new Point(0, this.Height - 70- 125);
             logoDisgrawMenuEscuela.Location = new Point(4, this.Height - 125);
             logoDisgrawMenuAdministracion.Location = new Point(4, this.Height - 125);
             logoDisgrawMenuPsicoterapia.Location = new Point(4, this.Height - 125);
