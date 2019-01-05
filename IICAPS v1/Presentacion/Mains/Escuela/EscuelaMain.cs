@@ -28,8 +28,11 @@ namespace IICAPS.Presentacion.Mains.Escuela
             return instance;
         }
 
-     
+        private void EscuelaMain_SizeChanged(object sender, EventArgs e)
+        {
+            pictureBox1.Location = new Point(this.Width - 145, this.Height - 60);
+            pictureBox2.Size = new Size(this.Width - 157, this.Height);
 
-
+        }
     }
 }

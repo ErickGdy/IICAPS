@@ -1,7 +1,11 @@
-﻿using IICAPS.Presentacion.Mains.Escuela;
+﻿using IICAPS.Presentacion.Mains.Administracion;
+using IICAPS.Presentacion.Mains.Escuela;
+using IICAPS.Presentacion.Mains.Libreria;
+using IICAPS.Presentacion.Mains.Psicoterapia;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
+using IICAPS_v1.Presentacion.Mains;
 using IICAPS_v1.Presentacion.Mains.Escuela;
 using IICAPS_v1.Presentacion.Mains.Psicoterapia;
 using System;
@@ -18,18 +22,52 @@ namespace IICAPS.Presentacion.Mains
 {
     public partial class Principal : Form
     {
-        Usuarios empleado;
-        public Principal(Usuarios usuario)
+        Usuario usuario;
+        public Principal(Usuario usuario)
         {
             InitializeComponent();
-            empleado = usuario;
+            this.usuario = usuario;
+            btnIndex_Click(null, null);
             try
             {
-                btnUsuario.Text = ControlIicaps.getInstance().consultarEmpleado(empleado.empleado).nombre;
+                btnUsuario.Text = ControlIicaps.getInstance().consultarEmpleado(usuario.Matricula).Nombre;
             }
             catch (Exception ex)
             {
-                btnUsuario.Text = empleado.usuario;
+                btnUsuario.Text = usuario.Nombre_De_Usuario;
+            }
+            switch (usuario.Nivel_Acceso)
+            {
+                case 0:
+                    btnMenuAdministracion.Visible = true;
+                    btnMenuEscuela.Visible = true;
+                    btnMenuPsicoterapia.Visible = true;
+                    btnMenuLibreria.Visible = true;
+                    break;
+                case 3:
+                    btnMenuAdministracion.Visible = false;
+                    btnMenuEscuela.Visible = true;
+                    btnMenuEscuela.Location = new Point(167, 0);
+                    btnMenuPsicoterapia.Visible = false;
+                    btnMenuLibreria.Visible = false;
+                    break;
+                case 2:
+                    btnMenuAdministracion.Visible = false;
+                    btnMenuEscuela.Visible = false;
+                    btnMenuPsicoterapia.Visible = true;
+                    btnMenuPsicoterapia.Location = new Point(167, 0);
+                    btnMenuLibreria.Visible = false;
+                    break;
+                case 1:
+                    btnMenuAdministracion.Visible = false;
+                    btnMenuEscuela.Visible = false;
+                    btnMenuPsicoterapia.Visible = false;
+                    btnMenuLibreria.Visible = true;
+                    btnMenuLibreria.Location = new Point(167, 0);
+                    break;
+                default:
+                    break;
+
             }
         }
 
@@ -74,30 +112,34 @@ namespace IICAPS.Presentacion.Mains
         {
             ocultarPaneles(modulo);
             btnMenuEscuela.Enabled = true;
-            this.btnMenuEscuela.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            btnMenuMaestros.Enabled = true;
-            this.btnMenuMaestros.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             btnMenuPsicoterapia.Enabled = true;
-            this.btnMenuPsicoterapia.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            btnMenuPacientes.Enabled = true;
-            this.btnMenuPacientes.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            btnMenuAdministracion.Enabled = true;
+            btnMenuLibreria.Enabled = true;
+            try
+            {
+                this.btnMenuEscuela.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                this.btnMenuPsicoterapia.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                this.btnMenuAdministracion.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                this.btnMenuLibreria.Font = new System.Drawing.Font("Montserrat", 9.749999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            }
+            catch (Exception ex) { }
             switch (modulo)
             {
                 case "Escuela":
                     btnMenuEscuela.Enabled = false;
                     btnMenuEscuela.Font = new System.Drawing.Font("Montserrat", 9.749999F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                     break;
-                case "Alumno":
-                    btnMenuMaestros.Enabled = false;
-                    btnMenuMaestros.Font = new System.Drawing.Font("Montserrat", 9.749999F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    break;
                 case "Psicoterapia":
                     btnMenuPsicoterapia.Enabled = false;
                     btnMenuPsicoterapia.Font = new System.Drawing.Font("Montserrat", 9.749999F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                     break;
-                case "Paciente":
-                    btnMenuPacientes.Enabled = false;
-                    btnMenuPacientes.Font = new System.Drawing.Font("Montserrat", 9.749999F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                case "Administracion":
+                    btnMenuAdministracion.Enabled = false;
+                    btnMenuAdministracion.Font = new System.Drawing.Font("Montserrat", 9.749999F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    break;
+                case "Libreria":
+                    btnMenuLibreria.Enabled = false;
+                    btnMenuLibreria.Font = new System.Drawing.Font("Montserrat", 9.749999F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                     break;
                 default:
                     break;
@@ -107,13 +149,19 @@ namespace IICAPS.Presentacion.Mains
         {
             panelMenuEscuela.Height = this.Height - 85;
             panelMenuPsicoterapia.Height = this.Height - 85;
+            panelMenuAdministracion.Height = this.Height - 85;
+            panelMenuLibreria.Height = this.Height - 85;
             logoDisgrawMenuEscuela.Location = new Point(4, this.Height - 125);
+            logoDisgrawMenuAdministracion.Location = new Point(4, this.Height - 125);
             logoDisgrawMenuPsicoterapia.Location = new Point(4, this.Height - 125);
+            logoDisgrawMenuLibreria.Location = new Point(4, this.Height - 125);
         }
         private void ocultarPaneles(string modulo)
         {
             panelMenuPsicoterapia.Visible = false;
             panelMenuEscuela.Visible = false;
+            panelMenuAdministracion.Visible = false;
+            panelMenuLibreria.Visible = false;
             switch (modulo)
             {
                 case "Escuela":
@@ -128,8 +176,16 @@ namespace IICAPS.Presentacion.Mains
                 case "Psicoterapia":
                     panelMenuPsicoterapia.Visible = true;
                     break;
+                case "Administracion":
+                    panelMenuAdministracion.Visible = true;
+                    break;
+                case "Libreria":
+                    panelMenuLibreria.Visible = true;
+                    break;
                 default:
                     panelMenuEscuela.Visible = false;
+                    panelMenuAdministracion.Visible = false;
+                    panelMenuLibreria.Visible = false;
                     panelMenuPsicoterapia.Visible = false;
                     break;
             }
@@ -139,6 +195,9 @@ namespace IICAPS.Presentacion.Mains
         {
             closeForms();
             ocultarPaneles("");
+            MainIICAPS form = new MainIICAPS();
+            configurarForm(form);
+            form.Show();
         }
         private void Principal_SizeChanged(object sender, EventArgs e)
         {
@@ -264,7 +323,7 @@ namespace IICAPS.Presentacion.Mains
         private void btnMenuPsicoterapia_Click(object sender, EventArgs e)
         {
             minimizeForms();
-            MainAgenda form = MainAgenda.getInstance();
+            PsicoterapiaMain form = PsicoterapiaMain.getInstance();
             configurarForm(form);
             form.Show();
             inhabilitarBoton("Psicoterapia", "Psicoterapia");
@@ -277,6 +336,86 @@ namespace IICAPS.Presentacion.Mains
             configurarForm(form);
             form.Show();
             inhabilitarBoton("Paciente", "Paciente");
+        }
+
+        private void btnRegistroPacientePsicoterapia_Click(object sender, EventArgs e)
+        {
+            FormPaciente formAgregaPaciente = new FormPaciente(null);
+            formAgregaPaciente.Show();
+        }
+
+        private void btnPsicoterapeutasAdministracion_Click(object sender, EventArgs e)
+        {
+            minimizeForms();
+            MainPsicoterapeutas form = MainPsicoterapeutas.getInstance();
+            configurarForm(form);
+            form.Show();
+            inhabilitarBoton("Psicoterapeutas", "Administracion");
+        }
+
+        private void btnClubDeTareasPsicoterapia_Click(object sender, EventArgs e)
+        {
+            minimizeForms();
+            MainClubDeTareas form = MainClubDeTareas.getInstance();
+            configurarForm(form);
+            form.Show();
+            inhabilitarBoton("Club De Tareas", "Psicoterapia");
+        }
+
+        private void btnPsicoterapia_Click(object sender, EventArgs e)
+        {
+            btnMenuPsicoterapia_Click(null, null);
+        }
+
+        private void btnAgendaPsicoterapia_Click(object sender, EventArgs e)
+        {
+            minimizeForms();
+            MainAgenda form = MainAgenda.getInstance();
+            configurarForm(form);
+            form.Show();
+            inhabilitarBoton("Psicoterapia", "Psicoterapia");
+        }
+        //ACCIONES BOTONES ADMINISTRACIÓN
+        private void btnParametrosAdministracion_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void btnMenuAdministracion_Click(object sender, EventArgs e)
+        {
+            minimizeForms();
+            AdministracionMain form = AdministracionMain.getInstance();
+            configurarForm(form);
+            form.Show();
+            inhabilitarBoton("Administracion", "Administracion");
+        }
+
+        private void btnEmpleadosAdministracion_Click(object sender, EventArgs e)
+        {
+            minimizeForms();
+            MainEmpleados form = MainEmpleados.getInstance();
+            configurarForm(form);
+            form.Show();
+            inhabilitarBoton("Empleados", "Administracion");
+        }
+
+        //ACCIONES BOTONES LIBRERÍA
+        private void btnMenuLibreria_Click(object sender, EventArgs e)
+        {
+            minimizeForms();
+            LibreriaMain form = LibreriaMain.getInstance();
+            configurarForm(form);
+            form.Show();
+            inhabilitarBoton("Libreria", "Libreria");
+        }
+
+        private void btnEscuela_Click(object sender, EventArgs e)
+        {
+            btnMenuEscuela_Click(null,null);
+        }
+
+        private void btnLibreria_Click(object sender, EventArgs e)
+        {
+            btnMenuLibreria_Click(null,null);
         }
     }
 }

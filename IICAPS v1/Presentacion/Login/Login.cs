@@ -76,11 +76,11 @@ namespace IICAPS.Presentacion
                 //Validaciones
                 try
                 {
-                    Usuarios user = control.consultarUsuario(txtUsuario.Text);
+                    Usuario user = control.consultarUsuario(txtUsuario.Text);
                     if (user == null)
                         MessageBox.Show("Usuario invalido");
                     else
-                        if (user.contrasena != txtPass.Text)
+                        if (user.Contrasena != txtPass.Text)
                         MessageBox.Show("Contraseña incorrecta");
                     else
                         abrirVentanaPrincipal(user);
@@ -135,7 +135,7 @@ namespace IICAPS.Presentacion
             }
         }
 
-        private void abrirVentanaPrincipal(Usuarios user)
+        private void abrirVentanaPrincipal(Usuario user)
         {
             if (checkRecordar.Checked)
                 control.recordarUsuario(txtUsuario.Text);
