@@ -225,10 +225,10 @@
     <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormInscricionClubDeTareas.Designer.cs">
       <DependentUpon>FormInscricionClubDeTareas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormPsicoterapeuta.cs">
+    <Compile Include="Presentacion\Forms\FormsAdministracion\FormPsicoterapeuta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormPsicoterapeuta.Designer.cs">
+    <Compile Include="Presentacion\Forms\FormsAdministracion\FormPsicoterapeuta.Designer.cs">
       <DependentUpon>FormPsicoterapeuta.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormSesiones.cs">
@@ -512,7 +512,7 @@
     <EmbeddedResource Include="Presentacion\Forms\FormsPsicoterapia\FormInscricionClubDeTareas.resx">
       <DependentUpon>FormInscricionClubDeTareas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Presentacion\Forms\FormsPsicoterapia\FormPsicoterapeuta.resx">
+    <EmbeddedResource Include="Presentacion\Forms\FormsAdministracion\FormPsicoterapeuta.resx">
       <DependentUpon>FormPsicoterapeuta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsPsicoterapia\FormSesiones.resx">
