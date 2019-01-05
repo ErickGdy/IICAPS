@@ -196,6 +196,11 @@
             this.cmbNivelAcceso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbNivelAcceso.Enabled = false;
             this.cmbNivelAcceso.FormattingEnabled = true;
+            this.cmbNivelAcceso.Items.AddRange(new object[] {
+            "Total",
+            "Librería",
+            "Pasicoterapia",
+            "Escuela"});
             this.cmbNivelAcceso.Location = new System.Drawing.Point(211, 129);
             this.cmbNivelAcceso.Name = "cmbNivelAcceso";
             this.cmbNivelAcceso.Size = new System.Drawing.Size(251, 26);

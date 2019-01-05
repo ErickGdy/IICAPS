@@ -33,21 +33,52 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainPsicoterapeutas));
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.menuTabla = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.consultarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modificarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuTabla = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.limpiarBusqueda = new System.Windows.Forms.LinkLabel();
             this.pictureBoxBuscar = new System.Windows.Forms.PictureBox();
+            this.limpiarBusqueda = new System.Windows.Forms.LinkLabel();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuTabla.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBuscar)).BeginInit();
             this.SuspendLayout();
+            // 
+            // consultarToolStripMenuItem
+            // 
+            this.consultarToolStripMenuItem.Name = "consultarToolStripMenuItem";
+            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.consultarToolStripMenuItem.Text = "Consultar";
+            this.consultarToolStripMenuItem.Click += new System.EventHandler(this.consultarToolStripMenuItem_Click);
+            // 
+            // modificarToolStripMenuItem
+            // 
+            this.modificarToolStripMenuItem.Name = "modificarToolStripMenuItem";
+            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.modificarToolStripMenuItem.Text = "Modificar";
+            this.modificarToolStripMenuItem.Click += new System.EventHandler(this.modificarToolStripMenuItem_Click);
+            // 
+            // eliminarToolStripMenuItem
+            // 
+            this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
+            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.eliminarToolStripMenuItem.Text = "Eliminar";
+            this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.cancelarToolStripMenuItem_Click);
+            // 
+            // menuTabla
+            // 
+            this.menuTabla.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuTabla.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.consultarToolStripMenuItem,
+            this.modificarToolStripMenuItem,
+            this.eliminarToolStripMenuItem});
+            this.menuTabla.Name = "menuTablaAlumnos";
+            this.menuTabla.Size = new System.Drawing.Size(126, 70);
             // 
             // dataGridView1
             // 
@@ -72,37 +103,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(804, 334);
             this.dataGridView1.TabIndex = 0;
             // 
-            // menuTabla
-            // 
-            this.menuTabla.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuTabla.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.consultarToolStripMenuItem,
-            this.modificarToolStripMenuItem,
-            this.eliminarToolStripMenuItem});
-            this.menuTabla.Name = "menuTablaAlumnos";
-            this.menuTabla.Size = new System.Drawing.Size(153, 92);
-            // 
-            // consultarToolStripMenuItem
-            // 
-            this.consultarToolStripMenuItem.Name = "consultarToolStripMenuItem";
-            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.consultarToolStripMenuItem.Text = "Consultar";
-            this.consultarToolStripMenuItem.Click += new System.EventHandler(this.consultarToolStripMenuItem_Click);
-            // 
-            // modificarToolStripMenuItem
-            // 
-            this.modificarToolStripMenuItem.Name = "modificarToolStripMenuItem";
-            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.modificarToolStripMenuItem.Text = "Modificar";
-            this.modificarToolStripMenuItem.Click += new System.EventHandler(this.modificarToolStripMenuItem_Click);
-            // 
-            // eliminarToolStripMenuItem
-            // 
-            this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
-            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.eliminarToolStripMenuItem.Text = "Eliminar";
-            this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.cancelarToolStripMenuItem_Click);
-            // 
             // txtBuscar
             // 
             this.txtBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -124,6 +124,17 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Psicoterapeutas";
             // 
+            // pictureBoxBuscar
+            // 
+            this.pictureBoxBuscar.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxBuscar.Image")));
+            this.pictureBoxBuscar.Location = new System.Drawing.Point(755, 82);
+            this.pictureBoxBuscar.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.pictureBoxBuscar.Name = "pictureBoxBuscar";
+            this.pictureBoxBuscar.Size = new System.Drawing.Size(24, 23);
+            this.pictureBoxBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxBuscar.TabIndex = 38;
+            this.pictureBoxBuscar.TabStop = false;
+            // 
             // limpiarBusqueda
             // 
             this.limpiarBusqueda.AutoSize = true;
@@ -143,17 +154,6 @@
             this.limpiarBusqueda.Visible = false;
             this.limpiarBusqueda.VisitedLinkColor = System.Drawing.Color.Black;
             this.limpiarBusqueda.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.limpiarBusqueda_LinkClicked);
-            // 
-            // pictureBoxBuscar
-            // 
-            this.pictureBoxBuscar.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxBuscar.Image")));
-            this.pictureBoxBuscar.Location = new System.Drawing.Point(755, 82);
-            this.pictureBoxBuscar.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.pictureBoxBuscar.Name = "pictureBoxBuscar";
-            this.pictureBoxBuscar.Size = new System.Drawing.Size(24, 23);
-            this.pictureBoxBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxBuscar.TabIndex = 38;
-            this.pictureBoxBuscar.TabStop = false;
             // 
             // btnActualizar
             // 
@@ -205,6 +205,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.dataGridView1);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainPsicoterapeutas";
@@ -213,8 +214,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainAlumnos";
             this.SizeChanged += new System.EventHandler(this.Main_SizeChanged);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.menuTabla.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBuscar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -223,16 +224,16 @@
 
         #endregion
 
+        private System.Windows.Forms.ToolStripMenuItem consultarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem modificarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip menuTabla;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBoxBuscar;
         private System.Windows.Forms.LinkLabel limpiarBusqueda;
         private System.Windows.Forms.Button btnActualizar;
-        private System.Windows.Forms.ContextMenuStrip menuTabla;
-        private System.Windows.Forms.ToolStripMenuItem consultarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem modificarToolStripMenuItem;
         private System.Windows.Forms.Button btnAgregar;
-        private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
     }
 }
