@@ -16,10 +16,8 @@ namespace IICAPS_v1.Presentacion
     {
         ControlIicaps control;
         Paciente paciente;
-        List<string> empleadosNombres = new List<string>();
         List<string> empleadosID = new List<string>();
         List<string> pacientesID = new List<string>();
-        List<string> pacientesNombre = new List<string>();
         Evaluacion evaluacion;
         public FormEvaluacion(string id, Evaluacion eval, bool consultar)
         {
@@ -27,12 +25,14 @@ namespace IICAPS_v1.Presentacion
             control = ControlIicaps.getInstance();
             try
             {
+                List<string> empleadosNombres = new List<string>();
                 foreach (Psicoterapeuta item in control.obtenerPsicoterapeutas())
                 {
                     empleadosNombres.Add(item.Nombre);
                     empleadosID.Add(item.Matricula);
                 }
                 cmbPsicoterapeutas.DataSource = empleadosNombres;
+                List<string> pacientesNombre = new List<string>();
                 foreach (Paciente item in control.obtenerPacientes())
                 {
                     pacientesNombre.Add(item.nombre + ' ' + item.apellidos);

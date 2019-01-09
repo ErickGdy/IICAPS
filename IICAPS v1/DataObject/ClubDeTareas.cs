@@ -9,7 +9,7 @@ namespace IICAPS_v1.DataObject
     public class ClubDeTareas
     {
         public int id { get; set; }
-        public int Psicoterapeuta { get; set; }
+        public string Psicoterapeuta { get; set; }
         public DateTime fecha { get; set; }
         public TimeSpan Hora { get; set; }
         public Reservacion reservacion { get; set; }

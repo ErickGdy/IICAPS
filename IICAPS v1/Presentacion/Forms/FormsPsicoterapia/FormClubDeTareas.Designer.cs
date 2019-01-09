@@ -55,7 +55,7 @@
             this.btnAceptar.Margin = new System.Windows.Forms.Padding(2);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(103, 40);
-            this.btnAceptar.TabIndex = 7;
+            this.btnAceptar.TabIndex = 6;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
@@ -67,7 +67,7 @@
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(103, 40);
-            this.btnCancelar.TabIndex = 8;
+            this.btnCancelar.TabIndex = 7;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -124,7 +124,7 @@
             this.txtObservaciones.Multiline = true;
             this.txtObservaciones.Name = "txtObservaciones";
             this.txtObservaciones.Size = new System.Drawing.Size(315, 94);
-            this.txtObservaciones.TabIndex = 72;
+            this.txtObservaciones.TabIndex = 5;
             // 
             // label6
             // 
@@ -145,7 +145,7 @@
             this.txtFecha.Margin = new System.Windows.Forms.Padding(2);
             this.txtFecha.Name = "txtFecha";
             this.txtFecha.Size = new System.Drawing.Size(84, 23);
-            this.txtFecha.TabIndex = 74;
+            this.txtFecha.TabIndex = 1;
             // 
             // txtCosto
             // 
@@ -165,7 +165,7 @@
             0});
             this.txtCosto.Name = "txtCosto";
             this.txtCosto.Size = new System.Drawing.Size(79, 23);
-            this.txtCosto.TabIndex = 75;
+            this.txtCosto.TabIndex = 3;
             // 
             // txtHora
             // 
@@ -177,7 +177,7 @@
             this.txtHora.Name = "txtHora";
             this.txtHora.ShowUpDown = true;
             this.txtHora.Size = new System.Drawing.Size(84, 23);
-            this.txtHora.TabIndex = 80;
+            this.txtHora.TabIndex = 2;
             // 
             // label2
             // 
@@ -199,7 +199,7 @@
             this.cmbPsicoteraputa.Margin = new System.Windows.Forms.Padding(2);
             this.cmbPsicoteraputa.Name = "cmbPsicoteraputa";
             this.cmbPsicoteraputa.Size = new System.Drawing.Size(315, 26);
-            this.cmbPsicoteraputa.TabIndex = 81;
+            this.cmbPsicoteraputa.TabIndex = 4;
             // 
             // label4
             // 
@@ -233,10 +233,11 @@
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormClubDeTareas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Registrar Taller";
+            this.Text = "Registrar Club de Tareas";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtCosto)).EndInit();

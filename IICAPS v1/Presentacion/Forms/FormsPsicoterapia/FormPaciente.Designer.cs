@@ -77,7 +77,7 @@
             this.btnAceptar.Margin = new System.Windows.Forms.Padding(2);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(103, 40);
-            this.btnAceptar.TabIndex = 7;
+            this.btnAceptar.TabIndex = 14;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
@@ -100,7 +100,7 @@
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(103, 40);
-            this.btnCancelar.TabIndex = 8;
+            this.btnCancelar.TabIndex = 15;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -166,7 +166,7 @@
             this.txtFecha.Margin = new System.Windows.Forms.Padding(2);
             this.txtFecha.Name = "txtFecha";
             this.txtFecha.Size = new System.Drawing.Size(89, 23);
-            this.txtFecha.TabIndex = 74;
+            this.txtFecha.TabIndex = 3;
             // 
             // txtCosto
             // 
@@ -186,7 +186,7 @@
             0});
             this.txtCosto.Name = "txtCosto";
             this.txtCosto.Size = new System.Drawing.Size(79, 23);
-            this.txtCosto.TabIndex = 75;
+            this.txtCosto.TabIndex = 4;
             // 
             // txtApellidos
             // 
@@ -195,7 +195,7 @@
             this.txtApellidos.Margin = new System.Windows.Forms.Padding(2);
             this.txtApellidos.Name = "txtApellidos";
             this.txtApellidos.Size = new System.Drawing.Size(290, 24);
-            this.txtApellidos.TabIndex = 76;
+            this.txtApellidos.TabIndex = 2;
             // 
             // label3
             // 
@@ -215,7 +215,7 @@
             this.txtTelefono.Margin = new System.Windows.Forms.Padding(2);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(176, 24);
-            this.txtTelefono.TabIndex = 78;
+            this.txtTelefono.TabIndex = 5;
             // 
             // label4
             // 
@@ -235,7 +235,7 @@
             this.txtNombreTutor.Margin = new System.Windows.Forms.Padding(2);
             this.txtNombreTutor.Name = "txtNombreTutor";
             this.txtNombreTutor.Size = new System.Drawing.Size(338, 24);
-            this.txtNombreTutor.TabIndex = 80;
+            this.txtNombreTutor.TabIndex = 8;
             // 
             // label6
             // 
@@ -255,7 +255,7 @@
             this.txtTelefonoTutor.Margin = new System.Windows.Forms.Padding(2);
             this.txtTelefonoTutor.Name = "txtTelefonoTutor";
             this.txtTelefonoTutor.Size = new System.Drawing.Size(170, 24);
-            this.txtTelefonoTutor.TabIndex = 82;
+            this.txtTelefonoTutor.TabIndex = 9;
             // 
             // label7
             // 
@@ -308,7 +308,7 @@
             this.txtDireccionFacturacion.Multiline = true;
             this.txtDireccionFacturacion.Name = "txtDireccionFacturacion";
             this.txtDireccionFacturacion.Size = new System.Drawing.Size(338, 48);
-            this.txtDireccionFacturacion.TabIndex = 86;
+            this.txtDireccionFacturacion.TabIndex = 13;
             // 
             // label11
             // 
@@ -328,7 +328,7 @@
             this.txtRazonSocial.Margin = new System.Windows.Forms.Padding(2);
             this.txtRazonSocial.Name = "txtRazonSocial";
             this.txtRazonSocial.Size = new System.Drawing.Size(338, 24);
-            this.txtRazonSocial.TabIndex = 84;
+            this.txtRazonSocial.TabIndex = 12;
             // 
             // label10
             // 
@@ -348,7 +348,7 @@
             this.txtNombreFacturacion.Margin = new System.Windows.Forms.Padding(2);
             this.txtNombreFacturacion.Name = "txtNombreFacturacion";
             this.txtNombreFacturacion.Size = new System.Drawing.Size(338, 24);
-            this.txtNombreFacturacion.TabIndex = 82;
+            this.txtNombreFacturacion.TabIndex = 11;
             // 
             // label8
             // 
@@ -368,7 +368,7 @@
             this.txtRFC.Margin = new System.Windows.Forms.Padding(2);
             this.txtRFC.Name = "txtRFC";
             this.txtRFC.Size = new System.Drawing.Size(199, 24);
-            this.txtRFC.TabIndex = 80;
+            this.txtRFC.TabIndex = 10;
             // 
             // label9
             // 
@@ -407,11 +407,12 @@
             // 
             // cmbPsicoterapeutas
             // 
+            this.cmbPsicoterapeutas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPsicoterapeutas.FormattingEnabled = true;
             this.cmbPsicoterapeutas.Location = new System.Drawing.Point(183, 231);
             this.cmbPsicoterapeutas.Name = "cmbPsicoterapeutas";
-            this.cmbPsicoterapeutas.Size = new System.Drawing.Size(251, 26);
-            this.cmbPsicoterapeutas.TabIndex = 83;
+            this.cmbPsicoterapeutas.Size = new System.Drawing.Size(290, 26);
+            this.cmbPsicoterapeutas.TabIndex = 7;
             // 
             // label13
             // 
@@ -430,8 +431,8 @@
             this.txtInsitutcion.Location = new System.Drawing.Point(183, 197);
             this.txtInsitutcion.Margin = new System.Windows.Forms.Padding(2);
             this.txtInsitutcion.Name = "txtInsitutcion";
-            this.txtInsitutcion.Size = new System.Drawing.Size(176, 24);
-            this.txtInsitutcion.TabIndex = 80;
+            this.txtInsitutcion.Size = new System.Drawing.Size(290, 24);
+            this.txtInsitutcion.TabIndex = 6;
             // 
             // label12
             // 
@@ -458,10 +459,11 @@
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormPaciente";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Registrar Taller";
+            this.Text = "Registrar Paciente";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtCosto)).EndInit();

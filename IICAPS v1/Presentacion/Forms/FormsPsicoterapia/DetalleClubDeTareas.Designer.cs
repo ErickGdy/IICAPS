@@ -120,7 +120,7 @@
             this.txtBuscar.Margin = new System.Windows.Forms.Padding(2);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(200, 24);
-            this.txtBuscar.TabIndex = 2;
+            this.txtBuscar.TabIndex = 3;
             this.txtBuscar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBuscar_KeyUp);
             // 
             // limpiarBusqueda
@@ -185,7 +185,7 @@
             this.btnActualizar.Location = new System.Drawing.Point(18, 71);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(30, 30);
-            this.btnActualizar.TabIndex = 40;
+            this.btnActualizar.TabIndex = 2;
             this.btnActualizar.UseVisualStyleBackColor = false;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
@@ -228,12 +228,13 @@
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.dataGridView1);
             this.ForeColor = System.Drawing.Color.White;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(800, 450);
             this.Name = "DetalleClubDeTareas";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Lista de asistentes";
+            this.Text = "Lista de Asistentes del Club de Tareas";
             this.SizeChanged += new System.EventHandler(this.Main_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.menuTablaAlumnos.ResumeLayout(false);

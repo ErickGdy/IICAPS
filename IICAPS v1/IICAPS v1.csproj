@@ -88,6 +88,7 @@
     <Compile Include="Control\ControlIicaps.cs" />
     <Compile Include="Control\DataGridViewPrinter.cs" />
     <Compile Include="Control\DocumentosWord.cs" />
+    <Compile Include="DataObject\Nomina.cs" />
     <Compile Include="DataObject\Psicoterapeuta.cs" />
     <Compile Include="DataObject\Reservacion.cs" />
     <Compile Include="DataObject\Paciente.cs" />
@@ -111,11 +112,35 @@
     <Compile Include="DataObject\DocumentosInscripcion.cs" />
     <Compile Include="DataObject\PaseDeListaAlumno.cs" />
     <Compile Include="DataObject\Usuario.cs" />
+    <Compile Include="Presentacion\Forms\FormsAdministracion\FormNomina.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAdministracion\FormNomina.Designer.cs">
+      <DependentUpon>FormNomina.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAdministracion\NominaPsicoterapeuta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAdministracion\NominaPsicoterapeuta.Designer.cs">
+      <DependentUpon>NominaPsicoterapeuta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAdministracion\PsicoterapeutaPacientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAdministracion\PsicoterapeutaPacientes.Designer.cs">
+      <DependentUpon>PsicoterapeutaPacientes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Forms\FormsAdministracion\FormEmpleados.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Presentacion\Forms\FormsAdministracion\FormEmpleados.Designer.cs">
       <DependentUpon>FormEmpleados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAdministracion\ReporteDePsicoterapeuta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsAdministracion\ReporteDePsicoterapeuta.designer.cs">
+      <DependentUpon>ReporteDePsicoterapeuta.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Forms\FormsAlumno\Alumnos.cs">
       <SubType>Form</SubType>
@@ -423,12 +448,6 @@
     <Compile Include="Presentacion\Mains\Psicoterapia\FormSeleccionReservacion.Designer.cs">
       <DependentUpon>FormSeleccionReservacion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Presentacion\Mains\Psicoterapia\FormSeleccionTipoReservacion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Presentacion\Mains\Psicoterapia\FormSeleccionTipoReservacion.Designer.cs">
-      <DependentUpon>FormSeleccionTipoReservacion.cs</DependentUpon>
-    </Compile>
     <Compile Include="Presentacion\Mains\Psicoterapia\MainAgenda.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -455,8 +474,20 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Presentacion\Forms\FormsAdministracion\FormNomina.resx">
+      <DependentUpon>FormNomina.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsAdministracion\NominaPsicoterapeuta.resx">
+      <DependentUpon>NominaPsicoterapeuta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsAdministracion\PsicoterapeutaPacientes.resx">
+      <DependentUpon>PsicoterapeutaPacientes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsAdministracion\FormEmpleados.resx">
       <DependentUpon>FormEmpleados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsAdministracion\ReporteDePsicoterapeuta.resx">
+      <DependentUpon>ReporteDePsicoterapeuta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsAlumno\Alumnos.resx">
       <DependentUpon>Alumnos.cs</DependentUpon>
@@ -610,9 +641,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Mains\Psicoterapia\FormSeleccionReservacion.resx">
       <DependentUpon>FormSeleccionReservacion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Presentacion\Mains\Psicoterapia\FormSeleccionTipoReservacion.resx">
-      <DependentUpon>FormSeleccionTipoReservacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Mains\Psicoterapia\MainAgenda.resx">
       <DependentUpon>MainAgenda.cs</DependentUpon>

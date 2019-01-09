@@ -61,7 +61,7 @@
             this.btnAceptar.Location = new System.Drawing.Point(182, 381);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 28);
-            this.btnAceptar.TabIndex = 5;
+            this.btnAceptar.TabIndex = 7;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
@@ -105,7 +105,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(314, 381);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 28);
-            this.btnCancelar.TabIndex = 6;
+            this.btnCancelar.TabIndex = 8;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -128,7 +128,7 @@
             this.txtObservaciones.Multiline = true;
             this.txtObservaciones.Name = "txtObservaciones";
             this.txtObservaciones.Size = new System.Drawing.Size(240, 80);
-            this.txtObservaciones.TabIndex = 4;
+            this.txtObservaciones.TabIndex = 5;
             // 
             // label4
             // 
@@ -217,7 +217,7 @@
             this.cmbAlumno.Location = new System.Drawing.Point(182, 167);
             this.cmbAlumno.Name = "cmbAlumno";
             this.cmbAlumno.Size = new System.Drawing.Size(335, 26);
-            this.cmbAlumno.TabIndex = 68;
+            this.cmbAlumno.TabIndex = 2;
             // 
             // cmbPrograma
             // 
@@ -227,7 +227,7 @@
             this.cmbPrograma.Location = new System.Drawing.Point(182, 136);
             this.cmbPrograma.Name = "cmbPrograma";
             this.cmbPrograma.Size = new System.Drawing.Size(335, 26);
-            this.cmbPrograma.TabIndex = 67;
+            this.cmbPrograma.TabIndex = 1;
             this.cmbPrograma.SelectedIndexChanged += new System.EventHandler(this.cmbPrograma_SelectedIndexChanged);
             // 
             // cmbConcepto
@@ -238,7 +238,7 @@
             this.cmbConcepto.Location = new System.Drawing.Point(182, 229);
             this.cmbConcepto.Name = "cmbConcepto";
             this.cmbConcepto.Size = new System.Drawing.Size(335, 26);
-            this.cmbConcepto.TabIndex = 71;
+            this.cmbConcepto.TabIndex = 4;
             // 
             // label3
             // 
@@ -269,7 +269,7 @@
             this.cmbRecibio.Location = new System.Drawing.Point(182, 349);
             this.cmbRecibio.Name = "cmbRecibio";
             this.cmbRecibio.Size = new System.Drawing.Size(335, 26);
-            this.cmbRecibio.TabIndex = 73;
+            this.cmbRecibio.TabIndex = 6;
             // 
             // label7
             // 
@@ -308,6 +308,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormRegistrarPago";
             this.Text = "Registrar Pago";
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();

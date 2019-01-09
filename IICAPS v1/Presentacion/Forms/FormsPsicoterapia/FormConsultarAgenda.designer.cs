@@ -30,7 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormConsultarAgenda));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.menuTabla = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.seleccionarFechaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.datePicker_Fecha = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -55,11 +58,9 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.menuTabla = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.seleccionarFechaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.panel1.SuspendLayout();
             this.menuTabla.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -85,6 +86,20 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
+            // menuTabla
+            // 
+            this.menuTabla.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.seleccionarFechaToolStripMenuItem});
+            this.menuTabla.Name = "menuTabla";
+            this.menuTabla.Size = new System.Drawing.Size(169, 26);
+            // 
+            // seleccionarFechaToolStripMenuItem
+            // 
+            this.seleccionarFechaToolStripMenuItem.Name = "seleccionarFechaToolStripMenuItem";
+            this.seleccionarFechaToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.seleccionarFechaToolStripMenuItem.Text = "Seleccionar Fecha";
+            this.seleccionarFechaToolStripMenuItem.Click += new System.EventHandler(this.seleccionarFechaToolStripMenuItem_Click);
+            // 
             // datePicker_Fecha
             // 
             this.datePicker_Fecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
@@ -92,7 +107,7 @@
             this.datePicker_Fecha.Location = new System.Drawing.Point(272, 8);
             this.datePicker_Fecha.Name = "datePicker_Fecha";
             this.datePicker_Fecha.Size = new System.Drawing.Size(106, 26);
-            this.datePicker_Fecha.TabIndex = 82;
+            this.datePicker_Fecha.TabIndex = 1;
             // 
             // label1
             // 
@@ -109,7 +124,7 @@
             this.button1.Location = new System.Drawing.Point(889, 8);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 83;
+            this.button1.TabIndex = 5;
             this.button1.Text = "Filtrar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Filtro_Click);
@@ -124,7 +139,7 @@
             this.filtroHoraInicio.Name = "filtroHoraInicio";
             this.filtroHoraInicio.ShowUpDown = true;
             this.filtroHoraInicio.Size = new System.Drawing.Size(93, 26);
-            this.filtroHoraInicio.TabIndex = 84;
+            this.filtroHoraInicio.TabIndex = 2;
             this.filtroHoraInicio.Value = new System.DateTime(2018, 12, 12, 9, 0, 0, 0);
             // 
             // filtroHoraFin
@@ -137,7 +152,7 @@
             this.filtroHoraFin.Name = "filtroHoraFin";
             this.filtroHoraFin.ShowUpDown = true;
             this.filtroHoraFin.Size = new System.Drawing.Size(93, 26);
-            this.filtroHoraFin.TabIndex = 85;
+            this.filtroHoraFin.TabIndex = 3;
             this.filtroHoraFin.Value = new System.DateTime(2018, 12, 12, 22, 0, 0, 0);
             // 
             // label2
@@ -181,7 +196,7 @@
             this.cmbIntervalo.Location = new System.Drawing.Point(755, 6);
             this.cmbIntervalo.Name = "cmbIntervalo";
             this.cmbIntervalo.Size = new System.Drawing.Size(115, 28);
-            this.cmbIntervalo.TabIndex = 89;
+            this.cmbIntervalo.TabIndex = 4;
             // 
             // panel1
             // 
@@ -337,20 +352,6 @@
             this.label11.TabIndex = 89;
             this.label11.Text = "Concepto:";
             // 
-            // menuTabla
-            // 
-            this.menuTabla.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.seleccionarFechaToolStripMenuItem});
-            this.menuTabla.Name = "menuTabla";
-            this.menuTabla.Size = new System.Drawing.Size(169, 26);
-            // 
-            // seleccionarFechaToolStripMenuItem
-            // 
-            this.seleccionarFechaToolStripMenuItem.Name = "seleccionarFechaToolStripMenuItem";
-            this.seleccionarFechaToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
-            this.seleccionarFechaToolStripMenuItem.Text = "Seleccionar Fecha";
-            this.seleccionarFechaToolStripMenuItem.Click += new System.EventHandler(this.seleccionarFechaToolStripMenuItem_Click);
-            // 
             // FormConsultarAgenda
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -367,15 +368,17 @@
             this.Controls.Add(this.datePicker_Fecha);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 400);
             this.Name = "FormConsultarAgenda";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Agenda";
             this.TopMost = true;
             this.SizeChanged += new System.EventHandler(this.FormConsultarAgenda_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.menuTabla.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.menuTabla.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

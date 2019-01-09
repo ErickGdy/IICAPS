@@ -15,12 +15,20 @@ namespace IICAPS_v1.Presentacion
     public partial class FormPaciente : Form
     {
         ControlIicaps control;
-        Paciente paciente;  
+        Paciente paciente;
+        List<string> empleadosNombres = new List<string>();
         public FormPaciente(Paciente paciente)
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
-            if(paciente==null)
+            List<string> empleadosID = new List<string>();
+            foreach (Psicoterapeuta item in control.obtenerPsicoterapeutas())
+            {
+                empleadosNombres.Add(item.Nombre);
+                empleadosID.Add(item.Matricula);
+            }
+            cmbPsicoterapeutas.DataSource = empleadosNombres;
+            if (paciente==null)
                 this.paciente = new Paciente();
             else
             {

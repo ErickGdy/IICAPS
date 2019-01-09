@@ -328,7 +328,7 @@
             this.btnCerrar.Location = new System.Drawing.Point(382, 242);
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(99, 38);
-            this.btnCerrar.TabIndex = 53;
+            this.btnCerrar.TabIndex = 2;
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.UseVisualStyleBackColor = true;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
@@ -439,7 +439,7 @@
             this.linkDatosFacturacion.Location = new System.Drawing.Point(732, 219);
             this.linkDatosFacturacion.Name = "linkDatosFacturacion";
             this.linkDatosFacturacion.Size = new System.Drawing.Size(147, 13);
-            this.linkDatosFacturacion.TabIndex = 87;
+            this.linkDatosFacturacion.TabIndex = 1;
             this.linkDatosFacturacion.TabStop = true;
             this.linkDatosFacturacion.Text = "Mostrar Datos de Facturación";
             this.linkDatosFacturacion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkDatosFacturacion_LinkClicked);
@@ -571,10 +571,12 @@
             this.Controls.Add(this.lblFecha);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.panelDatos);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(900, 600);
             this.Name = "ReporteDePaciente";
-            this.Text = "ReporteDeSesiones";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Reporte De Paciente";
             this.SizeChanged += new System.EventHandler(this.ReporteDeSesiones_SizeChanged);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

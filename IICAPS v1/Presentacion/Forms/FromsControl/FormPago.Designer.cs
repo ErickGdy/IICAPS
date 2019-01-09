@@ -280,6 +280,7 @@
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.pictureBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormPago";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Registrar Pago";

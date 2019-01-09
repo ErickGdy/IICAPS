@@ -24,7 +24,6 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
         List<TimeSpan> intervalos = new List<TimeSpan>();
         TimeSpan last_Intervalo;
         DateTime last_Fecha;
-        FormSeleccionTipoReservacion formTipo;
         private DateTime fecha;
         private TimeSpan hora;
         private string ubicacion;
@@ -265,40 +264,14 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            formTipo = new FormSeleccionTipoReservacion();
-            formTipo.FormClosed += new FormClosedEventHandler(form_Closed2);
-            formTipo.ShowDialog();
-        }
-
-        public void form_Closed2(object sender, FormClosedEventArgs e)
-        {
-            try
-            {
-                Parent.SendToBack();
-                string tipo = formTipo.getTipo();
-                formTipo.Dispose();
-                switch (tipo)
-                {
-                    case "Sesión":
-                        break;
-                    case "Evaluación":
-                        break;
-                    case "Club de Tareas":
-                        break;
-                    case "Otro":
-                        FormReservacion frs = new FormReservacion(null,fecha,hora, ubicacion,false, "Otro", "Psicoterapia");
-                        frs.BringToFront();
-                        frs.FormClosed += new FormClosedEventHandler(form_Closed);
-                        frs.Show();
-                        break;
-                    default:
-                        break;
-                }
-            }
-            catch (Exception ex) { }
+            FormReservacion frs = new FormReservacion(null,true, false, null, "Psicoterapia");
+            frs.BringToFront();
+            frs.FormClosed += new FormClosedEventHandler(form_Closed);
+            frs.Show();
         }
         public void form_Closed(object sender, FormClosedEventArgs e)
         {
+            FillDatos();
             Filtro_Click(null, null);
         }
 
@@ -417,10 +390,14 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
 
         private void agendarAquiToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.fecha = datePicker_Fecha.Value;
-            this.hora = new TimeSpan(Convert.ToInt32(dataGridView1.CurrentCell.OwningColumn.HeaderText.Substring(0, 2)), Convert.ToInt32(dataGridView1.CurrentCell.OwningColumn.HeaderText.Substring(3)), 0);
-            this.ubicacion = dataGridView1.CurrentCell.OwningRow.HeaderCell.Value.ToString();
-            btnAgregar_Click(null,null);
+            try
+            {
+                this.fecha = datePicker_Fecha.Value;
+                this.hora = new TimeSpan(Convert.ToInt32(dataGridView1.CurrentCell.OwningColumn.HeaderText.Substring(0, 2)), Convert.ToInt32(dataGridView1.CurrentCell.OwningColumn.HeaderText.Substring(3)), 0);
+                this.ubicacion = dataGridView1.CurrentCell.OwningRow.HeaderCell.Value.ToString();
+                btnAgregar_Click(null, null);
+            }
+            catch (Exception ex) { }
         }
     }
 }

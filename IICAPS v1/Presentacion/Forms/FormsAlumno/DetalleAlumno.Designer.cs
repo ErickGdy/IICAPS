@@ -151,7 +151,7 @@
             this.linkLabel1.Location = new System.Drawing.Point(38, 17);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(106, 20);
-            this.linkLabel1.TabIndex = 42;
+            this.linkLabel1.TabIndex = 1;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Calificaciones";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
@@ -163,7 +163,7 @@
             this.linkLabel2.Location = new System.Drawing.Point(38, 45);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(121, 20);
-            this.linkLabel2.TabIndex = 43;
+            this.linkLabel2.TabIndex = 2;
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Text = "Documentacion";
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
@@ -175,7 +175,7 @@
             this.linkLabel3.Location = new System.Drawing.Point(38, 77);
             this.linkLabel3.Name = "linkLabel3";
             this.linkLabel3.Size = new System.Drawing.Size(135, 20);
-            this.linkLabel3.TabIndex = 44;
+            this.linkLabel3.TabIndex = 3;
             this.linkLabel3.TabStop = true;
             this.linkLabel3.Text = "Datos Personales";
             this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);
@@ -187,7 +187,7 @@
             this.linkLabel5.Location = new System.Drawing.Point(38, 108);
             this.linkLabel5.Name = "linkLabel5";
             this.linkLabel5.Size = new System.Drawing.Size(158, 20);
-            this.linkLabel5.TabIndex = 46;
+            this.linkLabel5.TabIndex = 4;
             this.linkLabel5.TabStop = true;
             this.linkLabel5.Text = "Situacion Academica";
             this.linkLabel5.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel5_LinkClicked);
@@ -213,7 +213,7 @@
             this.linkInscripciones.Location = new System.Drawing.Point(38, 138);
             this.linkInscripciones.Name = "linkInscripciones";
             this.linkInscripciones.Size = new System.Drawing.Size(102, 20);
-            this.linkInscripciones.TabIndex = 47;
+            this.linkInscripciones.TabIndex = 5;
             this.linkInscripciones.TabStop = true;
             this.linkInscripciones.Text = "Inscripciones";
             this.linkInscripciones.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkInscripciones_LinkClicked);
@@ -1098,7 +1098,7 @@
             this.cmbProgramaSitacionAcademica.Location = new System.Drawing.Point(131, 72);
             this.cmbProgramaSitacionAcademica.Name = "cmbProgramaSitacionAcademica";
             this.cmbProgramaSitacionAcademica.Size = new System.Drawing.Size(289, 21);
-            this.cmbProgramaSitacionAcademica.TabIndex = 54;
+            this.cmbProgramaSitacionAcademica.TabIndex = 16;
             // 
             // label81
             // 
@@ -1158,6 +1158,7 @@
             // 
             // cmbGrupos
             // 
+            this.cmbGrupos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGrupos.FormattingEnabled = true;
             this.cmbGrupos.Location = new System.Drawing.Point(175, 161);
             this.cmbGrupos.Name = "cmbGrupos";

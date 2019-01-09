@@ -49,7 +49,7 @@
             this.btnAceptar.Location = new System.Drawing.Point(175, 227);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(103, 40);
-            this.btnAceptar.TabIndex = 7;
+            this.btnAceptar.TabIndex = 3;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
@@ -82,7 +82,7 @@
             this.cmbGrupoNombres.Location = new System.Drawing.Point(175, 175);
             this.cmbGrupoNombres.Name = "cmbGrupoNombres";
             this.cmbGrupoNombres.Size = new System.Drawing.Size(240, 21);
-            this.cmbGrupoNombres.TabIndex = 6;
+            this.cmbGrupoNombres.TabIndex = 2;
             // 
             // cmbGrupoID
             // 
@@ -131,7 +131,7 @@
             this.cmbAlumnoNombres.Location = new System.Drawing.Point(175, 137);
             this.cmbAlumnoNombres.Name = "cmbAlumnoNombres";
             this.cmbAlumnoNombres.Size = new System.Drawing.Size(240, 21);
-            this.cmbAlumnoNombres.TabIndex = 65;
+            this.cmbAlumnoNombres.TabIndex = 1;
             // 
             // label1
             // 
@@ -159,10 +159,11 @@
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.pictureBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormInscricionGrupos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Registrar Grupo";
+            this.Text = "Registrar Alumno en Grupo";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

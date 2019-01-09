@@ -16,19 +16,24 @@ namespace IICAPS_v1.Presentacion
     public partial class FormReservacion : Form
     {
         ControlIicaps control = ControlIicaps.getInstance();
-        Reservacion reservacion;
+        Reservacion reservacion = new Reservacion();
         FormConsultarAgenda fa;
+
         List<String> empleados;
+        int empleadosCount = 0;
+        int psicoterapeutasCount = 0;
+
         List<Reservacion> reservaciones;
         bool consultar;
 
         public FormReservacion(Reservacion reservacion, bool agregar, bool cons, string concepto, string modulo)
         {
             InitializeComponent();
+            control = ControlIicaps.getInstance();
             try
             {
-                datePicker_Fecha.MinDate = DateTime.Now;
                 cmbUbicacion.Items.AddRange(control.consultarUbicaciones().ToArray());
+                cmbUbicacion.SelectedIndex = 0;
                 reservaciones = control.obtenerReservaciones(DateTime.Now);
                 this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
                 if (agregar)
@@ -37,9 +42,7 @@ namespace IICAPS_v1.Presentacion
                     this.btnAceptar.Click += new System.EventHandler(this.btnAceptarAgregar_Click);
                 }
                 consultar = cons;
-                control = ControlIicaps.getInstance();
                 lblFecha.Text = DateTime.Now.ToShortDateString();
-                empleados = new List<string>();
                 List<String> aux = new List<string>();
                 foreach (string c in control.obtenerConceptos("Reservacion", modulo))
                 {
@@ -47,14 +50,7 @@ namespace IICAPS_v1.Presentacion
                 }
                 cmbConcepto.Items.AddRange(aux.ToArray());
                 cmbConcepto.Items.Add("Otro");
-                aux.Clear();
-                foreach (Empleado e in control.obtenerEmpleados())
-                {
-                    aux.Add(e.Nombre);
-                    empleados.Add(e.Matricula);
-                }
-                cmbReservante.Items.AddRange(aux.ToArray());
-                cmbUbicacion.SelectedIndex = 0;
+                Llenar_ComboBox_Personal();
                 if (reservacion != null)
                 {
                     this.reservacion = reservacion;
@@ -86,7 +82,8 @@ namespace IICAPS_v1.Presentacion
                 }
                 else
                 {
-                    lblCodigo_Reservacion.Text = control.obtenerUltimoIDReservaciones().ToString();
+                    datePicker_Fecha.MinDate = DateTime.Now;
+                    lblCodigo_Reservacion.Text = control.obtenerUltimoIDReservaciones().ToString("00000000");
                     this.reservacion = new Reservacion();
                     if (concepto != null && concepto != "")
                     {
@@ -97,19 +94,16 @@ namespace IICAPS_v1.Presentacion
                 }
             }
             catch (Exception ex) { }
-            this.BringToFront();
         }
         public FormReservacion(Reservacion reservacion, DateTime fecha, TimeSpan hora, string ubicacion, bool cons, string concepto, string modulo)
         {
             InitializeComponent();
             try
             {
-                datePicker_Fecha.MinDate = DateTime.Now;
                 this.btnAceptar.Click += new System.EventHandler(this.btnAceptarAgregar_Click);
                 consultar = cons;
                 control = ControlIicaps.getInstance();
                 lblFecha.Text = DateTime.Now.ToShortDateString();
-                empleados = new List<string>();
                 List<String> aux = new List<string>();
                 foreach (string c in control.obtenerConceptos("Reservacion", modulo))
                 {
@@ -118,18 +112,13 @@ namespace IICAPS_v1.Presentacion
                 cmbConcepto.Items.AddRange(aux.ToArray());
                 cmbConcepto.Items.Add("Otro");
                 cmbUbicacion.Items.AddRange(control.consultarUbicaciones().ToArray());
-                aux.Clear();
-                foreach (Empleado e in control.obtenerEmpleados())
-                {
-                    aux.Add(e.Nombre);
-                    empleados.Add(e.Matricula);
-                }
-                cmbReservante.Items.AddRange(aux.ToArray());
+                Llenar_ComboBox_Personal();
                 //Validar datos y setearlos a los campos de texto
                 if (fecha != null)
                 {
+                    fecha=new DateTime(fecha.Year, fecha.Month, fecha.Day, 23, 59, 59);
                     reservaciones = control.obtenerReservaciones(fecha);
-                    datePicker_Fecha.Text = fecha.ToShortDateString();
+                    datePicker_Fecha.Value = fecha;
                 }
                 else
                     reservaciones = control.obtenerReservaciones(DateTime.Now);
@@ -170,7 +159,8 @@ namespace IICAPS_v1.Presentacion
                 }
                 else
                 {
-                    lblCodigo_Reservacion.Text = control.obtenerUltimoIDReservaciones().ToString();
+                    datePicker_Fecha.MinDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 00, 00, 00);
+                    lblCodigo_Reservacion.Text = control.obtenerUltimoIDReservaciones().ToString("00000000");
                     this.reservacion = new Reservacion();
                 }
                 if (concepto != null && concepto != "")
@@ -181,7 +171,6 @@ namespace IICAPS_v1.Presentacion
                 validarDisponibilidad();
             }
             catch (Exception ex) { }
-            this.BringToFront();
         }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -232,10 +221,11 @@ namespace IICAPS_v1.Presentacion
                     reservacion.reservante = empleados.ElementAt(cmbReservante.SelectedIndex);
                     reservacion.id_parent = "0";
                     reservacion.codigo_Reservacion = lblCodigo_Reservacion.Text;
-                    if (reservacion.id != 0)
+                    if (reservacion.id == 0)
                     {
                         if (control.agregarReservacion(reservacion))
                         {
+                            MessageBox.Show("Reservación registrada exitosamente");
                             Close();
                             Dispose();
                         }
@@ -246,6 +236,7 @@ namespace IICAPS_v1.Presentacion
                     {
                         if (control.actualizarReservacion(reservacion))
                         {
+                            MessageBox.Show("Reservación actualizada exitosamente");
                             Close();
                             Dispose();
                         }
@@ -269,7 +260,7 @@ namespace IICAPS_v1.Presentacion
         }
         private bool validarCampos()
         {
-            if (txtHoras.Value > 0 && txtMinutos.Value > 0 && cmbConcepto.SelectedIndex >= 0 && cmbReservante.SelectedIndex >= 0 && cmbUbicacion.SelectedIndex >=0)
+            if (cmbConcepto.SelectedIndex >= 0 && cmbReservante.SelectedIndex >= 0 && cmbUbicacion.SelectedIndex >=0)
                 return true;
             else
                 return false;
@@ -323,31 +314,39 @@ namespace IICAPS_v1.Presentacion
 
         private bool validarDisponibilidad()
         {
-            TimeSpan hora_Inicio = new TimeSpan(datePicker_Hora.Value.Hour, datePicker_Hora.Value.Minute, 0);
-            TimeSpan hora_Fin = hora_Inicio.Add(new TimeSpan(Convert.ToInt32(txtHoras.Value),Convert.ToInt32(txtMinutos.Value),0));
-            if(reservaciones!=null)
-                foreach (Reservacion aux in reservaciones)
-                {
-                    if (aux.ubicacion == cmbUbicacion.SelectedItem.ToString())
+            try
+            {
+                TimeSpan hora_Inicio = new TimeSpan(datePicker_Hora.Value.Hour, datePicker_Hora.Value.Minute, 0);
+                TimeSpan hora_Fin = hora_Inicio.Add(new TimeSpan(Convert.ToInt32(txtHoras.Value), Convert.ToInt32(txtMinutos.Value), 0));
+                if (reservaciones != null)
+                    foreach (Reservacion aux in reservaciones)
                     {
-                        hora_Inicio.CompareTo(aux.hora_Inicio);//>= 0
-                        hora_Inicio.CompareTo(aux.hora_Fin);//<0
-                        hora_Fin.CompareTo(aux.hora_Inicio);//>0
-                        hora_Fin.CompareTo(aux.hora_Fin);//<= 0
-                        if ((hora_Inicio.CompareTo(aux.hora_Inicio) >= 0 && hora_Inicio.CompareTo(aux.hora_Fin) < 0) || (hora_Fin.CompareTo(aux.hora_Inicio) > 0 && hora_Fin.CompareTo(aux.hora_Fin) <= 0))
+                        if (aux.ubicacion == cmbUbicacion.SelectedItem.ToString())
                         {
-                            btnDisponible.Visible = false; 
-                            return false;
-                        }
-                        if ((aux.hora_Inicio.CompareTo(hora_Inicio) >= 0 && aux.hora_Inicio.CompareTo(hora_Fin) < 0) || (aux.hora_Fin.CompareTo(hora_Inicio) > 0 && aux.hora_Fin.CompareTo(hora_Fin) <= 0))
-                        {
-                            btnDisponible.Visible = false; 
-                            return false;
+                            hora_Inicio.CompareTo(aux.hora_Inicio);//>= 0
+                            hora_Inicio.CompareTo(aux.hora_Fin);//<0
+                            hora_Fin.CompareTo(aux.hora_Inicio);//>0
+                            hora_Fin.CompareTo(aux.hora_Fin);//<= 0
+                            if ((hora_Inicio.CompareTo(aux.hora_Inicio) >= 0 && hora_Inicio.CompareTo(aux.hora_Fin) < 0) || (hora_Fin.CompareTo(aux.hora_Inicio) > 0 && hora_Fin.CompareTo(aux.hora_Fin) <= 0))
+                            {
+                                btnDisponible.Visible = false;
+                                return false;
+                            }
+                            if ((aux.hora_Inicio.CompareTo(hora_Inicio) >= 0 && aux.hora_Inicio.CompareTo(hora_Fin) < 0) || (aux.hora_Fin.CompareTo(hora_Inicio) > 0 && aux.hora_Fin.CompareTo(hora_Fin) <= 0))
+                            {
+                                btnDisponible.Visible = false;
+                                return false;
+                            }
                         }
                     }
-                }
-            btnDisponible.Visible = true; 
-            return true;
+                btnDisponible.Visible = true;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                btnDisponible.Visible = false;
+                return false;
+            }
         }
 
         private void datePicker_Hora_ValueChanged(object sender, EventArgs e)
@@ -377,6 +376,35 @@ namespace IICAPS_v1.Presentacion
                 btnAceptar.Enabled = true;
             else
                 btnAceptar.Enabled = false;
+        }
+        private void Llenar_ComboBox_Personal()
+        {
+            empleados = new List<string>();
+            List<String> aux = new List<string>();
+            try
+            {
+                List<Empleado> lista = new List<Empleado>();
+                lista = control.obtenerEmpleados();
+                empleadosCount = lista.Count;
+                foreach (Empleado e in lista)
+                {
+                    aux.Add("E: " + e.Nombre);
+                    empleados.Add(e.Matricula);
+                }
+            }
+            catch (Exception ex) { }
+            try
+            {
+                List<Psicoterapeuta> lista = new List<Psicoterapeuta>();
+                lista = control.obtenerPsicoterapeutas();
+                foreach (Psicoterapeuta e in lista)
+                {
+                    aux.Add("P: "+e.Nombre);
+                    empleados.Add(e.Matricula);
+                }
+            }
+            catch (Exception ex) { }
+            cmbReservante.Items.AddRange(aux.ToArray());
         }
     }
 }

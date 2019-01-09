@@ -39,6 +39,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabDatosAlumno = new System.Windows.Forms.TabControl();
             this.tabInfoAlumno = new System.Windows.Forms.TabPage();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.btnNext = new System.Windows.Forms.Button();
             this.cmbSexo = new System.Windows.Forms.ComboBox();
             this.cmbEstadoCivil = new System.Windows.Forms.ComboBox();
@@ -61,30 +63,28 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tabInfoAcademica = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
             this.cmbNombresPrograma = new System.Windows.Forms.ComboBox();
             this.btnPrev = new System.Windows.Forms.Button();
             this.cmbPrograma = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.txtEscuelaProcedencia = new System.Windows.Forms.TextBox();
+            this.tabObserCons = new System.Windows.Forms.TabPage();
+            this.txtMatricula = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtObservaciones = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lblFecha = new System.Windows.Forms.Label();
-            this.tabObserCons = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.txtObservaciones = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-            this.label17 = new System.Windows.Forms.Label();
-            this.txtMatricula = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabDatosAlumno.SuspendLayout();
             this.tabInfoAlumno.SuspendLayout();
             this.tabInfoAcademica.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabObserCons.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // cmbNivel
@@ -147,7 +147,7 @@
             this.btnBorrar.Location = new System.Drawing.Point(512, 125);
             this.btnBorrar.Name = "btnBorrar";
             this.btnBorrar.Size = new System.Drawing.Size(90, 29);
-            this.btnBorrar.TabIndex = 12;
+            this.btnBorrar.TabIndex = 22;
             this.btnBorrar.Text = "Limpiar";
             this.btnBorrar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBorrar.UseVisualStyleBackColor = true;
@@ -159,7 +159,7 @@
             this.btnAceptar.Location = new System.Drawing.Point(187, 382);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(110, 43);
-            this.btnAceptar.TabIndex = 11;
+            this.btnAceptar.TabIndex = 20;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
@@ -223,6 +223,28 @@
             this.tabInfoAlumno.Text = "Datos del Alumno";
             this.tabInfoAlumno.UseVisualStyleBackColor = true;
             // 
+            // linkLabel2
+            // 
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Location = new System.Drawing.Point(272, 194);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(102, 18);
+            this.linkLabel2.TabIndex = 53;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "Consulta RFC";
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(103, 194);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(114, 18);
+            this.linkLabel1.TabIndex = 52;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Consulta CURP";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
             // btnNext
             // 
             this.btnNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -231,7 +253,7 @@
             this.btnNext.Location = new System.Drawing.Point(506, 194);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(74, 25);
-            this.btnNext.TabIndex = 51;
+            this.btnNext.TabIndex = 11;
             this.btnNext.Text = "Siguiente";
             this.btnNext.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNext.UseVisualStyleBackColor = true;
@@ -453,6 +475,20 @@
             this.tabInfoAcademica.Text = "Información Académica";
             this.tabInfoAcademica.UseVisualStyleBackColor = true;
             // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
+            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button2.Location = new System.Drawing.Point(509, 192);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(74, 25);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "Siguiente";
+            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // cmbNombresPrograma
             // 
             this.cmbNombresPrograma.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -461,7 +497,7 @@
             this.cmbNombresPrograma.Location = new System.Drawing.Point(223, 141);
             this.cmbNombresPrograma.Name = "cmbNombresPrograma";
             this.cmbNombresPrograma.Size = new System.Drawing.Size(346, 26);
-            this.cmbNombresPrograma.TabIndex = 56;
+            this.cmbNombresPrograma.TabIndex = 4;
             this.cmbNombresPrograma.SelectedValueChanged += new System.EventHandler(this.cmbNombresPrograma_SelectedValueChanged);
             // 
             // btnPrev
@@ -506,13 +542,78 @@
             this.txtEscuelaProcedencia.Size = new System.Drawing.Size(344, 24);
             this.txtEscuelaProcedencia.TabIndex = 1;
             // 
+            // tabObserCons
+            // 
+            this.tabObserCons.Controls.Add(this.txtMatricula);
+            this.tabObserCons.Controls.Add(this.label17);
+            this.tabObserCons.Controls.Add(this.label16);
+            this.tabObserCons.Controls.Add(this.txtObservaciones);
+            this.tabObserCons.Controls.Add(this.button1);
+            this.tabObserCons.Location = new System.Drawing.Point(4, 27);
+            this.tabObserCons.Name = "tabObserCons";
+            this.tabObserCons.Padding = new System.Windows.Forms.Padding(3);
+            this.tabObserCons.Size = new System.Drawing.Size(588, 222);
+            this.tabObserCons.TabIndex = 2;
+            this.tabObserCons.Text = "Observaciones";
+            this.tabObserCons.UseVisualStyleBackColor = true;
+            // 
+            // txtMatricula
+            // 
+            this.txtMatricula.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMatricula.Location = new System.Drawing.Point(223, 134);
+            this.txtMatricula.Name = "txtMatricula";
+            this.txtMatricula.Size = new System.Drawing.Size(344, 24);
+            this.txtMatricula.TabIndex = 2;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.label17.Location = new System.Drawing.Point(126, 134);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(92, 20);
+            this.label17.TabIndex = 55;
+            this.label17.Text = "Matrícula: ";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.label16.Location = new System.Drawing.Point(81, 26);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(137, 20);
+            this.label16.TabIndex = 54;
+            this.label16.Text = "Observaciones: ";
+            // 
+            // txtObservaciones
+            // 
+            this.txtObservaciones.Location = new System.Drawing.Point(224, 26);
+            this.txtObservaciones.Multiline = true;
+            this.txtObservaciones.Name = "txtObservaciones";
+            this.txtObservaciones.Size = new System.Drawing.Size(343, 102);
+            this.txtObservaciones.TabIndex = 1;
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(6, 191);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(74, 25);
+            this.button1.TabIndex = 56;
+            this.button1.Text = "Anterior";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // btnCancelar
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
             this.btnCancelar.Location = new System.Drawing.Point(319, 382);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(110, 43);
-            this.btnCancelar.TabIndex = 13;
+            this.btnCancelar.TabIndex = 21;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -553,107 +654,6 @@
             this.lblFecha.TabIndex = 33;
             this.lblFecha.Text = "10/12/2010";
             // 
-            // tabObserCons
-            // 
-            this.tabObserCons.Controls.Add(this.txtMatricula);
-            this.tabObserCons.Controls.Add(this.label17);
-            this.tabObserCons.Controls.Add(this.label16);
-            this.tabObserCons.Controls.Add(this.txtObservaciones);
-            this.tabObserCons.Controls.Add(this.button1);
-            this.tabObserCons.Location = new System.Drawing.Point(4, 27);
-            this.tabObserCons.Name = "tabObserCons";
-            this.tabObserCons.Padding = new System.Windows.Forms.Padding(3);
-            this.tabObserCons.Size = new System.Drawing.Size(588, 222);
-            this.tabObserCons.TabIndex = 2;
-            this.tabObserCons.Text = "Observaciones";
-            this.tabObserCons.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(6, 191);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(74, 25);
-            this.button1.TabIndex = 56;
-            this.button1.Text = "Anterior";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button2.Location = new System.Drawing.Point(509, 192);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(74, 25);
-            this.button2.TabIndex = 52;
-            this.button2.Text = "Siguiente";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // txtObservaciones
-            // 
-            this.txtObservaciones.Location = new System.Drawing.Point(224, 26);
-            this.txtObservaciones.Multiline = true;
-            this.txtObservaciones.Name = "txtObservaciones";
-            this.txtObservaciones.Size = new System.Drawing.Size(343, 102);
-            this.txtObservaciones.TabIndex = 57;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.label16.Location = new System.Drawing.Point(81, 26);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(137, 20);
-            this.label16.TabIndex = 54;
-            this.label16.Text = "Observaciones: ";
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(103, 194);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(114, 18);
-            this.linkLabel1.TabIndex = 52;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Consulta CURP";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
-            // linkLabel2
-            // 
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(272, 194);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(102, 18);
-            this.linkLabel2.TabIndex = 53;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "Consulta RFC";
-            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.label17.Location = new System.Drawing.Point(126, 134);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(92, 20);
-            this.label17.TabIndex = 55;
-            this.label17.Text = "Matrícula: ";
-            // 
-            // txtMatricula
-            // 
-            this.txtMatricula.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMatricula.Location = new System.Drawing.Point(223, 134);
-            this.txtMatricula.Name = "txtMatricula";
-            this.txtMatricula.Size = new System.Drawing.Size(344, 24);
-            this.txtMatricula.TabIndex = 34;
-            // 
             // Alumnos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -668,6 +668,7 @@
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.tabDatosAlumno);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Alumnos";
             this.Text = "Alumnos";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -676,9 +677,9 @@
             this.tabInfoAlumno.PerformLayout();
             this.tabInfoAcademica.ResumeLayout(false);
             this.tabInfoAcademica.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tabObserCons.ResumeLayout(false);
             this.tabObserCons.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -59,7 +59,7 @@
             this.btnAceptar.Margin = new System.Windows.Forms.Padding(2);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(103, 40);
-            this.btnAceptar.TabIndex = 7;
+            this.btnAceptar.TabIndex = 8;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
@@ -71,7 +71,7 @@
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(103, 40);
-            this.btnCancelar.TabIndex = 8;
+            this.btnCancelar.TabIndex = 9;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -90,28 +90,29 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(-9, -4);
+            this.pictureBox1.Location = new System.Drawing.Point(-5, -4);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(618, 128);
+            this.pictureBox1.Size = new System.Drawing.Size(614, 128);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 62;
             this.pictureBox1.TabStop = false;
             // 
             // cmbPsicoterapeutas
             // 
+            this.cmbPsicoterapeutas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPsicoterapeutas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.cmbPsicoterapeutas.FormattingEnabled = true;
-            this.cmbPsicoterapeutas.Location = new System.Drawing.Point(207, 170);
+            this.cmbPsicoterapeutas.Location = new System.Drawing.Point(188, 164);
             this.cmbPsicoterapeutas.Name = "cmbPsicoterapeutas";
             this.cmbPsicoterapeutas.Size = new System.Drawing.Size(355, 28);
-            this.cmbPsicoterapeutas.TabIndex = 97;
+            this.cmbPsicoterapeutas.TabIndex = 2;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(65, 173);
+            this.label13.Location = new System.Drawing.Point(46, 167);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(135, 20);
@@ -121,18 +122,18 @@
             // txtObservaciones
             // 
             this.txtObservaciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtObservaciones.Location = new System.Drawing.Point(207, 306);
+            this.txtObservaciones.Location = new System.Drawing.Point(188, 300);
             this.txtObservaciones.Margin = new System.Windows.Forms.Padding(2);
             this.txtObservaciones.Multiline = true;
             this.txtObservaciones.Name = "txtObservaciones";
             this.txtObservaciones.Size = new System.Drawing.Size(290, 63);
-            this.txtObservaciones.TabIndex = 90;
+            this.txtObservaciones.TabIndex = 7;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(68, 308);
+            this.label3.Location = new System.Drawing.Point(49, 302);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(132, 20);
@@ -148,7 +149,7 @@
             0,
             0,
             0});
-            this.txtCosto.Location = new System.Drawing.Point(207, 239);
+            this.txtCosto.Location = new System.Drawing.Point(188, 233);
             this.txtCosto.Margin = new System.Windows.Forms.Padding(2);
             this.txtCosto.Maximum = new decimal(new int[] {
             9999999,
@@ -157,13 +158,13 @@
             0});
             this.txtCosto.Name = "txtCosto";
             this.txtCosto.Size = new System.Drawing.Size(79, 23);
-            this.txtCosto.TabIndex = 89;
+            this.txtCosto.TabIndex = 4;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(50, 242);
+            this.label5.Location = new System.Drawing.Point(31, 236);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(158, 20);
@@ -174,7 +175,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(116, 138);
+            this.label2.Location = new System.Drawing.Point(97, 132);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(84, 20);
@@ -185,7 +186,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(136, 275);
+            this.label1.Location = new System.Drawing.Point(117, 269);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 20);
@@ -196,7 +197,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(317, 275);
+            this.label4.Location = new System.Drawing.Point(298, 269);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 20);
@@ -207,45 +208,46 @@
             // 
             this.txtFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.txtFecha.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.txtFecha.Location = new System.Drawing.Point(207, 270);
+            this.txtFecha.Location = new System.Drawing.Point(188, 264);
             this.txtFecha.Name = "txtFecha";
             this.txtFecha.Size = new System.Drawing.Size(105, 26);
-            this.txtFecha.TabIndex = 101;
+            this.txtFecha.TabIndex = 5;
             // 
             // txtHora
             // 
             this.txtHora.CustomFormat = "HH:mm \'hrs\'";
             this.txtHora.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.txtHora.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.txtHora.Location = new System.Drawing.Point(375, 270);
+            this.txtHora.Location = new System.Drawing.Point(356, 264);
             this.txtHora.Name = "txtHora";
             this.txtHora.ShowUpDown = true;
             this.txtHora.Size = new System.Drawing.Size(92, 26);
-            this.txtHora.TabIndex = 102;
+            this.txtHora.TabIndex = 6;
             // 
             // cmbPaciente
             // 
+            this.cmbPaciente.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPaciente.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.cmbPaciente.FormattingEnabled = true;
-            this.cmbPaciente.Location = new System.Drawing.Point(207, 135);
+            this.cmbPaciente.Location = new System.Drawing.Point(188, 129);
             this.cmbPaciente.Name = "cmbPaciente";
             this.cmbPaciente.Size = new System.Drawing.Size(355, 28);
-            this.cmbPaciente.TabIndex = 103;
+            this.cmbPaciente.TabIndex = 1;
             // 
             // txtTipo
             // 
             this.txtTipo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTipo.Location = new System.Drawing.Point(207, 207);
+            this.txtTipo.Location = new System.Drawing.Point(188, 201);
             this.txtTipo.Margin = new System.Windows.Forms.Padding(2);
             this.txtTipo.Name = "txtTipo";
             this.txtTipo.Size = new System.Drawing.Size(260, 24);
-            this.txtTipo.TabIndex = 104;
+            this.txtTipo.TabIndex = 3;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(152, 209);
+            this.label6.Location = new System.Drawing.Point(133, 203);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(48, 20);
@@ -277,10 +279,11 @@
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormSesiones";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Registrar Taller";
+            this.Text = "Registrar Sesión";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtCosto)).EndInit();

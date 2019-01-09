@@ -42,8 +42,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cmbIDAlumno = new System.Windows.Forms.ComboBox();
             this.cmbIDPrograma = new System.Windows.Forms.ComboBox();
-            this.txtPrograma = new System.Windows.Forms.Label();
-            this.txtAlumno = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -189,38 +187,12 @@
             this.cmbIDPrograma.TabIndex = 67;
             this.cmbIDPrograma.Visible = false;
             // 
-            // txtPrograma
-            // 
-            this.txtPrograma.AutoEllipsis = true;
-            this.txtPrograma.AutoSize = true;
-            this.txtPrograma.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPrograma.Location = new System.Drawing.Point(184, 136);
-            this.txtPrograma.MinimumSize = new System.Drawing.Size(0, 2);
-            this.txtPrograma.Name = "txtPrograma";
-            this.txtPrograma.Size = new System.Drawing.Size(165, 18);
-            this.txtPrograma.TabIndex = 69;
-            this.txtPrograma.Text = "Inscrito en el Programa:";
-            this.txtPrograma.Visible = false;
-            // 
-            // txtAlumno
-            // 
-            this.txtAlumno.AutoSize = true;
-            this.txtAlumno.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAlumno.Location = new System.Drawing.Point(184, 168);
-            this.txtAlumno.Name = "txtAlumno";
-            this.txtAlumno.Size = new System.Drawing.Size(62, 18);
-            this.txtAlumno.TabIndex = 70;
-            this.txtAlumno.Text = "Alumno:";
-            this.txtAlumno.Visible = false;
-            // 
             // FormHistorialPagosAlumno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(606, 394);
-            this.Controls.Add(this.txtAlumno);
-            this.Controls.Add(this.txtPrograma);
             this.Controls.Add(this.cmbIDAlumno);
             this.Controls.Add(this.cmbIDPrograma);
             this.Controls.Add(this.lblFecha);
@@ -234,6 +206,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cmbPrograma);
             this.Controls.Add(this.label2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormHistorialPagosAlumno";
             this.Text = "Impresion de Documentos";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -257,7 +230,5 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbIDAlumno;
         private System.Windows.Forms.ComboBox cmbIDPrograma;
-        private System.Windows.Forms.Label txtPrograma;
-        private System.Windows.Forms.Label txtAlumno;
     }
 }

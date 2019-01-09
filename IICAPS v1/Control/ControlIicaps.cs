@@ -17,23 +17,23 @@ namespace IICAPS_v1.Control
         MySqlCommand cmd;
 
         /*-------HOSTING NEUBOX-----------*/
-        string server = "logacell.com";
-        string userID = "logacell_logamel";
-        string password = "Logamel82";
-        //string database = "logacell_iicaps";
-        string database = "logacell_iicaps_devs";
+        //string server = "logacell.com";
+        //string userID = "logacell_logamel";
+        //string password = "Logamel82";
+        ////string database = "logacell_iicaps";
+        //string database = "logacell_iicaps_devs";
 
         /*-------HOSTING ALDEAHOST-----------*/
         //string userID = "iic2ps1d";
         //string pass = "ConejoVolador11";
 
         //string server = "iicaps.edu.mx";
-        ////string server = "138.128.160.26";
-        //string userID = "iic2ps1d_devs";
-        //string password = "MFSiicaps_1234";
-        //string database = "iic2ps1d_iicaps_devs";
-        ////uint port = 3306;
-        ////uint port = 2083;
+        string server = "138.128.160.26";
+        string userID = "iic2ps1d_devs";
+        string password = "ConejoVolador11";
+        string database = "iic2ps1d_iicaps_devs";
+        //uint port = 3306;
+        //uint port = 2083;
         ////MySqlConnectionProtocol protocolo =  MySqlConnectionProtocol.Tcp;
         ////string database = "iic2ps1d_iicaps_prod";
 
@@ -50,7 +50,6 @@ namespace IICAPS_v1.Control
             builder.AllowUserVariables = true;
             builder.SslMode = MySqlSslMode.None;
             //builder.ConnectionProtocol = protocolo;
-            //builder.ConnectionTimeout = 10000000;
             //builder.Port = port;
         }
 
@@ -3578,8 +3577,271 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
+        public MySqlDataAdapter obtenerConsultasPsicoterapeutaTable(string matricula)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string query = "";
+                    query+="SELECT S.Fecha, concat_ws(' ',P.Nombre, P.Apellidos) AS 'Paciente', 'Sesión' AS 'Tipo' FROM sesiones S INNER JOIN pacientes P on S.Paciente_ID= P.ID WHERE S.Psicoterapeuta_ID = '" + matricula + "' AND S.Estado = 'Activa' ";
+                    query += "UNION SELECT E.Fecha, concat_ws(' ',P.Nombre, P.Apellidos) AS 'Paciente', 'Evaluación' AS 'Tipo' FROM evaluaciones E INNER JOIN pacientes P on E.Paciente_ID= P.ID WHERE E.Psicoterapeuta_ID = '" + matricula + "' AND E.Estado = 'Activa' ";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(query, conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de los psicoterapeutas de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerPacientesPsicoterapeutaTable(string matricula)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT P.ID, concat_ws(' ',P.Nombre, P.Apellidos) AS 'Nombre', P.EscuelaEmpresa AS 'Institucion',P.Telefono FROM pacientes P  WHERE P.Psicoterapeuta='"+matricula+"' AND P.Estado = 1", conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de pacientes de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerPacientesPsicoterapeutaTable(string matricula, string parameter)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string query = "SELECT P.ID, concat_ws(' ',P.Nombre, P.Apellidos) AS 'Nombre', P.EscuelaEmpresa AS 'Institucion',P.Telefono FROM pacientes P WHERE P.Psicoterapeuta='" + matricula + "' AND P.Estado = 1 AND (" +
+                        " P.ID LIKE '%" + parameter + "%' or " +
+                        " P.EscuelaEmpresa LIKE '%" + parameter + "%' or " +
+                        " P.Telefono LIKE '%" + parameter + "%' or " +
+                        " concat_ws(' ',P.Nombre, P.Apellidos) LIKE '%" + parameter + "%');";
+                        ;
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(query, conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de pacientes de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
 
-        //------------------------------PACIENTES-------------------------------//
+        //--------------------------------NOMINA--------------------------------------//
+        public List<decimal> obtenerConsultasPsicoterapeutaPendientes(string matricula,DateTime inicio ,DateTime fin)
+        {
+            try
+            {
+                
+                try
+                {
+                    string query = "";
+                    query += "SELECT S.Costo FROM sesiones S WHERE S.Psicoterapeuta_ID = '" + matricula + "' AND S.Estado = 'Activa' AND S.Fecha BETWEEN '"+formatearFecha(inicio)+"' AND '"+formatearFecha(fin)+"' ";
+                    query += "UNION SELECT E.Costo FROM evaluaciones E WHERE E.Psicoterapeuta_ID = '" + matricula + "' AND E.Estado = 'Activa' AND E.Fecha BETWEEN '" + formatearFecha(inicio) + "' AND '" + formatearFecha(fin) + "'";
+                    conn = new MySqlConnection(builder.ToString());
+                    cmd = conn.CreateCommand();
+                    cmd.CommandText = query;
+                    conn.Open();
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<decimal> aux = new List<decimal>();
+                    while (reader.Read())
+                    {
+                        aux.Add(reader.GetDecimal(0));
+                    }
+                    conn.Close();
+                    if (aux.Count != 0)
+                        return aux;
+                    else
+                        return null;
+            }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de la nomina de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public bool agregarNomina(Nomina nomina)
+        {
+            try
+            {
+                 string nominaQuery = "INSERT INTO nominas (Psicoterapeuta,	DiaEntrega,	FechaInicio, FechaFin, Total, Estado) VALUES("
+                        + nomina.Psicoterapeutas + ",'"+ formatearFecha(nomina.DiaEntrega) + "','" + formatearFecha(nomina.FechaInicio) + "','" + formatearFecha(nomina.FechaFin) + "'," +nomina.Total+",'Pagada');";
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + nominaQuery
+                                    + "COMMIT;";
+                try
+                {
+                    conn.Open();
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected >= 1)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...! Error al agregar pago de nomina a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexión con el servidor");
+            }
+        }
+        public bool actualizarNomina(Nomina nomina)
+        {
+            try
+            {
+                 string nominaQuery = "UPDATE nominas SET=Psicoterapeuta='"+ nomina.Psicoterapeutas + "', DiaEntrega='"+ formatearFecha(nomina.DiaEntrega) +
+                    "',	FechaInicio='" + formatearFecha(nomina.FechaInicio) + "', FechaFin='" + formatearFecha(nomina.FechaFin) + "', Total=" + nomina.Total +", Estado='Pagada';";
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; "
+                                    + nominaQuery
+                                    + "COMMIT;";
+                try
+                {
+                    conn.Open();
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected >= 1)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error...! Error al agregar pago de nomina a la Base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al establecer conexión con el servidor");
+            }
+        }
+        public DateTime consultarUltimaFechaNomina(string matricula)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT DiaEntrega FROM nominas WHERE Psicoterapeuta='" + matricula + "' ORDER BY DiaEntrega DESC LIMIT 1";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        DateTime date = reader.GetDateTime(0);
+                        conn.Close();
+                        return date;
+                    }
+                    conn.Close();
+                    return new DateTime(2000,01,01);
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos de nomina de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerNominaPacienteTable(string matricula,string parameter)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    string query = "SELECT ID,DiaEntrega,FechaInicio,FechaFin,Total FROM nominas WHERE Psicoterapeuta='" + matricula + "' AND " +
+                        " (ID LIKE '%" + parameter + "%' or " +
+                        " DiaEntrega LIKE '%" + parameter + "%' or " +
+                        " Total LIKE '%" + parameter + "%' );";
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter(query, conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de nomina de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerNominaPacienteTable(string matricula)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                conn.Open();
+                try
+                {
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT ID,DiaEntrega,FechaInicio,FechaFin,Total FROM nominas WHERE Psicoterapeuta='" + matricula + "'", conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de nomina de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+
+
+        //------------------------------PACIENTES------------------------------------//
         public bool agregarPaciente(Paciente paciente)
         {
             try
@@ -4967,7 +5229,7 @@ namespace IICAPS_v1.Control
                         { }
                         try
                         {
-                            c.Psicoterapeuta = reader.GetInt32(4);
+                            c.Psicoterapeuta = reader.GetString(4);
                         }
                         catch (Exception e)
                         { }
@@ -5164,7 +5426,7 @@ namespace IICAPS_v1.Control
                         { }
                         try
                         {
-                            c.Psicoterapeuta = reader.GetInt32(4);
+                            c.Psicoterapeuta = reader.GetString(4);
                         }
                         catch (Exception e)
                         { }

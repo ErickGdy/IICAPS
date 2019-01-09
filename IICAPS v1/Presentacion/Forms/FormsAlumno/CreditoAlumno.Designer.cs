@@ -221,7 +221,7 @@
             // 
             this.txtObservaciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtObservaciones.Location = new System.Drawing.Point(173, 257);
-            this.txtObservaciones.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtObservaciones.Margin = new System.Windows.Forms.Padding(2);
             this.txtObservaciones.Multiline = true;
             this.txtObservaciones.Name = "txtObservaciones";
             this.txtObservaciones.Size = new System.Drawing.Size(240, 80);
@@ -231,7 +231,7 @@
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(0, -2);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(556, 120);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -242,7 +242,7 @@
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(0, 401);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(556, 102);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -279,7 +279,7 @@
             this.cmbIDPrograma.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.cmbIDPrograma.FormattingEnabled = true;
             this.cmbIDPrograma.Location = new System.Drawing.Point(513, 134);
-            this.cmbIDPrograma.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbIDPrograma.Margin = new System.Windows.Forms.Padding(2);
             this.cmbIDPrograma.Name = "cmbIDPrograma";
             this.cmbIDPrograma.Size = new System.Drawing.Size(35, 26);
             this.cmbIDPrograma.TabIndex = 65;
@@ -290,7 +290,7 @@
             this.cmbIDAlumno.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbIDAlumno.FormattingEnabled = true;
             this.cmbIDAlumno.Location = new System.Drawing.Point(512, 165);
-            this.cmbIDAlumno.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbIDAlumno.Margin = new System.Windows.Forms.Padding(2);
             this.cmbIDAlumno.Name = "cmbIDAlumno";
             this.cmbIDAlumno.Size = new System.Drawing.Size(35, 26);
             this.cmbIDAlumno.TabIndex = 66;
@@ -324,7 +324,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pictureBox2);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CreditoAlumnos";
             this.Text = "Credito de Alumno";
             ((System.ComponentModel.ISupportInitialize)(this.numMensualidad)).EndInit();

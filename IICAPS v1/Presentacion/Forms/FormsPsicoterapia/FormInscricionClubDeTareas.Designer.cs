@@ -62,7 +62,7 @@
             this.btnAceptar.Margin = new System.Windows.Forms.Padding(2);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(103, 40);
-            this.btnAceptar.TabIndex = 11;
+            this.btnAceptar.TabIndex = 9;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
@@ -74,7 +74,7 @@
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(103, 40);
-            this.btnCancelar.TabIndex = 12;
+            this.btnCancelar.TabIndex = 10;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -212,7 +212,7 @@
             0});
             this.txtAnticipo.Name = "txtAnticipo";
             this.txtAnticipo.Size = new System.Drawing.Size(79, 20);
-            this.txtAnticipo.TabIndex = 9;
+            this.txtAnticipo.TabIndex = 7;
             // 
             // txtCosto
             // 
@@ -232,7 +232,7 @@
             0});
             this.txtCosto.Name = "txtCosto";
             this.txtCosto.Size = new System.Drawing.Size(79, 20);
-            this.txtCosto.TabIndex = 8;
+            this.txtCosto.TabIndex = 6;
             // 
             // label6
             // 
@@ -273,7 +273,7 @@
             this.txtObservaciones.Multiline = true;
             this.txtObservaciones.Name = "txtObservaciones";
             this.txtObservaciones.Size = new System.Drawing.Size(340, 59);
-            this.txtObservaciones.TabIndex = 10;
+            this.txtObservaciones.TabIndex = 8;
             // 
             // label10
             // 
@@ -313,10 +313,11 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.txtObservaciones);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormInscricionClubDeTareas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Registrar Grupo";
+            this.Text = "Registrar Asistente de Club De Tareas";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAnticipo)).EndInit();

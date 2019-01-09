@@ -80,10 +80,9 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                //Paciente paciente = control.consultarPaciente(id);
-                //ReporteDePaciente fa = new ReporteDePaciente(id);
-                //fa.FormClosed += new FormClosedEventHandler(form_Closed);
-                //fa.Show();
+                ReporteDePsicoterapeuta fa = new ReporteDePsicoterapeuta(id);
+                fa.FormClosed += new FormClosedEventHandler(form_Closed);
+                fa.Show();
             }
             catch (Exception ex)
             {

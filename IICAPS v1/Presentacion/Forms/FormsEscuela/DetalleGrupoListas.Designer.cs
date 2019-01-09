@@ -107,7 +107,7 @@
             this.btnBuscarLista.Margin = new System.Windows.Forms.Padding(2);
             this.btnBuscarLista.Name = "btnBuscarLista";
             this.btnBuscarLista.Size = new System.Drawing.Size(136, 28);
-            this.btnBuscarLista.TabIndex = 1;
+            this.btnBuscarLista.TabIndex = 3;
             this.btnBuscarLista.Text = "Buscar Lista";
             this.btnBuscarLista.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBuscarLista.UseVisualStyleBackColor = false;
@@ -166,7 +166,7 @@
             this.cmbMaterias.Location = new System.Drawing.Point(103, 80);
             this.cmbMaterias.Name = "cmbMaterias";
             this.cmbMaterias.Size = new System.Drawing.Size(371, 28);
-            this.cmbMaterias.TabIndex = 45;
+            this.cmbMaterias.TabIndex = 1;
             // 
             // lblMaterias
             // 
@@ -201,7 +201,7 @@
             this.cmbMaestros.Location = new System.Drawing.Point(103, 113);
             this.cmbMaestros.Name = "cmbMaestros";
             this.cmbMaestros.Size = new System.Drawing.Size(371, 28);
-            this.cmbMaestros.TabIndex = 43;
+            this.cmbMaestros.TabIndex = 2;
             this.cmbMaestros.Visible = false;
             // 
             // btnGuardar
@@ -218,7 +218,7 @@
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(2);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(136, 45);
-            this.btnGuardar.TabIndex = 47;
+            this.btnGuardar.TabIndex = 6;
             this.btnGuardar.Text = "GUARDAR";
             this.btnGuardar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnGuardar.UseVisualStyleBackColor = false;
@@ -232,7 +232,7 @@
             this.dateTimePicker1.Location = new System.Drawing.Point(505, 482);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(124, 29);
-            this.dateTimePicker1.TabIndex = 48;
+            this.dateTimePicker1.TabIndex = 4;
             this.dateTimePicker1.Visible = false;
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
@@ -277,7 +277,7 @@
             this.cmbSabado.Location = new System.Drawing.Point(505, 514);
             this.cmbSabado.Name = "cmbSabado";
             this.cmbSabado.Size = new System.Drawing.Size(124, 28);
-            this.cmbSabado.TabIndex = 52;
+            this.cmbSabado.TabIndex = 5;
             this.cmbSabado.Visible = false;
             // 
             // DetalleGrupoListas

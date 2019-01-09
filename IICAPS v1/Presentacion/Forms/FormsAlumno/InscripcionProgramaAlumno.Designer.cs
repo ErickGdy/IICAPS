@@ -30,7 +30,7 @@ namespace IICAPS_v1.Presentacion
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DocumentosInscripcion));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InscripcionProgramaAlumno));
             this.cmbRecibio = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
@@ -56,7 +56,7 @@ namespace IICAPS_v1.Presentacion
             this.cmbRecibio.Location = new System.Drawing.Point(84, 353);
             this.cmbRecibio.Name = "cmbRecibio";
             this.cmbRecibio.Size = new System.Drawing.Size(459, 26);
-            this.cmbRecibio.TabIndex = 4;
+            this.cmbRecibio.TabIndex = 5;
             // 
             // label4
             // 
@@ -83,21 +83,22 @@ namespace IICAPS_v1.Presentacion
             this.checkedListBox1.Location = new System.Drawing.Point(22, 212);
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(326, 118);
-            this.checkedListBox1.TabIndex = 3;
+            this.checkedListBox1.TabIndex = 4;
             // 
             // dateTimePicker1
             // 
             this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Location = new System.Drawing.Point(284, 122);
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker1.Location = new System.Drawing.Point(423, 122);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(259, 24);
-            this.dateTimePicker1.TabIndex = 0;
+            this.dateTimePicker1.Size = new System.Drawing.Size(120, 24);
+            this.dateTimePicker1.TabIndex = 1;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(224, 122);
+            this.label3.Location = new System.Drawing.Point(364, 127);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 18);
             this.label3.TabIndex = 16;
@@ -111,7 +112,7 @@ namespace IICAPS_v1.Presentacion
             this.cmbPrograma.Location = new System.Drawing.Point(181, 151);
             this.cmbPrograma.Name = "cmbPrograma";
             this.cmbPrograma.Size = new System.Drawing.Size(362, 26);
-            this.cmbPrograma.TabIndex = 1;
+            this.cmbPrograma.TabIndex = 2;
             // 
             // label2
             // 
@@ -129,7 +130,7 @@ namespace IICAPS_v1.Presentacion
             this.btnCancelar.Location = new System.Drawing.Point(284, 393);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 27);
-            this.btnCancelar.TabIndex = 6;
+            this.btnCancelar.TabIndex = 7;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             // 
@@ -139,7 +140,7 @@ namespace IICAPS_v1.Presentacion
             this.btnAceptar.Location = new System.Drawing.Point(187, 393);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 27);
-            this.btnAceptar.TabIndex = 5;
+            this.btnAceptar.TabIndex = 6;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             // 
@@ -151,7 +152,7 @@ namespace IICAPS_v1.Presentacion
             this.cmbAlumno.Location = new System.Drawing.Point(86, 181);
             this.cmbAlumno.Name = "cmbAlumno";
             this.cmbAlumno.Size = new System.Drawing.Size(457, 26);
-            this.cmbAlumno.TabIndex = 2;
+            this.cmbAlumno.TabIndex = 3;
             // 
             // label1
             // 
@@ -185,7 +186,7 @@ namespace IICAPS_v1.Presentacion
             this.pictureBox2.TabIndex = 63;
             this.pictureBox2.TabStop = false;
             // 
-            // DocumentosEspecialidad
+            // InscripcionProgramaAlumno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -204,7 +205,9 @@ namespace IICAPS_v1.Presentacion
             this.Controls.Add(this.cmbPrograma);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
-            this.Name = "DocumentosEspecialidad";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "InscripcionProgramaAlumno";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Documentos de Especialidad";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

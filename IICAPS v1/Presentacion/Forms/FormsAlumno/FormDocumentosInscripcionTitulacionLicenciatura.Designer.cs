@@ -251,6 +251,7 @@
             this.Controls.Add(this.cmbPrograma);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormDocumentosInscripcionTitulacionLicenciatura";
             this.Text = "Documentos de Inscripcion para Titulacion de Licenciatura";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

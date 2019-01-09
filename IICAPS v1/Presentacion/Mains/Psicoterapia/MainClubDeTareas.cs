@@ -65,7 +65,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            FormPsicoterapeuta fa = new FormPsicoterapeuta(null,null);
+            FormClubDeTareas fa = new FormClubDeTareas(null);
             fa.FormClosed += new FormClosedEventHandler(form_Closed);
             fa.Show();
         }

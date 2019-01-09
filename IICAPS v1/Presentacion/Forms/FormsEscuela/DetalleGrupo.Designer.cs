@@ -123,7 +123,7 @@
             this.txtBuscar.Margin = new System.Windows.Forms.Padding(2);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(200, 24);
-            this.txtBuscar.TabIndex = 2;
+            this.txtBuscar.TabIndex = 3;
             this.txtBuscar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBuscar_KeyUp);
             // 
             // label1
@@ -200,7 +200,7 @@
             this.btnActualizar.Location = new System.Drawing.Point(18, 71);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(30, 30);
-            this.btnActualizar.TabIndex = 40;
+            this.btnActualizar.TabIndex = 2;
             this.btnActualizar.UseVisualStyleBackColor = false;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
@@ -259,7 +259,7 @@
             this.Name = "DetalleGrupo";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "00";
+            this.Text = "Detalle de Grupo";
             this.SizeChanged += new System.EventHandler(this.Main_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.menuTablaAlumnos.ResumeLayout(false);

@@ -74,8 +74,8 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewPagos.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewPagos.Location = new System.Drawing.Point(27, 103);
-            this.dataGridViewPagos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dataGridViewPagos.Location = new System.Drawing.Point(20, 84);
+            this.dataGridViewPagos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGridViewPagos.Name = "dataGridViewPagos";
             this.dataGridViewPagos.ReadOnly = true;
             this.dataGridViewPagos.RowHeadersVisible = false;
@@ -84,7 +84,7 @@
             this.dataGridViewPagos.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewPagos.RowTemplate.Height = 24;
             this.dataGridViewPagos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewPagos.Size = new System.Drawing.Size(1085, 400);
+            this.dataGridViewPagos.Size = new System.Drawing.Size(814, 325);
             this.dataGridViewPagos.TabIndex = 0;
             // 
             // menuTablaAlumnos
@@ -95,8 +95,6 @@
             this.cancelarToolStripMenuItem});
             this.menuTablaAlumnos.Name = "menuTablaAlumnos";
             this.menuTablaAlumnos.Size = new System.Drawing.Size(126, 48);
-
-
             // 
             // quitarToolStripMenuItem
             // 
@@ -115,11 +113,11 @@
             // txtBuscar
             // 
             this.txtBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBuscar.Location = new System.Drawing.Point(845, 69);
-            this.txtBuscar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtBuscar.Location = new System.Drawing.Point(634, 56);
+            this.txtBuscar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(265, 28);
-            this.txtBuscar.TabIndex = 2;
+            this.txtBuscar.Size = new System.Drawing.Size(200, 24);
+            this.txtBuscar.TabIndex = 3;
             this.txtBuscar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBuscar_KeyUp);
             // 
             // label1
@@ -127,9 +125,10 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(19, 20);
+            this.label1.Location = new System.Drawing.Point(14, 16);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(142, 39);
+            this.label1.Size = new System.Drawing.Size(113, 31);
             this.label1.TabIndex = 3;
             this.label1.Text = "Alumno:";
             // 
@@ -142,9 +141,10 @@
             this.limpiarBusqueda.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.limpiarBusqueda.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.limpiarBusqueda.LinkColor = System.Drawing.Color.Gray;
-            this.limpiarBusqueda.Location = new System.Drawing.Point(1080, 71);
+            this.limpiarBusqueda.Location = new System.Drawing.Point(810, 58);
+            this.limpiarBusqueda.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.limpiarBusqueda.Name = "limpiarBusqueda";
-            this.limpiarBusqueda.Size = new System.Drawing.Size(27, 25);
+            this.limpiarBusqueda.Size = new System.Drawing.Size(21, 20);
             this.limpiarBusqueda.TabIndex = 39;
             this.limpiarBusqueda.TabStop = true;
             this.limpiarBusqueda.Text = "X";
@@ -155,10 +155,10 @@
             // pictureBoxBuscar
             // 
             this.pictureBoxBuscar.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxBuscar.Image")));
-            this.pictureBoxBuscar.Location = new System.Drawing.Point(807, 69);
-            this.pictureBoxBuscar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pictureBoxBuscar.Location = new System.Drawing.Point(605, 56);
+            this.pictureBoxBuscar.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.pictureBoxBuscar.Name = "pictureBoxBuscar";
-            this.pictureBoxBuscar.Size = new System.Drawing.Size(32, 28);
+            this.pictureBoxBuscar.Size = new System.Drawing.Size(24, 23);
             this.pictureBoxBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxBuscar.TabIndex = 38;
             this.pictureBoxBuscar.TabStop = false;
@@ -173,10 +173,10 @@
             this.btnAgregarPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarPago.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregarPago.Image")));
             this.btnAgregarPago.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAgregarPago.Location = new System.Drawing.Point(893, 25);
-            this.btnAgregarPago.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnAgregarPago.Location = new System.Drawing.Point(670, 20);
+            this.btnAgregarPago.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnAgregarPago.Name = "btnAgregarPago";
-            this.btnAgregarPago.Size = new System.Drawing.Size(219, 39);
+            this.btnAgregarPago.Size = new System.Drawing.Size(164, 32);
             this.btnAgregarPago.TabIndex = 1;
             this.btnAgregarPago.Text = "Agregar Pago";
             this.btnAgregarPago.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -191,11 +191,10 @@
             this.btnActualizar.FlatAppearance.BorderSize = 0;
             this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizar.Image = ((System.Drawing.Image)(resources.GetObject("btnActualizar.Image")));
-            this.btnActualizar.Location = new System.Drawing.Point(27, 59);
-            this.btnActualizar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnActualizar.Location = new System.Drawing.Point(20, 48);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(30, 30);
-            this.btnActualizar.TabIndex = 40;
+            this.btnActualizar.TabIndex = 2;
             this.btnActualizar.UseVisualStyleBackColor = false;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
@@ -204,9 +203,10 @@
             this.lblNombreAlumno.AutoSize = true;
             this.lblNombreAlumno.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombreAlumno.ForeColor = System.Drawing.Color.Black;
-            this.lblNombreAlumno.Location = new System.Drawing.Point(176, 20);
+            this.lblNombreAlumno.Location = new System.Drawing.Point(132, 16);
+            this.lblNombreAlumno.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNombreAlumno.Name = "lblNombreAlumno";
-            this.lblNombreAlumno.Size = new System.Drawing.Size(318, 39);
+            this.lblNombreAlumno.Size = new System.Drawing.Size(251, 31);
             this.lblNombreAlumno.TabIndex = 41;
             this.lblNombreAlumno.Text = "Nombre del Alumno";
             // 
@@ -215,63 +215,60 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(23, 511);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(17, 415);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(144, 24);
+            this.label2.Size = new System.Drawing.Size(130, 18);
             this.label2.TabIndex = 42;
-            this.label2.Text = "Total pagado: ";
+            this.label2.Text = "Total pagado:  $";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(23, 544);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(17, 442);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(103, 24);
+            this.label3.Size = new System.Drawing.Size(99, 18);
             this.label3.TabIndex = 43;
-            this.label3.Text = "Restante: ";
+            this.label3.Text = "Restante:  $";
             // 
             // lblTotalPagado
             // 
             this.lblTotalPagado.AutoSize = true;
             this.lblTotalPagado.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalPagado.ForeColor = System.Drawing.Color.Black;
-            this.lblTotalPagado.Location = new System.Drawing.Point(185, 511);
-            this.lblTotalPagado.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTotalPagado.Location = new System.Drawing.Point(153, 415);
             this.lblTotalPagado.Name = "lblTotalPagado";
-            this.lblTotalPagado.Size = new System.Drawing.Size(92, 24);
+            this.lblTotalPagado.Size = new System.Drawing.Size(14, 18);
             this.lblTotalPagado.TabIndex = 44;
-            this.lblTotalPagado.Text = "Cantidad";
+            this.lblTotalPagado.Text = "-";
             // 
             // lblPendiente
             // 
             this.lblPendiente.AutoSize = true;
             this.lblPendiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPendiente.ForeColor = System.Drawing.Color.Black;
-            this.lblPendiente.Location = new System.Drawing.Point(185, 544);
-            this.lblPendiente.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPendiente.Location = new System.Drawing.Point(122, 442);
             this.lblPendiente.Name = "lblPendiente";
-            this.lblPendiente.Size = new System.Drawing.Size(92, 24);
+            this.lblPendiente.Size = new System.Drawing.Size(14, 18);
             this.lblPendiente.TabIndex = 45;
-            this.lblPendiente.Text = "Cantidad";
+            this.lblPendiente.Text = "-";
             // 
             // btnImprimir
             // 
-            this.btnImprimir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(173)))), ((int)(((byte)(73)))));
+            this.btnImprimir.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btnImprimir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnImprimir.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(126)))), ((int)(((byte)(36)))), ((int)(((byte)(28)))));
             this.btnImprimir.FlatAppearance.BorderSize = 0;
-            this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImprimir.ForeColor = System.Drawing.Color.Black;
+            this.btnImprimir.Image = ((System.Drawing.Image)(resources.GetObject("btnImprimir.Image")));
             this.btnImprimir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnImprimir.Location = new System.Drawing.Point(1015, 511);
-            this.btnImprimir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnImprimir.Location = new System.Drawing.Point(714, 415);
+            this.btnImprimir.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(97, 39);
-            this.btnImprimir.TabIndex = 46;
+            this.btnImprimir.Size = new System.Drawing.Size(120, 39);
+            this.btnImprimir.TabIndex = 4;
             this.btnImprimir.Text = "Imprimir";
             this.btnImprimir.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnImprimir.UseVisualStyleBackColor = false;
@@ -279,10 +276,10 @@
             // 
             // DetallePagosAlumno
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1131, 572);
+            this.ClientSize = new System.Drawing.Size(848, 465);
             this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.lblPendiente);
             this.Controls.Add(this.lblTotalPagado);
@@ -297,8 +294,8 @@
             this.Controls.Add(this.btnAgregarPago);
             this.Controls.Add(this.dataGridViewPagos);
             this.ForeColor = System.Drawing.Color.White;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.MinimumSize = new System.Drawing.Size(1061, 543);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MinimumSize = new System.Drawing.Size(800, 449);
             this.Name = "DetallePagosAlumno";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
