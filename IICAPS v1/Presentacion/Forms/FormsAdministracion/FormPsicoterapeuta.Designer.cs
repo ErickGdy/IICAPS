@@ -71,7 +71,7 @@
             this.btnAceptar.Margin = new System.Windows.Forms.Padding(2);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(103, 40);
-            this.btnAceptar.TabIndex = 7;
+            this.btnAceptar.TabIndex = 13;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
@@ -94,7 +94,7 @@
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(103, 40);
-            this.btnCancelar.TabIndex = 8;
+            this.btnCancelar.TabIndex = 14;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -138,7 +138,7 @@
             this.txtNombre.Margin = new System.Windows.Forms.Padding(2);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(311, 24);
-            this.txtNombre.TabIndex = 76;
+            this.txtNombre.TabIndex = 2;
             // 
             // label3
             // 
@@ -158,7 +158,7 @@
             this.txtTelefono.Margin = new System.Windows.Forms.Padding(2);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(176, 24);
-            this.txtTelefono.TabIndex = 78;
+            this.txtTelefono.TabIndex = 3;
             this.txtTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.onlyNumber_KeyPress);
             // 
             // label4
@@ -204,7 +204,7 @@
             this.cmbNivelAcceso.Location = new System.Drawing.Point(211, 129);
             this.cmbNivelAcceso.Name = "cmbNivelAcceso";
             this.cmbNivelAcceso.Size = new System.Drawing.Size(251, 26);
-            this.cmbNivelAcceso.TabIndex = 91;
+            this.cmbNivelAcceso.TabIndex = 12;
             // 
             // label6
             // 
@@ -224,7 +224,7 @@
             this.checkBox1.Location = new System.Drawing.Point(156, 19);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(165, 22);
-            this.checkBox1.TabIndex = 88;
+            this.checkBox1.TabIndex = 8;
             this.checkBox1.Text = "Acceso al sistema";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
@@ -238,7 +238,7 @@
             this.txtContraseña2.Name = "txtContraseña2";
             this.txtContraseña2.PasswordChar = '*';
             this.txtContraseña2.Size = new System.Drawing.Size(251, 24);
-            this.txtContraseña2.TabIndex = 86;
+            this.txtContraseña2.TabIndex = 11;
             this.txtContraseña2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.noSpaces_KeyPress);
             // 
             // label11
@@ -261,7 +261,7 @@
             this.txtContraseña.Name = "txtContraseña";
             this.txtContraseña.PasswordChar = '*';
             this.txtContraseña.Size = new System.Drawing.Size(251, 24);
-            this.txtContraseña.TabIndex = 84;
+            this.txtContraseña.TabIndex = 10;
             this.txtContraseña.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.noSpaces_KeyPress);
             // 
             // label10
@@ -283,7 +283,7 @@
             this.txtUsuario.Margin = new System.Windows.Forms.Padding(2);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(251, 24);
-            this.txtUsuario.TabIndex = 82;
+            this.txtUsuario.TabIndex = 9;
             // 
             // label8
             // 
@@ -328,7 +328,7 @@
             this.txtObservaciones.Multiline = true;
             this.txtObservaciones.Name = "txtObservaciones";
             this.txtObservaciones.Size = new System.Drawing.Size(312, 64);
-            this.txtObservaciones.TabIndex = 86;
+            this.txtObservaciones.TabIndex = 7;
             // 
             // label7
             // 
@@ -348,7 +348,7 @@
             this.txtHorario.Margin = new System.Windows.Forms.Padding(2);
             this.txtHorario.Name = "txtHorario";
             this.txtHorario.Size = new System.Drawing.Size(176, 24);
-            this.txtHorario.TabIndex = 84;
+            this.txtHorario.TabIndex = 6;
             // 
             // label1
             // 
@@ -368,7 +368,7 @@
             this.txtEspecialidad.Margin = new System.Windows.Forms.Padding(2);
             this.txtEspecialidad.Name = "txtEspecialidad";
             this.txtEspecialidad.Size = new System.Drawing.Size(312, 24);
-            this.txtEspecialidad.TabIndex = 82;
+            this.txtEspecialidad.TabIndex = 5;
             // 
             // label5
             // 
@@ -388,7 +388,7 @@
             this.txtCarrera.Margin = new System.Windows.Forms.Padding(2);
             this.txtCarrera.Name = "txtCarrera";
             this.txtCarrera.Size = new System.Drawing.Size(312, 24);
-            this.txtCarrera.TabIndex = 80;
+            this.txtCarrera.TabIndex = 4;
             // 
             // label12
             // 
@@ -414,10 +414,11 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormPsicoterapeuta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Registrar Taller";
+            this.Text = "Registrar Psicoterapeuta";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox2.ResumeLayout(false);
