@@ -43,6 +43,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.cmbPsicoteraputa = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtCosto)).BeginInit();
@@ -119,7 +120,7 @@
             // txtObservaciones
             // 
             this.txtObservaciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtObservaciones.Location = new System.Drawing.Point(175, 266);
+            this.txtObservaciones.Location = new System.Drawing.Point(175, 276);
             this.txtObservaciones.Margin = new System.Windows.Forms.Padding(2);
             this.txtObservaciones.Multiline = true;
             this.txtObservaciones.Name = "txtObservaciones";
@@ -130,7 +131,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(39, 268);
+            this.label6.Location = new System.Drawing.Point(39, 278);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(132, 20);
@@ -195,7 +196,7 @@
             this.cmbPsicoteraputa.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPsicoteraputa.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbPsicoteraputa.FormattingEnabled = true;
-            this.cmbPsicoteraputa.Location = new System.Drawing.Point(175, 230);
+            this.cmbPsicoteraputa.Location = new System.Drawing.Point(175, 240);
             this.cmbPsicoteraputa.Margin = new System.Windows.Forms.Padding(2);
             this.cmbPsicoteraputa.Name = "cmbPsicoteraputa";
             this.cmbPsicoteraputa.Size = new System.Drawing.Size(315, 26);
@@ -205,12 +206,22 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(70, 232);
+            this.label4.Location = new System.Drawing.Point(70, 242);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(101, 20);
             this.label4.TabIndex = 82;
             this.label4.Text = "Encargado:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.label10.Location = new System.Drawing.Point(177, 225);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(193, 13);
+            this.label10.TabIndex = 94;
+            this.label10.Text = "(\"P:\" Psicoterapeutas, \"E:\" Empleados)";
             // 
             // FormClubDeTareas
             // 
@@ -218,6 +229,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(565, 526);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.cmbPsicoteraputa);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtHora);
@@ -262,5 +274,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbPsicoteraputa;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label10;
     }
 }
