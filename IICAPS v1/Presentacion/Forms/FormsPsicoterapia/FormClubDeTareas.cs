@@ -29,10 +29,10 @@ namespace IICAPS_v1.Presentacion
             else
             {
                 this.ClubDeTareas = club;
-                txtFecha.Value = ClubDeTareas.fecha;
+                txtFecha.Value = ClubDeTareas.Fecha;
                 txtCosto.Value = ClubDeTareas.Costo;
                 txtObservaciones.Text = ClubDeTareas.Observaciones;
-                cmbPsicoteraputa.SelectedIndex = empleados.IndexOf(ClubDeTareas.Psicoterapeuta);
+                cmbPsicoteraputa.SelectedIndex = empleados.IndexOf(ClubDeTareas.Encargado);
             }
 
         }
@@ -41,14 +41,14 @@ namespace IICAPS_v1.Presentacion
         {
             if (validarCampos())
             {
-                this.ClubDeTareas.fecha = txtFecha.Value;
+                this.ClubDeTareas.Fecha = txtFecha.Value;
                 this.ClubDeTareas.Hora = new TimeSpan(txtFecha.Value.Hour,txtHora.Value.Minute,0);
                 this.ClubDeTareas.Costo = txtCosto.Value;
-                this.ClubDeTareas.Psicoterapeuta = empleados.ElementAt(cmbPsicoteraputa.SelectedIndex);
+                this.ClubDeTareas.Encargado = empleados.ElementAt(cmbPsicoteraputa.SelectedIndex);
                 this.ClubDeTareas.Observaciones = txtObservaciones.Text;
                 try
                 {
-                    if (this.ClubDeTareas.id != 0)
+                    if (this.ClubDeTareas.ID != 0)
                     {
                         if (control.actualizarClubDeTareas(this.ClubDeTareas))
                         {

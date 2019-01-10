@@ -2922,6 +2922,37 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
+        public string obtenerOrigenMatricula(string matricula)
+        { 
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT 'Empleado' FROM empleados E WHERE E.Matricula = '" + matricula + "' UNION SELECT 'Psicoterapeuta' FROM psicoterapeutas P WHERE P.Matricula = '" + matricula + "'";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string nombre = "";
+                        nombre = reader.GetString(0);
+                        return nombre;
+                    }
+                    conn.Close();
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error..! Error al obtener el tipo de la Base de Datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
 
 
         //-----------------------------INSCRIPCIONES---------------------------------//
@@ -5034,12 +5065,12 @@ namespace IICAPS_v1.Control
                 {
                     reservacionQuery = "UPDATE reservaciones SET ID_Parent = (SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '" + this.database + "' AND TABLE_NAME = 'clubDeTareas') WHERE ID=" + club.reservacion.id + ";";
                     clubTareasQuery = "INSERT INTO clubDeTareas (Reservacion_ID, Fecha, Hora, Observaciones, Costo, Psicoterapeuta, Estado) VALUES('"
-                     + club.reservacion.id + "','" + formatearFecha(club.fecha) + "','" + club.Hora + "','" + club.Observaciones + "','" + club.Costo + "','" + club.Psicoterapeuta + "','Activo');";
+                     + club.reservacion.id + "','" + formatearFecha(club.Fecha) + "','" + club.Hora + "','" + club.Observaciones + "','" + club.Costo + "','" + club.Encargado + "','Activo');";
                 }
                 else
                 {
                     clubTareasQuery = "INSERT INTO clubDeTareas (Fecha, Hora, Observaciones, Costo, Psicoterapeuta, Estado) VALUES("
-                    + " ' " + formatearFecha(club.fecha) + "','" + club.Hora + "','" + club.Observaciones + "','" + club.Costo + "','" + club.Psicoterapeuta + "','Activo');";
+                    + " ' " + formatearFecha(club.Fecha) + "','" + club.Hora + "','" + club.Observaciones + "','" + club.Costo + "','" + club.Encargado + "','Activo');";
                 }
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
@@ -5077,12 +5108,12 @@ namespace IICAPS_v1.Control
                 if (club.reservacion != null)
                     reservacionQuery = "UPDATE reservaciones SET Reservante='" + club.reservacion.reservante + "', Fecha='" + formatearFecha(club.reservacion.fecha) +
                         "Codigo_Reservacion='" + club.reservacion.codigo_Reservacion + "', Hora_Inicio='" + club.reservacion.hora_Inicio + "', Duracion='" + club.reservacion.duracion +
-                       "', Hora_Fin='" + club.reservacion.hora_Fin + "', Concepto='" + club.reservacion.concepto + "', ID_Parent='" + club.id +
+                       "', Hora_Fin='" + club.reservacion.hora_Fin + "', Concepto='" + club.reservacion.concepto + "', ID_Parent='" + club.ID +
                        "', Ubicacion='" + club.reservacion.ubicacion + "', Observaciones='" + club.reservacion.observaciones +
                        "' WHERE ID=" + club.reservacion.id + "; ";
-                string update = "UPDATE clubDeTareas SET Fecha='" + formatearFecha(club.fecha) + "', Hora='" + club.Hora +
-                    "', Costo='" + club.Costo + "', Psicoterapeuta='" + club.Psicoterapeuta +
-                    "', Observaciones='" + club.Observaciones +"', Estado='Activo' WHERE ID='" + club.id + "';";
+                string update = "UPDATE clubDeTareas SET Fecha='" + formatearFecha(club.Fecha) + "', Hora='" + club.Hora +
+                    "', Costo='" + club.Costo + "', Psicoterapeuta='" + club.Encargado +
+                    "', Observaciones='" + club.Observaciones +"', Estado='Activo' WHERE ID='" + club.ID + "';";
 
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
@@ -5202,8 +5233,8 @@ namespace IICAPS_v1.Control
                     while (reader.Read())
                     {
                         ClubDeTareas c = new ClubDeTareas();
-                        c.id = reader.GetInt32(0);
-                        c.fecha = reader.GetDateTime(1);
+                        c.ID = reader.GetInt32(0);
+                        c.Fecha = reader.GetDateTime(1);
                         c.Hora = reader.GetTimeSpan(2);
                         c.Costo = reader.GetDecimal(3);
                         c.Observaciones = reader.GetString(5);
@@ -5229,7 +5260,7 @@ namespace IICAPS_v1.Control
                         { }
                         try
                         {
-                            c.Psicoterapeuta = reader.GetString(4);
+                            c.Encargado = reader.GetString(4);
                         }
                         catch (Exception e)
                         { }
@@ -5399,8 +5430,8 @@ namespace IICAPS_v1.Control
                     while (reader.Read())
                     {
                         ClubDeTareas c = new ClubDeTareas();
-                        c.id = reader.GetInt32(0);
-                        c.fecha = reader.GetDateTime(1);
+                        c.ID = reader.GetInt32(0);
+                        c.Fecha = reader.GetDateTime(1);
                         c.Hora = reader.GetTimeSpan(2);
                         c.Costo = reader.GetDecimal(3);
                         c.Observaciones = reader.GetString(5);
@@ -5426,7 +5457,7 @@ namespace IICAPS_v1.Control
                         { }
                         try
                         {
-                            c.Psicoterapeuta = reader.GetString(4);
+                            c.Encargado = reader.GetString(4);
                         }
                         catch (Exception e)
                         { }
