@@ -37,7 +37,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                 intervalos.Add(new TimeSpan(0, 30, 0));
                 intervalos.Add(new TimeSpan(1, 0, 0));
                 cmbIntervalo.SelectedIndex = 0;
-                ubicaciones = control.consultarUbicaciones();
+                ubicaciones = control.parametros_Generales.ubicaciones;
                 FillDatos();
                 Agregar_Columnas();
                 Mostrar_Columnas();

@@ -33,7 +33,7 @@ namespace IICAPS_v1.Presentacion.Forms.FromsControl
                 cmbIntervalo.SelectedIndex = 0;
                 control = ControlIicaps.getInstance();
 
-                ubicaciones = control.consultarUbicaciones();
+                ubicaciones = control.parametros_Generales.ubicaciones;
                 if (fecha != null)
                     datePicker_Fecha.Value = fecha;
                 FillDatos();

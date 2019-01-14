@@ -39,6 +39,7 @@ namespace IICAPS_v1.Control
 
 
         public static ControlIicaps instance;
+        public ParametrosGenerales parametros_Generales;
 
         public ControlIicaps()
         {
@@ -51,6 +52,13 @@ namespace IICAPS_v1.Control
             builder.SslMode = MySqlSslMode.None;
             //builder.ConnectionProtocol = protocolo;
             //builder.Port = port;
+            try
+            {
+                parametros_Generales = consultarParametrosGenerales();
+            }
+            catch (Exception ex) {
+                //throw new Exception("Error al obtener parametros generales");
+            }
         }
 
         public static ControlIicaps getInstance()
@@ -522,7 +530,7 @@ namespace IICAPS_v1.Control
                         CreditoAlumno credito = new CreditoAlumno();
                         credito.id = reader.GetInt32(0);
                         credito.alumno = reader.GetString(1);
-                        credito.cantidadMensualidad = reader.GetDouble(2);
+                        credito.cantidadMensualidad = reader.GetDecimal(2);
                         credito.cantidadMeses = reader.GetInt32(3);
                         credito.fechaSolicitud = reader.GetDateTime(4);
                         credito.observaciones = reader.GetString(5);
@@ -6110,7 +6118,7 @@ namespace IICAPS_v1.Control
             }
         }
 
-        //-----------------------------------USUARIO------------------------------//
+        //----------------------------------USUARIO--------------------------------------------//
         public Usuario consultarUsuario(string id)
         {
             try
@@ -6216,7 +6224,98 @@ namespace IICAPS_v1.Control
 
         }
 
-        //------------------------PARAMETROS GENERALES ----------------------------------//
+        //--------------------------------PARAMETROS GENERALES ----------------------------------//
+        private ParametrosGenerales consultarParametrosGenerales()
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT * FROM parametros_Generales; SELECT Nombre FROM ubicaciones;";
+                conn.Open();
+                try
+                {
+                    ParametrosGenerales parametros = new ParametrosGenerales();
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<String> aux = new List<String>();
+                    reader.Read();
+                    parametros.Costo_Credito_Especialidad_Diplomado = reader.GetDecimal(0);
+                    parametros.Costo_Credito_Maestria = reader.GetDecimal(1);
+                    parametros.Porcentaje_Pago_Sesion = reader.GetDecimal(2);
+                    parametros.Porcentaje_Pago_Taller = reader.GetDecimal(3);
+                    parametros.Porcentaje_Pago_Clase = reader.GetDecimal(4);
+                    while (reader.Read())
+                    {
+                        aux.Add(reader.GetString(0));
+                    }
+                    parametros_Generales.ubicaciones = aux;
+                    conn.Close();
+                    return parametros;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener parametros generales de la Base de Datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public bool actualizarParametrosGenerales(ParametrosGenerales parametros)
+        {
+            try
+            {
+                string updateParametros = "DELETE FROM ubiciones; INSERT INTO ubicaciones VALUES ('"+
+                    parametros.Costo_Credito_Especialidad_Diplomado+"','"+ parametros.Costo_Credito_Maestria + "','" +
+                    parametros.Porcentaje_Pago_Sesion + "','" + parametros.Porcentaje_Pago_Taller + "','" +
+                    parametros.Porcentaje_Pago_Clase + "'); ";
+                string updateUbicaciones = "";
+                if (parametros.ubicaciones != null)
+                {
+                    foreach(string aux in parametros.ubicaciones)
+                    {
+                        if (updateUbicaciones != "")
+                            updateUbicaciones += ",";
+                        updateUbicaciones += "'"+aux+"'";
+                    }
+                    updateUbicaciones = "DELETE FROM ubiciones; INSERT INTO ubicaciones VALUES ("+ updateUbicaciones+"); ";
+
+                }
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION; " + 
+                    updateParametros + 
+                    updateUbicaciones +
+                    "COMMIT; ";
+                try
+                {
+                    //cmd.CommandText = "SELECT * FROM Servicios";
+                    conn.Open();
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    //MySqlDataReader reader = cmd.ExecuteReader();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                    {
+                        this.parametros_Generales = parametros;
+                        return true;
+                    }
+                    else
+                        return false;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error..! Error al actualizar usuario de la Base de Datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+
+        }
         public List<String> consultarUbicaciones()
         {
             try
@@ -6285,7 +6384,7 @@ namespace IICAPS_v1.Control
             }
         }
 
-        //--------------------------CONFIGURACIÓN--------------------------//
+        //------------------------------------CONFIGURACIÓN--------------------------------------//
         public string formatearFecha(DateTime fecha)
         {
             DateTime aux;

@@ -28,8 +28,8 @@ namespace IICAPS_v1.Presentacion
             {
                 foreach (ClubDeTareas p in control.obtenerClubDeTareas())
                 {
-                    auxNombres.Add(p.fecha.ToShortDateString());
-                    auxId.Add(p.id.ToString());
+                    auxNombres.Add(p.Fecha.ToShortDateString());
+                    auxId.Add(p.ID.ToString());
                 }
                 cmbClubDeTareas.DataSource = auxNombres;
                 if (idClubDeTareas != null)

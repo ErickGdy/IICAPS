@@ -88,6 +88,7 @@
     <Compile Include="Control\ControlIicaps.cs" />
     <Compile Include="Control\DataGridViewPrinter.cs" />
     <Compile Include="Control\DocumentosWord.cs" />
+    <Compile Include="DataObject\ParametrosGenerales.cs" />
     <Compile Include="DataObject\Nomina.cs" />
     <Compile Include="DataObject\Psicoterapeuta.cs" />
     <Compile Include="DataObject\Reservacion.cs" />
@@ -340,6 +341,12 @@
     <Compile Include="Presentacion\Forms\FormsPsicoterapia\FormPaciente.Designer.cs">
       <DependentUpon>FormPaciente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentacion\Forms\FromsControl\FormParametrosGenerales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FromsControl\FormParametrosGenerales.Designer.cs">
+      <DependentUpon>FormParametrosGenerales.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Login\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -587,6 +594,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsPsicoterapia\FormPaciente.resx">
       <DependentUpon>FormPaciente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FromsControl\FormParametrosGenerales.resx">
+      <DependentUpon>FormParametrosGenerales.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Login\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

@@ -32,7 +32,7 @@ namespace IICAPS_v1.Presentacion
             control = ControlIicaps.getInstance();
             try
             {
-                cmbUbicacion.Items.AddRange(control.consultarUbicaciones().ToArray());
+                cmbUbicacion.Items.AddRange(control.parametros_Generales.ubicaciones.ToArray());
                 cmbUbicacion.SelectedIndex = 0;
                 reservaciones = control.obtenerReservaciones(DateTime.Now);
                 this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
@@ -111,7 +111,7 @@ namespace IICAPS_v1.Presentacion
                 }
                 cmbConcepto.Items.AddRange(aux.ToArray());
                 cmbConcepto.Items.Add("Otro");
-                cmbUbicacion.Items.AddRange(control.consultarUbicaciones().ToArray());
+                cmbUbicacion.Items.AddRange(control.parametros_Generales.ubicaciones.ToArray());
                 Llenar_ComboBox_Personal();
                 //Validar datos y setearlos a los campos de texto
                 if (fecha != null)

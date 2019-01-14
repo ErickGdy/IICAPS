@@ -16,7 +16,7 @@ namespace IICAPS_v1.Presentacion
     {
         ControlIicaps control;
         bool modificacion = false;
-        double varaux1 = 0, varaux2 = 0;
+        decimal varaux1 = 0, varaux2 = 0;
         public CreditoAlumnos(CreditoAlumno c, bool consultar)
         {
             InitializeComponent();
@@ -83,21 +83,21 @@ namespace IICAPS_v1.Presentacion
         {
             Programa programa = control.consultarPrograma(cmbIDPrograma.SelectedItem.ToString());
             List<Materia> lista = control.consultarMapaCurricularPrograma(cmbIDPrograma.SelectedItem.ToString());
-            double totalmaterias = 0, grantotal = 0;
+            decimal totalmaterias = 0, grantotal = 0;
             foreach (Materia materia in lista)
             {
-                totalmaterias += Convert.ToDouble(materia.costo);
+                totalmaterias += Convert.ToDecimal(materia.costo);
             }
-            double costoCredito;
+            decimal costoCredito;
             if (programa.Nivel.Contains("Maestria") || programa.Nivel.Contains("MAESTRIA") || programa.Nivel.Contains("Maestría") || programa.Nivel.Contains("MAESTRÍA"))
-                costoCredito = 5000;
+                costoCredito = control.parametros_Generales.Costo_Credito_Maestria;
             else
-                costoCredito = 4000;
+                costoCredito = control.parametros_Generales.Costo_Credito_Maestria;
             grantotal = totalmaterias + costoCredito;
-            double aux1 = grantotal / Convert.ToDouble(numMensualidad.Value);
+            decimal aux1 = grantotal / Convert.ToDecimal(numMensualidad.Value);
             numCantidad.Value = Convert.ToDecimal(aux1);
-            double var1 = costoCredito / Convert.ToDouble(numCantidad.Value);
-            double var2 = totalmaterias / Convert.ToDouble(numCantidad.Value);
+            decimal var1 = costoCredito / Convert.ToDecimal(numCantidad.Value);
+            decimal var2 = totalmaterias / Convert.ToDecimal(numCantidad.Value);
             varaux1 = var1;
             varaux2 = var2;
             lblCredito.Text = lblCredito.Text + var1.ToString();
@@ -120,7 +120,7 @@ namespace IICAPS_v1.Presentacion
                 cmbIDAlumno.SelectedIndex = cmbAlumno.SelectedIndex;
                 CreditoAlumno c = new CreditoAlumno();
                 c.alumno = cmbIDAlumno.SelectedItem.ToString();
-                c.cantidadMensualidad = Convert.ToDouble(numMensualidad.Value);
+                c.cantidadMensualidad = Convert.ToDecimal(numMensualidad.Value);
                 c.cantidadMeses = Convert.ToInt32(numCantidad.Value);
                 c.observaciones = txtObservaciones.Text;
                 c.cantidadAbonoCredito = varaux1;

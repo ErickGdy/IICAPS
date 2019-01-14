@@ -295,13 +295,19 @@ namespace IICAPS_v1.Presentacion
             {
                 string programa = programasAlumno.ElementAt(cmbProgramaSitacionAcademica.SelectedIndex);
                 string grupo = control.consultarGrupoAlumno(alumno.rfc);
-                foreach (Programa aux in programas)
+                if (grupo != "")
                 {
-                    if (aux.Codigo == programa)
+                    foreach (Programa aux in programas)
                     {
-                        DocumentosWord word = new DocumentosWord(alumno, control.obtenerCalificacionesAlumno(alumno.rfc, grupo), grupo, aux.Nombre);
-                        break;
+                        if (aux.Codigo == programa)
+                        {
+                            DocumentosWord word = new DocumentosWord(alumno, control.obtenerCalificacionesAlumno(alumno.rfc, grupo), grupo, aux.Nombre);
+                            break;
+                        }
                     }
+                }else
+                {
+                    MessageBox.Show("El alumno no esta inscrito en ningun grupo");
                 }
             }
             catch (Exception ex)

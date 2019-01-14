@@ -48,10 +48,6 @@ namespace IICAPS_v1.Presentacion
                 cmbAlumno.SelectedIndex = cmbIDAlumno.SelectedIndex;
                 cmbAlumno.Visible = false;
                 cmbConcepto.SelectedIndex = 0;
-                txtAlumno.Text = cmbAlumno.SelectedItem.ToString();
-                txtPrograma.Text = cmbPrograma.SelectedItem.ToString();
-                txtAlumno.Visible = true;
-                txtPrograma.Visible = true;
             }
         }
 
