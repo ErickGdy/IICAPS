@@ -20,84 +20,82 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private static DetallePagosAlumno instance;
         ControlIicaps control;
-        string alumno="", concepto="";
-        double auxTotal = 0, auxPendiente = 0;
+        Alumno alumno;
+        decimal auxTotal = 0, auxPendiente = 0;
         DataGridViewPrinter MyDataGridViewPrinter;
-        public DetallePagosAlumno(string rfc, string con)
+        public DetallePagosAlumno(Alumno al)
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
-            alumno = rfc;
-            concepto = con;
-            lblNombreAlumno.Text = control.obtenerNombreAlumno(alumno);
+            alumno = al;
+            lblNombreAlumno.Text = alumno.nombre;
             this.Text = lblNombreAlumno.Text;
             try
             {
-                actualizarTabla(control.obtenerPagosAlumnoTable(alumno, concepto));
+                actualizarTablaPagos(control.obtenerPagosDeAlumnoTable(alumno.rfc));
+                actualizarTablaCobros(control.obtenerCobrosDeAlumnoTable(alumno.rfc));
+                calcularMontos();
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
         }
+         private void calcularMontos(){
+            decimal auxTotal = 0, auxPendiente = 0;
+            for (int i = 0; i < dataGridViewCobros.Rows.Count; i++)
+            {
+                auxPendiente += Convert.ToDecimal(dataGridViewCobros.Rows[i].Cells[4].Value.ToString());
+            }
+            for (int i = 0; i < dataGridViewPagos.Rows.Count; i++)
+            {
+                auxTotal += Convert.ToDecimal(dataGridViewPagos.Rows[i].Cells[1].Value.ToString());
+            }
+            lblTotalPagado.Text = auxTotal.ToString();
+            lblPendiente.Text = auxPendiente.ToString();
 
-        private void actualizarTabla(MySqlDataAdapter data)
+            this.auxPendiente = auxPendiente;
+            this.auxTotal = auxTotal;
+        }
+        private void actualizarTablaCobros(MySqlDataAdapter data)
         {
             try
             {
-                double auxTotal = 0, auxPendiente = 0;
+                DataTable dtDatos = new DataTable();
+                //Con la informacion del adaptador se llena el datatable
+                data.Fill(dtDatos);
+                //Se asigna el datatable como origen de datos del datagridview
+                dataGridViewCobros.DataSource = dtDatos;
+                //Actualiza el valor del ancho de la columnas
+                int x = (dataGridViewCobros.Width - 20) / (dataGridViewCobros.Columns.Count-1);
+                foreach (DataGridViewColumn aux in dataGridViewCobros.Columns)
+                {
+                    aux.Width = x;
+                }
+                dataGridViewCobros.Columns[0].Visible = false;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+        private void actualizarTablaPagos(MySqlDataAdapter data)
+        {
+            try
+            {
+                
                 DataTable dtDatos = new DataTable();
                 //Con la informacion del adaptador se llena el datatable
                 data.Fill(dtDatos);
                 //Se asigna el datatable como origen de datos del datagridview
                 dataGridViewPagos.DataSource = dtDatos;
                 //Actualiza el valor del ancho de la columnas
-                int x = (dataGridViewPagos.Width - 20) / dataGridViewPagos.Columns.Count;
+                int x = (dataGridViewPagos.Width - 20) / (dataGridViewPagos.Columns.Count - 1);
                 foreach (DataGridViewColumn aux in dataGridViewPagos.Columns)
                 {
                     aux.Width = x;
                 }
-                for (int i = 0; i < dataGridViewPagos.Rows.Count; i++)
-                {
-                    auxTotal += Convert.ToDouble(dataGridViewPagos.Rows[i].Cells[3].Value.ToString());
-                }
-                List<Materia> materias = new List<Materia>(); 
-                materias = control.consultarMapaCurricularPrograma(control.obtenerProgramaAlumno(alumno));
-                double costoCredito = 0;
-                Programa programa = control.consultarPrograma(control.obtenerProgramaAlumno(alumno));
-                if (programa.Nivel.Contains("Maestria") || programa.Nivel.Contains("MAESTRIA") || programa.Nivel.Contains("Maestría") || programa.Nivel.Contains("MAESTRÍA"))
-                    costoCredito = 5000;
-                else
-                    costoCredito = 4000;
-                if (materias != null)
-                {
-                    foreach (Materia m in materias)
-                    {
-                        auxPendiente += Convert.ToDouble(m.costo);
-                    }
-                }
-                auxPendiente = auxPendiente - auxTotal + costoCredito;
-                if (auxPendiente >= 0)
-                {
-                    lblTotalPagado.Text = "$" + auxTotal.ToString();
-                }
-                else
-                {
-                    auxTotal = 0;
-                    lblTotalPagado.Text = "$" + auxTotal.ToString();
-                }
-                
-                if (auxPendiente >= 0)
-                {
-                    lblPendiente.Text = "$" + auxPendiente.ToString();
-                }
-                else
-                {
-                    auxPendiente = 0;
-                    lblPendiente.Text = "$" + auxPendiente.ToString();
-                }
-                this.auxPendiente = auxPendiente;
-                this.auxTotal = auxTotal;
+                dataGridViewPagos.Columns[0].Visible = false;                
             }
             catch (Exception e)
             {
@@ -107,21 +105,25 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             PagoAlumno pago = new PagoAlumno();
-            pago.alumnoID = alumno;
+            pago.alumnoID = alumno.rfc;
+            pago.cantidad = Convert.ToDouble(lblPendiente.Text);
+            pago.concepto = "Pago de Adeudo General";
             FormRegistrarPago fa = new FormRegistrarPago(pago, false);
             fa.FormClosed += new FormClosedEventHandler(form_Closed);
             fa.ShowDialog();
         }
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTabla(control.obtenerPagosAlumnoTable(alumno, concepto));
+            actualizarTablaPagos(control.obtenerPagosDeAlumnoTable(alumno.rfc));
+            actualizarTablaCobros(control.obtenerCobrosDeAlumnoTable(alumno.rfc));
+            calcularMontos();
         }
         private void quitarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
                 String id = dataGridViewPagos.CurrentRow.Cells[0].Value.ToString();
-                PagoAlumno pago = control.consultarPagoAlumno(id);
+                PagoAlumno pago = control.consultarPagoAlumno(Convert.ToInt32(id));
                 FormRegistrarPago fa = new FormRegistrarPago(pago, true);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -131,22 +133,9 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 MessageBox.Show(ex.Message);
             }
         }
-        private void limpiarBusqueda_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            limpiarBusqueda.Visible = false;
-            txtBuscar.Text = "";
-            try
-            {
-                actualizarTabla(control.obtenerPagosAlumnoTable(alumno, concepto));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTabla(control.obtenerPagosAlumnoTable(alumno, concepto));
+            actualizarTablaPagos(control.obtenerPagosDeAlumnoTable(alumno.rfc));
         }
 
         private void cancelarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -160,7 +149,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                     if (control.cancelarPagoAlumno(id))
                     {
                         MessageBox.Show("Pago cancelado");
-                        actualizarTabla(control.obtenerPagosAlumnoTable(alumno, concepto));
+                        actualizarTablaPagos(control.obtenerPagosDeAlumnoTable(alumno.rfc));
                     }
                     else
                         MessageBox.Show("Error al cancelar el pago");
@@ -177,53 +166,28 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             int ancho = this.Width;
             //Actualiza el tamaño de la tabla con respecto al tamaño de la ventana
             dataGridViewPagos.Width = ancho - 50;
-            dataGridViewPagos.Height = this.Height - 155;
+            dataGridViewCobros.Width = ancho - 50;
+            dataGridViewPagos.Height = (this.Height - 250)/2;
+            dataGridViewCobros.Height = (this.Height - 250)/2;
             //actualiza la posicion de los controles con respecto al tamaño de la ventana
             btnAgregarPago.Location = new Point (ancho - 195, btnAgregarPago.Location.Y);
-            txtBuscar.Location = new Point (ancho - 230, txtBuscar.Location.Y);
-            pictureBoxBuscar.Location = new Point (ancho - 260, pictureBoxBuscar.Location.Y);
-            limpiarBusqueda.Location = new Point (ancho - 55, limpiarBusqueda.Location.Y);
             //Actualiza el valor del ancho de la columnas
             if (dataGridViewPagos.Columns.Count != 0)
             {
-                int x = (dataGridViewPagos.Width - 20) / dataGridViewPagos.Columns.Count;
+                int x = (dataGridViewPagos.Width - 20) / (dataGridViewPagos.Columns.Count-1);
                 foreach (DataGridViewColumn aux in dataGridViewPagos.Columns)
                 {
                     aux.Width = x;
                 }
             }
-        }
-        private void txtBuscar_KeyUp(object sender, KeyEventArgs e)
-        {
-            string texto = txtBuscar.Text;
-            if (texto != "")
+            if (dataGridViewCobros.Columns.Count != 0)
             {
-                limpiarBusqueda.Visible = true;
-                if (texto.Length > 2)
+                int x = (dataGridViewCobros.Width - 20) / (dataGridViewCobros.Columns.Count-1);
+                foreach (DataGridViewColumn aux in dataGridViewCobros.Columns)
                 {
-                    try
-                    {
-                        actualizarTabla(control.obtenerPagosAlumnoTable(alumno, concepto));
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                    aux.Width = x;
                 }
             }
-            else
-            {
-                limpiarBusqueda.Visible = false;
-                try
-                {
-                    actualizarTabla(control.obtenerPagosAlumnoTable(alumno, concepto));
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-           
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)
@@ -250,6 +214,20 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 e.HasMorePages = true;
         }
 
+        private void btnActualizarCobros_Click(object sender, EventArgs e)
+        {
+            actualizarTablaCobros(control.obtenerCobrosDeAlumnoTable(alumno.rfc));
+        }
+
+        private void lblTotalPendiente_TextChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToDecimal(lblPendiente.Text) <= 0)
+                btnAgregarPago.Enabled = false;
+            else
+                btnAgregarPago.Enabled = true;
+        }
+
+
         private bool SetupThePrinting()
         {
             PrintDialog MyPrintDialog = new PrintDialog();
@@ -270,7 +248,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             MyPrintDocument.DefaultPageSettings.Margins = new Margins(40, 40, 40, 40);
             MyPrintDocument.DefaultPageSettings.Landscape = true;
 
-            MyDataGridViewPrinter = new DataGridViewPrinter(dataGridViewPagos, MyPrintDocument, false, "Alumno: " + lblNombreAlumno.Text + "\n Concepto: " + concepto, new Font("Arial", 14, FontStyle.Bold, GraphicsUnit.Point), Color.Black, "pie de página", new Font("Arial", 8, FontStyle.Bold, GraphicsUnit.Point), Color.Black, false);
+            MyDataGridViewPrinter = new DataGridViewPrinter(dataGridViewPagos, MyPrintDocument, false, "Alumno: " + lblNombreAlumno.Text + "\n "  , new Font("Arial", 14, FontStyle.Bold, GraphicsUnit.Point), Color.Black, "pie de página", new Font("Arial", 8, FontStyle.Bold, GraphicsUnit.Point), Color.Black, false);
 
             return true;
         }

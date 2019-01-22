@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -36,12 +37,14 @@ namespace IICAPS_v1.Presentacion
 
         private void cmbPrograma_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
+            cmbAlumno.Items.Clear();
+            cmbIDAlumno.Items.Clear();
             List<String> auxAlumno = new List<string>();
             List<String> auxIDAlumno = new List<string>();
+            
             try
             {
-                foreach (Alumno a in control.obtenerAlumnosByPrograma(cmbIDPrograma.SelectedItem.ToString()))
+                foreach (Alumno a in control.obtenerAlumnosByPrograma(cmbIDPrograma.Items[cmbPrograma.SelectedIndex].ToString()))
                 {
                     auxAlumno.Add(a.nombre);
                     auxIDAlumno.Add(a.rfc.ToString());
@@ -63,17 +66,28 @@ namespace IICAPS_v1.Presentacion
                 string programa = control.obtenerProgramaAlumno(alumno.rfc);
                 if (cmbTipoDocumento.SelectedItem.Equals("Constancia"))
                 {
-
+                    Thread t = new Thread(new ThreadStart(() => new DocumentosWord(alumno, grupo, programa)));
+                    t.Start();
                 }
                 if (cmbTipoDocumento.SelectedItem.Equals("Kardex"))
                 {
-                    DocumentosWord word = new DocumentosWord(alumno, control.obtenerCalificacionesAlumno(alumno.rfc, grupo), grupo,programa);
+                    Thread t = new Thread(new ThreadStart(() => new DocumentosWord(alumno, control.obtenerCalificacionesAlumno(alumno.rfc, grupo), grupo, programa)));
+                    t.Start();
                 }
+                    MessageBox.Show("Generando documento...");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al obtener datos del alumno");
             }
+        }
+
+        private void cmbPrograma_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            if (cmbAlumno.SelectedIndex != -1 && cmbPrograma.SelectedIndex != -1 && cmbTipoDocumento.SelectedIndex != -1)
+                btnGenerar.Enabled = true;
+            else
+                btnGenerar.Enabled = false;
         }
     }
 }

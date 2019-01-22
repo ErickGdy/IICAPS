@@ -11,6 +11,7 @@ using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
 using MySql.Data.MySqlClient;
+using System.Threading;
 
 namespace IICAPS_v1.Presentacion.Mains.Escuela
 {
@@ -19,6 +20,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private static MainCreditos instance;
         ControlIicaps control;
+        CreditoAlumno credito;
         public MainCreditos()
         {
             InitializeComponent();
@@ -158,8 +160,9 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         private void darDeBajaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             String rfc = dataGridViewCreditos.CurrentRow.Cells[1].Value.ToString();
-            CreditoAlumno credito = control.consultarCreditoAlumno(rfc);
-            DocumentosWord word = new DocumentosWord(credito);
+            credito = control.consultarCreditoAlumno(rfc);
+            Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));
+            t.Start();
         }
 
         private void cancelarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -183,6 +186,10 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        private void ThreadMethodDocumentos()
+        {
+            DocumentosWord word = new DocumentosWord(credito);
         }
     }
 }

@@ -11,6 +11,7 @@ using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
 using MySql.Data.MySqlClient;
+using System.Threading;
 
 namespace IICAPS_v1.Presentacion.Mains.Escuela
 {
@@ -20,6 +21,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         private static DetalleTaller instance;
         ControlIicaps control;
         Taller taller;
+        Pago pago;
         public DetalleTaller(Taller tal)
         {
             InitializeComponent();
@@ -195,12 +197,13 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 TallerAsistente asisT =  control.obtenerAsistenteTaller(ID);
                 FormPago fp = new FormPago(asisT.restante, "Pago de Taller", "Escuela");
                 fp.ShowDialog();
-                Pago pago = fp.getPagos();
+                pago = fp.getPagos();
                 fp.Dispose();
                 if (control.registrarPagoAsistenciaTaller(pago, asisT.ID.ToString()))
                 {
                     MessageBox.Show("Pago registrado exitosamente");
-                    DocumentosWord word = new DocumentosWord(pago);
+                    Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));
+                    t.Start();
                     btnActualizar_Click(null,null);
                 }
                 else
@@ -210,6 +213,10 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        private void ThreadMethodDocumentos()
+        {
+            DocumentosWord word = new DocumentosWord(pago);
         }
     }
 }

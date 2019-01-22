@@ -24,5 +24,22 @@ namespace IICAPS_v1.DataObject
         public string recibioEmpleado { get; set; }
         public int tipoInscripcion { get; set; }
 
+
+        public bool validarDocumentacion()
+        {
+            if (actaNacimientoCop && actaNacimientoOrg && curp && fotografias)
+            {
+                if (tituloCedulaCop && tituloCedulaOrg && tituloLicCop && cedProfCop)
+                {
+                    return true;
+                }
+                else if (solicitudOpcTitulacion && constanciaLibSSOrg && certificadoLicCop)
+                {
+                    return true;
+                }
+            }
+            return false;
+                
+        }
     }
 }

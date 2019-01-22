@@ -27,15 +27,15 @@ namespace IICAPS_v1.Control
         //string userID = "iic2ps1d";
         //string pass = "ConejoVolador11";
 
-        //string server = "iicaps.edu.mx";
-        string server = "138.128.160.26";
+        string server = "iicaps.edu.mx";
+        //string server = "187.137.151.226";
         string userID = "iic2ps1d_devs";
         string password = "ConejoVolador11";
-        string database = "iic2ps1d_iicaps_devs";
-        //uint port = 3306;
+        //string database = "iic2ps1d_iicaps_devs";
+        uint port = 3306;
         //uint port = 2083;
         ////MySqlConnectionProtocol protocolo =  MySqlConnectionProtocol.Tcp;
-        ////string database = "iic2ps1d_iicaps_prod";
+        string database = "iic2ps1d_iicaps_prod";
 
 
         public static ControlIicaps instance;
@@ -51,10 +51,10 @@ namespace IICAPS_v1.Control
             builder.AllowUserVariables = true;
             builder.SslMode = MySqlSslMode.None;
             //builder.ConnectionProtocol = protocolo;
-            //builder.Port = port;
+            builder.Port = port;
             try
             {
-                parametros_Generales = consultarParametrosGenerales();
+                consultarParametrosGenerales();
             }
             catch (Exception ex) {
                 //throw new Exception("Error al obtener parametros generales");
@@ -142,7 +142,7 @@ namespace IICAPS_v1.Control
                         "(A.Nombre LIKE '%" + parameter + "%' or " +
                         " A.Telefono1 LIKE '%" + parameter + "%' or " +
                         " A.Programa LIKE '%" + parameter + "%' or " +
-                        " G.Generacion LIKE '%" + parameter + "%')"; 
+                        " G.Generacion LIKE '%" + parameter + "%') AND A.Estado NOT LIKE 'Baja'"; 
                     MySqlDataAdapter mdaDatos = new MySqlDataAdapter(sqlString, this.conn);
                     this.conn.Close();
                     return mdaDatos;
@@ -437,11 +437,23 @@ namespace IICAPS_v1.Control
         {
             try
             {
+                string creditoQuery = "INSERT INTO creditoAlumno (AlumnoID, CantidadMensualidad, CantidadMeses, CantidadAbonoCredito, CantidadAbonoMensual, FechaSolicitud, Observaciones, Estado) VALUES ('"
+                    + credito.alumno + "', '" + credito.cantidadMensualidad + "', '" + credito.cantidadMeses + "', '"
+                    + credito.cantidadAbonoCredito + "', '" + credito.cantidadAbonoMensual + "','"
+                    + formatearFecha(DateTime.Now) + "', '" + credito.observaciones + "', '" + credito.estado + "');";
+                string registroCobro = "INSERT INTO cobrosAlumno(Alumno, Concepto, Cantidad, Pago, Restante, Fecha, Parent_ID)SELECT '" 
+                    + credito.alumno + "','Credito', '" + (credito.cantidadMensualidad * credito.cantidadMeses) +
+                    "','0.00','" + (credito.cantidadMensualidad * credito.cantidadMeses) + "','" + formatearFecha(DateTime.Now) +
+                    "', AUTO_INCREMENT-1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '" + this.database +
+                    "' AND TABLE_NAME = 'creditoAlumno';";
+                string updateColegiatura = "UPDATE cobrosAlumno SET Restante=0,Cantidad=Pago WHERE Parent_ID = '" + credito.alumno + "' AND Restante > 0;";
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "INSERT INTO creditoAlumno (AlumnoID, CantidadMensualidad, CantidadMeses, FechaSolicitud, Observaciones, Estado) VALUES ('"
-                    + credito.alumno + "', '" + credito.cantidadMensualidad + "', '" + credito.cantidadMeses + "', '"
-                    + formatearFecha(DateTime.Now) + "', '" + credito.observaciones + "', '" + credito.estado + "')";
+                cmd.CommandText = "START TRANSACTION;" +
+                    creditoQuery +
+                    registroCobro +  
+                    updateColegiatura +
+                    "COMMIT;";
                 conn.Open();
                 try
                 {
@@ -471,7 +483,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT * FROM creditoAlumno", conn);
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT ID, AlumnoID, CantidadMensualidad, CantidadMeses, CantidadAbonoCredito, CantidadAbonoMensual, FechaSolicitud, Observaciones FROM creditoAlumno WHERE Estado NOT LIKE 'Cancelado'", conn);
                     conn.Close();
                     return mdaDatos;
                 }
@@ -494,7 +506,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    string sqlString = "SELECT * FROM creditoAlumno WHERE" +
+                    string sqlString = "SELECT ID, AlumnoID, CantidadMensualidad, CantidadMeses, CantidadAbonoCredito, CantidadAbonoMensual, FechaSolicitud, Observaciones FROM creditoAlumno WHERE Estado NOT LIKE 'Cancelado' AND " +
                         "(AlumnoID LIKE '%" + parameter + "%' or " +
                         "CantidadMensualidad LIKE '%" + parameter + "%' or " +
                         "CantidadMeses LIKE '%" + parameter + "%' or " +
@@ -514,13 +526,13 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
-        public CreditoAlumno consultarCreditoAlumno(string rfc)
+        public CreditoAlumno consultarCreditoActivoAlumno(string rfc)
         {
             try
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM creditoAlumno WHERE AlumnoID='" + rfc + "'";
+                cmd.CommandText = "SELECT C.ID, C.AlumnoID, C.CantidadMensualidad, C.CantidadMeses, C.CantidadAbonoCredito, C.CantidadAbonoMensual, C.FechaSolicitud, C.Observaciones, C.Estado, A.Pago FROM creditoAlumno C, cobrosAlumno A WHERE A.Parent_ID=C.ID AND AlumnoID='" + rfc + "' AND C.Estado='Activo'";
                 conn.Open();
                 try
                 {
@@ -532,9 +544,12 @@ namespace IICAPS_v1.Control
                         credito.alumno = reader.GetString(1);
                         credito.cantidadMensualidad = reader.GetDecimal(2);
                         credito.cantidadMeses = reader.GetInt32(3);
-                        credito.fechaSolicitud = reader.GetDateTime(4);
-                        credito.observaciones = reader.GetString(5);
-                        credito.estado = reader.GetString(6);
+                        credito.cantidadAbonoCredito = reader.GetDecimal(4);
+                        credito.cantidadAbonoMensual = reader.GetDecimal(5);
+                        credito.fechaSolicitud = reader.GetDateTime(6);
+                        credito.observaciones = reader.GetString(7);
+                        credito.estado = reader.GetString(8);
+                        credito.pago = reader.GetDecimal(9);
                         conn.Close();
                         return credito;
                     }
@@ -552,14 +567,57 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
-        public bool actualizarCredito(CreditoAlumno credito)
+        public CreditoAlumno consultarCreditoAlumno(string rfc)
         {
             try
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "UPDATE creditoAlumno SET CantidadMensualidad= '" + credito.cantidadMensualidad + "', CantidadMeses= '" + credito.cantidadMeses + 
-                    "', Observaciones= '" + credito.observaciones +  "' WHERE AlumnoID = '" + credito.alumno + "'";
+                cmd.CommandText = "SELECT C.ID, C.AlumnoID, C.CantidadMensualidad, C.CantidadMeses, C.CantidadAbonoCredito, C.CantidadAbonoMensual, C.FechaSolicitud, C.Observaciones, C.Estado, A.Pago FROM creditoAlumno C, cobrosAlumno A WHERE A.Parent_ID=C.ID AND AlumnoID='" + rfc + "'";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        CreditoAlumno credito = new CreditoAlumno();
+                        credito.id = reader.GetInt32(0);
+                        credito.alumno = reader.GetString(1);
+                        credito.cantidadMensualidad = reader.GetDecimal(2);
+                        credito.cantidadMeses = reader.GetInt32(3);
+                        credito.cantidadAbonoCredito = reader.GetDecimal(4);
+                        credito.cantidadAbonoMensual = reader.GetDecimal(5);
+                        credito.fechaSolicitud = reader.GetDateTime(6);
+                        credito.observaciones = reader.GetString(7);
+                        credito.estado = reader.GetString(8);
+                        credito.pago = reader.GetDecimal(9);
+                        conn.Close();
+                        return credito;
+                    }
+                    conn.Close();
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos del credito del alumno de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public bool actualizarEstadoCredito(string credito_ID, string estado)
+        {
+            try
+            {
+                string creditoQuery = "UPDATE creditoAlumno SET Estado ='"+estado+"' WHERE ID = '" + credito_ID + "'";
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION;" +
+                    creditoQuery +
+                    "COMMIT;";
                 conn.Open();
                 try
                 {
@@ -581,64 +639,34 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
-        public string obtenerProgramaAlumno(String rfc)
+        public bool actualizarCredito(CreditoAlumno credito)
         {
             try
             {
+                string creditoQuery = "UPDATE creditoAlumno SET CantidadMensualidad= '" + credito.cantidadMensualidad + "', CantidadMeses= '" + credito.cantidadMeses +
+                    "', CantidadAbonoCredito=" + credito.cantidadAbonoCredito + "', CantidadAbonoMensual='" + credito.cantidadAbonoMensual +
+                    "', Observaciones= '" + credito.observaciones + "' WHERE AlumnoID = '" + credito.alumno + "'";
+                string registroCobro = "UPDATE cobrosAlumno set Alumno='" + credito.alumno + "',Concepto='Credito', Cantidad='" + (credito.cantidadMensualidad * credito.cantidadMeses) + 
+                    "',Restante=" + (credito.cantidadMensualidad * credito.cantidadMeses) + "- pago,Fecha='" + formatearFecha(DateTime.Now) + "' WHERE Parent_ID = '"+credito.id+"';";
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Programa FROM alumnos WHERE RFC='" + rfc + "'";
+                cmd.CommandText = "START TRANSACTION;" +
+                    creditoQuery +
+                    registroCobro +
+                    "COMMIT;";
                 conn.Open();
                 try
                 {
-                    MySqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        string programa = "";
-                        programa = reader.GetString(0);
-                        return programa;
-                    }
+                    int rowsAfected = cmd.ExecuteNonQuery();
                     conn.Close();
-                    return null;
-                }
-                catch (Exception e)
-                {
-                    throw new Exception("Error al obtener los datos del programa del alumno de la base de datos");
-                }
-            }
-            catch (Exception e)
-            {
-                conn.Close();
-                throw new Exception("Error al establecer conexión con el servidor");
-            }
-        }
-        public List<string> obtenerProgramasAlumno(String rfc)
-        {
-            try
-            {
-                conn = new MySqlConnection(builder.ToString());
-                cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Programa FROM alumnos WHERE RFC='" + rfc + "'";
-                conn.Open();
-                try
-                {
-                    MySqlDataReader reader = cmd.ExecuteReader();
-                    List<string> programas = new List<string>();
-                    while (reader.Read())
-                    {
-                        string programa = "";
-                        programa = reader.GetString(0);
-                        programas.Add(programa);
-                    }
-                    conn.Close();
-                    if (programas.Count != 0)
-                        return programas;
+                    if (rowsAfected > 0)
+                        return true;
                     else
-                        return null;
+                        return false;
                 }
                 catch (Exception e)
                 {
-                    throw new Exception("Error al obtener los datos del programa del alumno de la base de datos");
+                    throw new Exception("Error al actualizar los datos del credito del alumno en la Base de Datos");
                 }
             }
             catch (Exception e)
@@ -677,6 +705,45 @@ namespace IICAPS_v1.Control
         }
 
         //-------------------------------PAGOS ALUMNO--------------------------------------//
+        public bool agregarPagoAlumno(PagoAlumno pago, List<Cobro> cobros)
+        {
+            try
+            {
+                string pagoQuery= "INSERT INTO pagosAlumno (AlumnoID, FechaPago, Cantidad, Concepto, Observaciones, Recibio) VALUES ('"
+                    + pago.alumnoID + "', '" + formatearFecha(pago.fechaPago) + "'," + pago.cantidad + ", '" + pago.concepto + "', '"
+                    + pago.observaciones + "', '" + pago.recibio + "');";
+                string actualizarCobros = "";
+                foreach (Cobro aux in cobros)
+                {
+                    actualizarCobros += "UPDATE cobrosAlumno SET Pago = " + aux.pago + ", Restante=" + aux.restante  + " WHERE ID = " + aux.id + "; ";
+                }
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "START TRANSACTION;" +
+                    pagoQuery +
+                    actualizarCobros+
+                    "COMMIT;";
+                conn.Open();
+                try
+                {
+                    int rowsAfected = cmd.ExecuteNonQuery();
+                    conn.Close();
+                    if (rowsAfected > 0)
+                        return true;
+                    else
+                        return false;
+                }
+                catch (Exception E)
+                {
+                    throw new Exception("Error al agregar el pago del alumno a la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
         public bool agregarPagoAlumno(PagoAlumno pago)
         {
             try
@@ -707,7 +774,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
-        public MySqlDataAdapter obtenerPagosAlumnoTable()
+        public MySqlDataAdapter obtenerPagosAlumnosTable()
         {
             try
             {
@@ -730,7 +797,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
-        public MySqlDataAdapter obtenerPagosAlumnoTable(string parameter)
+        public MySqlDataAdapter obtenerPagosAlumnosTable(string parameter)
         {
             try
             {
@@ -758,7 +825,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
-        public PagoAlumno consultarPagoAlumno(string id)
+        public PagoAlumno consultarPagoAlumno(int id)
         {
             try
             {
@@ -796,23 +863,16 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
-        public MySqlDataAdapter obtenerPagosAlumnoTable(String rfc, string concepto)
+        public MySqlDataAdapter obtenerPagosDeAlumnoTable(String rfc)
         {
             try
             {
-                conn = new MySqlConnection(builder.ToString());
-                conn.Open();
-                MySqlDataAdapter mdaDatos = new MySqlDataAdapter();
+                
                 try
                 {
-                    if(concepto.Contains("Colegiatura")) 
-                        mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID = '"+rfc+ "' AND Estado NOT LIKE 'Cancelado' AND Concepto = 'Pago de Colegiatura' OR 'Abono de Colegiatura'", conn);
-                    else if (concepto.Contains("Credito"))
-                        mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID = '" + rfc + "' AND Estado NOT LIKE 'Cancelado' AND Concepto = 'Pago de Credito' OR 'Abono de Credito'", conn);
-                    else if (concepto.Contains("ClubDeTareas"))
-                        mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID = '" + rfc + "' AND Estado NOT LIKE 'Cancelado' AND Concepto = 'Pago de ClubDeTareas' OR 'Abono de ClubDeTareas'", conn);
-                    else if (concepto.Contains("Inscripcion"))
-                        mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno WHERE AlumnoID = '" + rfc + "' AND Concepto = 'Pago de Inscripcion'", conn);
+                    conn = new MySqlConnection(builder.ToString());
+                    conn.Open();
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT ID,Cantidad,Concepto,Observaciones,Recibio,FechaPago FROM pagosAlumno WHERE AlumnoID = '" + rfc + "'", conn);
                     conn.Close();
                     return mdaDatos;
                 }
@@ -833,7 +893,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Concepto FROM conceptosDePago WHERE Area='"+area+"';";
+                cmd.CommandText = "SELECT Concepto FROM conceptos WHERE Tipo='Pago' AND Area='"+area+"';";
                 conn.Open();
                 try
                 {
@@ -888,6 +948,111 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
+        public Cobro consultarCobrosDeAlumnoPorConcepto(String rfc, string concepto)
+        {
+            try
+            {
+
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT ID,Concepto,Cantidad,Pago,Restante,Alumno,Parent_ID FROM cobrosAlumno WHERE Alumno = '" + rfc + "' AND Concepto='" + concepto + "';";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Cobro cobro = new Cobro();
+                        cobro.id = reader.GetInt32(0);
+                        cobro.concepto = reader.GetString(1);
+                        cobro.cantidad = reader.GetDecimal(2);
+                        cobro.pago = reader.GetDecimal(3);
+                        cobro.restante = reader.GetDecimal(4);
+                        cobro.alumno = reader.GetString(5);
+                        cobro.parent_id = reader.GetString(6);
+                        conn.Close();
+                        return cobro;
+                    }
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de los pagos del alumno de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public List<Cobro> consultarCobrosDeAlumno(String rfc)
+        {
+            try
+            {
+
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT ID,Concepto,Cantidad,Pago,Restante,Alumno,Parent_ID FROM cobrosAlumno WHERE Alumno = '" + rfc + "' AND Restante > 0";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<Cobro> aux = new List<Cobro>();
+                    while (reader.Read())
+                    {
+                        Cobro cobro = new Cobro();
+                        cobro.id = reader.GetInt32(0);
+                        cobro.concepto = reader.GetString(1);
+                        cobro.cantidad = reader.GetDecimal(2);
+                        cobro.pago = reader.GetDecimal(3);
+                        cobro.restante = reader.GetDecimal(4);
+                        cobro.alumno = reader.GetString(5);
+                        cobro.parent_id = reader.GetString(6);
+                        aux.Add(cobro);
+                    }
+                    conn.Close();
+                    if (aux.Count != 0)
+                        return aux;
+                    else
+                        return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de los pagos del alumno de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public MySqlDataAdapter obtenerCobrosDeAlumnoTable(String rfc)
+        {
+            try
+            {
+
+                try
+                {
+                    conn = new MySqlConnection(builder.ToString());
+                    conn.Open();
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT ID,Concepto,Cantidad,Pago,Restante,Fecha FROM cobrosAlumno WHERE Alumno = '" + rfc + "'", conn);
+                    conn.Close();
+                    return mdaDatos;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos de los pagos del alumno de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+
 
         //-------------------------------MATERIAS-------------------------------//
         public bool agregarMateria(Materia materia)
@@ -1499,7 +1664,102 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al establecer conexión con el servidor");
             }
         }
-
+        public decimal consultarCostoPrograma(string programa)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT M.Costo FROM mapaCurricular C, materia M WHERE C.Materia= M.ID AND C.Programa='" + programa + "'";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    decimal costoTotal = 0;
+                    while (reader.Read())
+                    {
+                        costoTotal += reader.GetDecimal(0);
+                    }
+                    conn.Close();
+                    return costoTotal;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener datos del programa de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public string obtenerProgramaAlumno(String rfc)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Programa FROM alumnos WHERE RFC='" + rfc + "'";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string programa = "";
+                        programa = reader.GetString(0);
+                        return programa;
+                    }
+                    conn.Close();
+                    return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos del programa del alumno de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
+        public List<string> obtenerProgramasAlumno(String rfc)
+        {
+            try
+            {
+                conn = new MySqlConnection(builder.ToString());
+                cmd = conn.CreateCommand();
+                cmd.CommandText = "SELECT Programa FROM alumnos WHERE RFC='" + rfc + "'";
+                conn.Open();
+                try
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    List<string> programas = new List<string>();
+                    while (reader.Read())
+                    {
+                        string programa = "";
+                        programa = reader.GetString(0);
+                        programas.Add(programa);
+                    }
+                    conn.Close();
+                    if (programas.Count != 0)
+                        return programas;
+                    else
+                        return null;
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error al obtener los datos del programa del alumno de la base de datos");
+                }
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al establecer conexión con el servidor");
+            }
+        }
         //-------------------------------GRUPOS-------------------------------//
         public bool agregarGrupo(Grupo grupo)
         {
@@ -1885,7 +2145,7 @@ namespace IICAPS_v1.Control
                         return grupo;
                     }
                     conn.Close();
-                    return "";
+                    return null;
                 }
                 catch (Exception e)
                 {
@@ -3007,18 +3267,29 @@ namespace IICAPS_v1.Control
                     + RFC + "','" + grupo + "'); ";
                 string inscribirPrograma = "INSERT INTO programaAlumno (Alumno, Programa, Estado) VALUES('"
                     + RFC + "','" + programa + "','Inscrito'); ";
-                string updateDatosAlumno = "UPDATE alumnos SET Programa = '" + programa + "' WHERE RFC='" + RFC + "';";
+                decimal cantidad = 0;
+                try
+                {
+                    cantidad = consultarCostoPrograma(programa);
+                }
+                catch (Exception ex) { }
+                string registroCobroInscripcion = "INSERT INTO cobrosAlumno (Alumno,Concepto,Cantidad,Pago,Restante,Fecha,Parent_ID) VALUES('"
+                    + RFC+ "','Colegiatura','"+cantidad+"','0.00','"+cantidad+"','"+formatearFecha(DateTime.Now)+"','"+RFC+"');";
+                string updateDatosAlumno = "UPDATE alumnos SET Programa = '" + programa + "', Estado='Registrado' WHERE RFC='" + RFC + "';";
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
                 cmd.CommandText = "START TRANSACTION; "
                                     + inscribirGrupo
                                     + inscribirPrograma
                                     + updateDatosAlumno
-                                    + "COMMIT;";
+                                    + registroCobroInscripcion;
+                                    
                 conn.Open();
                 try
                 {
                     int rowsAfected = cmd.ExecuteNonQuery();
+                    cmd.CommandText = "COMMIT;";
+                    cmd.ExecuteNonQuery();
                     conn.Close();
                     if (rowsAfected > 0)
                         return true;
@@ -3027,6 +3298,8 @@ namespace IICAPS_v1.Control
                 }
                 catch (Exception e)
                 {
+                    cmd.CommandText = "ROLLBACK;";
+                    cmd.ExecuteNonQuery();
                     conn.Close();
                     throw new Exception("Error...! Error al agregar Prorgrama a la Base de datos");
                 }
@@ -3696,7 +3969,7 @@ namespace IICAPS_v1.Control
         }
 
         //--------------------------------NOMINA--------------------------------------//
-        public List<decimal> obtenerConsultasPsicoterapeutaPendientes(string matricula,DateTime inicio ,DateTime fin)
+        public List<string> obtenerConsultasPsicoterapeutaPendientes(string matricula,DateTime inicio ,DateTime fin)
         {
             try
             {
@@ -3704,17 +3977,18 @@ namespace IICAPS_v1.Control
                 try
                 {
                     string query = "";
-                    query += "SELECT S.Costo FROM sesiones S WHERE S.Psicoterapeuta_ID = '" + matricula + "' AND S.Estado = 'Activa' AND S.Fecha BETWEEN '"+formatearFecha(inicio)+"' AND '"+formatearFecha(fin)+"' ";
-                    query += "UNION SELECT E.Costo FROM evaluaciones E WHERE E.Psicoterapeuta_ID = '" + matricula + "' AND E.Estado = 'Activa' AND E.Fecha BETWEEN '" + formatearFecha(inicio) + "' AND '" + formatearFecha(fin) + "'";
+                    query += "SELECT 's' AS Tipo, S.Costo FROM sesiones S WHERE S.Psicoterapeuta_ID = '" + matricula + "' AND S.Estado = 'Activa' AND S.Fecha BETWEEN '"+formatearFecha(inicio)+"' AND '"+formatearFecha(fin)+"' ";
+                    query += "UNION SELECT 'e' AS Tipo E.Costo FROM evaluaciones E WHERE E.Psicoterapeuta_ID = '" + matricula + "' AND E.Estado = 'Activa' AND E.Fecha BETWEEN '" + formatearFecha(inicio) + "' AND '" + formatearFecha(fin) + "'";
                     conn = new MySqlConnection(builder.ToString());
                     cmd = conn.CreateCommand();
                     cmd.CommandText = query;
                     conn.Open();
                     MySqlDataReader reader = cmd.ExecuteReader();
-                    List<decimal> aux = new List<decimal>();
+                    List<string> aux = new List<string>();
                     while (reader.Read())
                     {
-                        aux.Add(reader.GetDecimal(0));
+                        aux.Add(reader.GetString(0));
+                        aux.Add(reader.GetDecimal(1).ToString());
                     }
                     conn.Close();
                     if (aux.Count != 0)
@@ -6225,32 +6499,37 @@ namespace IICAPS_v1.Control
         }
 
         //--------------------------------PARAMETROS GENERALES ----------------------------------//
-        private ParametrosGenerales consultarParametrosGenerales()
+        private void consultarParametrosGenerales()
         {
             try
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM parametros_Generales; SELECT Nombre FROM ubicaciones;";
+                cmd.CommandText = "SELECT * FROM parametros_Generales;";
                 conn.Open();
                 try
                 {
-                    ParametrosGenerales parametros = new ParametrosGenerales();
+                    this.parametros_Generales = new ParametrosGenerales();
                     MySqlDataReader reader = cmd.ExecuteReader();
                     List<String> aux = new List<String>();
                     reader.Read();
-                    parametros.Costo_Credito_Especialidad_Diplomado = reader.GetDecimal(0);
-                    parametros.Costo_Credito_Maestria = reader.GetDecimal(1);
-                    parametros.Porcentaje_Pago_Sesion = reader.GetDecimal(2);
-                    parametros.Porcentaje_Pago_Taller = reader.GetDecimal(3);
-                    parametros.Porcentaje_Pago_Clase = reader.GetDecimal(4);
+                    parametros_Generales.Costo_Credito_Especialidad_Diplomado = reader.GetDecimal(0);
+                    parametros_Generales.Costo_Credito_Maestria = reader.GetDecimal(1);
+                    parametros_Generales.Porcentaje_Pago_Sesion = reader.GetDecimal(2);
+                    parametros_Generales.Porcentaje_Pago_Taller = reader.GetDecimal(3);
+                    parametros_Generales.Porcentaje_Pago_Clase = reader.GetDecimal(4);
+                    parametros_Generales.Porcentaje_Pago_Evaluacion = reader.GetDecimal(5);
+                    parametros_Generales.Director = reader.GetString(6);
+                    parametros_Generales.Sede = reader.GetString(7);
+                    reader.Close();
+                    cmd.CommandText= "SELECT Nombre FROM ubicaciones;";
+                    reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
                         aux.Add(reader.GetString(0));
                     }
                     parametros_Generales.ubicaciones = aux;
                     conn.Close();
-                    return parametros;
                 }
                 catch (Exception e)
                 {
@@ -6267,10 +6546,10 @@ namespace IICAPS_v1.Control
         {
             try
             {
-                string updateParametros = "DELETE FROM ubiciones; INSERT INTO ubicaciones VALUES ('"+
-                    parametros.Costo_Credito_Especialidad_Diplomado+"','"+ parametros.Costo_Credito_Maestria + "','" +
+                string updateParametros = "DELETE FROM parametros_Generales; INSERT INTO parametros_Generales VALUES ('" +
+                    parametros.Costo_Credito_Especialidad_Diplomado + "','" + parametros.Costo_Credito_Maestria + "','" +
                     parametros.Porcentaje_Pago_Sesion + "','" + parametros.Porcentaje_Pago_Taller + "','" +
-                    parametros.Porcentaje_Pago_Clase + "'); ";
+                    parametros.Porcentaje_Pago_Clase + "','" + parametros.Porcentaje_Pago_Evaluacion + "','" + parametros.Director+"','" + parametros.Sede + "'); ";
                 string updateUbicaciones = "";
                 if (parametros.ubicaciones != null)
                 {
@@ -6278,9 +6557,9 @@ namespace IICAPS_v1.Control
                     {
                         if (updateUbicaciones != "")
                             updateUbicaciones += ",";
-                        updateUbicaciones += "'"+aux+"'";
+                        updateUbicaciones += "('"+aux+"')";
                     }
-                    updateUbicaciones = "DELETE FROM ubiciones; INSERT INTO ubicaciones VALUES ("+ updateUbicaciones+"); ";
+                    updateUbicaciones = "DELETE FROM ubicaciones; INSERT INTO ubicaciones (Nombre) VALUES "+ updateUbicaciones +"; ";
 
                 }
                 conn = new MySqlConnection(builder.ToString());
@@ -6356,7 +6635,7 @@ namespace IICAPS_v1.Control
             {
                 conn = new MySqlConnection(builder.ToString());
                 cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT Concepto FROM conceptosDePago WHERE Tipo='" + tipo + "' AND Area='" + area + "';";
+                cmd.CommandText = "SELECT Concepto FROM conceptos WHERE Tipo='" + tipo + "' AND Area='" + area + "';";
                 conn.Open();
                 try
                 {

@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,13 +18,14 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
     {
         private static MainPagos instance;
         ControlIicaps control;
+        PagoAlumno pago;
         public MainPagos()
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
             try
             {
-                actualizarTablaPagos(control.obtenerPagosAlumnoTable());
+                actualizarTablaPagos(control.obtenerPagosAlumnosTable());
             }
             catch (Exception e)
             {
@@ -72,7 +74,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTablaPagos(control.obtenerPagosAlumnoTable(txtBuscarCredito.Text));
+            actualizarTablaPagos(control.obtenerPagosAlumnosTable(txtBuscarCredito.Text));
         }
 
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -85,7 +87,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String id = dataGridViewPagos.CurrentRow.Cells[0].Value.ToString();
-                PagoAlumno pago = control.consultarPagoAlumno(id);
+                PagoAlumno pago = control.consultarPagoAlumno(Convert.ToInt32(id));
                 FormRegistrarPago fa = new FormRegistrarPago(pago, true);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -120,14 +122,15 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void button1_Click(object sender, EventArgs e)
         {
-            actualizarTablaPagos(control.obtenerPagosAlumnoTable(txtBuscarCredito.Text));
+            actualizarTablaPagos(control.obtenerPagosAlumnosTable(txtBuscarCredito.Text));
         }
 
         private void imprimirReciboToolStripMenuItem_Click(object sender, EventArgs e)
         {
             String id = dataGridViewPagos.CurrentRow.Cells[0].Value.ToString();
-            PagoAlumno pago = control.consultarPagoAlumno(id);
-            DocumentosWord word = new DocumentosWord(pago);
+            pago = control.consultarPagoAlumno(Convert.ToInt32(id));
+            Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));
+            t.Start();
         }
 
         private void cancelarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -141,7 +144,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                     if (control.cancelarPagoAlumno(id))
                     {
                         MessageBox.Show("Pago cancelado");
-                        actualizarTablaPagos(control.obtenerPagosAlumnoTable());
+                        actualizarTablaPagos(control.obtenerPagosAlumnosTable());
                     }
                     else
                         MessageBox.Show("Error al cancelar el pago");
@@ -151,6 +154,10 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        private void ThreadMethodDocumentos()
+        {
+            DocumentosWord word = new DocumentosWord(pago);
         }
     }
 }

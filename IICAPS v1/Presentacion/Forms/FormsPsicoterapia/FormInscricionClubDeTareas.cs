@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,6 +19,7 @@ namespace IICAPS_v1.Presentacion
         List<String> auxId;
         ClubDeTareas clubDeTareas;
         ClubDeTareasAsistente asistenT;
+        Pago pago;
         public FormInscricionClubDeTareas(string idClubDeTareas, ClubDeTareasAsistente asistente)
         {
             InitializeComponent();
@@ -77,11 +79,12 @@ namespace IICAPS_v1.Presentacion
                     {
                         FormPago fp = new FormPago(asistenT.Pago, "Pago de Club De Tareas", "Psicoterapia");
                         fp.ShowDialog();
-                        Pago pago = fp.getPagos();
+                        pago = fp.getPagos();
                         if (control.registrarPagoAsistenciaClubDeTareas(pago, control.obtenerAsistentesClubDeTareas(asistenT.Club_Tareas_ID.ToString()).Last().ID.ToString()))
                         {
                             MessageBox.Show("Pago registrado exitosamente");
-                            DocumentosWord word = new DocumentosWord(pago);
+                            Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));
+                            t.Start();
                         }
                         else
                             throw new Exception("Error al registrar pago");
@@ -116,6 +119,9 @@ namespace IICAPS_v1.Presentacion
                 MessageBox.Show("Error al obtener datos del club de tareas");
             }
         }
-
+        private void ThreadMethodDocumentos()
+        {
+            DocumentosWord word = new DocumentosWord(pago);
+        }
     }
 }

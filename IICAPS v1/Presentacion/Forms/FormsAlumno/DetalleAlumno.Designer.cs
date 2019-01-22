@@ -35,6 +35,7 @@
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.linkLabel5 = new System.Windows.Forms.LinkLabel();
             this.groupMenus = new System.Windows.Forms.GroupBox();
+            this.linkHistoriaPagos = new System.Windows.Forms.LinkLabel();
             this.linkInscripciones = new System.Windows.Forms.LinkLabel();
             this.lblProgramaHeader = new System.Windows.Forms.Label();
             this.lblCentroAlumnado = new System.Windows.Forms.Label();
@@ -115,11 +116,13 @@
             this.cmbProgramaSitacionAcademica = new System.Windows.Forms.ComboBox();
             this.label81 = new System.Windows.Forms.Label();
             this.panelInscripcion = new System.Windows.Forms.Panel();
+            this.lblMensajeInscripcion = new System.Windows.Forms.Label();
             this.lblMensajeInscripciones = new System.Windows.Forms.Label();
             this.btnInscribir_Inscripciones = new System.Windows.Forms.Button();
             this.label33 = new System.Windows.Forms.Label();
             this.cmbGrupos = new System.Windows.Forms.ComboBox();
             this.label34 = new System.Windows.Forms.Label();
+            this.linkLabelCredito = new System.Windows.Forms.LinkLabel();
             this.groupMenus.SuspendLayout();
             this.panelCalificaciones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCalificaciones)).BeginInit();
@@ -194,6 +197,8 @@
             // 
             // groupMenus
             // 
+            this.groupMenus.Controls.Add(this.linkLabelCredito);
+            this.groupMenus.Controls.Add(this.linkHistoriaPagos);
             this.groupMenus.Controls.Add(this.linkInscripciones);
             this.groupMenus.Controls.Add(this.linkLabel5);
             this.groupMenus.Controls.Add(this.linkLabel3);
@@ -201,10 +206,22 @@
             this.groupMenus.Controls.Add(this.linkLabel1);
             this.groupMenus.Location = new System.Drawing.Point(780, 93);
             this.groupMenus.Name = "groupMenus";
-            this.groupMenus.Size = new System.Drawing.Size(210, 203);
+            this.groupMenus.Size = new System.Drawing.Size(210, 237);
             this.groupMenus.TabIndex = 47;
             this.groupMenus.TabStop = false;
             this.groupMenus.Text = "Menú";
+            // 
+            // linkHistoriaPagos
+            // 
+            this.linkHistoriaPagos.AutoSize = true;
+            this.linkHistoriaPagos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkHistoriaPagos.Location = new System.Drawing.Point(38, 170);
+            this.linkHistoriaPagos.Name = "linkHistoriaPagos";
+            this.linkHistoriaPagos.Size = new System.Drawing.Size(137, 20);
+            this.linkHistoriaPagos.TabIndex = 6;
+            this.linkHistoriaPagos.TabStop = true;
+            this.linkHistoriaPagos.Text = "Historial de Pagos";
+            this.linkHistoriaPagos.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkHistoriaPagos_LinkClicked);
             // 
             // linkInscripciones
             // 
@@ -300,6 +317,7 @@
             // 
             // btnActualizarDocumentos
             // 
+            this.btnActualizarDocumentos.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnActualizarDocumentos.Location = new System.Drawing.Point(463, 31);
             this.btnActualizarDocumentos.Name = "btnActualizarDocumentos";
             this.btnActualizarDocumentos.Size = new System.Drawing.Size(83, 23);
@@ -723,7 +741,7 @@
             this.panelInformacionPersonal.Controls.Add(this.label56);
             this.panelInformacionPersonal.Location = new System.Drawing.Point(195, 127);
             this.panelInformacionPersonal.Name = "panelInformacionPersonal";
-            this.panelInformacionPersonal.Size = new System.Drawing.Size(578, 484);
+            this.panelInformacionPersonal.Size = new System.Drawing.Size(579, 484);
             this.panelInformacionPersonal.TabIndex = 55;
             // 
             // lblMatricula
@@ -772,11 +790,13 @@
             // 
             // btnActualizarInformacionPersonal
             // 
-            this.btnActualizarInformacionPersonal.Location = new System.Drawing.Point(476, 9);
+            this.btnActualizarInformacionPersonal.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnActualizarInformacionPersonal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.btnActualizarInformacionPersonal.Location = new System.Drawing.Point(409, 9);
             this.btnActualizarInformacionPersonal.Name = "btnActualizarInformacionPersonal";
-            this.btnActualizarInformacionPersonal.Size = new System.Drawing.Size(83, 23);
+            this.btnActualizarInformacionPersonal.Size = new System.Drawing.Size(151, 33);
             this.btnActualizarInformacionPersonal.TabIndex = 87;
-            this.btnActualizarInformacionPersonal.Text = "Actualizar";
+            this.btnActualizarInformacionPersonal.Text = "Actualizar Datos";
             this.btnActualizarInformacionPersonal.UseVisualStyleBackColor = true;
             this.btnActualizarInformacionPersonal.Click += new System.EventHandler(this.btnActualizarInformacionPersonal_Click);
             // 
@@ -1072,6 +1092,7 @@
             // 
             // btnBuscarSituacionAcademica
             // 
+            this.btnBuscarSituacionAcademica.Enabled = false;
             this.btnBuscarSituacionAcademica.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btnBuscarSituacionAcademica.Location = new System.Drawing.Point(193, 122);
             this.btnBuscarSituacionAcademica.Name = "btnBuscarSituacionAcademica";
@@ -1099,6 +1120,7 @@
             this.cmbProgramaSitacionAcademica.Name = "cmbProgramaSitacionAcademica";
             this.cmbProgramaSitacionAcademica.Size = new System.Drawing.Size(289, 21);
             this.cmbProgramaSitacionAcademica.TabIndex = 16;
+            this.cmbProgramaSitacionAcademica.SelectedIndexChanged += new System.EventHandler(this.cmbProgramaSitacionAcademica_SelectedIndexChanged);
             // 
             // label81
             // 
@@ -1115,6 +1137,7 @@
             // panelInscripcion
             // 
             this.panelInscripcion.BackColor = System.Drawing.Color.White;
+            this.panelInscripcion.Controls.Add(this.lblMensajeInscripcion);
             this.panelInscripcion.Controls.Add(this.lblMensajeInscripciones);
             this.panelInscripcion.Controls.Add(this.btnInscribir_Inscripciones);
             this.panelInscripcion.Controls.Add(this.label33);
@@ -1125,20 +1148,31 @@
             this.panelInscripcion.Size = new System.Drawing.Size(578, 422);
             this.panelInscripcion.TabIndex = 57;
             // 
+            // lblMensajeInscripcion
+            // 
+            this.lblMensajeInscripcion.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblMensajeInscripcion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lblMensajeInscripcion.Location = new System.Drawing.Point(127, 175);
+            this.lblMensajeInscripcion.Name = "lblMensajeInscripcion";
+            this.lblMensajeInscripcion.Size = new System.Drawing.Size(364, 20);
+            this.lblMensajeInscripcion.TabIndex = 58;
+            this.lblMensajeInscripcion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // lblMensajeInscripciones
             // 
-            this.lblMensajeInscripciones.AutoSize = true;
             this.lblMensajeInscripciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.lblMensajeInscripciones.Location = new System.Drawing.Point(105, 65);
+            this.lblMensajeInscripciones.Location = new System.Drawing.Point(113, 67);
             this.lblMensajeInscripciones.Name = "lblMensajeInscripciones";
             this.lblMensajeInscripciones.Size = new System.Drawing.Size(371, 20);
             this.lblMensajeInscripciones.TabIndex = 57;
             this.lblMensajeInscripciones.Text = "El alumno no se encuentra inscrito en ningún grupo";
+            this.lblMensajeInscripciones.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnInscribir_Inscripciones
             // 
+            this.btnInscribir_Inscripciones.Enabled = false;
             this.btnInscribir_Inscripciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnInscribir_Inscripciones.Location = new System.Drawing.Point(272, 202);
+            this.btnInscribir_Inscripciones.Location = new System.Drawing.Point(266, 140);
             this.btnInscribir_Inscripciones.Name = "btnInscribir_Inscripciones";
             this.btnInscribir_Inscripciones.Size = new System.Drawing.Size(84, 29);
             this.btnInscribir_Inscripciones.TabIndex = 56;
@@ -1150,7 +1184,7 @@
             // 
             this.label33.AutoSize = true;
             this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label33.Location = new System.Drawing.Point(114, 159);
+            this.label33.Location = new System.Drawing.Point(108, 102);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(58, 20);
             this.label33.TabIndex = 55;
@@ -1160,10 +1194,11 @@
             // 
             this.cmbGrupos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbGrupos.FormattingEnabled = true;
-            this.cmbGrupos.Location = new System.Drawing.Point(175, 161);
+            this.cmbGrupos.Location = new System.Drawing.Point(169, 104);
             this.cmbGrupos.Name = "cmbGrupos";
             this.cmbGrupos.Size = new System.Drawing.Size(289, 21);
             this.cmbGrupos.TabIndex = 54;
+            this.cmbGrupos.SelectedIndexChanged += new System.EventHandler(this.cmbGrupos_SelectedIndexChanged);
             this.cmbGrupos.KeyUp += new System.Windows.Forms.KeyEventHandler(this.cmbGrupos_KeyUp);
             // 
             // label34
@@ -1178,6 +1213,18 @@
             this.label34.TabIndex = 53;
             this.label34.Text = "Inscripciones";
             // 
+            // linkLabelCredito
+            // 
+            this.linkLabelCredito.AutoSize = true;
+            this.linkLabelCredito.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabelCredito.Location = new System.Drawing.Point(37, 202);
+            this.linkLabelCredito.Name = "linkLabelCredito";
+            this.linkLabelCredito.Size = new System.Drawing.Size(60, 20);
+            this.linkLabelCredito.TabIndex = 7;
+            this.linkLabelCredito.TabStop = true;
+            this.linkLabelCredito.Text = "Crédito";
+            this.linkLabelCredito.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelCredito_LinkClicked);
+            // 
             // FormDetalleAlumno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1189,11 +1236,11 @@
             this.Controls.Add(this.lblNombreHeader);
             this.Controls.Add(this.lblLineaHeader);
             this.Controls.Add(this.lblProgramaHeader);
-            this.Controls.Add(this.panelSituacionAcademica);
-            this.Controls.Add(this.panelInscripcion);
             this.Controls.Add(this.panelCalificaciones);
             this.Controls.Add(this.panelInformacionPersonal);
             this.Controls.Add(this.panelDocumentacion);
+            this.Controls.Add(this.panelSituacionAcademica);
+            this.Controls.Add(this.panelInscripcion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormDetalleAlumno";
@@ -1317,5 +1364,8 @@
         private System.Windows.Forms.Label lblObservaciones;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridView dataGridViewCalificaciones;
+        private System.Windows.Forms.LinkLabel linkHistoriaPagos;
+        private System.Windows.Forms.Label lblMensajeInscripcion;
+        private System.Windows.Forms.LinkLabel linkLabelCredito;
     }
 }

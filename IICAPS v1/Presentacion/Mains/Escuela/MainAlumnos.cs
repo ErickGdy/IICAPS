@@ -11,6 +11,7 @@ using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
 using MySql.Data.MySqlClient;
+using System.Threading;
 
 namespace IICAPS_v1.Presentacion.Mains.Escuela
 {
@@ -199,10 +200,8 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void historialDePagosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            String rfc = dataGridViewAlumnos.CurrentRow.Cells[0].Value.ToString();
-            String programa = dataGridViewAlumnos.CurrentRow.Cells[3].Value.ToString();
-            FormHistorialPagosAlumno fa = new FormHistorialPagosAlumno(programa, rfc);
-            fa.Show();
+            Thread t = new Thread(new ThreadStart(ThreadPagos));
+            t.Start();
         }
 
         private void txtBuscarAlumno_KeyUp(object sender, KeyEventArgs e)
@@ -221,6 +220,25 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                     {
                     }
                 }
+            }
+        }
+
+        private void dataGridViewAlumnos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            consultarToolStripMenuItem_Click(null,null);
+        }
+
+        public void ThreadPagos()
+        {
+            try
+            {
+                String rfc = dataGridViewAlumnos.CurrentRow.Cells[0].Value.ToString();
+                DetallePagosAlumno fa = new DetallePagosAlumno(control.consultarAlumno(rfc));
+                fa.ShowDialog();
+            }
+            catch (Exception es)
+            {
+                MessageBox.Show("Error al obtener datos del alumno");
             }
         }
     }

@@ -54,7 +54,7 @@
             this.cmbRecibio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRecibio.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbRecibio.FormattingEnabled = true;
-            this.cmbRecibio.Location = new System.Drawing.Point(88, 356);
+            this.cmbRecibio.Location = new System.Drawing.Point(122, 356);
             this.cmbRecibio.Name = "cmbRecibio";
             this.cmbRecibio.Size = new System.Drawing.Size(414, 26);
             this.cmbRecibio.TabIndex = 4;
@@ -62,10 +62,10 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(22, 356);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(49, 359);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 18);
+            this.label4.Size = new System.Drawing.Size(70, 18);
             this.label4.TabIndex = 19;
             this.label4.Text = "Recibió:";
             // 
@@ -81,9 +81,9 @@
             "Constancia de liberación de servicio social",
             "CURP",
             "6 Fotografías"});
-            this.checkedListBox1.Location = new System.Drawing.Point(18, 212);
+            this.checkedListBox1.Location = new System.Drawing.Point(52, 212);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(365, 137);
+            this.checkedListBox1.Size = new System.Drawing.Size(484, 137);
             this.checkedListBox1.TabIndex = 3;
             // 
             // cmbPrograma
@@ -91,7 +91,7 @@
             this.cmbPrograma.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPrograma.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbPrograma.FormattingEnabled = true;
-            this.cmbPrograma.Location = new System.Drawing.Point(177, 147);
+            this.cmbPrograma.Location = new System.Drawing.Point(210, 147);
             this.cmbPrograma.Name = "cmbPrograma";
             this.cmbPrograma.Size = new System.Drawing.Size(325, 26);
             this.cmbPrograma.TabIndex = 1;
@@ -100,19 +100,19 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(15, 147);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(15, 150);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(165, 18);
+            this.label2.Size = new System.Drawing.Size(189, 18);
             this.label2.TabIndex = 13;
             this.label2.Text = "Inscrito en el Programa:";
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAceptar.Location = new System.Drawing.Point(198, 387);
+            this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAceptar.Location = new System.Drawing.Point(178, 388);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(75, 28);
+            this.btnAceptar.Size = new System.Drawing.Size(102, 40);
             this.btnAceptar.TabIndex = 5;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
@@ -120,10 +120,10 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(295, 387);
+            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.Location = new System.Drawing.Point(286, 388);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 28);
+            this.btnCancelar.Size = new System.Drawing.Size(102, 40);
             this.btnCancelar.TabIndex = 6;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
@@ -134,7 +134,7 @@
             this.cmbAlumno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbAlumno.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbAlumno.FormattingEnabled = true;
-            this.cmbAlumno.Location = new System.Drawing.Point(82, 178);
+            this.cmbAlumno.Location = new System.Drawing.Point(116, 178);
             this.cmbAlumno.Name = "cmbAlumno";
             this.cmbAlumno.Size = new System.Drawing.Size(420, 26);
             this.cmbAlumno.TabIndex = 2;
@@ -142,10 +142,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(15, 178);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(49, 181);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(62, 18);
+            this.label1.Size = new System.Drawing.Size(69, 18);
             this.label1.TabIndex = 23;
             this.label1.Text = "Alumno:";
             // 
@@ -234,23 +234,24 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(555, 522);
+            this.ClientSize = new System.Drawing.Size(555, 526);
+            this.Controls.Add(this.cmbAlumno);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.cmbRecibio);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.checkedListBox1);
+            this.Controls.Add(this.cmbPrograma);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.cmbIDRecibio);
             this.Controls.Add(this.cmbIDAlumno);
             this.Controls.Add(this.cmbIDPrograma);
             this.Controls.Add(this.lblFecha);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.cmbAlumno);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
-            this.Controls.Add(this.cmbRecibio);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.checkedListBox1);
-            this.Controls.Add(this.cmbPrograma);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.pictureBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormDocumentosInscripcionTitulacionLicenciatura";
             this.Text = "Documentos de Inscripcion para Titulacion de Licenciatura";

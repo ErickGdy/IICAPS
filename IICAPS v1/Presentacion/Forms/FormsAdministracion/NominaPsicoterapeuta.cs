@@ -20,7 +20,7 @@ namespace IICAPS_v1.Presentacion
         private static NominaPsicoterapeuta instance;
         ControlIicaps control;
         string ID_psicoterapeuta;
-        List<Decimal> sesionesPendientesDePago;
+        List<string> sesionesPendientesDePago;
         DateTime fechaInicio=new DateTime();
         DateTime fechaFin= DateTime.Now;
         public NominaPsicoterapeuta(string psicoterapeuta)
@@ -48,11 +48,14 @@ namespace IICAPS_v1.Presentacion
                 //sumar pendiente
                 decimal totalPendiente = 0;
                 if (sesionesPendientesDePago != null)
-                    foreach (Decimal aux in sesionesPendientesDePago)
-                    {
-                        totalPendiente += aux;
+                    for (int i = 0; i < sesionesPendientesDePago.Count; i += 2) { 
+                        if(sesionesPendientesDePago.ElementAt(i)=="s")
+                            totalPendiente += Convert.ToDecimal(sesionesPendientesDePago.ElementAt(i+1))*(control.parametros_Generales.Porcentaje_Pago_Sesion/100);
+                        if (sesionesPendientesDePago.ElementAt(i) == "e")
+                            totalPendiente += Convert.ToDecimal(sesionesPendientesDePago.ElementAt(i + 1)) * (control.parametros_Generales.Porcentaje_Pago_Evaluacion / 100);
                     }
-                lblPago.Text = totalPendiente.ToString();
+                totalPendiente = totalPendiente * (control.parametros_Generales.Porcentaje_Pago_Sesion / 100);
+                lblPago.Text = totalPendiente.ToString("F2");
             }
             catch (Exception e)
             {

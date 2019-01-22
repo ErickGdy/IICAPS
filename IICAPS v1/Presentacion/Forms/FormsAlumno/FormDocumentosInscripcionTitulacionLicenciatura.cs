@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,6 +17,7 @@ namespace IICAPS_v1.Presentacion
     {
         ControlIicaps control;
         DocumentosInscripcion documentacion;
+        DocumentosInscripcion doc;
         bool modificacion = false;
         public FormDocumentosInscripcionTitulacionLicenciatura(DocumentosInscripcion doc, bool consulta)
         {
@@ -42,6 +44,73 @@ namespace IICAPS_v1.Presentacion
             }
             cmbIDRecibio.Items.AddRange(auxIDRecibio.ToArray());
             cmbRecibio.Items.AddRange(auxRecibio.ToArray());
+            if (doc != null)
+            {
+                modificacion = true;
+                documentacion = doc;
+                cmbIDPrograma.SelectedItem = control.obtenerProgramaAlumno(doc.alumno);
+                cmbIDRecibio.SelectedItem = doc.recibioEmpleado;
+                cmbPrograma.SelectedIndex = cmbIDPrograma.SelectedIndex;
+                cmbIDAlumno.SelectedItem = doc.alumno;
+                cmbAlumno.SelectedIndex = cmbIDAlumno.SelectedIndex;
+                cmbRecibio.SelectedIndex = cmbIDRecibio.SelectedIndex;
+                if (documentacion.actaNacimientoOrg)
+                    checkedListBox1.SetItemChecked(0, true);
+                if (documentacion.actaNacimientoCop)
+                    checkedListBox1.SetItemChecked(1, true);
+                if (documentacion.solicitudOpcTitulacion)
+                    checkedListBox1.SetItemChecked(2, true);
+                if (documentacion.certificadoLicCop)
+                    checkedListBox1.SetItemChecked(3, true);
+                if (documentacion.constanciaLibSSOrg)
+                    checkedListBox1.SetItemChecked(4, true);
+                if (documentacion.curp)
+                    checkedListBox1.SetItemChecked(5, true);
+                if (documentacion.fotografias)
+                    checkedListBox1.SetItemChecked(6, true);
+                if (consulta)
+                {
+                    cmbPrograma.Enabled = false;
+                    cmbAlumno.Enabled = false;
+                    cmbRecibio.Enabled = false;
+                    checkedListBox1.Enabled = false;
+                    btnAceptar.Enabled = false;
+                }
+            }
+        }
+        public FormDocumentosInscripcionTitulacionLicenciatura(DocumentosInscripcion doc, bool consulta, string programa, string alumno)
+        {
+            InitializeComponent();
+            control = ControlIicaps.getInstance();
+            lblFecha.Text = DateTime.Now.ToShortDateString();
+            List<String> auxPrograma = new List<string>();
+            List<String> auxIDPrograma = new List<string>();
+            List<String> auxAlumno = new List<string>();
+            List<String> auxIDAlumno = new List<string>();
+            List<String> auxRecibio = new List<string>();
+            List<String> auxIDRecibio = new List<string>();
+            foreach (Programa p in control.obtenerProgramas())
+            {
+                auxPrograma.Add(p.Nombre);
+                auxIDPrograma.Add(p.Codigo.ToString());
+            }
+            cmbIDPrograma.Items.AddRange(auxIDPrograma.ToArray());
+            cmbPrograma.Items.AddRange(auxPrograma.ToArray());
+            foreach (Empleado e in control.obtenerEmpleados())
+            {
+                auxRecibio.Add(e.Nombre);
+                auxIDRecibio.Add(e.Matricula);
+            }
+            cmbIDRecibio.Items.AddRange(auxIDRecibio.ToArray());
+            cmbRecibio.Items.AddRange(auxRecibio.ToArray());
+            if (programa != null)
+                cmbPrograma.SelectedItem = programa;
+            try
+            {
+                if (alumno != null)
+                    cmbAlumno.SelectedItem = alumno;
+            }
+            catch (Exception ex) { }
             if (doc != null)
             {
                 modificacion = true;
@@ -115,7 +184,7 @@ namespace IICAPS_v1.Presentacion
                 cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
                 cmbIDAlumno.SelectedIndex = cmbAlumno.SelectedIndex;
                 cmbIDRecibio.SelectedIndex = cmbRecibio.SelectedIndex;
-                DocumentosInscripcion doc = new DocumentosInscripcion();
+                doc = new DocumentosInscripcion();
                 doc.alumno = cmbIDAlumno.SelectedItem.ToString();
                 doc.actaNacimientoOrg = checkedListBox1.GetItemChecked(0);
                 doc.actaNacimientoCop = checkedListBox1.GetItemChecked(1);
@@ -131,7 +200,8 @@ namespace IICAPS_v1.Presentacion
                     doc.alumno = cmbIDAlumno.SelectedItem.ToString();
                     if (control.actualizarEntregaDocumentos(doc))
                     {
-                        DocumentosWord word = new DocumentosWord(doc);
+                        Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));
+                        t.Start();
                         return true;
                     }
                     else
@@ -141,7 +211,8 @@ namespace IICAPS_v1.Presentacion
                 {
                     if (control.agregarEntregaDocumentos(doc))
                     {
-                        DocumentosWord word = new DocumentosWord(doc);
+                        Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));
+                        t.Start();
                         return true;
                     }
                     else
@@ -166,6 +237,10 @@ namespace IICAPS_v1.Presentacion
             cmbIDAlumno.Items.AddRange(auxIDAlumno.ToArray());
             cmbAlumno.Items.AddRange(auxAlumno.ToArray());
             cmbAlumno.SelectedIndex = 0;
+        }
+        private void ThreadMethodDocumentos()
+        {
+            DocumentosWord word = new DocumentosWord(doc);
         }
     }
 }

@@ -15,8 +15,8 @@ namespace IICAPS_v1.Control
         ControlIicaps control;
         string imgHeader1 = Directory.GetCurrentDirectory() + @"\Imagenes\logoaltacalidad.jpg";
         string imgFooter1 = Directory.GetCurrentDirectory() + @"\Imagenes\piealtacalidad.jpg";
-        object formatoArchivoPDF = Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatPDF;
-        object formatoArchivoWORD = Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatDocument;
+        object formatoArchivoPDF = WdSaveFormat.wdFormatPDF;
+        object formatoArchivoWORD = WdSaveFormat.wdFormatDocument;
         object guardarCambios = false;
 
         public DocumentosWord(DocumentosInscripcion doc)
@@ -29,32 +29,32 @@ namespace IICAPS_v1.Control
             //Missing para rellenar parametros de creacion
             object missing = System.Reflection.Missing.Value;
             //Creacion del documento
-            Microsoft.Office.Interop.Word.Document documento = word.Documents.Add(ref missing, ref missing, ref missing);
+            Document documento = word.Documents.Add(ref missing, ref missing, ref missing);
             //Agregar encabezado
-            foreach (Microsoft.Office.Interop.Word.Section section in documento.Sections)
+            foreach (Section section in documento.Sections)
             {
                 //Encabezado y configuracion
-                Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
-                headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                Range headerRange = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                headerRange.Fields.Add(headerRange, WdFieldType.wdFieldPage);
+                headerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
                 HeaderFooter header = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
                 header.Range.ParagraphFormat.SpaceAfter = 0;
                 if (File.Exists(imgHeader1))
                     header.Shapes.AddPicture(imgHeader1);
             }
             //Agregar pie de pagina
-            foreach (Microsoft.Office.Interop.Word.Section wordSection in documento.Sections)
+            foreach (Section wordSection in documento.Sections)
             {
                 //Pie de pagina y configuracion
-                Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                Range footerRange = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                footerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
                 HeaderFooter footer = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
                 footer.Range.ParagraphFormat.SpaceAfter = 50;
                 if (File.Exists(imgFooter1))
                     footer.Shapes.AddPicture(imgFooter1);
             }
             //Agregar parrafo de texto con estilo de titulo 1
-            Microsoft.Office.Interop.Word.Paragraph parra1 = documento.Content.Paragraphs.Add(ref missing);
+            Paragraph parra1 = documento.Content.Paragraphs.Add(ref missing);
             object styleHeading1 = "Título 1";
             parra1.Range.set_Style(ref styleHeading1);
             parra1.Range.Font.Bold = 1;
@@ -62,7 +62,7 @@ namespace IICAPS_v1.Control
             parra1.Range.Text = Environment.NewLine + Environment.NewLine  +"Recibo de documentos para: " + control.obtenerNombrePrograma(control.obtenerProgramaAlumno(doc.alumno));
             parra1.Range.InsertParagraphAfter();
             //Parrafos restantes del documento
-            Microsoft.Office.Interop.Word.Paragraph parra2 = documento.Content.Paragraphs.Add(ref missing);
+            Paragraph parra2 = documento.Content.Paragraphs.Add(ref missing);
             object style1 = "Título 2";
             parra2.Range.set_Style(ref style1);
             parra2.Range.Font.Bold = 1;
@@ -73,74 +73,74 @@ namespace IICAPS_v1.Control
             object style2 = "Normal";
             if (doc.actaNacimientoCop)
             {
-                Microsoft.Office.Interop.Word.Paragraph parra3 = documento.Content.Paragraphs.Add(ref missing);
+                Paragraph parra3 = documento.Content.Paragraphs.Add(ref missing);
                 parra3.Range.set_Style(ref style2);
                 parra3.Range.Font.Size = 12;
                 parra3.Range.Text = "Copia del acta de Nacimiento - Recibido" + Environment.NewLine;
             }
             if (doc.actaNacimientoOrg)
             {
-                Microsoft.Office.Interop.Word.Paragraph parra4 = documento.Content.Paragraphs.Add(ref missing);
+                Paragraph parra4 = documento.Content.Paragraphs.Add(ref missing);
                 parra4.Range.set_Style(ref style2);
                 parra4.Range.Font.Size = 12;
                 parra4.Range.Text = "Acta de Nacimiento - Recibido" + Environment.NewLine;
             }
             if (doc.tituloCedulaOrg)
             {
-                Microsoft.Office.Interop.Word.Paragraph parra5 = documento.Content.Paragraphs.Add(ref missing);
+                Paragraph parra5 = documento.Content.Paragraphs.Add(ref missing);
                 parra5.Range.set_Style(ref style2);
                 parra5.Range.Font.Size = 12;
                 parra5.Range.Text = "Título Licenciatura y Cedula Profesional - Recibido" + Environment.NewLine;
             }
             if (doc.tituloLicCop)
             {
-                Microsoft.Office.Interop.Word.Paragraph parra6 = documento.Content.Paragraphs.Add(ref missing);
+                Paragraph parra6 = documento.Content.Paragraphs.Add(ref missing);
                 parra6.Range.set_Style(ref style2);
                 parra6.Range.Font.Size = 12;
                 parra6.Range.Text = "Copia del Título de Licenciatura - Recibido" + Environment.NewLine;
             }
             if (doc.cedProfCop)
             {
-                Microsoft.Office.Interop.Word.Paragraph parra7 = documento.Content.Paragraphs.Add(ref missing);
+                Paragraph parra7 = documento.Content.Paragraphs.Add(ref missing);
                 parra7.Range.set_Style(ref style2);
                 parra7.Range.Font.Size = 12;
                 parra7.Range.Text = "Copia de la Cedula Profesional - Recibido" + Environment.NewLine;
             }
             if (doc.solicitudOpcTitulacion)
             {
-                Microsoft.Office.Interop.Word.Paragraph parra8 = documento.Content.Paragraphs.Add(ref missing);
+                Paragraph parra8 = documento.Content.Paragraphs.Add(ref missing);
                 parra8.Range.set_Style(ref style2);
                 parra8.Range.Font.Size = 12;
                 parra8.Range.Text = "Solicitud como opción de titulación - Recibido" + Environment.NewLine;
             }
             if (doc.certificadoLicCop)
             {
-                Microsoft.Office.Interop.Word.Paragraph parra9 = documento.Content.Paragraphs.Add(ref missing);
+                Paragraph parra9 = documento.Content.Paragraphs.Add(ref missing);
                 parra9.Range.set_Style(ref style2);
                 parra9.Range.Text = "Copia del Certificado de Licenciatura - Recibido" + Environment.NewLine;
             }
             if (doc.constanciaLibSSOrg)
             {
-                Microsoft.Office.Interop.Word.Paragraph parra10 = documento.Content.Paragraphs.Add(ref missing);
+                Paragraph parra10 = documento.Content.Paragraphs.Add(ref missing);
                 parra10.Range.set_Style(ref style2);
                 parra10.Range.Font.Size = 12;
                 parra10.Range.Text = "Constancia de Liberación del Servicio Social - Recibido" + Environment.NewLine;
             }
             if (doc.curp)
             {
-                Microsoft.Office.Interop.Word.Paragraph parra11 = documento.Content.Paragraphs.Add(ref missing);
+                Paragraph parra11 = documento.Content.Paragraphs.Add(ref missing);
                 parra11.Range.set_Style(ref style2);
                 parra11.Range.Font.Size = 12;
                 parra11.Range.Text = "CURP - Recibido" + Environment.NewLine;
             }
             if (doc.fotografias)
             {
-                Microsoft.Office.Interop.Word.Paragraph parra12 = documento.Content.Paragraphs.Add(ref missing);
+                Paragraph parra12 = documento.Content.Paragraphs.Add(ref missing);
                 parra12.Range.set_Style(ref style2);
                 parra12.Range.Font.Size = 12;
                 parra12.Range.Text = "Fotografías - Recibido" + Environment.NewLine;
             }
-            Microsoft.Office.Interop.Word.Paragraph parra13 = documento.Content.Paragraphs.Add(ref missing);
+            Paragraph parra13 = documento.Content.Paragraphs.Add(ref missing);
             parra13.Range.set_Style(ref style2);
             parra13.Range.Font.Size = 12;
             parra13.Range.Text= Environment.NewLine + "Recibió: " + control.obtenerNombreEmpleado(doc.recibioEmpleado) + Environment.NewLine + "Firma: __________________________________";
@@ -172,32 +172,32 @@ namespace IICAPS_v1.Control
             //Missing para rellenar parametros de creacion
             object missing = System.Reflection.Missing.Value;
             //Creacion del documento
-            Microsoft.Office.Interop.Word.Document documento = word.Documents.Add(ref missing, ref missing, ref missing);
+            Document documento = word.Documents.Add(ref missing, ref missing, ref missing);
             //Agregar encabezado
-            foreach (Microsoft.Office.Interop.Word.Section section in documento.Sections)
+            foreach (Section section in documento.Sections)
             {
                 //Encabezado y configuracion
-                Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
-                headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                Range headerRange = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                headerRange.Fields.Add(headerRange, WdFieldType.wdFieldPage);
+                headerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
                 HeaderFooter header = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
                 header.Range.ParagraphFormat.SpaceAfter = 0;
                 if (File.Exists(imgHeader1))
                     header.Shapes.AddPicture(imgHeader1);
             }
             //Agregar pie de pagina
-            foreach (Microsoft.Office.Interop.Word.Section wordSection in documento.Sections)
+            foreach (Section wordSection in documento.Sections)
             {
                 //Pie de pagina y configuracion
-                Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                Range footerRange = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                footerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
                 HeaderFooter footer = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
                 footer.Range.ParagraphFormat.SpaceAfter = 50;
                 if (File.Exists(imgFooter1))
                     footer.Shapes.AddPicture(imgFooter1);
             }
             //Agregar parrafo de texto con estilo de titulo 1
-            Microsoft.Office.Interop.Word.Paragraph parra1 = documento.Content.Paragraphs.Add(ref missing);
+            Paragraph parra1 = documento.Content.Paragraphs.Add(ref missing);
             object styleHeading1 = "Título 1";
             parra1.Range.set_Style(ref styleHeading1);
             parra1.Range.Font.Color = WdColor.wdColorDarkGreen;
@@ -205,7 +205,7 @@ namespace IICAPS_v1.Control
             parra1.Range.InsertParagraphAfter();
             //Parrafos restantes del documento
             documento.Content.SetRange(0, 0);
-            Microsoft.Office.Interop.Word.Paragraph parra2 = documento.Content.Paragraphs.Add(ref missing);
+            Paragraph parra2 = documento.Content.Paragraphs.Add(ref missing);
             object style1 = "Normal";
             parra2.Range.set_Style(ref style1);
             parra2.Range.Font.Size = 12;
@@ -243,32 +243,32 @@ namespace IICAPS_v1.Control
             //Missing para rellenar parametros de creacion
             object missing = System.Reflection.Missing.Value;
             //Creacion del documento
-            Microsoft.Office.Interop.Word.Document documento = word.Documents.Add(ref missing, ref missing, ref missing);
+            Document documento = word.Documents.Add(ref missing, ref missing, ref missing);
             //Agregar encabezado
-            foreach (Microsoft.Office.Interop.Word.Section section in documento.Sections)
+            foreach (Section section in documento.Sections)
             {
                 //Encabezado y configuracion
-                Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
-                headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                Range headerRange = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                headerRange.Fields.Add(headerRange, WdFieldType.wdFieldPage);
+                headerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
                 HeaderFooter header = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
                 header.Range.ParagraphFormat.SpaceAfter = 0;
                 if (File.Exists(imgHeader1))
                     header.Shapes.AddPicture(imgHeader1);
             }
             //Agregar pie de pagina
-            foreach (Microsoft.Office.Interop.Word.Section wordSection in documento.Sections)
+            foreach (Section wordSection in documento.Sections)
             {
                 //Pie de pagina y configuracion
-                Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                Range footerRange = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                footerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
                 HeaderFooter footer = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
                 footer.Range.ParagraphFormat.SpaceAfter = 50;
                 if (File.Exists(imgFooter1))
                     footer.Shapes.AddPicture(imgFooter1);
             }
             //Agregar parrafo de texto con estilo de titulo 1
-            Microsoft.Office.Interop.Word.Paragraph parra1 = documento.Content.Paragraphs.Add(ref missing);
+            Paragraph parra1 = documento.Content.Paragraphs.Add(ref missing);
             object styleHeading1 = "Título 1";
             parra1.Range.set_Style(ref styleHeading1);
             parra1.Range.Font.Color = WdColor.wdColorDarkGreen;
@@ -277,29 +277,29 @@ namespace IICAPS_v1.Control
             parra1.Range.Text = Environment.NewLine + Environment.NewLine  +"CONTRATO DE CRÉDITO EDUCATIVO";
             parra1.Range.InsertParagraphAfter();
             //Parrafos restantes del documento
-            Microsoft.Office.Interop.Word.Paragraph parra2 = documento.Content.Paragraphs.Add(ref missing);
+            Paragraph parra2 = documento.Content.Paragraphs.Add(ref missing);
             object style1 = "Normal";
             parra2.Range.set_Style(ref style1);
             parra2.Range.Font.Size = 13;
             parra2.Format.Alignment = WdParagraphAlignment.wdAlignParagraphRight;
             //parra1.Range.Text = "Recibo de documentos para: " + control.obtenerProgramaAlumno(doc.alumno);
-            parra2.Range.Text = "Los Mochis Sinaloa, "+DateTime.Now.ToLongDateString();
+            parra2.Range.Text = control.parametros_Generales.Sede + ". "+DateTime.Now.ToLongDateString();
             parra2.Range.InsertParagraphAfter();
-            Microsoft.Office.Interop.Word.Paragraph parra3 = documento.Content.Paragraphs.Add(ref missing);
+            Paragraph parra3 = documento.Content.Paragraphs.Add(ref missing);
             parra3.Range.set_Style(ref style1);
             parra3.Range.Font.Size = 12;
             parra3.Alignment = WdParagraphAlignment.wdAlignParagraphJustify;
             parra3.Range.Text = "Por medio de la presente autorizo la solicitud de crédito educativo a él(la) alumno(a) "+control.obtenerNombreAlumno(credito.alumno)+
                 ", inscrita actualmente en el programa "+control.obtenerNombrePrograma(control.obtenerProgramaAlumno(credito.alumno))+".";
             parra3.Range.InsertParagraphAfter();
-            Microsoft.Office.Interop.Word.Paragraph parra4 = documento.Content.Paragraphs.Add(ref missing);
+            Paragraph parra4 = documento.Content.Paragraphs.Add(ref missing);
             parra4.Range.set_Style(ref style1);
             parra4.Range.Font.Size = 12;
             parra4.Alignment = WdParagraphAlignment.wdAlignParagraphJustify;
             parra4.Range.Text = "Dicho crédito consistirá en pagar una colegiatura de $" + credito.cantidadMensualidad +
                 " ($" + credito.cantidadAbonoMensual + " colegiatura + $" + credito.cantidadAbonoCredito + " costo del crédito) durante "+credito.cantidadMeses+" meses.";
             parra4.Range.InsertParagraphAfter();
-            Microsoft.Office.Interop.Word.Paragraph parra5 = documento.Content.Paragraphs.Add(ref missing);
+            Paragraph parra5 = documento.Content.Paragraphs.Add(ref missing);
             parra5.Range.set_Style(ref style1);
             parra5.Range.Font.Size = 12;
             parra5.Alignment = WdParagraphAlignment.wdAlignParagraphJustify;
@@ -317,7 +317,7 @@ namespace IICAPS_v1.Control
             parra5.Range.InsertParagraphAfter();
             //var ptable = documento.Paragraphs.Add();
             //ptable.Format.SpaceAfter = 10f;
-            //Microsoft.Office.Interop.Word.Table table1 = documento.Tables.Add(parra5.Range, 3, 3, ref missing, ref missing);
+            //Table table1 = documento.Tables.Add(parra5.Range, 3, 3, ref missing, ref missing);
             //int r, c;
             //for (r = 0; r < 3; r++)
             //{
@@ -326,7 +326,7 @@ namespace IICAPS_v1.Control
             //        if (r == 0 && c == 0 || r == 0 && c == 2)
             //            table1.Cell(r, c).Range.Text = "__________________________________";
             //        if (r == 1 && c == 0)
-            //            table1.Cell(r, c).Range.Text = "Jesús Mario Mancillas Peñuelas";
+            //            table1.Cell(r, c).Range.Text = ""+control.parametros_Generales.Director+"";
             //        if (r == 1 && c == 2)
             //            table1.Cell(r, c).Range.Text = control.obtenerNombreAlumno(credito.alumno);
             //        if (r == 2 && c == 0)
@@ -339,12 +339,12 @@ namespace IICAPS_v1.Control
             //table1.Columns[1].Width = word.InchesToPoints(1);
             //table1.Columns[2].Width = word.InchesToPoints(2);
             //table1.AllowAutoFit = true;
-            Microsoft.Office.Interop.Word.Paragraph parra6 = documento.Content.Paragraphs.Add(ref missing);
+            Paragraph parra6 = documento.Content.Paragraphs.Add(ref missing);
             parra6.Range.set_Style(ref style1);
             parra6.Range.Font.Size = 12;
             parra6.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
             parra6.Range.Text = "______________________________           ______________________________" + Environment.NewLine +
-                "Jesús Mario Mancillas Peñuelas           " + control.obtenerNombreAlumno(credito.alumno) + Environment.NewLine +
+                ""+control.parametros_Generales.Director+"           " + control.obtenerNombreAlumno(credito.alumno) + Environment.NewLine +
                 "           Director                                 Alumno" + Environment.NewLine;
             parra6.Range.InsertParagraphAfter();
             //Hacemos visible el documento
@@ -379,25 +379,25 @@ namespace IICAPS_v1.Control
             //Missing para rellenar parametros de creacion
             object missing = System.Reflection.Missing.Value;
             //Creacion del documento
-            Microsoft.Office.Interop.Word.Document documento = word.Documents.Add(ref missing, ref missing, ref missing);
+            Document documento = word.Documents.Add(ref missing, ref missing, ref missing);
             //Agregar encabezado
-            foreach (Microsoft.Office.Interop.Word.Section section in documento.Sections)
+            foreach (Section section in documento.Sections)
             {
                 //Encabezado y configuracion
-                Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
-                headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                Range headerRange = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                headerRange.Fields.Add(headerRange, WdFieldType.wdFieldPage);
+                headerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
                 HeaderFooter header = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
                 header.Range.ParagraphFormat.SpaceAfter = 0;
                 if (File.Exists(imgHeader1))
                     header.Shapes.AddPicture(imgHeader1);
             }
             //Agregar pie de pagina
-            foreach (Microsoft.Office.Interop.Word.Section wordSection in documento.Sections)
+            foreach (Section wordSection in documento.Sections)
             {
                 //Pie de pagina y configuracion
-                Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                Range footerRange = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                footerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
                 HeaderFooter footer = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
                 footer.Range.ParagraphFormat.SpaceAfter = 50;
                 if(File.Exists(imgFooter1))
@@ -405,7 +405,7 @@ namespace IICAPS_v1.Control
 
             }
             //Agregar parrafo de texto con estilo de titulo 1
-            Microsoft.Office.Interop.Word.Paragraph parra1 = documento.Content.Paragraphs.Add(ref missing);
+            Paragraph parra1 = documento.Content.Paragraphs.Add(ref missing);
             object styleHeading1 = "Título 1";
             parra1.Range.set_Style(ref styleHeading1);
             parra1.Range.Font.Color = WdColor.wdColorDarkGreen;
@@ -413,7 +413,7 @@ namespace IICAPS_v1.Control
             parra1.Range.InsertParagraphAfter();
             //Parrafos restantes del documento
             documento.Content.SetRange(0, 0);
-            Microsoft.Office.Interop.Word.Paragraph parra2 = documento.Content.Paragraphs.Add(ref missing);
+            Paragraph parra2 = documento.Content.Paragraphs.Add(ref missing);
             object style1 = "Normal";
             parra2.Range.set_Style(ref style1);
             parra2.Range.Font.Size = 12;
@@ -450,25 +450,25 @@ namespace IICAPS_v1.Control
             //Missing para rellenar parametros de creacion
             object missing = System.Reflection.Missing.Value;
             //Creacion del documento
-            Microsoft.Office.Interop.Word.Document documento = word.Documents.Add(ref missing, ref missing, ref missing);
+            Document documento = word.Documents.Add(ref missing, ref missing, ref missing);
             //Agregar encabezado
-            foreach (Microsoft.Office.Interop.Word.Section section in documento.Sections)
+            foreach (Section section in documento.Sections)
             {
                 //Encabezado y configuracion
-                Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
-                headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                Range headerRange = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                headerRange.Fields.Add(headerRange, WdFieldType.wdFieldPage);
+                headerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
                 HeaderFooter header = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
                 header.Range.ParagraphFormat.SpaceAfter = 0;
                 if (File.Exists(imgHeader1))
                     header.Shapes.AddPicture(imgHeader1);
             }
             //Agregar pie de pagina
-            foreach (Microsoft.Office.Interop.Word.Section wordSection in documento.Sections)
+            foreach (Section wordSection in documento.Sections)
             {
                 //Pie de pagina y configuracion
-                Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                Range footerRange = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                footerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
                 HeaderFooter footer = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
                 footer.Range.ParagraphFormat.SpaceAfter = 50;
                 if (File.Exists(imgFooter1))
@@ -476,7 +476,7 @@ namespace IICAPS_v1.Control
 
             }
             //Agregar parrafo de texto con estilo de titulo 1
-            Microsoft.Office.Interop.Word.Paragraph parra1 = documento.Content.Paragraphs.Add(ref missing);
+            Paragraph parra1 = documento.Content.Paragraphs.Add(ref missing);
             object styleHeading1 = "Título 1";
             parra1.Range.set_Style(ref styleHeading1);
             parra1.Range.Font.Color = WdColor.wdColorDarkGreen;
@@ -485,7 +485,7 @@ namespace IICAPS_v1.Control
             parra1.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
             parra1.Range.InsertParagraphAfter();
             //Agregar parrafo de texto con estilo de titulo 2
-            //Microsoft.Office.Interop.Word.Paragraph subParra1 = documento.Content.Paragraphs.Add(ref missing);
+            //Paragraph subParra1 = documento.Content.Paragraphs.Add(ref missing);
             //object styleHeading2 = "Título 2";
             //subParra1.Range.set_Style(ref styleHeading2);
             //subParra1.Range.Font.Color = WdColor.wdColorDarkGreen;
@@ -494,9 +494,9 @@ namespace IICAPS_v1.Control
             //subParra1.Range.InsertParagraphAfter();
 
             //Parrafos restantes del documento
-            Microsoft.Office.Interop.Word.Table objTableDatosAlumno;
-            Microsoft.Office.Interop.Word.Range wrdRng;// = documento.Bookmarks.get_Item(ref missing).Range;
-            Microsoft.Office.Interop.Word.Paragraph parra2 = documento.Content.Paragraphs.Add(ref missing);
+            Table objTableDatosAlumno;
+            Range wrdRng;// = documento.Bookmarks.get_Item(ref missing).Range;
+            Paragraph parra2 = documento.Content.Paragraphs.Add(ref missing);
             parra2.Alignment = WdParagraphAlignment.wdAlignParagraphLeft;
             object style2 = "Tabla Normal 4";
             objTableDatosAlumno = documento.Tables.Add(parra2.Range, 4, 2, ref missing, ref missing);
@@ -529,7 +529,7 @@ namespace IICAPS_v1.Control
             objTableDatosAlumno.Cell(4, 2).Range.Text = grupo;
 
             //DATOS DE CALIFICACIONES
-            Microsoft.Office.Interop.Word.Paragraph parra3 = documento.Content.Paragraphs.Add(ref missing);
+            Paragraph parra3 = documento.Content.Paragraphs.Add(ref missing);
             //HEADER TABLA
             parra3.Range.Font.Bold = 1;
             parra3.Range.Font.Size = 12;
@@ -541,7 +541,7 @@ namespace IICAPS_v1.Control
 
             //TABLA DE CALIFICACIONES
             object oEndOfDoc = "\\endofdoc";
-            Microsoft.Office.Interop.Word.Table objTableCalificaciones;
+            Table objTableCalificaciones;
             wrdRng = documento.Bookmarks.get_Item(ref oEndOfDoc).Range;
             object style3 = "Tabla Normal 2";
             objTableCalificaciones = documento.Tables.Add(wrdRng, calificaciones.Count+1, 4, ref missing, ref missing);
@@ -598,6 +598,116 @@ namespace IICAPS_v1.Control
             MessageBox.Show("¡Reporte de progreso académico creado exitosamente!");
 
         }
+
+
+        public DocumentosWord(Alumno alumno, string grupo, string programa)
+        {
+            control = ControlIicaps.getInstance();
+            Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
+            //Quitar animacion y visibilidad mientras se crea y edita
+            word.ShowAnimation = false;
+            word.Visible = false;
+            //Missing para rellenar parametros de creacion
+            object missing = System.Reflection.Missing.Value;
+            //Creacion del documento
+            Document documento = word.Documents.Add(ref missing, ref missing, ref missing);
+            //Agregar encabezado
+            foreach (Section section in documento.Sections)
+            {
+                //Encabezado y configuracion
+                Range headerRange = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                headerRange.Fields.Add(headerRange, WdFieldType.wdFieldPage);
+                headerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+                HeaderFooter header = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
+                header.Range.ParagraphFormat.SpaceAfter = 0;
+                if (File.Exists(imgHeader1))
+                    header.Shapes.AddPicture(imgHeader1);
+            }
+            //Agregar pie de pagina
+            foreach (Section wordSection in documento.Sections)
+            {
+                //Pie de pagina y configuracion
+                Range footerRange = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                footerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+                HeaderFooter footer = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
+                footer.Range.ParagraphFormat.SpaceAfter = 50;
+                if (File.Exists(imgFooter1))
+                    footer.Shapes.AddPicture(imgFooter1);
+            }
+            //Agregar parrafo de texto con estilo de titulo 1
+            Paragraph parra1 = documento.Content.Paragraphs.Add(ref missing);
+            object styleHeading1 = "Título 1";
+            parra1.Range.set_Style(ref styleHeading1);
+            parra1.Range.Font.Color = WdColor.wdColorDarkGreen;
+            parra1.Range.Font.Bold = 1;
+            parra1.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+            parra1.Range.Text = "\n\nEL QUE SUSCRIBE, DIRECTOR DEL INSTITUTO DE INVESTIGACIÓN, CAPACITACIÓN Y PSICOTERAPIA\n";
+            parra1.Range.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+            parra1.Range.InsertParagraphAfter();
+            //Parrafos restantes del documento
+            Paragraph parra2 = documento.Content.Paragraphs.Add(ref missing);
+            object style1 = "Puesto";
+            parra2.Range.set_Style(ref style1);
+            parra2.Range.Font.Bold= 1;
+            parra2.Range.Font.Size = 28;
+            //parra1.Range.Text = "Recibo de documentos para: " + control.obtenerProgramaAlumno(doc.alumno);
+            parra2.Format.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+            parra2.Range.Text = "HACE CONSTAR";
+            parra2.Format.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+            parra2.Range.InsertParagraphAfter();
+            Paragraph parra3 = documento.Content.Paragraphs.Add(ref missing);
+            style1 = "Normal";
+            parra3.Range.set_Style(ref style1);
+            parra3.Range.Font.Size = 12;
+            parra3.Alignment = WdParagraphAlignment.wdAlignParagraphJustify;
+            parra3.Range.Text = "";
+            parra3.Alignment = WdParagraphAlignment.wdAlignParagraphJustify;
+            parra3.Range.InsertParagraphAfter();
+            Paragraph parra4 = documento.Content.Paragraphs.Add(ref missing);
+            parra4.Range.set_Style(ref style1);
+            parra4.Range.Font.Size = 12;
+            parra4.Alignment = WdParagraphAlignment.wdAlignParagraphRight;
+            parra4.Range.Text = "Que él(la) alumno(a) " + alumno.nombre + ", está cursando X ciclo de formación profesional en el programa " + programa +
+                " en el Instituto de Investigación, Capacitación y Psicoterapia (IICAPS) de manera satisfactoria, registrado con la matricula: " + alumno.matricula +
+                ", según obra en los archivos de nuestra institución. \nSe le expide la presente, con la finalidad de realizar la identificación como alumno activo.\n\n"+control.parametros_Generales.Sede+". " + DateTime.Now.ToLongDateString() + ".";
+            parra4.Alignment = WdParagraphAlignment.wdAlignParagraphRight;
+            parra4.Range.InsertParagraphAfter();
+            Paragraph parra5 = documento.Content.Paragraphs.Add(ref missing);
+            parra5.Range.set_Style(ref style1);
+            parra5.Range.Font.Size = 12;
+            parra5.Range.Font.Bold = 1;
+            parra5.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+            parra5.Range.Text = "\n\n\n";
+            parra5.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+            parra5.Range.InsertParagraphAfter();
+            Paragraph parra6 = documento.Content.Paragraphs.Add(ref missing);
+            parra6.Range.set_Style(ref style1);
+            parra6.Range.Font.Size = 12;
+            parra6.Range.Font.Bold = 1;
+            parra6.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+            parra6.Range.Text = "ATENTAMENTE \n\n ______________________________ \n"+control.parametros_Generales.Director+" \n Director.";
+            parra6.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+            parra6.Range.InsertParagraphAfter();
+            //Hacemos visible el documento
+            word.Visible = true;
+            //Guardamos el documento
+            string path = Directory.GetCurrentDirectory() + @"\Documentos";
+            object filename = Directory.GetCurrentDirectory() + @"\Documentos\Constancia" + alumno.matricula;
+            // comprobar si el fichero ya existe
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            documento.SaveAs2(ref filename);
+            //documento.Close(ref missing, ref missing, ref missing);
+            //documento = null;
+            //word.Quit(ref missing, ref missing, ref missing);
+            //word = null;
+            MessageBox.Show("¡Constancia de estudios creada exitosamente!");
+        }
+
+
+
 
     }
 }

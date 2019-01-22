@@ -11,6 +11,7 @@ using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
 using MySql.Data.MySqlClient;
+using System.Threading;
 
 namespace IICAPS_v1.Presentacion
 {
@@ -20,6 +21,7 @@ namespace IICAPS_v1.Presentacion
         private static DetalleClubDeTareas instance;
         ControlIicaps control;
         ClubDeTareas ClubDeTareas;
+        Pago pago;
         public DetalleClubDeTareas(ClubDeTareas club)
         {
             InitializeComponent();
@@ -194,12 +196,13 @@ namespace IICAPS_v1.Presentacion
                 ClubDeTareasAsistente asisT =  control.obtenerAsistenteClubDeTareas(ID);
                 FormPago fp = new FormPago(asisT.Restante, "Pago de Club De Tareas", "Psicoterapia");
                 fp.ShowDialog();
-                Pago pago = fp.getPagos();
+                pago = fp.getPagos();
                 fp.Dispose();
                 if (control.registrarPagoAsistenciaClubDeTareas(pago, asisT.ID.ToString()))
                 {
                     MessageBox.Show("Pago registrado exitosamente");
-                    DocumentosWord word = new DocumentosWord(pago);
+                    Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));
+                    t.Start();
                     btnActualizar_Click(null,null);
                 }
                 else
@@ -210,5 +213,10 @@ namespace IICAPS_v1.Presentacion
                 MessageBox.Show(ex.Message);
             }
         }
+        private void ThreadMethodDocumentos()
+        {
+            DocumentosWord word = new DocumentosWord(pago);
+        }
+
     }
 }

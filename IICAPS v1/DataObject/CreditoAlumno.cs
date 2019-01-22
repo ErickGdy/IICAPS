@@ -8,6 +8,7 @@ namespace IICAPS_v1.DataObject
 {
     public class CreditoAlumno
     {
+        public decimal pago { get; set; }
         public int id { get; set; }
         public string alumno { get; set; }
         public decimal cantidadMensualidad { get; set; }

@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,6 +19,7 @@ namespace IICAPS_v1.Presentacion
         List<String> auxId;
         Taller taller;
         TallerAsistente asistenT;
+        Pago pago;
         public FormInscricionTaller(string idTaller, TallerAsistente asistente)
         {
             InitializeComponent();
@@ -80,11 +82,12 @@ namespace IICAPS_v1.Presentacion
                     {
                         FormPago fp = new FormPago(asistenT.pago, "Pago de Taller", "Escuela");
                         fp.ShowDialog();
-                        Pago pago = fp.getPagos();
+                        pago = fp.getPagos();
                         if (control.registrarPagoAsistenciaTaller(pago, control.obtenerAsistentesTalleres(asistenT.taller.ToString()).Last().ID.ToString()))
                         {
                             MessageBox.Show("Pago registrado exitosamente");
-                            DocumentosWord word = new DocumentosWord(pago);
+                            Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));
+                            t.Start();
                         }
                         else
                             throw new Exception("Error al registrar pago");
@@ -140,6 +143,9 @@ namespace IICAPS_v1.Presentacion
                 MessageBox.Show("Error al obtener datos del taller");
             }
         }
-
+        private void ThreadMethodDocumentos()
+        {
+            DocumentosWord word = new DocumentosWord(pago);
+        }
     }
 }

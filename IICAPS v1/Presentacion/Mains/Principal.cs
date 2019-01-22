@@ -379,7 +379,17 @@ namespace IICAPS.Presentacion.Mains
         //ACCIONES BOTONES ADMINISTRACIÓN
         private void btnParametrosAdministracion_Click(object sender, EventArgs e)
         {
-
+            minimizeForms();
+            try
+            {
+                FormParametrosGenerales form = FormParametrosGenerales.getInstance();
+                configurarForm(form);
+                form.Show();
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
+            inhabilitarBoton("Administracion", "Administracion");
         }
         private void btnMenuAdministracion_Click(object sender, EventArgs e)
         {

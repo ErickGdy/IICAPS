@@ -11,6 +11,8 @@ using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
 using MySql.Data.MySqlClient;
+using IICAPS_v1.Presentacion.Mains.Escuela;
+using System.Threading;
 
 namespace IICAPS_v1.Presentacion
 {
@@ -22,6 +24,7 @@ namespace IICAPS_v1.Presentacion
         Alumno alumno;
         List<Programa> programas;
         List<string> programasAlumno;
+        DocumentosInscripcion al;
         public FormDetalleAlumno(Alumno al)
         {
             InitializeComponent();
@@ -33,6 +36,7 @@ namespace IICAPS_v1.Presentacion
                 lblNombreHeader.Text = al.nombre;
                 lblProgramaHeader.Text = control.consultarPrograma(al.programa).Nombre;
                 programas = control.obtenerProgramas();
+                linkLabel3_LinkClicked(null,null);
             }
             catch (Exception e)
             {
@@ -51,38 +55,59 @@ namespace IICAPS_v1.Presentacion
         {
             try
             {
-                panelCalificaciones.Visible = false;
-                panelDocumentacion.Visible = false;
-                panelInformacionPersonal.Visible = false;
-                panelSituacionAcademica.Visible = false;
-                panelInscripcion.Visible = false;
+                
                 switch (option)
                 {
                     case 1:
-                        panelCalificaciones.Visible = true;
                         llenarPanel(option);
+                        panelDocumentacion.Visible = false;
+                        panelInformacionPersonal.Visible = false;
+                        panelSituacionAcademica.Visible = false;
+                        panelInscripcion.Visible = false;
+                        panelCalificaciones.Visible = true;
                         break;
                     case 2:
-                        panelDocumentacion.Visible = true;
                         llenarPanel(option);
+                        panelCalificaciones.Visible = false;
+                        panelInformacionPersonal.Visible = false;
+                        panelSituacionAcademica.Visible = false;
+                        panelInscripcion.Visible = false;
+                        panelDocumentacion.Visible = true;
                         break;
                     case 3:
-                        panelInformacionPersonal.Visible = true;
                         llenarPanel(option);
+                        panelCalificaciones.Visible = false;
+                        panelDocumentacion.Visible = false;
+                        panelSituacionAcademica.Visible = false;
+                        panelInscripcion.Visible = false;
+                        panelInformacionPersonal.Visible = true;
                         break;
                     case 4:
-                        panelSituacionAcademica.Visible = true;
                         llenarPanel(option);
+                        panelCalificaciones.Visible = false;
+                        panelDocumentacion.Visible = false;
+                        panelInformacionPersonal.Visible = false;
+                        panelInscripcion.Visible = false;
+                        panelSituacionAcademica.Visible = true;
                         break;
                     case 5:
-                        panelInscripcion.Visible = true;
                         llenarPanel(option);
+                        panelCalificaciones.Visible = false;
+                        panelDocumentacion.Visible = false;
+                        panelInformacionPersonal.Visible = false;
+                        panelSituacionAcademica.Visible = false;
+                        panelInscripcion.Visible = true;
+                        break;
+                    case 6:
+                        llenarPanel(option);
+                        //panelInscripcion.Visible = true;
                         break;
                     default:
                         panelCalificaciones.Visible = false;
                         panelDocumentacion.Visible = false;
                         panelInformacionPersonal.Visible = false;
                         panelSituacionAcademica.Visible = false;
+                        panelInscripcion.Visible = false;
                         break;
 
                 }
@@ -98,7 +123,6 @@ namespace IICAPS_v1.Presentacion
             switch (option)
             {
                 case 1:
-                    panelCalificaciones.Visible = true;
                     try
                     {
                         DataTable dtDatos = new DataTable();
@@ -119,10 +143,9 @@ namespace IICAPS_v1.Presentacion
                     }
                     break;
                 case 2:
-                    panelDocumentacion.Visible = true;
                     try
                     {
-                        DocumentosInscripcion al = control.consultarEntregaDocumentos(alumno.rfc);
+                        al = control.consultarEntregaDocumentos(alumno.rfc);
                         checkInscActaCopia.Checked = al.actaNacimientoOrg;
                         checkInscActaOrignial.Checked = al.actaNacimientoOrg;
                         checkInscCopiaCedula.Checked = al.cedProfCop;
@@ -141,7 +164,6 @@ namespace IICAPS_v1.Presentacion
                     catch (Exception ex) { }
                     break;
                 case 3:
-                    panelInformacionPersonal.Visible = true;
                     try { 
                         alumno = control.consultarAlumno(alumno.rfc);
                         lblCarrera.Text = alumno.carrera;
@@ -163,7 +185,6 @@ namespace IICAPS_v1.Presentacion
                     catch (Exception ex) { }
                     break;
                 case 4:
-                    panelSituacionAcademica.Visible = true;
                     //Generar documento Kardex
                     cmbProgramaSitacionAcademica.Items.Clear();
                     try
@@ -177,29 +198,50 @@ namespace IICAPS_v1.Presentacion
                                     cmbProgramaSitacionAcademica.Items.Add(aux.Nombre);
                             }
                         }
+                        try
+                        {
+                            cmbProgramaSitacionAcademica.SelectedItem = lblProgramaHeader.Text;
+                        }
+                        catch (Exception ex) { }
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show("Error al obtener datos de programa del alumno");
                     }
-                    
                     break;
                 case 5:
                     try
                     {
                         cmbGrupos.Items.Clear();
+                        string group = control.consultarGrupoAlumno(alumno.rfc);
+                        if (group != null)
+                        {
+                            lblMensajeInscripciones.Text = "Alumno inscrito en el grupo " + group;
+                        }
+                        else
+                            lblMensajeInscripciones.Text = "El alumno no se encuentra inscrito en ningún grupo";
                         foreach (Grupo grupo in control.obtenerGrupos(cmbGrupos.Text, alumno.programa))
                         {
                             cmbGrupos.Items.Add(grupo.codigo + " - " + grupo.generacion);
+                            if (group == grupo.codigo)
+                                group = grupo.codigo + " - " + grupo.generacion;
                         }
-                        string group = control.consultarGrupoAlumno(alumno.rfc);
-                        if (group != "")
-                            lblMensajeInscripciones.Text = "Alumno inscrito en el grupo " + group;
-                        else
-                            lblMensajeInscripciones.Text = "El alumno no se encuentra inscrito en ningún grupo";
-                        panelInscripcion.Visible = true;
+                        cmbGrupos.SelectedItem = group;
+                        if (al == null)
+                            al = control.consultarEntregaDocumentos(alumno.rfc);
                     }
-                    catch (Exception ex) { }
+                    catch (Exception ex) {
+                    }
+                    break;
+                case 6:
+                    try
+                    {
+                        DetallePagosAlumno dtl = new DetallePagosAlumno(alumno);
+                        dtl.Show();
+                    }
+                    catch (Exception ex)
+                    {
+                    }
                     break;
                 default:
                     break;
@@ -295,13 +337,14 @@ namespace IICAPS_v1.Presentacion
             {
                 string programa = programasAlumno.ElementAt(cmbProgramaSitacionAcademica.SelectedIndex);
                 string grupo = control.consultarGrupoAlumno(alumno.rfc);
-                if (grupo != "")
+                if (grupo != null)
                 {
                     foreach (Programa aux in programas)
                     {
                         if (aux.Codigo == programa)
                         {
-                            DocumentosWord word = new DocumentosWord(alumno, control.obtenerCalificacionesAlumno(alumno.rfc, grupo), grupo, aux.Nombre);
+                            Thread t = new Thread(new ThreadStart(() => new DocumentosWord(alumno, control.obtenerCalificacionesAlumno(alumno.rfc, grupo), grupo, aux.Nombre)));
+                            t.Start();
                             break;
                         }
                     }
@@ -323,13 +366,13 @@ namespace IICAPS_v1.Presentacion
                 DocumentosInscripcion al = control.consultarEntregaDocumentos(alumno.rfc);
                 if (tabControlDocumentacion.SelectedIndex == 0)
                 {
-                    FormDocumentosInscripcion fa = new FormDocumentosInscripcion(al, false);
+                    FormDocumentosInscripcion fa = new FormDocumentosInscripcion(al, false,lblProgramaHeader.Text, alumno.nombre);
                     fa.FormClosed += new FormClosedEventHandler(form_ClosedDocumentos);
                     fa.Show();
                 }
                 else
                 {
-                    FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(al, false);
+                    FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(al, false, lblProgramaHeader.Text, alumno.nombre);
                     fa.FormClosed += new FormClosedEventHandler(form_ClosedDocumentos);
                     fa.Show();
                 }
@@ -433,6 +476,105 @@ namespace IICAPS_v1.Presentacion
                     aux.Width = x;
                 }
             }
+        }
+
+        private void cmbProgramaSitacionAcademica_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbProgramaSitacionAcademica.SelectedIndex != -1)
+                btnBuscarSituacionAcademica.Enabled = true;
+            else
+                btnBuscarSituacionAcademica.Enabled = false;
+        }
+
+        private void cmbGrupos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (al.validarDocumentacion())
+            {
+                btnInscribir_Inscripciones.Enabled = false;
+                lblMensajeInscripcion.Text = "Documentacion pendiente de entrega";
+            }
+            else
+            {
+                if (control.consultarGrupoAlumno(alumno.rfc) == null)
+                    if (cmbGrupos.SelectedIndex != -1)
+                        btnInscribir_Inscripciones.Enabled = true;
+                    else
+                        btnInscribir_Inscripciones.Enabled = false;
+                else
+                    btnInscribir_Inscripciones.Enabled = false;
+                lblMensajeInscripcion.Text = "";
+            }
+                
+            
+        }
+
+        private void darDeBajaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult dialogresult = MessageBox.Show("¿Desea dar de baja el alumno?", "Baja de Alumno", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (dialogresult == DialogResult.OK)
+                {
+                    if (control.darDeBajaAlumno(alumno.rfc))
+                    {
+                        MessageBox.Show("Alumno dado de baja");
+                        actualizarPanel(5);
+                    }
+                    else
+                        MessageBox.Show("Error al dar la baja del alumno");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void darDeAltaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult dialogresult = MessageBox.Show("¿Desea dar de Alta el alumno?", "Alta de Alumno", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (dialogresult == DialogResult.OK)
+                {
+                    if (control.darDeAltaAlumno(alumno.rfc))
+                    {
+                        MessageBox.Show("Alumno dado de Alta");
+                        actualizarPanel(5);
+                    }
+                    else
+                        MessageBox.Show("Error al dar el Alta del alumno");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void linkHistoriaPagos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            actualizarPanel(0);
+            Thread t = new Thread(new ThreadStart(ThreadMethodPagos));
+            t.Start();
+        }
+        private void ThreadMethodPagos()
+        {
+            try
+            {
+                DetallePagosAlumno dtl = new DetallePagosAlumno(alumno);
+                dtl.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void linkLabelCredito_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            CreditoAlumnos ca = new CreditoAlumnos(control.consultarCreditoActivoAlumno(alumno.rfc), alumno);
+            ca.Show();
         }
     }
 }
