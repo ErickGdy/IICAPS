@@ -144,7 +144,7 @@
             this.btnBorrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBorrar.Image = ((System.Drawing.Image)(resources.GetObject("btnBorrar.Image")));
             this.btnBorrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBorrar.Location = new System.Drawing.Point(512, 125);
+            this.btnBorrar.Location = new System.Drawing.Point(603, 128);
             this.btnBorrar.Name = "btnBorrar";
             this.btnBorrar.Size = new System.Drawing.Size(90, 29);
             this.btnBorrar.TabIndex = 22;
@@ -156,7 +156,7 @@
             // btnAceptar
             // 
             this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
-            this.btnAceptar.Location = new System.Drawing.Point(187, 382);
+            this.btnAceptar.Location = new System.Drawing.Point(232, 396);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(110, 43);
             this.btnAceptar.TabIndex = 20;
@@ -170,7 +170,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(-1, -9);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(628, 137);
+            this.pictureBox1.Size = new System.Drawing.Size(699, 137);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 28;
             this.pictureBox1.TabStop = false;
@@ -185,7 +185,7 @@
             this.tabDatosAlumno.Margin = new System.Windows.Forms.Padding(2);
             this.tabDatosAlumno.Name = "tabDatosAlumno";
             this.tabDatosAlumno.SelectedIndex = 0;
-            this.tabDatosAlumno.Size = new System.Drawing.Size(596, 253);
+            this.tabDatosAlumno.Size = new System.Drawing.Size(683, 253);
             this.tabDatosAlumno.TabIndex = 29;
             // 
             // tabInfoAlumno
@@ -218,7 +218,7 @@
             this.tabInfoAlumno.Margin = new System.Windows.Forms.Padding(2);
             this.tabInfoAlumno.Name = "tabInfoAlumno";
             this.tabInfoAlumno.Padding = new System.Windows.Forms.Padding(2);
-            this.tabInfoAlumno.Size = new System.Drawing.Size(588, 222);
+            this.tabInfoAlumno.Size = new System.Drawing.Size(675, 222);
             this.tabInfoAlumno.TabIndex = 0;
             this.tabInfoAlumno.Text = "Datos del Alumno";
             this.tabInfoAlumno.UseVisualStyleBackColor = true;
@@ -269,7 +269,7 @@
             "Masculino"});
             this.cmbSexo.Location = new System.Drawing.Point(103, 158);
             this.cmbSexo.Name = "cmbSexo";
-            this.cmbSexo.Size = new System.Drawing.Size(165, 26);
+            this.cmbSexo.Size = new System.Drawing.Size(201, 26);
             this.cmbSexo.TabIndex = 9;
             // 
             // cmbEstadoCivil
@@ -282,34 +282,36 @@
             "Casado",
             "Divorciado",
             "Viudo"});
-            this.cmbEstadoCivil.Location = new System.Drawing.Point(375, 158);
+            this.cmbEstadoCivil.Location = new System.Drawing.Point(408, 159);
             this.cmbEstadoCivil.Name = "cmbEstadoCivil";
-            this.cmbEstadoCivil.Size = new System.Drawing.Size(205, 26);
+            this.cmbEstadoCivil.Size = new System.Drawing.Size(248, 26);
             this.cmbEstadoCivil.TabIndex = 10;
             // 
             // txtRFC
             // 
             this.txtRFC.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRFC.Location = new System.Drawing.Point(375, 129);
+            this.txtRFC.Location = new System.Drawing.Point(408, 130);
             this.txtRFC.MaxLength = 14;
             this.txtRFC.Name = "txtRFC";
-            this.txtRFC.Size = new System.Drawing.Size(205, 24);
+            this.txtRFC.Size = new System.Drawing.Size(248, 24);
             this.txtRFC.TabIndex = 8;
+            this.txtRFC.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.noSpaces_KeyPress);
             // 
             // txtCURP
             // 
             this.txtCURP.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCURP.Location = new System.Drawing.Point(103, 129);
             this.txtCURP.Name = "txtCURP";
-            this.txtCURP.Size = new System.Drawing.Size(165, 24);
+            this.txtCURP.Size = new System.Drawing.Size(201, 24);
             this.txtCURP.TabIndex = 7;
+            this.txtCURP.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.noSpaces_KeyPress);
             // 
             // txtFacebook
             // 
             this.txtFacebook.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFacebook.Location = new System.Drawing.Point(375, 100);
+            this.txtFacebook.Location = new System.Drawing.Point(408, 101);
             this.txtFacebook.Name = "txtFacebook";
-            this.txtFacebook.Size = new System.Drawing.Size(205, 24);
+            this.txtFacebook.Size = new System.Drawing.Size(248, 24);
             this.txtFacebook.TabIndex = 6;
             // 
             // txtTelefono2
@@ -317,31 +319,34 @@
             this.txtTelefono2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTelefono2.Location = new System.Drawing.Point(103, 100);
             this.txtTelefono2.Name = "txtTelefono2";
-            this.txtTelefono2.Size = new System.Drawing.Size(165, 24);
+            this.txtTelefono2.Size = new System.Drawing.Size(175, 24);
             this.txtTelefono2.TabIndex = 4;
+            this.txtTelefono2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.onlyNumber_KeyPress);
             // 
             // txtCorreo
             // 
             this.txtCorreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCorreo.Location = new System.Drawing.Point(375, 71);
+            this.txtCorreo.Location = new System.Drawing.Point(408, 72);
             this.txtCorreo.Name = "txtCorreo";
-            this.txtCorreo.Size = new System.Drawing.Size(205, 24);
+            this.txtCorreo.Size = new System.Drawing.Size(248, 24);
             this.txtCorreo.TabIndex = 5;
+            this.txtCorreo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.noSpaces_KeyPress);
             // 
             // txtTelefono1
             // 
             this.txtTelefono1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTelefono1.Location = new System.Drawing.Point(104, 71);
             this.txtTelefono1.Name = "txtTelefono1";
-            this.txtTelefono1.Size = new System.Drawing.Size(164, 24);
+            this.txtTelefono1.Size = new System.Drawing.Size(174, 24);
             this.txtTelefono1.TabIndex = 3;
+            this.txtTelefono1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.onlyNumber_KeyPress);
             // 
             // txtDireccion
             // 
             this.txtDireccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDireccion.Location = new System.Drawing.Point(104, 41);
             this.txtDireccion.Name = "txtDireccion";
-            this.txtDireccion.Size = new System.Drawing.Size(396, 24);
+            this.txtDireccion.Size = new System.Drawing.Size(461, 24);
             this.txtDireccion.TabIndex = 2;
             // 
             // txtNombre
@@ -349,7 +354,7 @@
             this.txtNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombre.Location = new System.Drawing.Point(104, 12);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(329, 24);
+            this.txtNombre.Size = new System.Drawing.Size(394, 24);
             this.txtNombre.TabIndex = 1;
             // 
             // label11
@@ -366,7 +371,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.label10.Location = new System.Drawing.Point(271, 161);
+            this.label10.Location = new System.Drawing.Point(304, 162);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(105, 20);
             this.label10.TabIndex = 49;
@@ -386,7 +391,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.label9.Location = new System.Drawing.Point(319, 132);
+            this.label9.Location = new System.Drawing.Point(352, 133);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(57, 20);
             this.label9.TabIndex = 47;
@@ -396,7 +401,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.label7.Location = new System.Drawing.Point(283, 103);
+            this.label7.Location = new System.Drawing.Point(316, 104);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(93, 20);
             this.label7.TabIndex = 46;
@@ -416,7 +421,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.label5.Location = new System.Drawing.Point(301, 74);
+            this.label5.Location = new System.Drawing.Point(334, 75);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(75, 20);
             this.label5.TabIndex = 41;
@@ -470,7 +475,7 @@
             this.tabInfoAcademica.Margin = new System.Windows.Forms.Padding(2);
             this.tabInfoAcademica.Name = "tabInfoAcademica";
             this.tabInfoAcademica.Padding = new System.Windows.Forms.Padding(2);
-            this.tabInfoAcademica.Size = new System.Drawing.Size(588, 222);
+            this.tabInfoAcademica.Size = new System.Drawing.Size(675, 222);
             this.tabInfoAcademica.TabIndex = 1;
             this.tabInfoAcademica.Text = "Información Académica";
             this.tabInfoAcademica.UseVisualStyleBackColor = true;
@@ -552,7 +557,7 @@
             this.tabObserCons.Location = new System.Drawing.Point(4, 27);
             this.tabObserCons.Name = "tabObserCons";
             this.tabObserCons.Padding = new System.Windows.Forms.Padding(3);
-            this.tabObserCons.Size = new System.Drawing.Size(588, 222);
+            this.tabObserCons.Size = new System.Drawing.Size(675, 222);
             this.tabObserCons.TabIndex = 2;
             this.tabObserCons.Text = "Observaciones";
             this.tabObserCons.UseVisualStyleBackColor = true;
@@ -562,7 +567,7 @@
             this.txtMatricula.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMatricula.Location = new System.Drawing.Point(223, 134);
             this.txtMatricula.Name = "txtMatricula";
-            this.txtMatricula.Size = new System.Drawing.Size(344, 24);
+            this.txtMatricula.Size = new System.Drawing.Size(353, 24);
             this.txtMatricula.TabIndex = 2;
             // 
             // label17
@@ -590,7 +595,7 @@
             this.txtObservaciones.Location = new System.Drawing.Point(224, 26);
             this.txtObservaciones.Multiline = true;
             this.txtObservaciones.Name = "txtObservaciones";
-            this.txtObservaciones.Size = new System.Drawing.Size(343, 102);
+            this.txtObservaciones.Size = new System.Drawing.Size(352, 102);
             this.txtObservaciones.TabIndex = 1;
             // 
             // button1
@@ -610,7 +615,7 @@
             // btnCancelar
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
-            this.btnCancelar.Location = new System.Drawing.Point(319, 382);
+            this.btnCancelar.Location = new System.Drawing.Point(364, 396);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(110, 43);
             this.btnCancelar.TabIndex = 21;
@@ -621,10 +626,10 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(-1, 430);
+            this.pictureBox2.Location = new System.Drawing.Point(-1, 444);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(628, 110);
+            this.pictureBox2.Size = new System.Drawing.Size(699, 119);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 30;
             this.pictureBox2.TabStop = false;
@@ -635,7 +640,7 @@
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(173)))), ((int)(((byte)(73)))));
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(439, 9);
+            this.label1.Location = new System.Drawing.Point(530, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 20);
             this.label1.TabIndex = 32;
@@ -648,7 +653,7 @@
             this.lblFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFecha.ForeColor = System.Drawing.Color.White;
             this.lblFecha.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblFecha.Location = new System.Drawing.Point(503, 9);
+            this.lblFecha.Location = new System.Drawing.Point(594, 9);
             this.lblFecha.Name = "lblFecha";
             this.lblFecha.Size = new System.Drawing.Size(99, 20);
             this.lblFecha.TabIndex = 33;
@@ -659,7 +664,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(617, 530);
+            this.ClientSize = new System.Drawing.Size(696, 560);
             this.Controls.Add(this.btnBorrar);
             this.Controls.Add(this.lblFecha);
             this.Controls.Add(this.label1);

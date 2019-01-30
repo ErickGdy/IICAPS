@@ -54,11 +54,12 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 //Actualiza el valor de la etiqueta donde se muestra el total de productos
                 if (dataGridViewCreditos.Columns.Count != 0)
                 {
-                    int x = (dataGridViewCreditos.Width - 20) / dataGridViewCreditos.Columns.Count;
+                    int x = (dataGridViewCreditos.Width - 20) / (dataGridViewCreditos.Columns.Count-1);
                     foreach (DataGridViewColumn aux in dataGridViewCreditos.Columns)
                     {
                         aux.Width = x;
                     }
+                    dataGridViewCreditos.Columns[0].Visible = false;
                 }
             }
             catch (Exception e)
@@ -149,11 +150,12 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             //Actualiza el valor del ancho de la columnas
             if (dataGridViewCreditos.Columns.Count != 0)
             {
-                int x = (dataGridViewCreditos.Width - 20) / dataGridViewCreditos.Columns.Count;
+                int x = (dataGridViewCreditos.Width - 20) / (dataGridViewCreditos.Columns.Count-1);
                 foreach (DataGridViewColumn aux in dataGridViewCreditos.Columns)
                 {
                     aux.Width = x;
                 }
+                dataGridViewCreditos.Columns[0].Visible = false;
             }
         }
 

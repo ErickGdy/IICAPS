@@ -52,11 +52,12 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 //Actualiza el valor de la etiqueta donde se muestra el total de productos
                 if (dataGridViewPagos.Columns.Count != 0)
                 {
-                    int x = (dataGridViewPagos.Width - 20) / dataGridViewPagos.Columns.Count;
+                    int x = (dataGridViewPagos.Width - 20) / (dataGridViewPagos.Columns.Count-1);
                     foreach (DataGridViewColumn aux in dataGridViewPagos.Columns)
                     {
                         aux.Width = x;
                     }
+                dataGridViewPagos.Columns[0].Visible = false;
                 }
             }
             catch (Exception e)
@@ -112,11 +113,12 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             //Actualiza el valor del ancho de la columnas
             if (dataGridViewPagos.Columns.Count != 0)
             {
-                int x = (dataGridViewPagos.Width - 20) / dataGridViewPagos.Columns.Count;
+                int x = (dataGridViewPagos.Width - 20) / (dataGridViewPagos.Columns.Count-1);
                 foreach (DataGridViewColumn aux in dataGridViewPagos.Columns)
                 {
                     aux.Width = x;
                 }
+                dataGridViewPagos.Columns[0].Visible = false;
             }
         }
 

@@ -62,10 +62,7 @@ namespace IICAPS_v1.Presentacion
         {
             try
             {
-                if (!agregarAlumno())
-                    MessageBox.Show("Error al guardar los datos del alumno");
-                else
-                {
+                if (agregarAlumno()) { 
                     MessageBox.Show("Datos del Alumno guardados exitosamente");
                     Close();
                     Dispose();
@@ -133,8 +130,7 @@ namespace IICAPS_v1.Presentacion
                 }
             }
             else
-                MessageBox.Show("No deje los campos marcados con * vacios");
-            return false;
+                throw new Exception("No deje los campos marcados con * vacios");
         }
 
         private void btnBorrar_Click(object sender, EventArgs e)
@@ -189,6 +185,35 @@ namespace IICAPS_v1.Presentacion
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://www.mi-rfc.com.mx/consulta-rfc-homoclave");
+        }
+
+        private void onlyNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsSeparator(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+            if (Char.IsDigit(e.KeyChar) || Char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            };
+        }
+
+
+        private void noSpaces_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsSeparator(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = false;
+            }
         }
     }
 }

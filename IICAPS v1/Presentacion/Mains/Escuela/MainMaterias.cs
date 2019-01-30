@@ -50,11 +50,12 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 //Se asigna el datatable como origen de datos del datagridview
                 dataGridView1.DataSource = dtDatos;
                 //Actualiza el valor del ancho de la columnas
-                int x = (dataGridView1.Width - 20) / dataGridView1.Columns.Count;
+                int x = (dataGridView1.Width - 20) / (dataGridView1.Columns.Count-1);
                 foreach (DataGridViewColumn aux in dataGridView1.Columns)
                 {
                     aux.Width = x;
                 }
+                dataGridView1.Columns[0].Visible = false;
             }
             catch (Exception e)
             {
@@ -197,11 +198,12 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             //Actualiza el valor del ancho de la columnas
             if (dataGridView1.Columns.Count != 0)
             {
-                int x = (dataGridView1.Width - 20) / dataGridView1.Columns.Count;
+                int x = (dataGridView1.Width - 20) / (dataGridView1.Columns.Count-1);
                 foreach (DataGridViewColumn aux in dataGridView1.Columns)
                 {
                     aux.Width = x;
                 }
+                dataGridView1.Columns[0].Visible = false;
             }
         }
     }

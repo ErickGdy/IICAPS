@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>IICAPS_v1</RootNamespace>
     <AssemblyName>IICAPS v1</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <PublishUrl>publicar\</PublishUrl>
@@ -354,6 +354,12 @@
     <Compile Include="Presentacion\Mains\Libreria\LibreriaMain.Designer.cs">
       <DependentUpon>LibreriaMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentacion\Mains\Libreria\MainLibros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Libreria\MainLibros.Designer.cs">
+      <DependentUpon>MainLibros.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Mains\MainIICAPS.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -589,6 +595,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Mains\Libreria\LibreriaMain.resx">
       <DependentUpon>LibreriaMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Mains\Libreria\MainLibros.resx">
+      <DependentUpon>MainLibros.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Mains\MainIICAPS.resx">
       <DependentUpon>MainIICAPS.cs</DependentUpon>

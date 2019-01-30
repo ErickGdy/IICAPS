@@ -31,11 +31,11 @@ namespace IICAPS_v1.Control
         //string server = "187.137.151.226";
         string userID = "iic2ps1d_devs";
         string password = "ConejoVolador11";
-        //string database = "iic2ps1d_iicaps_devs";
+        string database = "iic2ps1d_iicaps_devs";
         uint port = 3306;
         //uint port = 2083;
         ////MySqlConnectionProtocol protocolo =  MySqlConnectionProtocol.Tcp;
-        string database = "iic2ps1d_iicaps_prod";
+        //string database = "iic2ps1d_iicaps_prod";
 
 
         public static ControlIicaps instance;
@@ -483,7 +483,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT ID, AlumnoID, CantidadMensualidad, CantidadMeses, CantidadAbonoCredito, CantidadAbonoMensual, FechaSolicitud, Observaciones FROM creditoAlumno WHERE Estado NOT LIKE 'Cancelado'", conn);
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT ID, AlumnoID, CantidadMensualidad AS 'Mensualidad' , CantidadMeses AS 'No. de Meses',  FechaSolicitud AS 'Fecha de Solicitud', Observaciones FROM creditoAlumno WHERE Estado NOT LIKE 'Cancelado'", conn);
                     conn.Close();
                     return mdaDatos;
                 }
@@ -506,7 +506,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    string sqlString = "SELECT ID, AlumnoID, CantidadMensualidad, CantidadMeses, CantidadAbonoCredito, CantidadAbonoMensual, FechaSolicitud, Observaciones FROM creditoAlumno WHERE Estado NOT LIKE 'Cancelado' AND " +
+                    string sqlString = "SELECT ID, AlumnoID, CantidadMensualidad AS 'Mensualidad' , CantidadMeses AS 'No. de Meses',  FechaSolicitud AS 'Fecha de Solicitud', Observaciones FROM creditoAlumno WHERE Estado NOT LIKE 'Cancelado' AND " +
                         "(AlumnoID LIKE '%" + parameter + "%' or " +
                         "CantidadMensualidad LIKE '%" + parameter + "%' or " +
                         "CantidadMeses LIKE '%" + parameter + "%' or " +
@@ -782,7 +782,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT * FROM pagosAlumno", conn);
+                    MySqlDataAdapter mdaDatos = new MySqlDataAdapter("SELECT ID, AlumnoID AS 'ID de Alumno', FechaPago AS 'Fecha de Pago', Cantidad, Concepto, Observaciones, Recibio, Estado FROM pagosAlumno", conn);
                     conn.Close();
                     return mdaDatos;
                 }
@@ -805,7 +805,7 @@ namespace IICAPS_v1.Control
                 conn.Open();
                 try
                 {
-                    string sqlString = "SELECT * FROM pagosAlumno WHERE" +
+                    string sqlString = "SELECT ID, AlumnoID AS 'ID de Alumno', FechaPago AS 'Fecha de Pago', Cantidad, Concepto, Observaciones, Recibio, Estado FROM pagosAlumno WHERE" +
                         "(AlumnoID LIKE '%" + parameter + "%' or " +
                         "Cantidad LIKE '%" + parameter + "%' or " +
                         "Concepto LIKE '%" + parameter + "%' or " +
