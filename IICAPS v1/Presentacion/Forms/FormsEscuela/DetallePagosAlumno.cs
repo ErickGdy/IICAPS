@@ -18,7 +18,6 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
     public partial class DetallePagosAlumno : Form
     {
 
-        private static DetallePagosAlumno instance;
         ControlIicaps control;
         Alumno alumno;
         decimal auxTotal = 0, auxPendiente = 0;

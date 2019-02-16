@@ -70,17 +70,6 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TextBox txtBuscar;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox pictureBoxBuscar;
-        private System.Windows.Forms.LinkLabel limpiarBusqueda;
-        private System.Windows.Forms.Button btnActualizar;
-        private System.Windows.Forms.ContextMenuStrip menuTabla;
-        private System.Windows.Forms.ToolStripMenuItem consultarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem modificarToolStripMenuItem;
-        private System.Windows.Forms.Button btnAgregar;
-        private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

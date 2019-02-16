@@ -21,7 +21,6 @@ namespace IICAPS_v1.Presentacion
 
         List<String> empleados;
         int empleadosCount = 0;
-        int psicoterapeutasCount = 0;
 
         List<Reservacion> reservaciones;
         bool consultar;
