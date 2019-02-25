@@ -9,6 +9,7 @@ namespace IICAPS_v1
 {
     static class Program
     {
+        public static string version = "0.2.1";
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>
@@ -17,7 +18,7 @@ namespace IICAPS_v1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login());
+            Application.Run(Updater_IICAPS.Updater.getInstance());
         }
     }
 }
