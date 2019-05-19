@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -40,7 +41,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             return instance;
         }
 
-        private void actualizarTablaPagos(MySqlDataAdapter data)
+        private void actualizarTablaPagos(SqlDataAdapter data)
         {
             try
             {

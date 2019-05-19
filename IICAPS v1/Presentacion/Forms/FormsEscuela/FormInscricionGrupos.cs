@@ -19,24 +19,34 @@ namespace IICAPS_v1.Presentacion
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
-            List<String> auxNombres = new List<string>();
-            List<String> auxId = new List<string>();
-            foreach (Grupo p in control.obtenerGrupos())
+            try
             {
-                auxNombres.Add(p.generacion);
-                auxId.Add(p.codigo);
+                List<String> auxNombres = new List<string>();
+                List<String> auxId = new List<string>();
+                foreach (Grupo p in control.obtenerGrupos())
+                {
+                    auxNombres.Add(p.generacion);
+                    auxId.Add(p.codigo);
+                }
+                cmbGrupoNombres.DataSource = auxNombres;
+                cmbGrupoID.DataSource = auxId;
+                cmbGrupoNombres.SelectedIndex = 0;
+                auxNombres.Clear();
+                auxId.Clear();
+                foreach (Alumno al in control.obtenerAlumnos())
+                {
+                    auxNombres.Add(al.nombre);
+                    auxId.Add(al.rfc);
+                }
+                cmbAlumnoNombres.DataSource = auxNombres;
+                cmbAlumnoID.DataSource = auxId;
+                cmbAlumnoNombres.SelectedIndex = 0;
             }
-            cmbGrupoNombres.DataSource = auxNombres;
-            cmbGrupoID.DataSource = auxId;
-            auxNombres.Clear();
-            auxId.Clear();
-            foreach (Alumno al in control.obtenerAlumnos())
+            catch (Exception)
             {
-                auxNombres.Add(al.nombre);
-                auxId.Add(al.rfc);
+                MessageBox.Show("No se ha registrado ningún programa y/o grupo", "Error al obtener datos de programas y/o grupos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                btnAceptar.Enabled = false;
             }
-            cmbAlumnoNombres.DataSource = auxNombres;
-            cmbAlumnoID.DataSource = auxId;
             if (grupo!= null)
             {
                 cmbGrupoNombres.Enabled = false;

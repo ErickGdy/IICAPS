@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
@@ -54,7 +55,7 @@ namespace IICAPS_v1.Presentacion
         {
             try
             {
-                MySqlDataAdapter data = control.obtenerConsultasPsicoterapeutaTable(ID_Psicoterapeuta);
+                SqlDataAdapter data = control.obtenerConsultasPsicoterapeutaTable(ID_Psicoterapeuta);
                 DataTable dtDatos = new DataTable();
                 //Con la informacion del adaptador se llena el datatable
                 data.Fill(dtDatos);

@@ -31,7 +31,10 @@ namespace IICAPS.Presentacion
                 }else
                     txtUsuario.Focus();
             }
-            catch (Exception ex) { }
+            catch (Exception ex) {
+            }
+                this.Show();
+            BringToFront();
         }
 
         private void textBox1_Enter(object sender, EventArgs e)

@@ -31,6 +31,7 @@ namespace IICAPS_v1.Presentacion
             }
             cmbProgramas.DataSource = auxNombres;
             cmbIDProgramas.DataSource = auxId;
+            cmbProgramas.SelectedIndex = 0;
             if (grupo!= null)
             {
                 this.grupo = grupo;

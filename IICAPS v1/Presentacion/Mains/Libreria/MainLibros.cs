@@ -13,20 +13,20 @@ using IICAPS_v1.Presentacion;
 using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 
-namespace IICAPS_v1.Presentacion.Mains.Escuela
+namespace IICAPS_v1.Presentacion.Mains.Libreria
 {
-    public partial class MainProgramas : Form
+    public partial class MainLibros : Form
     {
 
-        private static MainProgramas instance;
+        private static MainLibros instance;
         ControlIicaps control;
-        public MainProgramas()
+        public MainLibros()
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
             try
             {
-                actualizarTabla(control.obtenerProgramaTable());
+                actualizarTabla(control.obtenerEmpleadosTable());
             }
             catch (Exception e)
             {
@@ -34,10 +34,10 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             }
         }
 
-        public static MainProgramas getInstance()
+        public static MainLibros getInstance()
         {
             if (instance == null)
-                instance = new MainProgramas();
+                instance = new MainLibros();
             return instance;
         }
 
@@ -51,11 +51,12 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 //Se asigna el datatable como origen de datos del datagridview
                 dataGridView1.DataSource = dtDatos;
                 //Actualiza el valor del ancho de la columnas
-                int x = (dataGridView1.Width - 20) / dataGridView1.Columns.Count;
+                int x = (dataGridView1.Width - 20) / (dataGridView1.Columns.Count-1);
                 foreach (DataGridViewColumn aux in dataGridView1.Columns)
                 {
                     aux.Width = x;
                 }
+                dataGridView1.Columns[0].Visible = false; ;
             }
             catch (Exception e)
             {
@@ -63,33 +64,30 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             }
         }
 
-        private void btnAgregarAlumno_Click(object sender, EventArgs e)
+        private void btnAgregar_Click(object sender, EventArgs e)
         {
-            FormPrograma fa = new FormPrograma(null);
+            FormEmpleados fa = new FormEmpleados(null,null);
             fa.FormClosed += new FormClosedEventHandler(form_Closed);
             fa.Show();
         }
 
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTabla(control.obtenerProgramaTable(txtBuscar.Text));
+            actualizarTabla(control.obtenerEmpleadosTable(txtBuscar.Text));
         }
 
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
-                String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                Programa programa = control.consultarPrograma(id);
-                programa.MapaCurricular = control.consultarMapaCurricularPrograma(programa.Codigo);
-                MessageBox.Show("Reporte referente al programa "+programa.Codigo);
-                //FormPrograma fa = new FormPrograma(programa);
+                String id = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                //Paciente paciente = control.consultarPaciente(id);
+                //ReporteDePaciente fa = new ReporteDePaciente(id);
                 //fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 //fa.Show();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
             }
         }
 
@@ -97,16 +95,28 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         {
             try
             {
-                String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                Programa programa = control.consultarPrograma(id);
-                programa.MapaCurricular = control.consultarMapaCurricularPrograma(programa.Codigo);
-                FormPrograma fa = new FormPrograma(programa);
+                String id = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                Empleado Empleado = control.consultarEmpleado(id);
+                Usuario usuario = control.consultarUsuario(id);
+                FormEmpleados fa = new FormEmpleados(Empleado,usuario);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                try
+                {
+                    String id = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                    Empleado Empleado = control.consultarEmpleado(id);
+                    Usuario usuario = control.consultarUsuario(id);
+                    FormEmpleados fa = new FormEmpleados(Empleado, usuario);
+                    fa.FormClosed += new FormClosedEventHandler(form_Closed);
+                    fa.Show();
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show(exc.Message);
+                }
             }
         }
 
@@ -114,17 +124,17 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         {
             try
             {
-                String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                DialogResult dialogresult = MessageBox.Show("¿Desea calcelar el programa?", "Cancelar programa", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                String matricula = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                DialogResult dialogresult = MessageBox.Show("¿Desea eliminar Empleado?", "Eliminar Empleado", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if(dialogresult == DialogResult.OK)
                 {
-                    if (control.desactivarPrograma(id))
+                    if (control.desactivarEmpleado(matricula))
                     {
-                        MessageBox.Show("Programa cancelado");
-                        actualizarTabla(control.obtenerProgramaTable());
+                        MessageBox.Show("Empleado eliminado");
+                        actualizarTabla(control.obtenerEmpleadosTable());
                     }
                     else
-                        MessageBox.Show("Error al cancelar programa");
+                        MessageBox.Show("Error al eliminar Empleado");
                 }
             }
             catch (Exception ex)
@@ -139,7 +149,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             txtBuscar.Text = "";
             try
             {
-                actualizarTabla(control.obtenerProgramaTable());
+                actualizarTabla(control.obtenerEmpleadosTable());
             }
             catch (Exception ex)
             {
@@ -147,32 +157,9 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             }
         }
 
-
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTabla(control.obtenerProgramaTable(txtBuscar.Text));
-        }
-
-        private void Main_SizeChanged(object sender, EventArgs e)
-        {
-            int ancho = this.Width;
-            //Actualiza el tamaño de la tabla con respecto al tamaño de la ventana
-            dataGridView1.Width= ancho - 195;
-            dataGridView1.Height=this.Height - 130;
-            //actualiza la posicion de los controles con respecto al tamaño de la ventana
-            btnAgregar.Location = new Point (ancho - 169, btnAgregar.Location.Y);
-            txtBuscar.Location = new Point (ancho - 216, txtBuscar.Location.Y);
-            pictureBoxBuscar.Location = new Point (ancho - 245, pictureBoxBuscar.Location.Y);
-            limpiarBusqueda.Location = new Point (ancho - 39, limpiarBusqueda.Location.Y);
-            //Actualiza el valor del ancho de la columnas
-            if (dataGridView1.Columns.Count != 0)
-            {
-                int x = (dataGridView1.Width - 20) / dataGridView1.Columns.Count;
-                foreach (DataGridViewColumn aux in dataGridView1.Columns)
-                {
-                    aux.Width = x;
-                }
-            }
+            actualizarTabla(control.obtenerEmpleadosTable(txtBuscar.Text));
         }
 
         private void txtBuscar_KeyUp(object sender, KeyEventArgs e)
@@ -185,7 +172,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 {
                     try
                     {
-                        actualizarTabla(control.obtenerProgramaTable(texto));
+                        actualizarTabla(control.obtenerEmpleadosTable(texto));
                     }
                     catch (Exception ex)
                     {
@@ -198,7 +185,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 limpiarBusqueda.Visible = false;
                 try
                 {
-                    actualizarTabla(control.obtenerProgramaTable());
+                    actualizarTabla(control.obtenerEmpleadosTable());
                 }
                 catch (Exception ex)
                 {
@@ -207,5 +194,28 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             }
            
         }
+
+        private void Main_SizeChanged(object sender, EventArgs e)
+        {
+            int ancho = this.Width;
+            //Actualiza el tamaño de la tabla con respecto al tamaño de la ventana
+            dataGridView1.Width = ancho - 195;
+            dataGridView1.Height = this.Height - 130;
+            //actualiza la posicion de los controles con respecto al tamaño de la ventana
+            btnAgregar.Location = new Point(ancho - 169, btnAgregar.Location.Y);
+            txtBuscar.Location = new Point(ancho - 216, txtBuscar.Location.Y);
+            pictureBoxBuscar.Location = new Point(ancho - 245, pictureBoxBuscar.Location.Y);
+            limpiarBusqueda.Location = new Point(ancho - 39, limpiarBusqueda.Location.Y);
+            //Actualiza el valor del ancho de la columnas
+            if (dataGridView1.Columns.Count != 0)
+            {
+                int x = (dataGridView1.Width - 20) / (dataGridView1.Columns.Count-1);
+                foreach (DataGridViewColumn aux in dataGridView1.Columns)
+                {
+                    aux.Width = x;
+                }
+            }
+        }
+
     }
 }

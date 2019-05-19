@@ -12,6 +12,7 @@ using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
 using MySql.Data.MySqlClient;
 using System.Threading;
+using System.Data.SqlClient;
 
 namespace IICAPS_v1.Presentacion
 {
@@ -48,7 +49,7 @@ namespace IICAPS_v1.Presentacion
                 return instance;
             }
         }
-        private void actualizarTabla(MySqlDataAdapter data)
+        private void actualizarTabla(SqlDataAdapter data)
         {
             try
             {

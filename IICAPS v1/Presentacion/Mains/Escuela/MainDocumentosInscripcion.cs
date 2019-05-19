@@ -11,6 +11,7 @@ using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
 using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 
 namespace IICAPS_v1.Presentacion.Mains.Escuela
 {
@@ -40,7 +41,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             return instance;
         }
 
-        private void actualizarTablaDocumentosInscripcion(MySqlDataAdapter data)
+        private void actualizarTablaDocumentosInscripcion(SqlDataAdapter data)
         {
             try
             {

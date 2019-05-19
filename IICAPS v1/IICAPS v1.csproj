@@ -60,6 +60,10 @@
       <HintPath>..\packages\Google.Protobuf.3.6.1\lib\net45\Google.Protobuf.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MSSQL, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MSSQL.1.0.1\lib\net451\MSSQL.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MySql.Data, Version=8.0.13.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.8.0.13\lib\net452\MySql.Data.dll</HintPath>
       <Private>True</Private>
@@ -70,6 +74,14 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.Common.4.1.0\lib\net451\System.Data.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SqlClient, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.1.0\lib\net46\System.Data.SqlClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
     <Reference Include="System.Transactions" />
@@ -113,6 +125,12 @@
     <Compile Include="DataObject\DocumentosInscripcion.cs" />
     <Compile Include="DataObject\PaseDeListaAlumno.cs" />
     <Compile Include="DataObject\Usuario.cs" />
+    <Compile Include="MainUpdater\GUI\Main_Updater.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainUpdater\GUI\Main_Updater.Designer.cs">
+      <DependentUpon>Main_Updater.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Forms\FormsAdministracion\FormNomina.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -335,6 +353,12 @@
     <Compile Include="Presentacion\Forms\FromsControl\FormParametrosGenerales.Designer.cs">
       <DependentUpon>FormParametrosGenerales.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentacion\Forms\FromsControl\MessageBoxCustom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FromsControl\MessageBoxCustom.Designer.cs">
+      <DependentUpon>MessageBoxCustom.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Login\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -475,13 +499,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Updater\Control\Control_Updater.cs" />
-    <Compile Include="Updater\GUI\Updater.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Updater\GUI\Updater.Designer.cs">
-      <DependentUpon>Updater.cs</DependentUpon>
-    </Compile>
+    <EmbeddedResource Include="MainUpdater\GUI\Main_Updater.resx">
+      <DependentUpon>Main_Updater.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsAdministracion\FormNomina.resx">
       <DependentUpon>FormNomina.cs</DependentUpon>
     </EmbeddedResource>
@@ -593,6 +613,9 @@
     <EmbeddedResource Include="Presentacion\Forms\FromsControl\FormParametrosGenerales.resx">
       <DependentUpon>FormParametrosGenerales.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FromsControl\MessageBoxCustom.resx">
+      <DependentUpon>MessageBoxCustom.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Login\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -666,9 +689,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Updater\GUI\updater.resx">
-      <DependentUpon>Updater.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
