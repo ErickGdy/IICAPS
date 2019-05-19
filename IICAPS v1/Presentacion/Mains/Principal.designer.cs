@@ -1020,10 +1020,10 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1394, 605);
             this.Controls.Add(this.panelMenuSuperior);
-            this.Controls.Add(this.panelMenuAdministracion);
-            this.Controls.Add(this.panelMenuPsicoterapia);
             this.Controls.Add(this.panelMenuEscuela);
             this.Controls.Add(this.panelMenuLibreria);
+            this.Controls.Add(this.panelMenuAdministracion);
+            this.Controls.Add(this.panelMenuPsicoterapia);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.Margin = new System.Windows.Forms.Padding(4);

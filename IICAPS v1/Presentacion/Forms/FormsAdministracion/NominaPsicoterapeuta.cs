@@ -11,6 +11,7 @@ using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
 using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 
 namespace IICAPS_v1.Presentacion
 {
@@ -73,7 +74,7 @@ namespace IICAPS_v1.Presentacion
                 return instance;
             }
         }
-        private void actualizarTablaPagos(MySqlDataAdapter data)
+        private void actualizarTablaPagos(SqlDataAdapter data)
         {
             try
             {

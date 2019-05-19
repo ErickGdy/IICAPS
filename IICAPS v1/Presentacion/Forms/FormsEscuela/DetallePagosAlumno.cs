@@ -12,6 +12,7 @@ using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
 using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 
 namespace IICAPS_v1.Presentacion.Mains.Escuela
 {
@@ -56,7 +57,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             this.auxPendiente = auxPendiente;
             this.auxTotal = auxTotal;
         }
-        private void actualizarTablaCobros(MySqlDataAdapter data)
+        private void actualizarTablaCobros(SqlDataAdapter data)
         {
             try
             {
@@ -78,7 +79,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 MessageBox.Show(e.Message);
             }
         }
-        private void actualizarTablaPagos(MySqlDataAdapter data)
+        private void actualizarTablaPagos(SqlDataAdapter data)
         {
             try
             {

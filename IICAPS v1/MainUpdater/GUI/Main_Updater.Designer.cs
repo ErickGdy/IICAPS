@@ -1,8 +1,8 @@
 ﻿using System.Windows.Forms;
 
-namespace Updater_IICAPS
+namespace Main_Updater
 {
-    partial class Updater
+    partial class Main_Updater
     {
 
         #region Windows Form Designer generated code
@@ -34,7 +34,7 @@ namespace Updater_IICAPS
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Updater));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main_Updater));
             this.DWProgressBar = new System.Windows.Forms.ProgressBar();
             this.DWPorcentaje = new System.Windows.Forms.Label();
             this.lblMensaje = new System.Windows.Forms.Label();
@@ -80,7 +80,7 @@ namespace Updater_IICAPS
             // 
             // lblMensaje
             // 
-            this.lblMensaje.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblMensaje.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblMensaje.BackColor = System.Drawing.Color.Transparent;
             this.lblMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -132,7 +132,7 @@ namespace Updater_IICAPS
             // 
             // lblAvisoDePrivacidad
             // 
-            this.lblAvisoDePrivacidad.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblAvisoDePrivacidad.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAvisoDePrivacidad.BackColor = System.Drawing.Color.Transparent;
             this.lblAvisoDePrivacidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
