@@ -19,19 +19,19 @@ namespace IICAPS_v1.Control
         SqlConnectionStringBuilder builder;
         SqlCommand cmd;
 
-        //Devs
-        string server = @"DESKTOP-0SEOAIM\SQLEXPRESS";
-        string userID = "iic2ps1d_db";
-        string password = "ConejoVolador11";
-        string database = "iicaps_db_devs";
-        uint port = 1433;
-
-        ////Production
-        //string server = @"WIN-B2Q6B50DPEM";
-        //string userID = "iic2ps1d_devs_db";
+        ////Devs
+        //string server = @"DESKTOP-0SEOAIM\SQLEXPRESS";
+        //string userID = "iic2ps1d_db";
         //string password = "ConejoVolador11";
         //string database = "iicaps_db_devs";
         //uint port = 1433;
+
+        //Production
+        string server = @"WIN-B2Q6B50DPEM";
+        string userID = "iic2ps1d_devs_db";
+        string password = "ConejoVolador11";
+        string database = "iicaps_db_prod";
+        uint port = 1433;
 
         public static ControlIicaps instance;
         public ParametrosGenerales parametros_Generales;
@@ -5337,6 +5337,220 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al obtener id de pagos de la base de datos");
             }
         }
+
+        //-------------------------------LIBROS-------------------------------//
+        public bool agregarLibro(Libro libro)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            openConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                string agregar = "INSERT INTO libro (Titulo, Autor, Editorial, Precio_Base) VALUES('"
+                        + libro.titulo + "','" + libro.autor + "','" + libro.editorial + "','" + libro.precio_base + "');";
+                string stock = "";
+                if (libro.stock_vitrina_1 <= 0 || libro.stock_vitrina_1 <= 0)
+                    stock = "INSERT INTO stock_Libros (Libro, Vitrina_1, Vitrina_2, Almacen) VALUES (" +
+                        "(select ID from libro ORDER BY id DESC LIMIT 1), '" + libro.stock_vitrina_1 + "', '" + libro.stock_vitrina_2 + "', '" + libro.stock_almacen + "'); ";
+
+
+                cmd.CommandText = "BEGIN TRANSACTION; "
+                                    + agregar
+                                    + stock
+                                    + "COMMIT;";
+                int rowsAfected = cmd.ExecuteNonQuery();
+                conn.Close();
+                if (rowsAfected > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("ERROR...! \n\n Error al agregar la libro a la Base de datos");
+            }
+
+        }
+        public bool actualizarLibro(Libro libro)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            openConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                string update_libro = "UPDATE libro SET " +
+                        "Titulo='" + libro.titulo + "', Autor='" + libro.autor + 
+                        "', Editorial='" + libro.editorial + "', Precio_Base='" + libro.precio_base +
+                        "' WHERE ID=" + libro.id + ";";
+                string update_stock = "UPDATE stock_Libros SET " +
+                        "Vitrina_1='" + libro.stock_vitrina_1 + 
+                        "', Vitrina_2='" + libro.stock_vitrina_2 + 
+                        "', Almacen='" + libro.stock_almacen + 
+                        "' WHERE Libro=" + libro.id + ";";
+                cmd.CommandText = update_libro + update_stock;
+                int rowsAfected = cmd.ExecuteNonQuery();
+                conn.Close();
+                if (rowsAfected > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al actualizar la libro a la Base de datos");
+            }
+
+        }
+        public bool eliminarLibro(string id)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            openConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                cmd.CommandText = "UPDATE libro SET Activo=0 WHERE ID=" + id + ";";
+                int rowsAfected = cmd.ExecuteNonQuery();
+                conn.Close();
+                if (rowsAfected > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error...!\n Error al eliminar libro a la Base de datos");
+            }
+        }
+        public SqlDataAdapter obtenerLibrosTable()
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            openConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                SqlDataAdapter mdaDatos = new SqlDataAdapter("SELECT L.ID, L.Titulo, L.Autor,L.Editorial,L.Precio_Base AS 'Precio', S.Vitrina_1 AS 'Vitrina 1', S.Vitrina_2 AS 'Vitrina 2', S.Almacen,  (S.Vitrina_1 + S.Vitrina_2 + S.Almacen) AS 'Stock Total' FROM libro L LEFT JOIN stock_Libros S ON L.ID = S.Libro WHERE L.Activo=1 ORDER BY L.Titulo ASC", conn);
+                conn.Close();
+                return mdaDatos;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al obtener los datos de las materias de la base de datos");
+            }
+        }
+        public SqlDataAdapter obtenerLibrosTable(string parameter)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            openConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                string sqlString = "SELECT L.ID, L.Titulo, L.Autor,L.Editorial,L.Precio_Base AS 'Precio', S.Vitrina_1 AS 'Vitrina 1', S.Vitrina_2 AS 'Vitrina 2',(S.Vitrina_1 + S.Vitrina_2 + S.Almacen) AS 'Stock Total'  FROM libro L LEFT JOIN stock_Libros S ON L.ID = S.Libro" +
+                    " WHERE " +
+                    "(L.Titulo LIKE '%" + parameter + "%' or " +
+                    " L.Autor LIKE '%" + parameter + "%' or " +
+                    " L.Editorial LIKE '%" + parameter + "%' or " +
+                    " L.Precio_Base LIKE '%" + parameter + "%' or " +
+                    " S.Vitrina_1 LIKE '%" + parameter + "%' or " +
+                    " 'Stock Total' LIKE '%" + parameter + "%' or " +
+                    " S.Vitrina_2 LIKE '%" + parameter + "%') AND L.Activo=1 ORDER BY L.Titulo ASC";
+                SqlDataAdapter mdaDatos = new SqlDataAdapter(sqlString, this.conn);
+                this.conn.Close();
+                return mdaDatos;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al obtener los datos de las materias de la base de datos");
+            }
+        }
+        public Libro consultarLibro(string id)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            openConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                cmd.CommandText = "SELECT L.ID, L.Titulo, L.Autor,L.Editorial,L.Precio_Base AS 'Precio', S.Vitrina_1, S.Vitrina_2, S.Almacen FROM libro L LEFT JOIN stock_Libros S ON L.ID = S.Libro WHERE L.ID='" + id + "'";
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Libro a = new Libro();
+                    a.id = reader.GetInt32(0);
+                    a.titulo = reader.GetString(1);
+                    a.autor = reader.GetString(2);
+                    a.editorial = reader.GetString(3);
+                    a.precio_base = reader.GetDecimal(4);
+                    a.stock_vitrina_1 = reader.GetInt32(5);
+                    a.stock_vitrina_2 = reader.GetInt32(6);
+                    a.stock_almacen = reader.GetInt32(7);
+                    conn.Close();
+                    return a;
+                }
+                conn.Close();
+                return null;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al obtener datos del libro de la base de datos");
+            }
+        }
+        public List<Libro> obtenerLibros()
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            openConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                cmd.CommandText = "SELECT L.ID, L.Titulo, L.Autor,L.Editorial,L.Precio_Base AS 'Precio', S.Vitrina_1 , S.Vitrina_2, S.Almacen FROM libro L LEFT JOIN stock_Libros S ON L.ID = S.Libro WHERE L.Activo=1 ";
+                SqlDataReader reader = cmd.ExecuteReader();
+                List<Libro> aux = new List<Libro>();
+                while (reader.Read())
+                {
+
+                    Libro a = new Libro();
+                    a.id = reader.GetInt32(0);
+                    a.titulo = reader.GetString(1);
+                    a.autor = reader.GetString(2);
+                    a.editorial = reader.GetString(3);
+                    a.precio_base = reader.GetDecimal(4);
+                    a.stock_vitrina_1 = reader.GetInt32(5);
+                    a.stock_vitrina_2 = reader.GetInt32(6);
+                    a.stock_almacen = reader.GetInt32(7);
+                    aux.Add(a);
+                }
+                conn.Close();
+                if (aux.Count != 0)
+                    return aux;
+                else
+                    return null;
+            }
+            catch (Exception e)
+            {
+                conn.Close();
+                throw new Exception("Error al obtener datos de los Libros de la base de datos");
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //----------------------------------USUARIO--------------------------------------------//
         public Usuario consultarUsuario(string id)

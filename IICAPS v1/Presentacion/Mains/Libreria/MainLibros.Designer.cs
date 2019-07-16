@@ -1,4 +1,4 @@
-﻿namespace IICAPS_v1.Presentacion.Mains.Libreria
+﻿namespace IICAPS_v1.Presentacion.Mains
 {
     partial class MainLibros
     {

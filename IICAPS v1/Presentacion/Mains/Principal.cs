@@ -428,5 +428,14 @@ namespace IICAPS.Presentacion.Mains
         {
             btnMenuLibreria_Click(null,null);
         }
+
+        private void btnLibreria1_Click(object sender, EventArgs e)
+        {
+            minimizeForms();
+            MainLibros form = MainLibros.getInstance();
+            configurarForm(form);
+            form.Show();
+            inhabilitarBoton("Libreria", "Libreria");
+        }
     }
 }

@@ -13,7 +13,7 @@ using IICAPS_v1.Presentacion;
 using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 
-namespace IICAPS_v1.Presentacion.Mains.Libreria
+namespace IICAPS_v1.Presentacion.Mains
 {
     public partial class MainLibros : Form
     {
@@ -26,7 +26,7 @@ namespace IICAPS_v1.Presentacion.Mains.Libreria
             control = ControlIicaps.getInstance();
             try
             {
-                actualizarTabla(control.obtenerEmpleadosTable());
+                actualizarTabla(control.obtenerLibrosTable());
             }
             catch (Exception e)
             {
@@ -66,28 +66,29 @@ namespace IICAPS_v1.Presentacion.Mains.Libreria
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            FormEmpleados fa = new FormEmpleados(null,null);
+            FormLibro fa = new FormLibro();
             fa.FormClosed += new FormClosedEventHandler(form_Closed);
             fa.Show();
         }
 
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTabla(control.obtenerEmpleadosTable(txtBuscar.Text));
+            actualizarTabla(control.obtenerLibrosTable(txtBuscar.Text));
         }
 
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
-                String id = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                //Paciente paciente = control.consultarPaciente(id);
-                //ReporteDePaciente fa = new ReporteDePaciente(id);
-                //fa.FormClosed += new FormClosedEventHandler(form_Closed);
-                //fa.Show();
+                String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                Libro libro = control.consultarLibro(id);
+                FormLibro fa = new FormLibro(libro, true);
+                fa.FormClosed += new FormClosedEventHandler(form_Closed);
+                fa.Show();
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -95,28 +96,15 @@ namespace IICAPS_v1.Presentacion.Mains.Libreria
         {
             try
             {
-                String id = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                Empleado Empleado = control.consultarEmpleado(id);
-                Usuario usuario = control.consultarUsuario(id);
-                FormEmpleados fa = new FormEmpleados(Empleado,usuario);
+                String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                Libro libro = control.consultarLibro(id);
+                FormLibro fa = new FormLibro(libro, false);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
             }
             catch (Exception ex)
             {
-                try
-                {
-                    String id = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                    Empleado Empleado = control.consultarEmpleado(id);
-                    Usuario usuario = control.consultarUsuario(id);
-                    FormEmpleados fa = new FormEmpleados(Empleado, usuario);
-                    fa.FormClosed += new FormClosedEventHandler(form_Closed);
-                    fa.Show();
-                }
-                catch (Exception exc)
-                {
-                    MessageBox.Show(exc.Message);
-                }
+                 MessageBox.Show(ex.Message);
             }
         }
 
@@ -124,17 +112,17 @@ namespace IICAPS_v1.Presentacion.Mains.Libreria
         {
             try
             {
-                String matricula = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                DialogResult dialogresult = MessageBox.Show("¿Desea eliminar Empleado?", "Eliminar Empleado", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                DialogResult dialogresult = MessageBox.Show("¿Desea eliminar Libro?", "Eliminar Libro", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if(dialogresult == DialogResult.OK)
                 {
-                    if (control.desactivarEmpleado(matricula))
+                    if (control.eliminarLibro(id))
                     {
-                        MessageBox.Show("Empleado eliminado");
-                        actualizarTabla(control.obtenerEmpleadosTable());
+                        MessageBox.Show("Libro eliminado");
+                        actualizarTabla(control.obtenerLibrosTable());
                     }
                     else
-                        MessageBox.Show("Error al eliminar Empleado");
+                        MessageBox.Show("Error al eliminar libro");
                 }
             }
             catch (Exception ex)
@@ -149,7 +137,7 @@ namespace IICAPS_v1.Presentacion.Mains.Libreria
             txtBuscar.Text = "";
             try
             {
-                actualizarTabla(control.obtenerEmpleadosTable());
+                actualizarTabla(control.obtenerLibrosTable());
             }
             catch (Exception ex)
             {
@@ -159,7 +147,7 @@ namespace IICAPS_v1.Presentacion.Mains.Libreria
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTabla(control.obtenerEmpleadosTable(txtBuscar.Text));
+            actualizarTabla(control.obtenerLibrosTable(txtBuscar.Text));
         }
 
         private void txtBuscar_KeyUp(object sender, KeyEventArgs e)
@@ -172,7 +160,7 @@ namespace IICAPS_v1.Presentacion.Mains.Libreria
                 {
                     try
                     {
-                        actualizarTabla(control.obtenerEmpleadosTable(texto));
+                        actualizarTabla(control.obtenerLibrosTable(texto));
                     }
                     catch (Exception ex)
                     {
@@ -185,7 +173,7 @@ namespace IICAPS_v1.Presentacion.Mains.Libreria
                 limpiarBusqueda.Visible = false;
                 try
                 {
-                    actualizarTabla(control.obtenerEmpleadosTable());
+                    actualizarTabla(control.obtenerLibrosTable());
                 }
                 catch (Exception ex)
                 {
