@@ -172,7 +172,7 @@ namespace IICAPS_v1.Presentacion
         }
         private void ThreadMethodDocumentos()
         {
-            DocumentosWord word = new DocumentosWord(p);
+            //DocumentosWord word = new DocumentosWord(p);
         }
 
         private void CmbPrograma_selectedIndexChanged(object sender, EventArgs e)

@@ -18,19 +18,19 @@ namespace IICAPS_v1.Control
         readonly SqlConnectionStringBuilder Builder;
         readonly SqlCommand Cmd;
 
-        ////Devs
-        //readonly string server = @"DESKTOP-0SEOAIM\SQLEXPRESS";
-        //readonly string userID = "iic2ps1d_db";
-        //readonly string password = "ConejoVolador11";
-        //readonly string database = "iicaps_db_devs";
-        //readonly uint port = 1433;
-
-        //Production
-        readonly string Server = @"WIN-B2Q6B50DPEM";
-        readonly string UserID = "iic2ps1d_devs_db";
+        //Devs
+        readonly string Server = @"DESKTOP-0SEOAIM\SQLEXPRESS";
+        readonly string UserID = "iic2ps1d_db";
         readonly string Password = "ConejoVolador11";
-        readonly string Database = "iicaps_db_prod";
+        readonly string Database = "iicaps_db_devs";
         readonly uint Port = 1433;
+
+        ////Production
+        //readonly string Server = @"WIN-B2Q6B50DPEM";
+        //readonly string UserID = "iic2ps1d_devs_db";
+        //readonly string Password = "ConejoVolador11";
+        //readonly string Database = "iicaps_db_prod";
+        //readonly uint Port = 1433;
 
         public static ControlIicaps instance;
         public ParametrosGenerales parametros_Generales;
@@ -974,7 +974,7 @@ namespace IICAPS_v1.Control
                         + materia.Nombre + "','" + materia.Duracion + "','" + materia.Semestre + "','" + materia.Costo + "');";
                 string programas = "";
                 if (materia.Programa != null)
-                    programas = "INSERT INTO mapaCurricular (Materia, Programa) VALUES ((select ID from materia ORDER BY id DESC LIMIT 1), '" + materia.Programa + "');";
+                    programas = "INSERT INTO mapaCurricular (Materia, Programa) VALUES ((select TOP 1 ID from materia ORDER BY ID DESC), '" + materia.Programa + "');";
 
 
                 Cmd.CommandText = "BEGIN TRANSACTION; "
@@ -3473,7 +3473,7 @@ namespace IICAPS_v1.Control
             //CREAR COMANDO Y QUERY PARA SER EJECUTADO
             try
             {
-                Cmd.CommandText = "SELECT DiaEntrega FROM nominas WHERE Psicoterapeuta='" + matricula + "' ORDER BY DiaEntrega DESC LIMIT 1";
+                Cmd.CommandText = "SELECT TOP 1 DiaEntrega FROM nominas WHERE Psicoterapeuta='" + matricula + "' ORDER BY DiaEntrega DESC ";
                 SqlDataReader reader = Cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -4245,6 +4245,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al obtener los datos de sesiones de la base de datos");
             }
         }
+        
         //---------------------------EVALUACIONES------------------------//
         public bool AgregarEvaluacion(Evaluacion evaluacion)
         {
@@ -5458,7 +5459,7 @@ namespace IICAPS_v1.Control
                 string stock = "";
                 if (libro.Stock_vitrina_1 <= 0 || libro.Stock_vitrina_1 <= 0)
                     stock = "INSERT INTO stock_Libros (Libro, Vitrina_1, Vitrina_2, Almacen) VALUES (" +
-                        "(select ID from libro ORDER BY id DESC LIMIT 1), '" + libro.Stock_vitrina_1 + "', '" + libro.Stock_vitrina_2 + "', '" + libro.Stock_almacen + "'); ";
+                        "(select TOP 1 ID from libro ORDER BY ID DESC), '" + libro.Stock_vitrina_1 + "', '" + libro.Stock_vitrina_2 + "', '" + libro.Stock_almacen + "'); ";
 
 
                 Cmd.CommandText = "BEGIN TRANSACTION; "
