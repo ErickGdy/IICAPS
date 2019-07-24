@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 
 namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
@@ -26,7 +25,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
             control = ControlIicaps.getInstance();
             try
             {
-                actualizarTabla(control.obtenerPsicoterapeutasTable());
+                actualizarTabla(control.ObtenerPsicoterapeutasTable());
             }
             catch (Exception e)
             {
@@ -73,7 +72,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
 
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTabla(control.obtenerPsicoterapeutasTable(txtBuscar.Text));
+            actualizarTabla(control.ObtenerPsicoterapeutasTable(txtBuscar.Text));
         }
 
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -95,8 +94,8 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                Psicoterapeuta Psicoterapeuta = control.consultarPsicoterapeuta(id);
-                Usuario usuario = control.consultarUsuario(id);
+                Psicoterapeuta Psicoterapeuta = control.ConsultarPsicoterapeuta(id);
+                Usuario usuario = control.ConsultarUsuario(id);
                 FormPsicoterapeuta fa = new FormPsicoterapeuta(Psicoterapeuta,usuario);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -106,8 +105,8 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                 try
                 {
                     String id = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                    Psicoterapeuta Psicoterapeuta = control.consultarPsicoterapeuta(id);
-                    Usuario usuario = control.consultarUsuario(id);
+                    Psicoterapeuta Psicoterapeuta = control.ConsultarPsicoterapeuta(id);
+                    Usuario usuario = control.ConsultarUsuario(id);
                     FormPsicoterapeuta fa = new FormPsicoterapeuta(Psicoterapeuta, usuario);
                     fa.FormClosed += new FormClosedEventHandler(form_Closed);
                     fa.Show();
@@ -126,10 +125,10 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                 DialogResult dialogresult = MessageBox.Show("¿Desea eliminar Psicoterapeuta?", "Eliminar Psicoterapeuta", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if(dialogresult == DialogResult.OK)
                 {
-                    if (control.desactivarPsicoterapeuta(Convert.ToInt32(id)))
+                    if (control.DesactivarPsicoterapeuta(Convert.ToInt32(id)))
                     {
                         MessageBox.Show("Psicoterapeuta eliminado");
-                        actualizarTabla(control.obtenerPsicoterapeutasTable());
+                        actualizarTabla(control.ObtenerPsicoterapeutasTable());
                     }
                     else
                         MessageBox.Show("Error al eliminar Psicoterapeuta");
@@ -147,7 +146,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
             txtBuscar.Text = "";
             try
             {
-                actualizarTabla(control.obtenerPsicoterapeutasTable());
+                actualizarTabla(control.ObtenerPsicoterapeutasTable());
             }
             catch (Exception ex)
             {
@@ -157,7 +156,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTabla(control.obtenerPsicoterapeutasTable(txtBuscar.Text));
+            actualizarTabla(control.ObtenerPsicoterapeutasTable(txtBuscar.Text));
         }
 
         private void txtBuscar_KeyUp(object sender, KeyEventArgs e)
@@ -170,7 +169,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                 {
                     try
                     {
-                        actualizarTabla(control.obtenerPsicoterapeutasTable(texto));
+                        actualizarTabla(control.ObtenerPsicoterapeutasTable(texto));
                     }
                     catch (Exception ex)
                     {
@@ -183,7 +182,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                 limpiarBusqueda.Visible = false;
                 try
                 {
-                    actualizarTabla(control.obtenerPsicoterapeutasTable());
+                    actualizarTabla(control.ObtenerPsicoterapeutasTable());
                 }
                 catch (Exception ex)
                 {

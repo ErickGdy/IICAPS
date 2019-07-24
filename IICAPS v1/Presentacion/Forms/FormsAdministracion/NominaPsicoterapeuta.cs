@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 
 namespace IICAPS_v1.Presentacion
@@ -31,7 +30,7 @@ namespace IICAPS_v1.Presentacion
             try
             {
                 this.ID_psicoterapeuta = psicoterapeuta;
-                lblNombre.Text = control.consultarPsicoterapeuta(ID_psicoterapeuta).Nombre;
+                lblNombre.Text = control.ConsultarPsicoterapeuta(ID_psicoterapeuta).Nombre;
                 actualizarDatos();
                 form_Closed(null, null);
             }
@@ -44,8 +43,8 @@ namespace IICAPS_v1.Presentacion
         {
             try
             {
-                fechaInicio = control.consultarUltimaFechaNomina(ID_psicoterapeuta);
-                sesionesPendientesDePago = control.obtenerConsultasPsicoterapeutaPendientes(ID_psicoterapeuta,fechaInicio,DateTime.Now);
+                fechaInicio = control.ConsultarUltimaFechaNomina(ID_psicoterapeuta);
+                sesionesPendientesDePago = control.ObtenerConsultasPsicoterapeutaPendientes(ID_psicoterapeuta,fechaInicio,DateTime.Now);
                 //sumar pendiente
                 decimal totalPendiente = 0;
                 if (sesionesPendientesDePago != null)
@@ -109,7 +108,7 @@ namespace IICAPS_v1.Presentacion
         }
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTablaPagos(control.obtenerNominaPacienteTable(ID_psicoterapeuta, txtBuscar.Text));
+            actualizarTablaPagos(control.ObtenerNominaPacienteTable(ID_psicoterapeuta, txtBuscar.Text));
             actualizarDatos();
 
         }
@@ -121,7 +120,7 @@ namespace IICAPS_v1.Presentacion
             txtBuscar.Text = "";
             try
             {
-                actualizarTablaPagos(control.obtenerNominaPacienteTable(ID_psicoterapeuta));
+                actualizarTablaPagos(control.ObtenerNominaPacienteTable(ID_psicoterapeuta));
             }
             catch (Exception ex)
             {
@@ -130,7 +129,7 @@ namespace IICAPS_v1.Presentacion
         }
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTablaPagos(control.obtenerNominaPacienteTable(ID_psicoterapeuta, txtBuscar.Text));
+            actualizarTablaPagos(control.ObtenerNominaPacienteTable(ID_psicoterapeuta, txtBuscar.Text));
         }
         private void Main_SizeChanged(object sender, EventArgs e)
         {
@@ -168,7 +167,7 @@ namespace IICAPS_v1.Presentacion
                 {
                     try
                     {
-                        actualizarTablaPagos(control.obtenerNominaPacienteTable(ID_psicoterapeuta, texto));
+                        actualizarTablaPagos(control.ObtenerNominaPacienteTable(ID_psicoterapeuta, texto));
                     }
                     catch (Exception ex)
                     {
@@ -181,7 +180,7 @@ namespace IICAPS_v1.Presentacion
                 limpiarBusqueda.Visible = false;
                 try
                 {
-                    actualizarTablaPagos(control.obtenerNominaPacienteTable(ID_psicoterapeuta)) ;
+                    actualizarTablaPagos(control.ObtenerNominaPacienteTable(ID_psicoterapeuta)) ;
                 }
                 catch (Exception ex)
                 {

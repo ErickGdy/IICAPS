@@ -23,14 +23,14 @@ namespace IICAPS_v1.Presentacion
             control = ControlIicaps.getInstance();
             this.libro = libro ?? new Libro();
             modificacion = true;
-            txtTitulo.Text = libro.titulo;
-            txtAutor.Text = libro.autor;
-            txtEditorial.Text = libro.editorial;
-            txtVitrina1.Value = libro.stock_vitrina_1;
-            txtVitrina2.Value = libro.stock_vitrina_2;
-            txtCosto.Value = libro.precio_base;
-            txtAlmacen.Value = libro.stock_almacen;
-            if (libro.stock_vitrina_1 <= 0 || libro.stock_vitrina_2 <= 0)
+            txtTitulo.Text = libro.Titulo;
+            txtAutor.Text = libro.Autor;
+            txtEditorial.Text = libro.Editorial;
+            txtVitrina1.Value = libro.Stock_vitrina_1;
+            txtVitrina2.Value = libro.Stock_vitrina_2;
+            txtCosto.Value = libro.Precio_base;
+            txtAlmacen.Value = libro.Stock_almacen;
+            if (libro.Stock_vitrina_1 <= 0 || libro.Stock_vitrina_2 <= 0)
             {
                 checkStock.Checked=true;
             }
@@ -60,18 +60,18 @@ namespace IICAPS_v1.Presentacion
         {
             if (validarCampos())
             {
-                this.libro.titulo = txtTitulo.Text;
-                libro.stock_vitrina_1 = Convert.ToInt32(txtVitrina1.Value);
-                libro.stock_vitrina_2 = Convert.ToInt32(txtVitrina2.Value);
-                libro.stock_almacen = Convert.ToInt32(txtAlmacen.Value);
-                libro.editorial = txtEditorial.Text;
-                libro.autor = txtAutor.Text;
-                libro.precio_base = txtCosto.Value;
+                this.libro.Titulo = txtTitulo.Text;
+                libro.Stock_vitrina_1 = Convert.ToInt32(txtVitrina1.Value);
+                libro.Stock_vitrina_2 = Convert.ToInt32(txtVitrina2.Value);
+                libro.Stock_almacen = Convert.ToInt32(txtAlmacen.Value);
+                libro.Editorial = txtEditorial.Text;
+                libro.Autor = txtAutor.Text;
+                libro.Precio_base = txtCosto.Value;
                 try
                 {
                     if (modificacion)
                     {
-                        if (control.actualizarLibro(libro))
+                        if (control.ActualizarLibro(libro))
                         {
                             MessageBox.Show("Datos actualizados exitosamente!");
                             Close();
@@ -82,7 +82,7 @@ namespace IICAPS_v1.Presentacion
                     }
                     else
                     {
-                        if (control.agregarLibro(libro))
+                        if (control.AgregarLibro(libro))
                         {
                             MessageBox.Show("Datos guardados exitosamente!");
                             Close();

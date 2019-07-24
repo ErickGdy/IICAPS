@@ -25,7 +25,7 @@ namespace IICAPS_v1.Presentacion
             cmbNivel.SelectedIndex = 0;
             List<string> lista = new List<string>();
             List<string> listaID = new List<string>();
-            foreach (Programa aux in control.obtenerProgramas())
+            foreach (Programa aux in control.ObtenerProgramas())
             {
                 lista.Add(aux.Nombre);
                 listaID.Add(aux.Codigo);
@@ -37,24 +37,24 @@ namespace IICAPS_v1.Presentacion
             if (a != null)
             {
                 modificacion = true;
-                txtNombre.Text = a.nombre;
-                txtDireccion.Text = a.direccion;
-                txtTelefono1.Text = a.telefono1;
-                txtTelefono2.Text = a.telefono2;
-                txtCorreo.Text = a.correo;
-                txtFacebook.Text = a.facebook;
-                txtCURP.Text = a.curp;
-                txtRFC.Text = a.rfc;
-                cmbSexo.SelectedItem = a.sexo;
-                cmbEstadoCivil.SelectedItem = a.estadoCivil;
-                txtEscuelaProcedencia.Text = a.escuelaProcedencia;
-                txtCarrera.Text = a.carrera;
-                cmbNivel.SelectedItem = a.nivel;
-                cmbPrograma.SelectedItem = a.programa;
+                txtNombre.Text = a.Nombre;
+                txtDireccion.Text = a.Direccion;
+                txtTelefono1.Text = a.Telefono1;
+                txtTelefono2.Text = a.Telefono2;
+                txtCorreo.Text = a.Correo;
+                txtFacebook.Text = a.Facebook;
+                txtCURP.Text = a.Curp;
+                txtRFC.Text = a.Rfc;
+                cmbSexo.SelectedItem = a.Sexo;
+                cmbEstadoCivil.SelectedItem = a.EstadoCivil;
+                txtEscuelaProcedencia.Text = a.EscuelaProcedencia;
+                txtCarrera.Text = a.Carrera;
+                cmbNivel.SelectedItem = a.Nivel;
+                cmbPrograma.SelectedItem = a.Programa;
                 cmbNombresPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
                 label12.Text = "Programa actual";
-                txtObservaciones.Text = a.observaciones;
-                txtMatricula.Text = a.matricula;
+                txtObservaciones.Text = a.Observaciones;
+                txtMatricula.Text = a.Matricula;
             }
         }
 
@@ -91,39 +91,39 @@ namespace IICAPS_v1.Presentacion
             if (validarCampos())
             {
                 Alumno a = new Alumno();
-                a.nombre = txtNombre.Text;
-                a.direccion = txtDireccion.Text;
-                a.telefono1 = txtTelefono1.Text;
+                a.Nombre = txtNombre.Text;
+                a.Direccion = txtDireccion.Text;
+                a.Telefono1 = txtTelefono1.Text;
                 if (txtTelefono2.Text == null || txtTelefono2.Text == "")
-                    a.telefono2 = " ";
+                    a.Telefono2 = " ";
                 else
-                    a.telefono2 = txtTelefono2.Text;
-                a.correo = txtCorreo.Text;
-                a.facebook = txtFacebook.Text;
-                a.curp = txtCURP.Text;
-                a.rfc = txtRFC.Text;
-                a.sexo = cmbSexo.SelectedItem.ToString();
-                a.estadoCivil = cmbEstadoCivil.SelectedItem.ToString();
-                a.escuelaProcedencia = txtEscuelaProcedencia.Text;
-                a.carrera = txtCarrera.Text;
-                a.nivel = cmbNivel.SelectedItem.ToString();
-                a.programa = cmbPrograma.SelectedItem.ToString();
-                a.tipo = "Regular";
-                a.estado = "Registrado";
-                a.fecha = DateTime.Now;
-                a.observaciones = txtObservaciones.Text;
-                a.matricula = txtMatricula.Text;
+                    a.Telefono2 = txtTelefono2.Text;
+                a.Correo = txtCorreo.Text;
+                a.Facebook = txtFacebook.Text;
+                a.Curp = txtCURP.Text;
+                a.Rfc = txtRFC.Text;
+                a.Sexo = cmbSexo.SelectedItem.ToString();
+                a.EstadoCivil = cmbEstadoCivil.SelectedItem.ToString();
+                a.EscuelaProcedencia = txtEscuelaProcedencia.Text;
+                a.Carrera = txtCarrera.Text;
+                a.Nivel = cmbNivel.SelectedItem.ToString();
+                a.Programa = cmbPrograma.SelectedItem.ToString();
+                a.Tipo = "Regular";
+                a.Estado = "Registrado";
+                a.Fecha = DateTime.Now;
+                a.Observaciones = txtObservaciones.Text;
+                a.Matricula = txtMatricula.Text;
                 if (modificacion)
                 {
-                    a.rfc = txtRFC.Text;
-                    if (control.actualizarAlumno(a))
+                    a.Rfc = txtRFC.Text;
+                    if (control.ActualizarAlumno(a))
                         return true;
                     else
                         throw new Exception("Error al actualizar los datos del alumno");
                 }
                 else
                 {
-                    if (control.agregarAlumno(a))
+                    if (control.AgregarAlumno(a))
                         return true;
                     else
                         throw new Exception("Error al agregar el alumno");

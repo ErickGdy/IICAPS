@@ -53,7 +53,7 @@ namespace IICAPS.Presentacion
             this.btnIniciarSesion.TabIndex = 1;
             this.btnIniciarSesion.Text = "Iniciar Sesión";
             this.btnIniciarSesion.UseVisualStyleBackColor = true;
-            this.btnIniciarSesion.Click += new System.EventHandler(this.btnIniciarSesion_Click);
+            this.btnIniciarSesion.Click += new System.EventHandler(this.BtnIniciarSesion_Click);
             // 
             // txtUsuario
             // 
@@ -66,9 +66,9 @@ namespace IICAPS.Presentacion
             this.txtUsuario.TabIndex = 2;
             this.txtUsuario.Text = "Usuario";
             this.txtUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtUsuario.Enter += new System.EventHandler(this.textBox1_Enter);
-            this.txtUsuario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.noSpaces_KeyPress);
-            this.txtUsuario.Leave += new System.EventHandler(this.textBox1_Leave);
+            this.txtUsuario.Enter += new System.EventHandler(this.TextBox1_Enter);
+            this.txtUsuario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NoSpaces_KeyPress);
+            this.txtUsuario.Leave += new System.EventHandler(this.TextBox1_Leave);
             // 
             // txtPass
             // 
@@ -81,9 +81,9 @@ namespace IICAPS.Presentacion
             this.txtPass.TabIndex = 3;
             this.txtPass.Text = "Contraseña";
             this.txtPass.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtPass.Enter += new System.EventHandler(this.textPass_Enter);
-            this.txtPass.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPass_KeyPress);
-            this.txtPass.Leave += new System.EventHandler(this.textPass_Leave);
+            this.txtPass.Enter += new System.EventHandler(this.TextPass_Enter);
+            this.txtPass.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtPass_KeyPress);
+            this.txtPass.Leave += new System.EventHandler(this.TextPass_Leave);
             // 
             // checkRecordar
             // 
@@ -111,7 +111,7 @@ namespace IICAPS.Presentacion
             this.olvidarPass.TabStop = true;
             this.olvidarPass.Text = "Olvidaste la contraseña?";
             this.olvidarPass.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.olvidarPass.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.olvidarPass_LinkClicked);
+            this.olvidarPass.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OlvidarPass_LinkClicked);
             // 
             // Login
             // 

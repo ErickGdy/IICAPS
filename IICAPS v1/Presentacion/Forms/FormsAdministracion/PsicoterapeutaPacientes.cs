@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 
 namespace IICAPS_v1.Presentacion
@@ -28,8 +27,8 @@ namespace IICAPS_v1.Presentacion
             try
             {
                 this.ID_psicoterapeuta = psicoterapeuta;
-                lblNombrePaciente.Text = control.consultarPsicoterapeuta(ID_psicoterapeuta).Nombre;
-                actualizarTabla(control.obtenerPacientesPsicoterapeutaTable(ID_psicoterapeuta));
+                lblNombrePaciente.Text = control.ConsultarPsicoterapeuta(ID_psicoterapeuta).Nombre;
+                actualizarTabla(control.ObtenerPacientesPsicoterapeutaTable(ID_psicoterapeuta));
             }
             catch (Exception e)
             {
@@ -72,7 +71,7 @@ namespace IICAPS_v1.Presentacion
 
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTabla(control.obtenerPacientesPsicoterapeutaTable(ID_psicoterapeuta, txtBuscar.Text));
+            actualizarTabla(control.ObtenerPacientesPsicoterapeutaTable(ID_psicoterapeuta, txtBuscar.Text));
         }
         private void quitarToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -82,10 +81,10 @@ namespace IICAPS_v1.Presentacion
                 DialogResult dialogresult = MessageBox.Show("¿Desea eliminar evaluación?", "Eliminar Evaluación", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dialogresult == DialogResult.OK)
                 {
-                    if (control.cancelarEvaluacion(control.consultarEvaluacion(id)))
+                    if (control.CancelarEvaluacion(control.ConsultarEvaluacion(id)))
                     {
                         MessageBox.Show("Evaluación eliminadao");
-                        actualizarTabla(control.obtenerPacientesPsicoterapeutaTable(ID_psicoterapeuta, txtBuscar.Text));
+                        actualizarTabla(control.ObtenerPacientesPsicoterapeutaTable(ID_psicoterapeuta, txtBuscar.Text));
                     }
                     else
                         MessageBox.Show("Error al eliminar evaluación");
@@ -102,7 +101,7 @@ namespace IICAPS_v1.Presentacion
             txtBuscar.Text = "";
             try
             {
-                actualizarTabla(control.obtenerPacientesPsicoterapeutaTable(ID_psicoterapeuta));
+                actualizarTabla(control.ObtenerPacientesPsicoterapeutaTable(ID_psicoterapeuta));
             }
             catch (Exception ex)
             {
@@ -111,7 +110,7 @@ namespace IICAPS_v1.Presentacion
         }
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTabla(control.obtenerPacientesPsicoterapeutaTable(ID_psicoterapeuta, txtBuscar.Text));
+            actualizarTabla(control.ObtenerPacientesPsicoterapeutaTable(ID_psicoterapeuta, txtBuscar.Text));
         }
         private void Main_SizeChanged(object sender, EventArgs e)
         {
@@ -143,7 +142,7 @@ namespace IICAPS_v1.Presentacion
                 {
                     try
                     {
-                        actualizarTabla(control.obtenerPacientesPsicoterapeutaTable(ID_psicoterapeuta, texto));
+                        actualizarTabla(control.ObtenerPacientesPsicoterapeutaTable(ID_psicoterapeuta, texto));
                     }
                     catch (Exception ex)
                     {
@@ -156,7 +155,7 @@ namespace IICAPS_v1.Presentacion
                 limpiarBusqueda.Visible = false;
                 try
                 {
-                    actualizarTabla(control.obtenerPacientesPsicoterapeutaTable(ID_psicoterapeuta)) ;
+                    actualizarTabla(control.ObtenerPacientesPsicoterapeutaTable(ID_psicoterapeuta)) ;
                 }
                 catch (Exception ex)
                 {
@@ -171,7 +170,7 @@ namespace IICAPS_v1.Presentacion
             try
             {
                 String ID = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                FormPaciente fa = new FormPaciente(control.consultarPaciente(ID));
+                FormPaciente fa = new FormPaciente(control.ConsultarPaciente(ID));
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.ShowDialog();
             }

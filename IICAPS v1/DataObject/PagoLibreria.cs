@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace IICAPS_v1.DataObject
 {
-    public class PagoAlumno
+    public class PagoLibreria
     {
         public int Id { get; set; }
-        public string AlumnoID { get; set; }
+        //0 para Publico general, != 0 para alumno
+        public string CompradorID { get; set; }
         public DateTime FechaPago { get; set; }
         public double Cantidad { get; set; }
         public string Concepto { get; set; }

@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 
 namespace IICAPS_v1.Presentacion
@@ -29,7 +28,7 @@ namespace IICAPS_v1.Presentacion
             try
             {
                 this.ID_paciente = paciente;
-                lblNombrePaciente.Text = control.consultarPaciente(ID_paciente).NombreCompleto();
+                lblNombrePaciente.Text = control.ConsultarPaciente(ID_paciente).NombreCompleto();
                 actualizarDatos();
                 form_Closed(null, null);
             }
@@ -42,7 +41,7 @@ namespace IICAPS_v1.Presentacion
         {
             try
             {
-                sesionesPendientesDePago = control.obtenerSesionesPendietesDePagoPaciente(ID_paciente);
+                sesionesPendientesDePago = control.ObtenerSesionesPendietesDePagoPaciente(ID_paciente);
                 //sumar pendiente
                 decimal totalPendiente = 0;
                 if (sesionesPendientesDePago != null)
@@ -121,7 +120,7 @@ namespace IICAPS_v1.Presentacion
             {
                 if (pago != null)
                 {
-                    decimal cantidad = Convert.ToDecimal(pago.cantidad);
+                    decimal cantidad = Convert.ToDecimal(pago.Cantidad);
                     int posicion = 0;
                     List<Sesion> sesionesActualizadas = new List<Sesion>();
                     while (cantidad > 0)
@@ -145,7 +144,7 @@ namespace IICAPS_v1.Presentacion
                         }
                         posicion++;
                     }
-                    if (control.registrarPagoDeSesion(fa.getPagos(), sesionesActualizadas)) {
+                    if (control.RegistrarPagoDeSesion(fa.getPagos(), sesionesActualizadas)) {
                         form_Closed(null, null);
                         actualizarDatos();
                         MessageBox.Show("Pago Registrado Exitosamente");
@@ -162,8 +161,8 @@ namespace IICAPS_v1.Presentacion
         }
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTablaPagos(control.obtenerPagosPacienteTable(ID_paciente, txtBuscarPagos.Text));
-            actualizarTablaSesiones(control.obtenerPagosSesionesPacienteTable(ID_paciente, txtBuscarPagos.Text));
+            actualizarTablaPagos(control.ObtenerPagosPacienteTable(ID_paciente, txtBuscarPagos.Text));
+            actualizarTablaSesiones(control.ObtenerPagosSesionesPacienteTable(ID_paciente, txtBuscarPagos.Text));
         }
         
         //Metodos de control Pagos
@@ -173,7 +172,7 @@ namespace IICAPS_v1.Presentacion
             txtBuscarPagos.Text = "";
             try
             {
-                actualizarTablaPagos(control.obtenerPagosPacienteTable(ID_paciente));
+                actualizarTablaPagos(control.ObtenerPagosPacienteTable(ID_paciente));
             }
             catch (Exception ex)
             {
@@ -182,7 +181,7 @@ namespace IICAPS_v1.Presentacion
         }
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTablaPagos(control.obtenerPagosPacienteTable(ID_paciente, txtBuscarPagos.Text));
+            actualizarTablaPagos(control.ObtenerPagosPacienteTable(ID_paciente, txtBuscarPagos.Text));
         }
         private void Main_SizeChanged(object sender, EventArgs e)
         {
@@ -237,7 +236,7 @@ namespace IICAPS_v1.Presentacion
                 {
                     try
                     {
-                        actualizarTablaPagos(control.obtenerPagosPacienteTable(ID_paciente, texto));
+                        actualizarTablaPagos(control.ObtenerPagosPacienteTable(ID_paciente, texto));
                     }
                     catch (Exception ex)
                     {
@@ -250,7 +249,7 @@ namespace IICAPS_v1.Presentacion
                 limpiarBusquedaPagos.Visible = false;
                 try
                 {
-                    actualizarTablaPagos(control.obtenerPagosPacienteTable(ID_paciente)) ;
+                    actualizarTablaPagos(control.ObtenerPagosPacienteTable(ID_paciente)) ;
                 }
                 catch (Exception ex)
                 {
@@ -267,7 +266,7 @@ namespace IICAPS_v1.Presentacion
             txtBuscarSesiones.Text = "";
             try
             {
-                actualizarTablaSesiones(control.obtenerPagosSesionesPacienteTable(ID_paciente));
+                actualizarTablaSesiones(control.ObtenerPagosSesionesPacienteTable(ID_paciente));
             }
             catch (Exception ex)
             {
@@ -276,7 +275,7 @@ namespace IICAPS_v1.Presentacion
         }
         private void btnActualizarSesiones_Click(object sender, EventArgs e)
         {
-            actualizarTablaSesiones(control.obtenerPagosSesionesPacienteTable(ID_paciente, txtBuscarPagos.Text));
+            actualizarTablaSesiones(control.ObtenerPagosSesionesPacienteTable(ID_paciente, txtBuscarPagos.Text));
         }
         private void txtBuscarSesiones_KeyUp(object sender, KeyEventArgs e)
         {
@@ -288,7 +287,7 @@ namespace IICAPS_v1.Presentacion
                 {
                     try
                     {
-                        actualizarTablaSesiones(control.obtenerPagosSesionesPacienteTable(ID_paciente, texto));
+                        actualizarTablaSesiones(control.ObtenerPagosSesionesPacienteTable(ID_paciente, texto));
                     }
                     catch (Exception ex)
                     {
@@ -301,7 +300,7 @@ namespace IICAPS_v1.Presentacion
                 limpiarBusquedaSesiones.Visible = false;
                 try
                 {
-                    actualizarTablaSesiones(control.obtenerPagosSesionesPacienteTable(ID_paciente));
+                    actualizarTablaSesiones(control.ObtenerPagosSesionesPacienteTable(ID_paciente));
                 }
                 catch (Exception ex)
                 {

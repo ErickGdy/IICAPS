@@ -16,7 +16,7 @@ namespace IICAPS_v1.DataObject
         public decimal Porcentaje_Pago_Taller { get; set; }
         public decimal Porcentaje_Pago_Clase { get; set; }
         public decimal Porcentaje_Pago_Evaluacion { get; set; }
-        public List<string> ubicaciones { get; set; }
+        public List<string> Ubicaciones { get; set; }
 
     }
 }

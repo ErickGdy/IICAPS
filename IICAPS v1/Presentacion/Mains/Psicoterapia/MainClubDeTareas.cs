@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 
 namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
@@ -26,7 +25,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
             control = ControlIicaps.getInstance();
             try
             {
-                actualizarTabla(control.obtenerClubDeTareasTable());
+                actualizarTabla(control.ObtenerClubDeTareasTable());
             }
             catch (Exception e)
             {
@@ -73,7 +72,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
 
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTabla(control.obtenerClubDeTareasTable(txtBuscar.Text));
+            actualizarTabla(control.ObtenerClubDeTareasTable(txtBuscar.Text));
         }
 
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -81,7 +80,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                ClubDeTareas club = control.consultarClubDeTareas(id);
+                ClubDeTareas club = control.ConsultarClubDeTareas(id);
                 DetalleClubDeTareas fa = new DetalleClubDeTareas(club);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -96,7 +95,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                ClubDeTareas club = control.consultarClubDeTareas(id);
+                ClubDeTareas club = control.ConsultarClubDeTareas(id);
                 FormClubDeTareas fa = new FormClubDeTareas(club);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -115,10 +114,10 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                 DialogResult dialogresult = MessageBox.Show("¿Desea eliminar Club de Tarea?", "Eliminar Club de Tarea", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if(dialogresult == DialogResult.OK)
                 {
-                    if (control.cancelarClubDeTareas(id))
+                    if (control.CancelarClubDeTareas(id))
                     {
                         MessageBox.Show("Club de Tarea eliminado");
-                        actualizarTabla(control.obtenerClubDeTareasTable());
+                        actualizarTabla(control.ObtenerClubDeTareasTable());
                     }
                     else
                         MessageBox.Show("Error al eliminar Club de Tarea");
@@ -136,7 +135,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
             txtBuscar.Text = "";
             try
             {
-                actualizarTabla(control.obtenerClubDeTareasTable());
+                actualizarTabla(control.ObtenerClubDeTareasTable());
             }
             catch (Exception ex)
             {
@@ -146,7 +145,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTabla(control.obtenerClubDeTareasTable(txtBuscar.Text));
+            actualizarTabla(control.ObtenerClubDeTareasTable(txtBuscar.Text));
         }
 
         private void txtBuscar_KeyUp(object sender, KeyEventArgs e)
@@ -159,7 +158,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                 {
                     try
                     {
-                        actualizarTabla(control.obtenerClubDeTareasTable(texto));
+                        actualizarTabla(control.ObtenerClubDeTareasTable(texto));
                     }
                     catch (Exception ex)
                     {
@@ -172,7 +171,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                 limpiarBusqueda.Visible = false;
                 try
                 {
-                    actualizarTabla(control.obtenerClubDeTareasTable());
+                    actualizarTabla(control.ObtenerClubDeTareasTable());
                 }
                 catch (Exception ex)
                 {

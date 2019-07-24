@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 
 namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
@@ -26,7 +25,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
             control = ControlIicaps.getInstance();
             try
             {
-                actualizarTabla(control.obtenerEmpleadosTable());
+                actualizarTabla(control.ObtenerEmpleadosTable());
             }
             catch (Exception e)
             {
@@ -73,7 +72,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
 
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTabla(control.obtenerEmpleadosTable(txtBuscar.Text));
+            actualizarTabla(control.ObtenerEmpleadosTable(txtBuscar.Text));
         }
 
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -96,8 +95,8 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                Empleado Empleado = control.consultarEmpleado(id);
-                Usuario usuario = control.consultarUsuario(id);
+                Empleado Empleado = control.ConsultarEmpleado(id);
+                Usuario usuario = control.ConsultarUsuario(id);
                 FormEmpleados fa = new FormEmpleados(Empleado,usuario);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -107,8 +106,8 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                 try
                 {
                     String id = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                    Empleado Empleado = control.consultarEmpleado(id);
-                    Usuario usuario = control.consultarUsuario(id);
+                    Empleado Empleado = control.ConsultarEmpleado(id);
+                    Usuario usuario = control.ConsultarUsuario(id);
                     FormEmpleados fa = new FormEmpleados(Empleado, usuario);
                     fa.FormClosed += new FormClosedEventHandler(form_Closed);
                     fa.Show();
@@ -128,10 +127,10 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                 DialogResult dialogresult = MessageBox.Show("¿Desea eliminar Empleado?", "Eliminar Empleado", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if(dialogresult == DialogResult.OK)
                 {
-                    if (control.desactivarEmpleado(matricula))
+                    if (control.DesactivarEmpleado(matricula))
                     {
                         MessageBox.Show("Empleado eliminado");
-                        actualizarTabla(control.obtenerEmpleadosTable());
+                        actualizarTabla(control.ObtenerEmpleadosTable());
                     }
                     else
                         MessageBox.Show("Error al eliminar Empleado");
@@ -149,7 +148,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
             txtBuscar.Text = "";
             try
             {
-                actualizarTabla(control.obtenerEmpleadosTable());
+                actualizarTabla(control.ObtenerEmpleadosTable());
             }
             catch (Exception ex)
             {
@@ -159,7 +158,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTabla(control.obtenerEmpleadosTable(txtBuscar.Text));
+            actualizarTabla(control.ObtenerEmpleadosTable(txtBuscar.Text));
         }
 
         private void txtBuscar_KeyUp(object sender, KeyEventArgs e)
@@ -172,7 +171,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                 {
                     try
                     {
-                        actualizarTabla(control.obtenerEmpleadosTable(texto));
+                        actualizarTabla(control.ObtenerEmpleadosTable(texto));
                     }
                     catch (Exception ex)
                     {
@@ -185,7 +184,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                 limpiarBusqueda.Visible = false;
                 try
                 {
-                    actualizarTabla(control.obtenerEmpleadosTable());
+                    actualizarTabla(control.ObtenerEmpleadosTable());
                 }
                 catch (Exception ex)
                 {

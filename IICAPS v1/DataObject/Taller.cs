@@ -8,12 +8,12 @@ namespace IICAPS_v1.DataObject
 {
     public class Taller
     {
-        public int id { get; set; }
-        public string nombre { get; set; }
-        public DateTime fecha { get; set; }
-        public decimal costoClientes { get; set; }
-        public decimal costoPublico { get; set; }
-        public int capacidad { get; set; }
-        public string requisitos { get; set; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public DateTime Fecha { get; set; }
+        public decimal CostoClientes { get; set; }
+        public decimal CostoPublico { get; set; }
+        public int Capacidad { get; set; }
+        public string Requisitos { get; set; }
     }
 }

@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 
 namespace IICAPS_v1.Presentacion.Mains.Escuela
@@ -28,12 +27,12 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             InitializeComponent();
             control = ControlIicaps.getInstance();
             alumno = al;
-            lblNombreAlumno.Text = alumno.nombre;
+            lblNombreAlumno.Text = alumno.Nombre;
             this.Text = lblNombreAlumno.Text;
             try
             {
-                actualizarTablaPagos(control.obtenerPagosDeAlumnoTable(alumno.rfc));
-                actualizarTablaCobros(control.obtenerCobrosDeAlumnoTable(alumno.rfc));
+                actualizarTablaPagos(control.ObtenerPagosDeAlumnoTable(alumno.Rfc));
+                actualizarTablaCobros(control.ObtenerCobrosDeAlumnoTable(alumno.Rfc));
                 calcularMontos();
             }
             catch (Exception e)
@@ -105,17 +104,17 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             PagoAlumno pago = new PagoAlumno();
-            pago.alumnoID = alumno.rfc;
-            pago.cantidad = Convert.ToDouble(lblPendiente.Text);
-            pago.concepto = "Pago de Adeudo General";
+            pago.AlumnoID = alumno.Rfc;
+            pago.Cantidad = Convert.ToDouble(lblPendiente.Text);
+            pago.Concepto = "Pago de Adeudo General";
             FormRegistrarPago fa = new FormRegistrarPago(pago, false);
             fa.FormClosed += new FormClosedEventHandler(form_Closed);
             fa.ShowDialog();
         }
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTablaPagos(control.obtenerPagosDeAlumnoTable(alumno.rfc));
-            actualizarTablaCobros(control.obtenerCobrosDeAlumnoTable(alumno.rfc));
+            actualizarTablaPagos(control.ObtenerPagosDeAlumnoTable(alumno.Rfc));
+            actualizarTablaCobros(control.ObtenerCobrosDeAlumnoTable(alumno.Rfc));
             calcularMontos();
         }
         private void quitarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -123,7 +122,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String id = dataGridViewPagos.CurrentRow.Cells[0].Value.ToString();
-                PagoAlumno pago = control.consultarPagoAlumno(Convert.ToInt32(id));
+                PagoAlumno pago = control.ConsultarPagoAlumno(Convert.ToInt32(id));
                 FormRegistrarPago fa = new FormRegistrarPago(pago, true);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -135,7 +134,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         }
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTablaPagos(control.obtenerPagosDeAlumnoTable(alumno.rfc));
+            actualizarTablaPagos(control.ObtenerPagosDeAlumnoTable(alumno.Rfc));
         }
 
         private void cancelarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -146,10 +145,10 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 DialogResult dialogresult = MessageBox.Show("¿Desea cancelar el pago?", "Cancelar Pago", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dialogresult == DialogResult.OK)
                 {
-                    if (control.cancelarPagoAlumno(id))
+                    if (control.CancelarPagoAlumno(id))
                     {
                         MessageBox.Show("Pago cancelado");
-                        actualizarTablaPagos(control.obtenerPagosDeAlumnoTable(alumno.rfc));
+                        actualizarTablaPagos(control.ObtenerPagosDeAlumnoTable(alumno.Rfc));
                     }
                     else
                         MessageBox.Show("Error al cancelar el pago");
@@ -216,7 +215,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void btnActualizarCobros_Click(object sender, EventArgs e)
         {
-            actualizarTablaCobros(control.obtenerCobrosDeAlumnoTable(alumno.rfc));
+            actualizarTablaCobros(control.ObtenerCobrosDeAlumnoTable(alumno.Rfc));
         }
 
         private void lblTotalPendiente_TextChanged(object sender, EventArgs e)

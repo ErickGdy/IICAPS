@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Threading;
 using System.Data.SqlClient;
 
@@ -28,11 +27,11 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             InitializeComponent();
             control = ControlIicaps.getInstance();
             this.taller = tal;
-            lblNombreGrupo.Text = taller.nombre;
+            lblNombreGrupo.Text = taller.Nombre;
             this.Text = lblNombreGrupo.Text;
             try
             {
-                actualizarTabla(control.obtenerAsistentesTalleresTable(taller.id.ToString()));
+                actualizarTabla(control.ObtenerAsistentesTalleresTable(taller.Id.ToString()));
             }
             catch (Exception e)
             {
@@ -74,13 +73,13 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            FormInscricionTaller fa = new FormInscricionTaller(this.taller.id.ToString(),null);
+            FormInscricionTaller fa = new FormInscricionTaller(this.taller.Id.ToString(),null);
             fa.FormClosed += new FormClosedEventHandler(form_Closed);
             fa.ShowDialog();
         }
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTabla(control.obtenerAsistentesTalleresTable(taller.id.ToString(), txtBuscar.Text));
+            actualizarTabla(control.ObtenerAsistentesTalleresTable(taller.Id.ToString(), txtBuscar.Text));
         }
         private void quitarToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -90,10 +89,10 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 DialogResult dialogresult = MessageBox.Show("¿Desea remover al asistente del taller?", "Remover asistente", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dialogresult == DialogResult.OK)
                 {
-                    if (control.borrarAsistenteTaller(id))
+                    if (control.BorrarAsistenteTaller(id))
                     {
                         MessageBox.Show("Asistente removido");
-                        actualizarTabla(control.obtenerAsistentesTalleresTable(taller.id.ToString(), txtBuscar.Text));
+                        actualizarTabla(control.ObtenerAsistentesTalleresTable(taller.Id.ToString(), txtBuscar.Text));
                     }
                     else
                         MessageBox.Show("Error al remover asistente");
@@ -110,7 +109,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             txtBuscar.Text = "";
             try
             {
-                actualizarTabla(control.obtenerAsistentesTalleresTable(taller.id.ToString()));
+                actualizarTabla(control.ObtenerAsistentesTalleresTable(taller.Id.ToString()));
             }
             catch (Exception ex)
             {
@@ -119,7 +118,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         }
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTabla(control.obtenerAsistentesTalleresTable(taller.id.ToString(), txtBuscar.Text));
+            actualizarTabla(control.ObtenerAsistentesTalleresTable(taller.Id.ToString(), txtBuscar.Text));
         }
         private void Main_SizeChanged(object sender, EventArgs e)
         {
@@ -152,7 +151,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 {
                     try
                     {
-                        actualizarTabla(control.obtenerAsistentesTalleresTable(taller.id.ToString(), texto));
+                        actualizarTabla(control.ObtenerAsistentesTalleresTable(taller.Id.ToString(), texto));
                     }
                     catch (Exception ex)
                     {
@@ -165,7 +164,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 limpiarBusqueda.Visible = false;
                 try
                 {
-                    actualizarTabla(control.obtenerAsistentesTalleresTable(taller.id.ToString())) ;
+                    actualizarTabla(control.ObtenerAsistentesTalleresTable(taller.Id.ToString())) ;
                 }
                 catch (Exception ex)
                 {
@@ -180,7 +179,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String ID = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                FormInscricionTaller fa = new FormInscricionTaller(this.taller.id.ToString(), control.obtenerAsistenteTaller(ID));
+                FormInscricionTaller fa = new FormInscricionTaller(this.taller.Id.ToString(), control.ObtenerAsistenteTaller(ID));
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.ShowDialog();
             }
@@ -195,12 +194,12 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String ID = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                TallerAsistente asisT =  control.obtenerAsistenteTaller(ID);
-                FormPago fp = new FormPago(asisT.restante, "Pago de Taller", "Escuela");
+                TallerAsistente asisT =  control.ObtenerAsistenteTaller(ID);
+                FormPago fp = new FormPago(asisT.Restante, "Pago de Taller", "Escuela");
                 fp.ShowDialog();
                 pago = fp.getPagos();
                 fp.Dispose();
-                if (control.registrarPagoAsistenciaTaller(pago, asisT.ID.ToString()))
+                if (control.RegistrarPagoAsistenciaTaller(pago, asisT.ID.ToString()))
                 {
                     MessageBox.Show("Pago registrado exitosamente");
                     Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));

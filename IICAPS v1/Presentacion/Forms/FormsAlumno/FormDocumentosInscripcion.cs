@@ -30,14 +30,14 @@ namespace IICAPS_v1.Presentacion
             List<String> auxIDAlumno = new List<string>();
             List<String> auxRecibio = new List<string>();
             List<String> auxIDRecibio = new List<string>();
-            foreach (Programa p in control.obtenerProgramas())
+            foreach (Programa p in control.ObtenerProgramas())
             {
                 auxPrograma.Add(p.Nombre);
                 auxIDPrograma.Add(p.Codigo.ToString());
             }
             cmbIDPrograma.Items.AddRange(auxIDPrograma.ToArray());
             cmbPrograma.Items.AddRange(auxPrograma.ToArray());
-            foreach (Empleado e in control.obtenerEmpleados())
+            foreach (Empleado e in control.ObtenerEmpleados())
             {
                 auxRecibio.Add(e.Nombre);
                 auxIDRecibio.Add(e.Matricula);
@@ -48,25 +48,25 @@ namespace IICAPS_v1.Presentacion
             {
                 modificacion = true;
                 documentacion = doc;
-                cmbIDPrograma.SelectedItem = control.obtenerProgramaAlumno(doc.alumno);
-                cmbIDRecibio.SelectedItem = doc.recibioEmpleado;
+                cmbIDPrograma.SelectedItem = control.ObtenerProgramaAlumno(doc.Alumno);
+                cmbIDRecibio.SelectedItem = doc.RecibioEmpleado;
                 cmbPrograma.SelectedIndex = cmbIDPrograma.SelectedIndex;
-                cmbIDAlumno.SelectedItem = doc.alumno;
+                cmbIDAlumno.SelectedItem = doc.Alumno;
                 cmbAlumno.SelectedIndex = cmbIDAlumno.SelectedIndex;
                 cmbRecibio.SelectedIndex = cmbIDRecibio.SelectedIndex;
-                if (documentacion.actaNacimientoOrg)
+                if (documentacion.ActaNacimientoOrg)
                     checkedListBox1.SetItemChecked(0, true);
-                if (documentacion.actaNacimientoCop)
+                if (documentacion.ActaNacimientoCop)
                     checkedListBox1.SetItemChecked(1, true);
-                if (documentacion.tituloCedulaOrg)
+                if (documentacion.TituloCedulaOrg)
                     checkedListBox1.SetItemChecked(2, true);
-                if (documentacion.tituloLicCop)
+                if (documentacion.TituloLicCop)
                     checkedListBox1.SetItemChecked(3, true);
-                if (documentacion.cedProfCop)
+                if (documentacion.CedProfCop)
                     checkedListBox1.SetItemChecked(4, true);
-                if (documentacion.curp)
+                if (documentacion.Curp)
                     checkedListBox1.SetItemChecked(5, true);
-                if (documentacion.fotografias)
+                if (documentacion.Fotografias)
                     checkedListBox1.SetItemChecked(6, true);
                 if (consulta)
                 {
@@ -90,14 +90,14 @@ namespace IICAPS_v1.Presentacion
             List<String> auxIDAlumno = new List<string>();
             List<String> auxRecibio = new List<string>();
             List<String> auxIDRecibio = new List<string>();
-            foreach (Programa p in control.obtenerProgramas())
+            foreach (Programa p in control.ObtenerProgramas())
             {
                 auxPrograma.Add(p.Nombre);
                 auxIDPrograma.Add(p.Codigo.ToString());
             }
             cmbIDPrograma.Items.AddRange(auxIDPrograma.ToArray());
             cmbPrograma.Items.AddRange(auxPrograma.ToArray());
-            foreach (Empleado e in control.obtenerEmpleados())
+            foreach (Empleado e in control.ObtenerEmpleados())
             {
                 auxRecibio.Add(e.Nombre);
                 auxIDRecibio.Add(e.Matricula);
@@ -116,25 +116,25 @@ namespace IICAPS_v1.Presentacion
             {
                 modificacion = true;
                 documentacion = doc;
-                cmbIDPrograma.SelectedItem = control.obtenerProgramaAlumno(doc.alumno);
-                cmbIDRecibio.SelectedItem = doc.recibioEmpleado;
+                cmbIDPrograma.SelectedItem = control.ObtenerProgramaAlumno(doc.Alumno);
+                cmbIDRecibio.SelectedItem = doc.RecibioEmpleado;
                 cmbPrograma.SelectedIndex = cmbIDPrograma.SelectedIndex;
-                cmbIDAlumno.SelectedItem = doc.alumno;
+                cmbIDAlumno.SelectedItem = doc.Alumno;
                 cmbAlumno.SelectedIndex = cmbIDAlumno.SelectedIndex;
                 cmbRecibio.SelectedIndex = cmbIDRecibio.SelectedIndex;
-                if (documentacion.actaNacimientoOrg)
+                if (documentacion.ActaNacimientoOrg)
                     checkedListBox1.SetItemChecked(0, true);
-                if (documentacion.actaNacimientoCop)
+                if (documentacion.ActaNacimientoCop)
                     checkedListBox1.SetItemChecked(1, true);
-                if (documentacion.tituloCedulaOrg)
+                if (documentacion.TituloCedulaOrg)
                     checkedListBox1.SetItemChecked(2, true);
-                if (documentacion.tituloLicCop)
+                if (documentacion.TituloLicCop)
                     checkedListBox1.SetItemChecked(3, true);
-                if (documentacion.cedProfCop)
+                if (documentacion.CedProfCop)
                     checkedListBox1.SetItemChecked(4, true);
-                if (documentacion.curp)
+                if (documentacion.Curp)
                     checkedListBox1.SetItemChecked(5, true);
-                if (documentacion.fotografias)
+                if (documentacion.Fotografias)
                     checkedListBox1.SetItemChecked(6, true);
                 if (consulta)
                 {
@@ -187,20 +187,20 @@ namespace IICAPS_v1.Presentacion
                 cmbIDAlumno.SelectedIndex = cmbAlumno.SelectedIndex;
                 cmbIDRecibio.SelectedIndex = cmbRecibio.SelectedIndex;
                 doc = new DocumentosInscripcion();
-                doc.alumno = cmbIDAlumno.SelectedItem.ToString();
-                doc.actaNacimientoOrg = checkedListBox1.GetItemChecked(0);
-                doc.actaNacimientoCop = checkedListBox1.GetItemChecked(1);
-                doc.tituloCedulaOrg = checkedListBox1.GetItemChecked(2);
-                doc.tituloLicCop = checkedListBox1.GetItemChecked(3);
-                doc.cedProfCop = checkedListBox1.GetItemChecked(4);
-                doc.curp = checkedListBox1.GetItemChecked(5);
-                doc.fotografias = checkedListBox1.GetItemChecked(6);
-                doc.recibioEmpleado = cmbIDRecibio.SelectedItem.ToString();
-                doc.tipoInscripcion = 1;
+                doc.Alumno = cmbIDAlumno.SelectedItem.ToString();
+                doc.ActaNacimientoOrg = checkedListBox1.GetItemChecked(0);
+                doc.ActaNacimientoCop = checkedListBox1.GetItemChecked(1);
+                doc.TituloCedulaOrg = checkedListBox1.GetItemChecked(2);
+                doc.TituloLicCop = checkedListBox1.GetItemChecked(3);
+                doc.CedProfCop = checkedListBox1.GetItemChecked(4);
+                doc.Curp = checkedListBox1.GetItemChecked(5);
+                doc.Fotografias = checkedListBox1.GetItemChecked(6);
+                doc.RecibioEmpleado = cmbIDRecibio.SelectedItem.ToString();
+                doc.TipoInscripcion = 1;
                 if (modificacion)
                 {
-                    doc.alumno = cmbIDAlumno.SelectedItem.ToString();
-                    if (control.actualizarEntregaDocumentos(doc))
+                    doc.Alumno = cmbIDAlumno.SelectedItem.ToString();
+                    if (control.ActualizarEntregaDocumentos(doc))
                     {
                         Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));
                         t.Start();
@@ -211,7 +211,7 @@ namespace IICAPS_v1.Presentacion
                 }
                 else
                 {
-                    if (control.agregarEntregaDocumentos(doc))
+                    if (control.AgregarEntregaDocumentos(doc))
                     {
                         Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));
                         t.Start();
@@ -231,10 +231,10 @@ namespace IICAPS_v1.Presentacion
             cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
             List<String> auxAlumno = new List<string>();
             List<String> auxIDAlumno = new List<string>();
-            foreach (Alumno a in control.obtenerAlumnosByPrograma(cmbIDPrograma.SelectedItem.ToString()))
+            foreach (Alumno a in control.ObtenerAlumnosByPrograma(cmbIDPrograma.SelectedItem.ToString()))
             {
-                auxAlumno.Add(a.nombre);
-                auxIDAlumno.Add(a.rfc.ToString());
+                auxAlumno.Add(a.Nombre);
+                auxIDAlumno.Add(a.Rfc.ToString());
             }
             cmbIDAlumno.Items.AddRange(auxIDAlumno.ToArray());
             cmbAlumno.Items.AddRange(auxAlumno.ToArray());

@@ -24,7 +24,7 @@ namespace IICAPS_v1.Presentacion
             List<String> auxNombres = new List<string>();
             List<String> auxId = new List<string>();
             this.materia = new Materia();
-            foreach (Programa p in control.obtenerProgramas())
+            foreach (Programa p in control.ObtenerProgramas())
             {
                 auxNombres.Add(p.Nombre);
                 auxId.Add(p.Codigo.ToString());
@@ -35,16 +35,16 @@ namespace IICAPS_v1.Presentacion
             {
                 this.materia = materia;
                 modificacion = true;
-                txtNombre.Text = materia.nombre;
-                txtDuracion.Text = materia.duracion;
-                txtSemestre.Text = materia.semestre;
-                txtCosto.Text = materia.costo.ToString();
-                if (materia.programa != null)
+                txtNombre.Text = materia.Nombre;
+                txtDuracion.Text = materia.Duracion;
+                txtSemestre.Text = materia.Semestre;
+                txtCosto.Text = materia.Costo.ToString();
+                if (materia.Programa != null)
                 {
                     cmbIDProgramas.Enabled = false;
                     cmbProgramas.Enabled = false;
                     checkPrograma.Checked = true;
-                    cmbIDProgramas.SelectedValue = materia.programa;
+                    cmbIDProgramas.SelectedValue = materia.Programa;
                     cmbProgramas.SelectedIndex = cmbIDProgramas.SelectedIndex;
                     checkPrograma.Enabled = false;
                 }
@@ -67,15 +67,15 @@ namespace IICAPS_v1.Presentacion
             if (validarCampos())
             {
                 cmbIDProgramas.SelectedIndex = cmbProgramas.SelectedIndex;
-                this.materia.nombre = txtNombre.Text;
-                materia.semestre = txtSemestre.Value.ToString();
-                materia.duracion = txtDuracion.Text;
-                materia.costo = txtCosto.Value;
+                this.materia.Nombre = txtNombre.Text;
+                materia.Semestre = txtSemestre.Value.ToString();
+                materia.Duracion = txtDuracion.Text;
+                materia.Costo = txtCosto.Value;
                 try
                 {
                     if (modificacion)
                     {
-                        if (control.actualizarMateria(materia))
+                        if (control.ActualizarMateria(materia))
                         {
                             MessageBox.Show("Datos actualizados exitosamente!");
                             Close();
@@ -87,8 +87,8 @@ namespace IICAPS_v1.Presentacion
                     else
                     {
                         if (checkPrograma.Checked)
-                            materia.programa = cmbIDProgramas.SelectedValue.ToString();
-                        if (control.agregarMateria(materia))
+                            materia.Programa = cmbIDProgramas.SelectedValue.ToString();
+                        if (control.AgregarMateria(materia))
                         {
                             MessageBox.Show("Datos guardados exitosamente!");
                             Close();

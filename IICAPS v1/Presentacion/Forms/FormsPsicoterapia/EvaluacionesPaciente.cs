@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 
 namespace IICAPS_v1.Presentacion
@@ -28,8 +27,8 @@ namespace IICAPS_v1.Presentacion
             try
             {
                 this.ID_paciente = paciente;
-                lblNombrePaciente.Text = control.consultarPaciente(ID_paciente).NombreCompleto();
-                actualizarTabla(control.obtenerEvaluacionPacienteTable(ID_paciente));
+                lblNombrePaciente.Text = control.ConsultarPaciente(ID_paciente).NombreCompleto();
+                actualizarTabla(control.ObtenerEvaluacionPacienteTable(ID_paciente));
             }
             catch (Exception e)
             {
@@ -77,7 +76,7 @@ namespace IICAPS_v1.Presentacion
         }
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTabla(control.obtenerEvaluacionPacienteTable(ID_paciente, txtBuscar.Text));
+            actualizarTabla(control.ObtenerEvaluacionPacienteTable(ID_paciente, txtBuscar.Text));
         }
         private void quitarToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -87,10 +86,10 @@ namespace IICAPS_v1.Presentacion
                 DialogResult dialogresult = MessageBox.Show("¿Desea eliminar evaluación?", "Eliminar Evaluación", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dialogresult == DialogResult.OK)
                 {
-                    if (control.cancelarEvaluacion(control.consultarEvaluacion(id)))
+                    if (control.CancelarEvaluacion(control.ConsultarEvaluacion(id)))
                     {
                         MessageBox.Show("Evaluación eliminadao");
-                        actualizarTabla(control.obtenerEvaluacionPacienteTable(ID_paciente, txtBuscar.Text));
+                        actualizarTabla(control.ObtenerEvaluacionPacienteTable(ID_paciente, txtBuscar.Text));
                     }
                     else
                         MessageBox.Show("Error al eliminar evaluación");
@@ -107,7 +106,7 @@ namespace IICAPS_v1.Presentacion
             txtBuscar.Text = "";
             try
             {
-                actualizarTabla(control.obtenerEvaluacionPacienteTable(ID_paciente));
+                actualizarTabla(control.ObtenerEvaluacionPacienteTable(ID_paciente));
             }
             catch (Exception ex)
             {
@@ -116,7 +115,7 @@ namespace IICAPS_v1.Presentacion
         }
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTabla(control.obtenerEvaluacionPacienteTable(ID_paciente, txtBuscar.Text));
+            actualizarTabla(control.ObtenerEvaluacionPacienteTable(ID_paciente, txtBuscar.Text));
         }
         private void Main_SizeChanged(object sender, EventArgs e)
         {
@@ -149,7 +148,7 @@ namespace IICAPS_v1.Presentacion
                 {
                     try
                     {
-                        actualizarTabla(control.obtenerEvaluacionPacienteTable(ID_paciente, texto));
+                        actualizarTabla(control.ObtenerEvaluacionPacienteTable(ID_paciente, texto));
                     }
                     catch (Exception ex)
                     {
@@ -162,7 +161,7 @@ namespace IICAPS_v1.Presentacion
                 limpiarBusqueda.Visible = false;
                 try
                 {
-                    actualizarTabla(control.obtenerEvaluacionPacienteTable(ID_paciente)) ;
+                    actualizarTabla(control.ObtenerEvaluacionPacienteTable(ID_paciente)) ;
                 }
                 catch (Exception ex)
                 {
@@ -177,7 +176,7 @@ namespace IICAPS_v1.Presentacion
             try
             {
                 String ID = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                FormEvaluacion fa = new FormEvaluacion(this.ID_paciente, control.consultarEvaluacion(ID),false);
+                FormEvaluacion fa = new FormEvaluacion(this.ID_paciente, control.ConsultarEvaluacion(ID),false);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.ShowDialog();
             }
@@ -192,7 +191,7 @@ namespace IICAPS_v1.Presentacion
              try
                 {
                     String ID = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                    FormEvaluacion fa = new FormEvaluacion(this.ID_paciente, control.consultarEvaluacion(ID),true);
+                    FormEvaluacion fa = new FormEvaluacion(this.ID_paciente, control.ConsultarEvaluacion(ID),true);
                     fa.FormClosed += new FormClosedEventHandler(form_Closed);
                     fa.ShowDialog();
                 }

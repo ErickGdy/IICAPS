@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 
 namespace IICAPS_v1.Presentacion.Mains.Escuela
@@ -26,11 +25,11 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             InitializeComponent();
             control = ControlIicaps.getInstance();
             this.grupo = gru;
-            lblNombreGrupo.Text = grupo.codigo + " - " + grupo.generacion;
+            lblNombreGrupo.Text = grupo.Codigo + " - " + grupo.Generacion;
             this.Text = lblNombreGrupo.Text;
             try
             {
-                actualizarTabla(control.obtenerAlumnosGruposTable(grupo.codigo));
+                actualizarTabla(control.ObtenerAlumnosGruposTable(grupo.Codigo));
             }
             catch (Exception e)
             {
@@ -68,20 +67,20 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            FormInscricionGrupos fa = new FormInscricionGrupos(this.grupo.codigo, null);
+            FormInscricionGrupos fa = new FormInscricionGrupos(this.grupo.Codigo, null);
             fa.FormClosed += new FormClosedEventHandler(form_Closed);
             fa.ShowDialog();
         }
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTabla(control.obtenerAlumnosGruposTable(grupo.codigo,txtBuscar.Text));
+            actualizarTabla(control.ObtenerAlumnosGruposTable(grupo.Codigo,txtBuscar.Text));
         }
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                Alumno alu = control.consultarAlumno(id);
+                Alumno alu = control.ConsultarAlumno(id);
                 //MessageBox.Show("Reporte referente al grupo "+ grupo.codigo);
                 FormDetalleAlumno fa = new FormDetalleAlumno(alu);
                 fa.FormBorderStyle = FormBorderStyle.FixedToolWindow;
@@ -104,10 +103,10 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 DialogResult dialogresult = MessageBox.Show("¿Desea remover al alumno del grupo?", "Remover Alumno", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dialogresult == DialogResult.OK)
                 {
-                    if (control.quitarAlumnoDeGrupo(this.grupo.codigo, id))
+                    if (control.QuitarAlumnoDeGrupo(this.grupo.Codigo, id))
                     {
                         MessageBox.Show("Alumno removido");
-                        actualizarTabla(control.obtenerAlumnosGruposTable(grupo.codigo, txtBuscar.Text));
+                        actualizarTabla(control.ObtenerAlumnosGruposTable(grupo.Codigo, txtBuscar.Text));
                     }
                     else
                         MessageBox.Show("Error al remover alumno");
@@ -138,7 +137,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             txtBuscar.Text = "";
             try
             {
-                actualizarTabla(control.obtenerAlumnosGruposTable(grupo.codigo));
+                actualizarTabla(control.ObtenerAlumnosGruposTable(grupo.Codigo));
             }
             catch (Exception ex)
             {
@@ -147,7 +146,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         }
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTabla(control.obtenerAlumnosGruposTable(grupo.codigo,txtBuscar.Text));
+            actualizarTabla(control.ObtenerAlumnosGruposTable(grupo.Codigo,txtBuscar.Text));
         }
         private void Main_SizeChanged(object sender, EventArgs e)
         {
@@ -180,7 +179,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 {
                     try
                     {
-                        actualizarTabla(control.obtenerAlumnosGruposTable(grupo.codigo,texto));
+                        actualizarTabla(control.ObtenerAlumnosGruposTable(grupo.Codigo,texto));
                     }
                     catch (Exception ex)
                     {
@@ -193,7 +192,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 limpiarBusqueda.Visible = false;
                 try
                 {
-                    actualizarTabla(control.obtenerGruposTable());
+                    actualizarTabla(control.ObtenerGruposTable());
                 }
                 catch (Exception ex)
                 {

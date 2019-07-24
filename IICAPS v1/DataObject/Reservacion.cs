@@ -8,25 +8,25 @@ namespace IICAPS_v1.DataObject
 {
     public class Reservacion
     {
-        public int id { get; set; }
-        public string codigo_Reservacion { get; set; }
-        public DateTime fecha { get; set; }
-        public TimeSpan hora_Inicio { get; set; }
-        public TimeSpan duracion { get; set; }
-        public TimeSpan hora_Fin { get; set; }
-        public string ubicacion { get; set; }
-        public string observaciones { get; set; }
-        public string reservante { get; set; }
-        public string concepto { get; set; }
-        public string id_parent { get; set; }
-        public string agendaText()
+        public int Id { get; set; }
+        public string Codigo_Reservacion { get; set; }
+        public DateTime Fecha { get; set; }
+        public TimeSpan Hora_Inicio { get; set; }
+        public TimeSpan Duracion { get; set; }
+        public TimeSpan Hora_Fin { get; set; }
+        public string Ubicacion { get; set; }
+        public string Observaciones { get; set; }
+        public string Reservante { get; set; }
+        public string Concepto { get; set; }
+        public string Id_parent { get; set; }
+        public string Agenda_text()
         {
-            return this.concepto.ToUpper() + " \n" + this.reservante + "\n";
+            return this.Concepto.ToUpper() + " \n" + this.Reservante + "\n";
         }
 
-        public string formatoFolio()
+        public string Formato_folio()
         {
-            return id.ToString("0000000");
+            return Id.ToString("0000000");
         }
     }
 }

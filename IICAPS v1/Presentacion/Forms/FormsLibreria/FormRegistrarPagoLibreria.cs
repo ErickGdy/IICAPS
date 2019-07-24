@@ -13,12 +13,12 @@ using System.Windows.Forms;
 
 namespace IICAPS_v1.Presentacion
 {
-    public partial class FormRegistrarPago : Form
+    public partial class FormRegistrarPagoLibreria : Form
     {
         ControlIicaps control;
-        PagoAlumno pagos;
-        PagoAlumno p;
-        public FormRegistrarPago(PagoAlumno pago, bool consultar)
+        PagoLibreria pagos;
+        PagoLibreria p;
+        public FormRegistrarPagoLibreria(PagoLibreria pago, bool consultar)
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
@@ -33,7 +33,7 @@ namespace IICAPS_v1.Presentacion
             try
             {
                 auxConcepto.Add("Pago de Adeudo General");
-                foreach (string c in control.ObtenerConceptosDePagoAlumno("Escuela"))
+                foreach (string c in control.ObtenerConceptosDePagoLibreria("libreria"))
                 {
                     auxConcepto.Add(c);
                 }
@@ -67,10 +67,10 @@ namespace IICAPS_v1.Presentacion
                 if (pago != null)
                 {
                     pagos = pago;
-                    cmbIDPrograma.SelectedItem = control.ObtenerProgramaAlumno(pago.AlumnoID);
+                    cmbIDPrograma.SelectedItem = control.ObtenerProgramaAlumno(pago.CompradorID);
                     cmbIDRecibio.SelectedItem = pago.Recibio;
                     cmbPrograma.SelectedIndex = cmbIDPrograma.SelectedIndex;
-                    cmbIDAlumno.SelectedItem = pago.AlumnoID;
+                    cmbIDAlumno.SelectedItem = pago.CompradorID;
                     cmbAlumno.SelectedIndex = cmbIDAlumno.SelectedIndex;
                     cmbRecibio.SelectedIndex = cmbIDRecibio.SelectedIndex;
                     cmbConcepto.SelectedItem = pago.Concepto;
@@ -94,16 +94,16 @@ namespace IICAPS_v1.Presentacion
             catch (Exception ex) { }
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
+        private void BtnCancelar_click(object sender, EventArgs e)
         {
             this.Dispose();
         }
 
-        private void btnAceptar_Click(object sender, EventArgs e)
+        private void BtnAceptar_click(object sender, EventArgs e)
         {
             try
             {
-                if (!agregarPago())
+                if (!Agregar_pago())
                     MessageBox.Show("Error al guardar los datos de la entrega de documentos");
                 else
                 {
@@ -118,19 +118,21 @@ namespace IICAPS_v1.Presentacion
             }
         }
 
-        private bool agregarPago()
+        private bool Agregar_pago()
         {
             cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
             cmbIDAlumno.SelectedIndex = cmbAlumno.SelectedIndex;
             cmbIDRecibio.SelectedIndex = cmbRecibio.SelectedIndex;
-            p = new PagoAlumno();
-            p.AlumnoID = cmbIDAlumno.SelectedItem.ToString();
-            p.Cantidad = Convert.ToDouble(numericUpDown1.Value);
-            p.Concepto = cmbConcepto.SelectedItem.ToString();
-            p.Observaciones = txtObservaciones.Text;
-            p.Recibio = cmbIDRecibio.SelectedItem.ToString();
-            p.FechaPago = DateTime.Now;
-            List<Cobro> pagoPendientes = control.ConsultarCobrosDeAlumno(p.AlumnoID);
+            p = new PagoLibreria
+            {
+                CompradorID = cmbIDAlumno.SelectedItem.ToString(),
+                Cantidad = Convert.ToDouble(numericUpDown1.Value),
+                Concepto = cmbConcepto.SelectedItem.ToString(),
+                Observaciones = txtObservaciones.Text,
+                Recibio = cmbIDRecibio.SelectedItem.ToString(),
+                FechaPago = DateTime.Now
+            };
+            List<Cobro> pagoPendientes = control.ConsultarCobrosDeAlumno(p.CompradorID);
             if (pagoPendientes != null) {
                 decimal cantidad = Convert.ToDecimal(p.Cantidad);
                 int posicion = 0;
@@ -156,7 +158,7 @@ namespace IICAPS_v1.Presentacion
                     }
                     posicion++;
                 }
-                if (control.AgregarPagoAlumno(p, cobrosActualizados))
+                if (control.AgregarPagoLibreria(p, cobrosActualizados))
                 {
                     Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));
                     t.Start();
@@ -173,7 +175,7 @@ namespace IICAPS_v1.Presentacion
             DocumentosWord word = new DocumentosWord(p);
         }
 
-        private void cmbPrograma_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbPrograma_selectedIndexChanged(object sender, EventArgs e)
         {
             cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
             List<String> auxAlumno = new List<string>();

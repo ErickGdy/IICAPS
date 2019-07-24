@@ -26,7 +26,7 @@ namespace IICAPS_v1.Presentacion
             List<String> auxAlumno = new List<string>();
             List<String> auxIDAlumno = new List<string>();
             lblFecha.Text = DateTime.Now.ToShortDateString();
-            foreach (Programa p in control.obtenerProgramas())
+            foreach (Programa p in control.ObtenerProgramas())
             {
                 auxPrograma.Add(p.Nombre);
                 auxIDPrograma.Add(p.Codigo.ToString());
@@ -44,10 +44,10 @@ namespace IICAPS_v1.Presentacion
             
             try
             {
-                foreach (Alumno a in control.obtenerAlumnosByPrograma(cmbIDPrograma.Items[cmbPrograma.SelectedIndex].ToString()))
+                foreach (Alumno a in control.ObtenerAlumnosByPrograma(cmbIDPrograma.Items[cmbPrograma.SelectedIndex].ToString()))
                 {
-                    auxAlumno.Add(a.nombre);
-                    auxIDAlumno.Add(a.rfc.ToString());
+                    auxAlumno.Add(a.Nombre);
+                    auxIDAlumno.Add(a.Rfc.ToString());
                 }
                 cmbIDAlumno.Items.AddRange(auxIDAlumno.ToArray());
                 cmbAlumno.Items.AddRange(auxAlumno.ToArray());
@@ -61,9 +61,9 @@ namespace IICAPS_v1.Presentacion
             try
             {
                 cmbIDAlumno.SelectedIndex = cmbAlumno.SelectedIndex;
-                Alumno alumno = control.consultarAlumno(cmbIDAlumno.SelectedItem.ToString());
-                string grupo = control.consultarGrupoAlumno(alumno.rfc);
-                string programa = control.obtenerProgramaAlumno(alumno.rfc);
+                Alumno alumno = control.ConsultarAlumno(cmbIDAlumno.SelectedItem.ToString());
+                string grupo = control.ConsultarGrupoAlumno(alumno.Rfc);
+                string programa = control.ObtenerProgramaAlumno(alumno.Rfc);
                 if (cmbTipoDocumento.SelectedItem.Equals("Constancia"))
                 {
                     Thread t = new Thread(new ThreadStart(() => new DocumentosWord(alumno, grupo, programa)));
@@ -71,14 +71,14 @@ namespace IICAPS_v1.Presentacion
                 }
                 if (cmbTipoDocumento.SelectedItem.Equals("Kardex"))
                 {
-                    Thread t = new Thread(new ThreadStart(() => new DocumentosWord(alumno, control.obtenerCalificacionesAlumno(alumno.rfc, grupo), grupo, programa)));
+                    Thread t = new Thread(new ThreadStart(() => new DocumentosWord(alumno, control.ObtenerCalificacionesAlumno(alumno.Rfc, grupo), grupo, programa)));
                     t.Start();
                 }
                     MessageBox.Show("Generando documento...");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al obtener datos del alumno");
+                MessageBox.Show("Error al Obtener datos del alumno");
             }
         }
 

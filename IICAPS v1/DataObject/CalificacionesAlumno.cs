@@ -9,7 +9,7 @@ namespace IICAPS_v1.DataObject
     class CalificacionesAlumno
     {
         public string RFC { get; set; }
-        public string alumno { get; set; }
-        public List<Calificacion> calificaciones { get; set; }
+        public string Alumno { get; set; }
+        public List<Calificacion> Calificaciones { get; set; }
     }
 }

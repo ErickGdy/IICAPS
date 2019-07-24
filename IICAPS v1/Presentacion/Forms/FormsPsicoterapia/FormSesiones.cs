@@ -27,24 +27,24 @@ namespace IICAPS_v1.Presentacion
             control = ControlIicaps.getInstance();
             try
             {
-                foreach (Psicoterapeuta item in control.obtenerPsicoterapeutas())
+                foreach (Psicoterapeuta item in control.ObtenerPsicoterapeutas())
                 {
                     empleadosNombres.Add(item.Nombre);
                     empleadosID.Add(item.Matricula);
                 }
                 cmbPsicoterapeutas.DataSource = empleadosNombres;
-                foreach (Paciente item in control.obtenerPacientes())
+                foreach (Paciente item in control.ObtenerPacientes())
                 {
-                    pacientesNombre.Add(item.nombre + ' ' + item.apellidos);
-                    pacientesID.Add(item.id.ToString());
+                    pacientesNombre.Add(item.Nombre + ' ' + item.Apellidos);
+                    pacientesID.Add(item.Id.ToString());
                 }
                 cmbPaciente.DataSource = pacientesNombre;
                 if (id != null)
                 {
-                    this.paciente = control.consultarPaciente(id);
-                    txtCosto.Value = paciente.costoEspecial;
-                    if (paciente.psicoterapeuta != null) 
-                        cmbPsicoterapeutas.SelectedIndex = empleadosID.IndexOf(paciente.psicoterapeuta);
+                    this.paciente = control.ConsultarPaciente(id);
+                    txtCosto.Value = paciente.CostoEspecial;
+                    if (paciente.Psicoterapeuta != null) 
+                        cmbPsicoterapeutas.SelectedIndex = empleadosID.IndexOf(paciente.Psicoterapeuta);
                     cmbPaciente.SelectedIndex = pacientesID.IndexOf(id);
                     cmbPaciente.Enabled = false;
                 }
@@ -52,12 +52,12 @@ namespace IICAPS_v1.Presentacion
                 {
                     sesion = sesion_aux;
                     txtCosto.Value = sesion_aux.Costo;
-                    cmbPsicoterapeutas.SelectedIndex = empleadosID.IndexOf(sesion_aux.psicoterapeuta.ToString());
-                    cmbPaciente.SelectedIndex = pacientesID.IndexOf(sesion_aux.paciente.ToString());
-                    txtFecha.Value = sesion_aux.fecha;
-                    txtHora.Value = new DateTime(2000, 01, 01, sesion_aux.hora.Hours, sesion_aux.hora.Minutes, 0);
-                    txtObservaciones.Text = sesion_aux.observaciones;
-                    txtTipo.Text = sesion_aux.tipo;
+                    cmbPsicoterapeutas.SelectedIndex = empleadosID.IndexOf(sesion_aux.Psicoterapeuta.ToString());
+                    cmbPaciente.SelectedIndex = pacientesID.IndexOf(sesion_aux.Paciente.ToString());
+                    txtFecha.Value = sesion_aux.Fecha;
+                    txtHora.Value = new DateTime(2000, 01, 01, sesion_aux.Hora.Hours, sesion_aux.Hora.Minutes, 0);
+                    txtObservaciones.Text = sesion_aux.Observaciones;
+                    txtTipo.Text = sesion_aux.Tipo;
                 }
                 else
                     sesion = new Sesion();
@@ -76,26 +76,26 @@ namespace IICAPS_v1.Presentacion
                 try
                 {
 
-                    sesion.observaciones= txtObservaciones.Text;
-                    sesion.paciente = Convert.ToInt32(pacientesID.ElementAt(cmbPaciente.SelectedIndex));
-                    sesion.psicoterapeuta = empleadosID.ElementAt(cmbPsicoterapeutas.SelectedIndex);
+                    sesion.Observaciones= txtObservaciones.Text;
+                    sesion.Paciente = Convert.ToInt32(pacientesID.ElementAt(cmbPaciente.SelectedIndex));
+                    sesion.Psicoterapeuta = empleadosID.ElementAt(cmbPsicoterapeutas.SelectedIndex);
                     sesion.Costo= Convert.ToDecimal(txtCosto.Value);
-                    sesion.tipo = txtTipo.Text;
-                    sesion.fecha = txtFecha.Value;
-                    sesion.hora = new TimeSpan(txtHora.Value.Hour, txtHora.Value.Minute, 0);
+                    sesion.Tipo = txtTipo.Text;
+                    sesion.Fecha = txtFecha.Value;
+                    sesion.Hora = new TimeSpan(txtHora.Value.Hour, txtHora.Value.Minute, 0);
                     try
                     {
-                        sesion.reservacion = control.consultarReservacion(sesion.hora, sesion.fecha,sesion.psicoterapeuta.ToString());
-                        if(sesion.reservacion==null)
+                        sesion.Reservacion = control.ConsultarReservacion(sesion.Hora, sesion.Fecha,sesion.Psicoterapeuta.ToString());
+                        if(sesion.Reservacion==null)
                             MessageBox.Show("No existe reservación previa para la sesión");
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show("No existe reservación previa para la sesión");
                     }
-                    if (sesion.id != 0)
+                    if (sesion.Id != 0)
                     {
-                        if (control.actualizarSesion(sesion))
+                        if (control.ActualizarSesion(sesion))
                         {
                             MessageBox.Show("Datos actualizados exitosamente!");
                             Close();
@@ -105,7 +105,7 @@ namespace IICAPS_v1.Presentacion
                             MessageBox.Show("Error al guardar datos, verifique los campos y vuelva a intentarlo");
                     }else
                     {
-                        if (control.agregarSesion(sesion))
+                        if (control.AgregarSesion(sesion))
                         {
                             MessageBox.Show("Datos guardados exitosamente!");
                             Close();

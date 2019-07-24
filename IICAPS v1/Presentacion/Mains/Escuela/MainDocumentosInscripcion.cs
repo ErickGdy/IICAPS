@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 
 namespace IICAPS_v1.Presentacion.Mains.Escuela
@@ -26,7 +25,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             control = ControlIicaps.getInstance();
             try
             {
-                actualizarTablaDocumentosInscripcion(control.obtenerEntregaDocumentos());
+                actualizarTablaDocumentosInscripcion(control.ObtenerEntregaDocumentos());
             }
             catch (Exception e)
             {
@@ -86,7 +85,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTablaDocumentosInscripcion(control.obtenerEntregaDocumentosTable(txtBuscarDocumentos.Text));
+            actualizarTablaDocumentosInscripcion(control.ObtenerEntregaDocumentosTable(txtBuscarDocumentos.Text));
         }
 
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -94,14 +93,14 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String rfc = dataGridViewDocumentos.CurrentRow.Cells[0].Value.ToString();
-                DocumentosInscripcion documentos = control.consultarEntregaDocumentos(rfc);
-                if (documentos.tipoInscripcion == 2)
+                DocumentosInscripcion documentos = control.ConsultarEntregaDocumentos(rfc);
+                if (documentos.TipoInscripcion == 2)
                 {
                     FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(documentos, true);
                     fa.FormClosed += new FormClosedEventHandler(form_Closed);
                     fa.Show();
                 }
-                else if (documentos.tipoInscripcion == 1)
+                else if (documentos.TipoInscripcion == 1)
                 {
                     FormDocumentosInscripcion fa = new FormDocumentosInscripcion(documentos, true);
                     fa.FormClosed += new FormClosedEventHandler(form_Closed);
@@ -119,14 +118,14 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String rfc = dataGridViewDocumentos.CurrentRow.Cells[0].Value.ToString();
-                DocumentosInscripcion documentos = control.consultarEntregaDocumentos(rfc);
-                if (documentos.tipoInscripcion == 2)
+                DocumentosInscripcion documentos = control.ConsultarEntregaDocumentos(rfc);
+                if (documentos.TipoInscripcion == 2)
                 {
                     FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(documentos, false);
                     fa.FormClosed += new FormClosedEventHandler(form_Closed);
                     fa.Show();
                 }
-                else if (documentos.tipoInscripcion == 1)
+                else if (documentos.TipoInscripcion == 1)
                 {
                     FormDocumentosInscripcion fa = new FormDocumentosInscripcion(documentos, false);
                     fa.FormClosed += new FormClosedEventHandler(form_Closed);
@@ -145,7 +144,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             txtBuscarDocumentos.Text = "";
             try
             {
-                actualizarTablaDocumentosInscripcion(control.obtenerEntregaDocumentos());
+                actualizarTablaDocumentosInscripcion(control.ObtenerEntregaDocumentos());
             }
             catch (Exception ex)
             {
@@ -155,7 +154,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void button1_Click(object sender, EventArgs e)
         {
-            actualizarTablaDocumentosInscripcion(control.obtenerEntregaDocumentosTable(txtBuscarDocumentos.Text));
+            actualizarTablaDocumentosInscripcion(control.ObtenerEntregaDocumentosTable(txtBuscarDocumentos.Text));
         }
 
         private void Main_SizeChanged(object sender, EventArgs e)

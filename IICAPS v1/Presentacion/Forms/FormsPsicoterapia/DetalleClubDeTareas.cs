@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Threading;
 using System.Data.SqlClient;
 
@@ -31,7 +30,7 @@ namespace IICAPS_v1.Presentacion
             lblFecha.Text = ClubDeTareas.Fecha.ToShortDateString();
             try
             {
-                actualizarTabla(control.obtenerAsistentesClubDeTareasTable(ClubDeTareas.ID.ToString()));
+                actualizarTabla(control.ObtenerAsistentesClubDeTareasTable(ClubDeTareas.ID.ToString()));
             }
             catch (Exception e)
             {
@@ -79,7 +78,7 @@ namespace IICAPS_v1.Presentacion
         }
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTabla(control.obtenerAsistentesClubDeTareasTable(ClubDeTareas.ID.ToString(), txtBuscar.Text));
+            actualizarTabla(control.ObtenerAsistentesClubDeTareasTable(ClubDeTareas.ID.ToString(), txtBuscar.Text));
         }
         private void quitarToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -89,10 +88,10 @@ namespace IICAPS_v1.Presentacion
                 DialogResult dialogresult = MessageBox.Show("¿Desea remover al asistente del club de tareas?", "Remover asistente", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dialogresult == DialogResult.OK)
                 {
-                    if (control.borrarAsistenteClubDeTareas(id))
+                    if (control.BorrarAsistenteClubDeTareas(id))
                     {
                         MessageBox.Show("Asistente removido");
-                        actualizarTabla(control.obtenerAsistentesClubDeTareasTable(ClubDeTareas.ID.ToString(), txtBuscar.Text));
+                        actualizarTabla(control.ObtenerAsistentesClubDeTareasTable(ClubDeTareas.ID.ToString(), txtBuscar.Text));
                     }
                     else
                         MessageBox.Show("Error al remover asistente");
@@ -109,7 +108,7 @@ namespace IICAPS_v1.Presentacion
             txtBuscar.Text = "";
             try
             {
-                actualizarTabla(control.obtenerAsistentesClubDeTareasTable(ClubDeTareas.ID.ToString()));
+                actualizarTabla(control.ObtenerAsistentesClubDeTareasTable(ClubDeTareas.ID.ToString()));
             }
             catch (Exception ex)
             {
@@ -118,7 +117,7 @@ namespace IICAPS_v1.Presentacion
         }
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTabla(control.obtenerAsistentesClubDeTareasTable(ClubDeTareas.ID.ToString(), txtBuscar.Text));
+            actualizarTabla(control.ObtenerAsistentesClubDeTareasTable(ClubDeTareas.ID.ToString(), txtBuscar.Text));
         }
         private void Main_SizeChanged(object sender, EventArgs e)
         {
@@ -151,7 +150,7 @@ namespace IICAPS_v1.Presentacion
                 {
                     try
                     {
-                        actualizarTabla(control.obtenerAsistentesClubDeTareasTable(ClubDeTareas.ID.ToString(), texto));
+                        actualizarTabla(control.ObtenerAsistentesClubDeTareasTable(ClubDeTareas.ID.ToString(), texto));
                     }
                     catch (Exception ex)
                     {
@@ -164,7 +163,7 @@ namespace IICAPS_v1.Presentacion
                 limpiarBusqueda.Visible = false;
                 try
                 {
-                    actualizarTabla(control.obtenerAsistentesClubDeTareasTable(ClubDeTareas.ID.ToString())) ;
+                    actualizarTabla(control.ObtenerAsistentesClubDeTareasTable(ClubDeTareas.ID.ToString())) ;
                 }
                 catch (Exception ex)
                 {
@@ -179,7 +178,7 @@ namespace IICAPS_v1.Presentacion
             try
             {
                 String ID = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                FormInscricionClubDeTareas fa = new FormInscricionClubDeTareas(this.ClubDeTareas.ID.ToString(), control.obtenerAsistenteClubDeTareas(ID));
+                FormInscricionClubDeTareas fa = new FormInscricionClubDeTareas(this.ClubDeTareas.ID.ToString(), control.ObtenerAsistenteClubDeTareas(ID));
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.ShowDialog();
             }
@@ -194,12 +193,12 @@ namespace IICAPS_v1.Presentacion
             try
             {
                 String ID = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                ClubDeTareasAsistente asisT =  control.obtenerAsistenteClubDeTareas(ID);
+                ClubDeTareasAsistente asisT =  control.ObtenerAsistenteClubDeTareas(ID);
                 FormPago fp = new FormPago(asisT.Restante, "Pago de Club De Tareas", "Psicoterapia");
                 fp.ShowDialog();
                 pago = fp.getPagos();
                 fp.Dispose();
-                if (control.registrarPagoAsistenciaClubDeTareas(pago, asisT.ID.ToString()))
+                if (control.RegistrarPagoAsistenciaClubDeTareas(pago, asisT.ID.ToString()))
                 {
                     MessageBox.Show("Pago registrado exitosamente");
                     Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));

@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 
 namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
@@ -26,7 +25,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
             control = ControlIicaps.getInstance();
             try
             {
-                actualizarTabla(control.obtenerPacientesTable());
+                actualizarTabla(control.ObtenerPacientesTable());
             }
             catch (Exception e)
             {
@@ -73,7 +72,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
 
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTabla(control.obtenerPacientesTable(txtBuscar.Text));
+            actualizarTabla(control.ObtenerPacientesTable(txtBuscar.Text));
         }
 
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -96,7 +95,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                Paciente paciente = control.consultarPaciente(id);
+                Paciente paciente = control.ConsultarPaciente(id);
                 FormPaciente fa = new FormPaciente(paciente);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -115,10 +114,10 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                 DialogResult dialogresult = MessageBox.Show("¿Desea eliminar paciente?", "Eliminar paciente", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if(dialogresult == DialogResult.OK)
                 {
-                    if (control.eliminarPaciente(id))
+                    if (control.EliminarPaciente(id))
                     {
                         MessageBox.Show("Paciente eliminado");
-                        actualizarTabla(control.obtenerPacientesTable());
+                        actualizarTabla(control.ObtenerPacientesTable());
                     }
                     else
                         MessageBox.Show("Error al eliminar paciente");
@@ -136,7 +135,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
             txtBuscar.Text = "";
             try
             {
-                actualizarTabla(control.obtenerPacientesTable());
+                actualizarTabla(control.ObtenerPacientesTable());
             }
             catch (Exception ex)
             {
@@ -147,7 +146,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTabla(control.obtenerPacientesTable(txtBuscar.Text));
+            actualizarTabla(control.ObtenerPacientesTable(txtBuscar.Text));
         }
 
 
@@ -161,7 +160,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                 {
                     try
                     {
-                        actualizarTabla(control.obtenerPacientesTable(texto));
+                        actualizarTabla(control.ObtenerPacientesTable(texto));
                     }
                     catch (Exception ex)
                     {
@@ -174,7 +173,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                 limpiarBusqueda.Visible = false;
                 try
                 {
-                    actualizarTabla(control.obtenerPacientesTable());
+                    actualizarTabla(control.ObtenerPacientesTable());
                 }
                 catch (Exception ex)
                 {

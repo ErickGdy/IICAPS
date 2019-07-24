@@ -22,7 +22,7 @@ namespace IICAPS_v1.Presentacion
             InitializeComponent();
             control = ControlIicaps.getInstance();
             List<string> empleadosID = new List<string>();
-            foreach (Psicoterapeuta item in control.obtenerPsicoterapeutas())
+            foreach (Psicoterapeuta item in control.ObtenerPsicoterapeutas())
             {
                 empleadosNombres.Add(item.Nombre);
                 empleadosID.Add(item.Matricula);
@@ -33,21 +33,21 @@ namespace IICAPS_v1.Presentacion
             else
             {
                 this.paciente = paciente;
-                txtNombre.Text = paciente.nombre;
-                txtApellidos.Text = paciente.apellidos;
+                txtNombre.Text = paciente.Nombre;
+                txtApellidos.Text = paciente.Apellidos;
                 //txtFecha.Value = paciente.fecha;
-                txtCosto.Value = paciente.costoEspecial;
-                txtTelefono.Text = paciente.telefono;
-                txtNombreTutor.Text = paciente.nombre_tutor;
-                txtTelefonoTutor.Text = paciente.telefono_tutor;
-                txtInsitutcion.Text = paciente.institucion;
-                txtFecha.Text = paciente.fechaNacimiento.ToShortDateString();
-                if (paciente.datos_facturacion != null)
+                txtCosto.Value = paciente.CostoEspecial;
+                txtTelefono.Text = paciente.Telefono;
+                txtNombreTutor.Text = paciente.Nombre_tutor;
+                txtTelefonoTutor.Text = paciente.Telefono_tutor;
+                txtInsitutcion.Text = paciente.Institucion;
+                txtFecha.Text = paciente.FechaNacimiento.ToShortDateString();
+                if (paciente.Datos_facturacion != null)
                 {
-                    txtRFC.Text = paciente.datos_facturacion[0];
-                    txtNombreFacturacion.Text = paciente.datos_facturacion[1];
-                    txtRazonSocial.Text = paciente.datos_facturacion[2];
-                    txtDireccionFacturacion.Text = paciente.datos_facturacion[3];
+                    txtRFC.Text = paciente.Datos_facturacion[0];
+                    txtNombreFacturacion.Text = paciente.Datos_facturacion[1];
+                    txtRazonSocial.Text = paciente.Datos_facturacion[2];
+                    txtDireccionFacturacion.Text = paciente.Datos_facturacion[3];
                 }
 
             }
@@ -58,27 +58,27 @@ namespace IICAPS_v1.Presentacion
         {
             if (validarCamposPaciente())
             {
-                paciente.nombre = txtNombre.Text;
-                paciente.apellidos = txtApellidos.Text;
-                paciente.fechaNacimiento = txtFecha.Value;
-                paciente.costoEspecial= Convert.ToDecimal(txtCosto.Value);
-                paciente.telefono = txtTelefono.Text;
-                paciente.nombre_tutor=txtNombreTutor.Text;
-                paciente.telefono_tutor=txtTelefonoTutor.Text;
-                paciente.institucion = txtInsitutcion.Text;
+                paciente.Nombre = txtNombre.Text;
+                paciente.Apellidos = txtApellidos.Text;
+                paciente.FechaNacimiento = txtFecha.Value;
+                paciente.CostoEspecial= Convert.ToDecimal(txtCosto.Value);
+                paciente.Telefono = txtTelefono.Text;
+                paciente.Nombre_tutor=txtNombreTutor.Text;
+                paciente.Telefono_tutor=txtTelefonoTutor.Text;
+                paciente.Institucion = txtInsitutcion.Text;
                 if (validarCamposFacturacion())
                 {
-                    paciente.datos_facturacion = new string[4];
-                    paciente.datos_facturacion[0] = txtRFC.Text;
-                    paciente.datos_facturacion[1] = txtNombreFacturacion.Text;
-                    paciente.datos_facturacion[2] = txtRazonSocial.Text;
-                    paciente.datos_facturacion[3] = txtDireccionFacturacion.Text;
+                    paciente.Datos_facturacion = new string[4];
+                    paciente.Datos_facturacion[0] = txtRFC.Text;
+                    paciente.Datos_facturacion[1] = txtNombreFacturacion.Text;
+                    paciente.Datos_facturacion[2] = txtRazonSocial.Text;
+                    paciente.Datos_facturacion[3] = txtDireccionFacturacion.Text;
                 }
                 try
                 {
-                    if (this.paciente.id != 0)
+                    if (this.paciente.Id != 0)
                     {
-                        if (control.actualizarPaciente(this.paciente))
+                        if (control.ActualizarPaciente(this.paciente))
                         {
                             MessageBox.Show("Datos actualizados exitosamente!");
                             Close();
@@ -89,7 +89,7 @@ namespace IICAPS_v1.Presentacion
                     }
                     else
                     {
-                        if (control.agregarPaciente(this.paciente))
+                        if (control.AgregarPaciente(this.paciente))
                         {
                             MessageBox.Show("Datos guardados exitosamente!");
                             Close();

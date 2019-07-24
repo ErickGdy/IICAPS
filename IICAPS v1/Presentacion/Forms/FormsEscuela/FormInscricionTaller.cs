@@ -28,10 +28,10 @@ namespace IICAPS_v1.Presentacion
             auxId = new List<string>();
             try
             {
-                foreach (Taller p in control.obtenerTalleres())
+                foreach (Taller p in control.ObtenerTalleres())
                 {
-                    auxNombres.Add(p.nombre);
-                    auxId.Add(p.id.ToString());
+                    auxNombres.Add(p.Nombre);
+                    auxId.Add(p.Id.ToString());
                 }
                 cmbTalleres.DataSource = auxNombres;
                 if (idTaller != null)
@@ -47,43 +47,43 @@ namespace IICAPS_v1.Presentacion
             if (asistente != null)
             {
                 asistenT = asistente;
-                cmbTalleres.SelectedIndex = auxId.IndexOf(asistente.taller.ToString());
-                txtNombre.Text = asistente.nombre;
-                txtTelefono.Text = asistente.telefono;
-                txtCorreo.Text = asistente.correo;
-                txtCurp.Text = asistente.curp;
-                txtRFC.Text = asistente.rfc;
-                txtAnticipo.Value = asistente.pago;
+                cmbTalleres.SelectedIndex = auxId.IndexOf(asistente.Taller.ToString());
+                txtNombre.Text = asistente.Nombre;
+                txtTelefono.Text = asistente.Telefono;
+                txtCorreo.Text = asistente.Correo;
+                txtCurp.Text = asistente.Curp;
+                txtRFC.Text = asistente.Rfc;
+                txtAnticipo.Value = asistente.Pago;
                 lblAnticipo.Text="Pago: $";
                 txtAnticipo.ReadOnly = true;
-                txtCosto.Value = asistente.costo;
-                txtObservaciones.Text = asistente.observaciones;
+                txtCosto.Value = asistente.Costo;
+                txtObservaciones.Text = asistente.Observaciones;
             }
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-                asistenT.taller = Convert.ToInt32(auxId.ElementAt(cmbTalleres.SelectedIndex));
-                asistenT.nombre = txtNombre.Text;
-                asistenT.telefono = txtTelefono.Text;
-                asistenT.correo = txtCorreo.Text;
-                asistenT.curp = txtCurp.Text;
-                asistenT.rfc = txtRFC.Text;
-                asistenT.pago = txtAnticipo.Value;
-                asistenT.costo = txtCosto.Value;
-                asistenT.observaciones = txtObservaciones.Text;
+                asistenT.Taller = Convert.ToInt32(auxId.ElementAt(cmbTalleres.SelectedIndex));
+                asistenT.Nombre = txtNombre.Text;
+                asistenT.Telefono = txtTelefono.Text;
+                asistenT.Correo = txtCorreo.Text;
+                asistenT.Curp = txtCurp.Text;
+                asistenT.Rfc = txtRFC.Text;
+                asistenT.Pago = txtAnticipo.Value;
+                asistenT.Costo = txtCosto.Value;
+                asistenT.Observaciones = txtObservaciones.Text;
                 try
                 {
-                if (control.registrarAsistenteTaller(asistenT))
+                if (control.RegistrarAsistenteTaller(asistenT))
                 {
                     MessageBox.Show("Asistencia registrada exitosamente!");
                     this.Hide();
                     if (!txtAnticipo.ReadOnly)
                     {
-                        FormPago fp = new FormPago(asistenT.pago, "Pago de Taller", "Escuela");
+                        FormPago fp = new FormPago(asistenT.Pago, "Pago de Taller", "Escuela");
                         fp.ShowDialog();
                         pago = fp.getPagos();
-                        if (control.registrarPagoAsistenciaTaller(pago, control.obtenerAsistentesTalleres(asistenT.taller.ToString()).Last().ID.ToString()))
+                        if (control.RegistrarPagoAsistenciaTaller(pago, control.ObtenerAsistentesTalleres(asistenT.Taller.ToString()).Last().ID.ToString()))
                         {
                             MessageBox.Show("Pago registrado exitosamente");
                             Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));
@@ -115,11 +115,11 @@ namespace IICAPS_v1.Presentacion
             {
                 case 0:
                     txtCosto.Enabled = false;
-                    txtCosto.Value = taller.costoPublico;
+                    txtCosto.Value = taller.CostoPublico;
                     break;
                 case 1:
                     txtCosto.Enabled = false;
-                    txtCosto.Value = taller.costoClientes;
+                    txtCosto.Value = taller.CostoClientes;
                     break;
                 case 2:
                     txtCosto.Enabled = true;
@@ -135,7 +135,7 @@ namespace IICAPS_v1.Presentacion
         {
             try
             {
-                taller = control.consultarTaller(auxId.ElementAt(cmbTalleres.SelectedIndex));
+                taller = control.ConsultarTaller(auxId.ElementAt(cmbTalleres.SelectedIndex));
                 cmbTipoCosto_SelectedIndexChanged(null,null);
             }
             catch(Exception ex)

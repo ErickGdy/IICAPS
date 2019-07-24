@@ -23,20 +23,20 @@ namespace IICAPS_v1.Presentacion
             {
                 List<String> auxNombres = new List<string>();
                 List<String> auxId = new List<string>();
-                foreach (Grupo p in control.obtenerGrupos())
+                foreach (Grupo p in control.ObtenerGrupos())
                 {
-                    auxNombres.Add(p.generacion);
-                    auxId.Add(p.codigo);
+                    auxNombres.Add(p.Generacion);
+                    auxId.Add(p.Codigo);
                 }
                 cmbGrupoNombres.DataSource = auxNombres;
                 cmbGrupoID.DataSource = auxId;
                 cmbGrupoNombres.SelectedIndex = 0;
                 auxNombres.Clear();
                 auxId.Clear();
-                foreach (Alumno al in control.obtenerAlumnos())
+                foreach (Alumno al in control.ObtenerAlumnos())
                 {
-                    auxNombres.Add(al.nombre);
-                    auxId.Add(al.rfc);
+                    auxNombres.Add(al.Nombre);
+                    auxId.Add(al.Rfc);
                 }
                 cmbAlumnoNombres.DataSource = auxNombres;
                 cmbAlumnoID.DataSource = auxId;
@@ -69,7 +69,7 @@ namespace IICAPS_v1.Presentacion
             string alumno = cmbAlumnoID.SelectedItem.ToString();
             try
             {
-                if (control.inscribirAlumnoGrupo(alumno,grupo,control.consultarGrupo(grupo).programa))
+                if (control.InscribirAlumnoGrupo(alumno,grupo,control.ConsultarGrupo(grupo).Programa))
                 {
                     MessageBox.Show("Alumno inscrito exitosamente!");
                     Close();

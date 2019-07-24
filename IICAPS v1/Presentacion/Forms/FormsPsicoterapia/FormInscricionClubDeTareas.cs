@@ -28,7 +28,7 @@ namespace IICAPS_v1.Presentacion
             auxId = new List<string>();
             try
             {
-                foreach (ClubDeTareas p in control.obtenerClubDeTareas())
+                foreach (ClubDeTareas p in control.ObtenerClubDeTareas())
                 {
                     auxNombres.Add(p.Fecha.ToShortDateString());
                     auxId.Add(p.ID.ToString());
@@ -71,7 +71,7 @@ namespace IICAPS_v1.Presentacion
                 asistenT.Observaciones = txtObservaciones.Text;
                 try
                 {
-                if (control.registrarAsistenteClubDeTareas(asistenT))
+                if (control.RegistrarAsistenteClubDeTareas(asistenT))
                 {
                     MessageBox.Show("Asistencia registrada exitosamente!");
                     this.Hide();
@@ -80,7 +80,7 @@ namespace IICAPS_v1.Presentacion
                         FormPago fp = new FormPago(asistenT.Pago, "Pago de Club De Tareas", "Psicoterapia");
                         fp.ShowDialog();
                         pago = fp.getPagos();
-                        if (control.registrarPagoAsistenciaClubDeTareas(pago, control.obtenerAsistentesClubDeTareas(asistenT.Club_Tareas_ID.ToString()).Last().ID.ToString()))
+                        if (control.RegistrarPagoAsistenciaClubDeTareas(pago, control.ObtenerAsistentesClubDeTareas(asistenT.Club_Tareas_ID.ToString()).Last().ID.ToString()))
                         {
                             MessageBox.Show("Pago registrado exitosamente");
                             Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));
@@ -111,7 +111,7 @@ namespace IICAPS_v1.Presentacion
         {
             try
             {
-                clubDeTareas = control.consultarClubDeTareas(auxId.ElementAt(cmbClubDeTareas.SelectedIndex));
+                clubDeTareas = control.ConsultarClubDeTareas(auxId.ElementAt(cmbClubDeTareas.SelectedIndex));
                 txtCosto.Value = clubDeTareas.Costo;
             }
             catch(Exception ex)

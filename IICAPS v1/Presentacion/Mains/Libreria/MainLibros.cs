@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 
 namespace IICAPS_v1.Presentacion.Mains
@@ -26,7 +25,7 @@ namespace IICAPS_v1.Presentacion.Mains
             control = ControlIicaps.getInstance();
             try
             {
-                actualizarTabla(control.obtenerLibrosTable());
+                actualizarTabla(control.ObtenerLibrosTable());
             }
             catch (Exception e)
             {
@@ -73,7 +72,7 @@ namespace IICAPS_v1.Presentacion.Mains
 
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTabla(control.obtenerLibrosTable(txtBuscar.Text));
+            actualizarTabla(control.ObtenerLibrosTable(txtBuscar.Text));
         }
 
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -81,7 +80,7 @@ namespace IICAPS_v1.Presentacion.Mains
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                Libro libro = control.consultarLibro(id);
+                Libro libro = control.ConsultarLibro(id);
                 FormLibro fa = new FormLibro(libro, true);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -97,7 +96,7 @@ namespace IICAPS_v1.Presentacion.Mains
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                Libro libro = control.consultarLibro(id);
+                Libro libro = control.ConsultarLibro(id);
                 FormLibro fa = new FormLibro(libro, false);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -116,10 +115,10 @@ namespace IICAPS_v1.Presentacion.Mains
                 DialogResult dialogresult = MessageBox.Show("¿Desea eliminar Libro?", "Eliminar Libro", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if(dialogresult == DialogResult.OK)
                 {
-                    if (control.eliminarLibro(id))
+                    if (control.EliminarLibro(id))
                     {
                         MessageBox.Show("Libro eliminado");
-                        actualizarTabla(control.obtenerLibrosTable());
+                        actualizarTabla(control.ObtenerLibrosTable());
                     }
                     else
                         MessageBox.Show("Error al eliminar libro");
@@ -137,7 +136,7 @@ namespace IICAPS_v1.Presentacion.Mains
             txtBuscar.Text = "";
             try
             {
-                actualizarTabla(control.obtenerLibrosTable());
+                actualizarTabla(control.ObtenerLibrosTable());
             }
             catch (Exception ex)
             {
@@ -147,7 +146,7 @@ namespace IICAPS_v1.Presentacion.Mains
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTabla(control.obtenerLibrosTable(txtBuscar.Text));
+            actualizarTabla(control.ObtenerLibrosTable(txtBuscar.Text));
         }
 
         private void txtBuscar_KeyUp(object sender, KeyEventArgs e)
@@ -160,7 +159,7 @@ namespace IICAPS_v1.Presentacion.Mains
                 {
                     try
                     {
-                        actualizarTabla(control.obtenerLibrosTable(texto));
+                        actualizarTabla(control.ObtenerLibrosTable(texto));
                     }
                     catch (Exception ex)
                     {
@@ -173,7 +172,7 @@ namespace IICAPS_v1.Presentacion.Mains
                 limpiarBusqueda.Visible = false;
                 try
                 {
-                    actualizarTabla(control.obtenerLibrosTable());
+                    actualizarTabla(control.ObtenerLibrosTable());
                 }
                 catch (Exception ex)
                 {

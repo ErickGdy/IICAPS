@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 
 namespace IICAPS_v1.Presentacion.Mains.Escuela
@@ -26,7 +25,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             control = ControlIicaps.getInstance();
             try
             {
-                actualizarTabla(control.obtenerMateriasTable());
+                actualizarTabla(control.ObtenerMateriasTable());
             }
             catch (Exception e)
             {
@@ -73,7 +72,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTabla(control.obtenerMateriasTable(txtBuscar.Text));
+            actualizarTabla(control.ObtenerMateriasTable(txtBuscar.Text));
         }
 
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -81,7 +80,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                Materia materia = control.consultarMateria(id);
+                Materia materia = control.ConsultarMateria(id);
                 FormMaterias fa = new FormMaterias(materia, true);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -97,7 +96,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                Materia materia = control.consultarMateria(id);
+                Materia materia = control.ConsultarMateria(id);
                 FormMaterias fa = new FormMaterias(materia, false);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -116,10 +115,10 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 DialogResult dialogresult = MessageBox.Show("¿Desea quitar la materia?", "Quitar materia", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if(dialogresult == DialogResult.OK)
                 {
-                    if (control.desactivarMateria(id))
+                    if (control.DesactivarMateria(id))
                     {
                         MessageBox.Show("Materia cancelada");
-                        actualizarTabla(control.obtenerMateriasTable());
+                        actualizarTabla(control.ObtenerMateriasTable());
                     }
                     else
                         MessageBox.Show("Error al cancelar materia");
@@ -137,7 +136,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             txtBuscar.Text = "";
             try
             {
-                actualizarTabla(control.obtenerMateriasTable());
+                actualizarTabla(control.ObtenerMateriasTable());
             }
             catch (Exception ex)
             {
@@ -148,7 +147,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTabla(control.obtenerMateriasTable(txtBuscar.Text));
+            actualizarTabla(control.ObtenerMateriasTable(txtBuscar.Text));
         }
 
 
@@ -162,7 +161,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 {
                     try
                     {
-                        actualizarTabla(control.obtenerMateriasTable(texto));
+                        actualizarTabla(control.ObtenerMateriasTable(texto));
                     }
                     catch (Exception ex)
                     {
@@ -175,7 +174,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 limpiarBusqueda.Visible = false;
                 try
                 {
-                    actualizarTabla(control.obtenerMateriasTable());
+                    actualizarTabla(control.ObtenerMateriasTable());
                 }
                 catch (Exception ex)
                 {

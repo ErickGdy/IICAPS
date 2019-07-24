@@ -78,7 +78,7 @@ namespace IICAPS_v1.Presentacion
                         {
                             try
                             {
-                                if (control.eliminarUsuario(usuario.Matricula))
+                                if (control.EliminarUsuario(usuario.Matricula))
                                     MessageBox.Show("Usuario desactivado!");
                                 else
                                     MessageBox.Show("Error al desactivar usuario!");
@@ -94,7 +94,7 @@ namespace IICAPS_v1.Presentacion
                     {
                         if (this.psicoterapeuta.ID != 0)
                         {
-                            if (control.actualizarPsicoterapeuta(this.psicoterapeuta, user_aux))
+                            if (control.ActualizarPsicoterapeuta(this.psicoterapeuta, user_aux))
                             {
                                 MessageBox.Show("Datos de psicoterapeuta actualizados exitosamente!");
                                 Close();
@@ -105,7 +105,7 @@ namespace IICAPS_v1.Presentacion
                         }
                         else
                         {
-                            if (control.agregarPsicoterapeuta(this.psicoterapeuta, user_aux))
+                            if (control.AgregarPsicoterapeuta(this.psicoterapeuta, user_aux))
                             {
                                 MessageBox.Show("Datos guardados exitosamente!");
                                 Close();
@@ -199,7 +199,7 @@ namespace IICAPS_v1.Presentacion
                 } while (iniciales.Length < 4);
                 Random rdm = new Random();
                 matricula = rdm.Next(1, 99).ToString("00") + "-" + iniciales.Substring(0, 4).ToUpper() + "-" + rdm.Next(1, 9999).ToString("0000");
-                validacion = control.validarMatricula(matricula);
+                validacion = control.ValidarMatricula(matricula);
             } while (validacion != null);
             txtMatricula.Text = matricula;
             return matricula;

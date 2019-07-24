@@ -101,6 +101,7 @@
     <Compile Include="Control\DocumentosWord.cs" />
     <Compile Include="DataObject\Cobro.cs" />
     <Compile Include="DataObject\Libro.cs" />
+    <Compile Include="DataObject\PagoLibreria.cs" />
     <Compile Include="DataObject\ParametrosGenerales.cs" />
     <Compile Include="DataObject\Nomina.cs" />
     <Compile Include="DataObject\Psicoterapeuta.cs" />
@@ -233,6 +234,12 @@
     </Compile>
     <Compile Include="Presentacion\Forms\FormsLibreria\FormLibro.Designer.cs">
       <DependentUpon>FormLibro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsLibreria\FormRegistrarPagoLibreria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsLibreria\FormRegistrarPagoLibreria.Designer.cs">
+      <DependentUpon>FormRegistrarPagoLibreria.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Forms\FormsPsicoterapia\PagosPaciente.cs">
       <SubType>Form</SubType>
@@ -559,6 +566,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsLibreria\FormLibro.resx">
       <DependentUpon>FormLibro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsLibreria\FormRegistrarPagoLibreria.resx">
+      <DependentUpon>FormRegistrarPagoLibreria.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsPsicoterapia\PagosPaciente.resx">
       <DependentUpon>PagosPaciente.cs</DependentUpon>

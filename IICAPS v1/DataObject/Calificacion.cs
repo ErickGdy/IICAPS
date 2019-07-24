@@ -8,9 +8,9 @@ namespace IICAPS_v1.DataObject
 {
     class Calificacion
     {
-        public float calificacionTareas { get; set; }
-        public float calificacionFinal { get; set; }
-        public int materia { get; set; }
-        public string materiaNombre { get; set; }
+        public float CalificacionTareas { get; set; }
+        public float CalificacionFinal { get; set; }
+        public int Materia { get; set; }
+        public string MateriaNombre { get; set; }
     }
 }

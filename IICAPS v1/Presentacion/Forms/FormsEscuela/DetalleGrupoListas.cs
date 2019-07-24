@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Drawing.Printing;
 
 namespace IICAPS_v1.Presentacion.Mains.Escuela
@@ -32,22 +31,22 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             control = ControlIicaps.getInstance();
             cmbSabado.SelectedItem = 0;
             this.grupo = gru;
-            alumnos = control.obtenerAlumnosGrupos(this.grupo.codigo);
-            lblNombreGrupo.Text = "Grupo: "+ grupo.codigo + " - " + grupo.generacion;
+            alumnos = control.ObtenerAlumnosGrupos(this.grupo.Codigo);
+            lblNombreGrupo.Text = "Grupo: "+ grupo.Codigo + " - " + grupo.Generacion;
             this.Text = lblNombreGrupo.Text;
             try
             {
-                empleados = control.obtenerEmpleados();
+                empleados = control.ObtenerEmpleados();
                 if(empleados != null)
                 foreach (Empleado emp in empleados)
                 {
                     cmbMaestros.Items.Add(emp.Nombre);
                 }
-                materias = control.consultarMapaCurricularPrograma(this.grupo.programa);
+                materias = control.ConsultarMapaCurricularPrograma(this.grupo.Programa);
                 if(materias!= null)
                 foreach (Materia mat in materias)
                 {
-                    cmbMaterias.Items.Add(mat.nombre);
+                    cmbMaterias.Items.Add(mat.Nombre);
                 }
                 Main_SizeChanged(null, null);
             }
@@ -92,7 +91,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 dataGridView1.Columns.Clear();
                 agregarColumnas(null);
                 foreach (Alumno alu in alumnos)
-                    dataGridView1.Rows.Add(alu.nombre);
+                    dataGridView1.Rows.Add(alu.Nombre);
                 agregarColumnaOpciones();
                 dataGridView1.ReadOnly = false;
                 btnGuardar.Visible = true;
@@ -119,16 +118,16 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             {
                 dataGridView1.DataSource = null;
                 dataGridView1.Columns.Clear();
-                List<PaseDeListaAlumno> asistencias = control.obtenerAsistenciaAlumnosMateriaTable(this.grupo.codigo, materias.ElementAt(cmbMaterias.SelectedIndex).id, this.alumnos);
+                List<PaseDeListaAlumno> asistencias = control.ObtenerAsistenciaAlumnosMateriaTable(this.grupo.Codigo, materias.ElementAt(cmbMaterias.SelectedIndex).Id, this.alumnos);
                 if (asistencias != null)
                 {
-                    agregarColumnas(asistencias.First().asistencias);
+                    agregarColumnas(asistencias.First().Asistencias);
                     foreach (PaseDeListaAlumno p in asistencias)
                     {
                         List<string> valores = new List<string>();
-                        valores.Add(p.alumno);
-                        if(p.asistencias!=null)
-                        foreach (Asistencias asis in p.asistencias)
+                        valores.Add(p.Alumno);
+                        if(p.Asistencias!=null)
+                        foreach (Asistencias asis in p.Asistencias)
                         {
                             valores.Add(asis.Estado);
                         }
@@ -161,7 +160,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 foreach(Asistencias aux in lista)
                 {
                     DataGridViewTextBoxColumn columna = new DataGridViewTextBoxColumn();
-                    if (aux.isTarde)
+                    if (aux.IsTarde)
                     {
                         columna.DataPropertyName = "Columna-" + aux.Fecha.ToShortDateString() + " - TARDE";
                         columna.HeaderText = aux.Fecha.ToShortDateString() + " - TARDE";
@@ -199,21 +198,21 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 for (int i = 0; i < dataGridView1.RowCount; i++)
                 {
                     PaseDeListaAlumno pls = new PaseDeListaAlumno();
-                    pls.RFC = alumnos.ElementAt(i).rfc;
-                    pls.alumno = alumnos.ElementAt(i).nombre;
+                    pls.RFC = alumnos.ElementAt(i).Rfc;
+                    pls.Alumno = alumnos.ElementAt(i).Nombre;
                     Asistencias asis = new Asistencias();
                     asis.Estado = dataGridView1.Rows[i].Cells[1].FormattedValue.ToString();
                     asis.Fecha = dateTimePicker1.Value;
                     if (cmbSabado.Visible&& cmbSabado.SelectedItem.ToString()=="Tarde")
-                            asis.isTarde = true;
+                            asis.IsTarde = true;
                     else
-                        asis.isTarde = false;
+                        asis.IsTarde = false;
                     List<Asistencias> ls = new List<Asistencias>();
                     ls.Add(asis);
-                    pls.asistencias = ls;
+                    pls.Asistencias = ls;
                     aux.Add(pls);
                 }
-                if (control.registrarAsistencias(aux, empleados.ElementAt(cmbMaestros.SelectedIndex).Matricula, this.grupo.codigo, materias.ElementAt(cmbMaterias.SelectedIndex).id.ToString(), control.formatearFecha(dateTimePicker1.Value)))
+                if (control.RegistrarAsistencias(aux, empleados.ElementAt(cmbMaestros.SelectedIndex).Matricula, this.grupo.Codigo, materias.ElementAt(cmbMaterias.SelectedIndex).Id.ToString(), control.FormatearFecha(dateTimePicker1.Value)))
                 {
                     MessageBox.Show("Datos guardados exitosamente");
                     this.Close();
@@ -299,7 +298,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             MyPrintDocument.DefaultPageSettings.Margins = new Margins(40, 40, 40, 40);
             MyPrintDocument.DefaultPageSettings.Landscape = true;
 
-            MyDataGridViewPrinter = new DataGridViewPrinter(dataGridView1, MyPrintDocument, false, "Pase de lista" + lblNombreGrupo.Text + "\n Materia: " + materias.ElementAt(cmbMaterias.SelectedIndex).nombre + "\n \n Maestro:__________________________________________ \n\n", new Font("Tahoma", 14, FontStyle.Bold, GraphicsUnit.Point), Color.Black, "FOOTER GIGANTE PARA VER QUE PASA CUANDO QUIERO IMPRIMIR UN SUPPER FOOTER GIGANTESCO", new Font("Tahoma", 14, FontStyle.Bold, GraphicsUnit.Point), Color.Black, true);
+            MyDataGridViewPrinter = new DataGridViewPrinter(dataGridView1, MyPrintDocument, false, "Pase de lista" + lblNombreGrupo.Text + "\n Materia: " + materias.ElementAt(cmbMaterias.SelectedIndex).Nombre + "\n \n Maestro:__________________________________________ \n\n", new Font("Tahoma", 14, FontStyle.Bold, GraphicsUnit.Point), Color.Black, "FOOTER GIGANTE PARA VER QUE PASA CUANDO QUIERO IMPRIMIR UN SUPPER FOOTER GIGANTESCO", new Font("Tahoma", 14, FontStyle.Bold, GraphicsUnit.Point), Color.Black, true);
             return true;
         }
 

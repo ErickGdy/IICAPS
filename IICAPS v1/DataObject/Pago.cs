@@ -8,20 +8,20 @@ namespace IICAPS_v1.DataObject
 {
     public class Pago
     {
-        public int id { get; set; }
-        public int parent_id { get; set; }
-        public string emisor { get; set; }
-        public DateTime fechaPago { get; set; }
-        public double cantidad { get; set; }
-        public string concepto { get; set; }
-        public string area { get; set; }
-        public string observaciones { get; set; }
-        public string recibio { get; set; }
-        public string estado { get; set; }
+        public int Id { get; set; }
+        public int Parent_id { get; set; }
+        public string Emisor { get; set; }
+        public DateTime FechaPago { get; set; }
+        public double Cantidad { get; set; }
+        public string Concepto { get; set; }
+        public string Area { get; set; }
+        public string Observaciones { get; set; }
+        public string Recibio { get; set; }
+        public string Estado { get; set; }
 
-        public string formatoFolio()
+        public string Formato_folio()
         {
-            return id.ToString("0000000");
+            return Id.ToString("0000000");
         }
     }
 }

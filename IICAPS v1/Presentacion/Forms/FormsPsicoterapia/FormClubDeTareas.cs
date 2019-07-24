@@ -50,7 +50,7 @@ namespace IICAPS_v1.Presentacion
                 {
                     if (this.ClubDeTareas.ID != 0)
                     {
-                        if (control.actualizarClubDeTareas(this.ClubDeTareas))
+                        if (control.ActualizarClubDeTareas(this.ClubDeTareas))
                         {
                             MessageBox.Show("Datos actualizados exitosamente!");
                             Close();
@@ -61,7 +61,7 @@ namespace IICAPS_v1.Presentacion
                     }
                     else
                     {
-                        if (control.agregarClubDeTareas(this.ClubDeTareas))
+                        if (control.AgregarClubDeTareas(this.ClubDeTareas))
                         {
                             MessageBox.Show("Datos guardados exitosamente!");
                             Close();
@@ -100,7 +100,7 @@ namespace IICAPS_v1.Presentacion
             try
             {
                 List<Empleado> lista = new List<Empleado>();
-                lista = control.obtenerEmpleados();
+                lista = control.ObtenerEmpleados();
                 empleadosCount = lista.Count;
                 foreach (Empleado e in lista)
                 {
@@ -112,7 +112,7 @@ namespace IICAPS_v1.Presentacion
             try
             {
                 List<Psicoterapeuta> lista = new List<Psicoterapeuta>();
-                lista = control.obtenerPsicoterapeutas();
+                lista = control.ObtenerPsicoterapeutas();
                 foreach (Psicoterapeuta e in lista)
                 {
                     aux.Add("P: " + e.Nombre);

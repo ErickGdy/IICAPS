@@ -1,6 +1,5 @@
 ﻿using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
-using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,7 +25,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             control = ControlIicaps.getInstance();
             try
             {
-                actualizarTablaPagos(control.obtenerPagosAlumnosTable());
+                actualizarTablaPagos(control.ObtenerPagosAlumnosTable());
             }
             catch (Exception e)
             {
@@ -76,7 +75,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTablaPagos(control.obtenerPagosAlumnosTable(txtBuscarCredito.Text));
+            actualizarTablaPagos(control.ObtenerPagosAlumnosTable(txtBuscarCredito.Text));
         }
 
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -89,7 +88,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String id = dataGridViewPagos.CurrentRow.Cells[0].Value.ToString();
-                PagoAlumno pago = control.consultarPagoAlumno(Convert.ToInt32(id));
+                PagoAlumno pago = control.ConsultarPagoAlumno(Convert.ToInt32(id));
                 FormRegistrarPago fa = new FormRegistrarPago(pago, true);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -125,13 +124,13 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void button1_Click(object sender, EventArgs e)
         {
-            actualizarTablaPagos(control.obtenerPagosAlumnosTable(txtBuscarCredito.Text));
+            actualizarTablaPagos(control.ObtenerPagosAlumnosTable(txtBuscarCredito.Text));
         }
 
         private void imprimirReciboToolStripMenuItem_Click(object sender, EventArgs e)
         {
             String id = dataGridViewPagos.CurrentRow.Cells[0].Value.ToString();
-            pago = control.consultarPagoAlumno(Convert.ToInt32(id));
+            pago = control.ConsultarPagoAlumno(Convert.ToInt32(id));
             Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));
             t.Start();
         }
@@ -144,10 +143,10 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 DialogResult dialogresult = MessageBox.Show("¿Desea cancelar el pago?", "Cancelar Pago", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dialogresult == DialogResult.OK)
                 {
-                    if (control.cancelarPagoAlumno(id))
+                    if (control.CancelarPagoAlumno(id))
                     {
                         MessageBox.Show("Pago cancelado");
-                        actualizarTablaPagos(control.obtenerPagosAlumnosTable());
+                        actualizarTablaPagos(control.ObtenerPagosAlumnosTable());
                     }
                     else
                         MessageBox.Show("Error al cancelar el pago");

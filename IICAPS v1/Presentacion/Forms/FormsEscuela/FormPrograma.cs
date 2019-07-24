@@ -50,16 +50,16 @@ namespace IICAPS_v1.Presentacion
                 {
                     foreach (Materia m in programa.MapaCurricular)
                     {
-                        dataGridViewMaterias.Rows.Insert(dataGridViewMaterias.RowCount, m.id, m.nombre, m.semestre);
-                        ids.Add(m.id);
+                        dataGridViewMaterias.Rows.Insert(dataGridViewMaterias.RowCount, m.Id, m.Nombre, m.Semestre);
+                        ids.Add(m.Id);
                     }
                 }
                 try
                 {
-                    foreach (Materia mate in control.obtenerMaterias())
+                    foreach (Materia mate in control.ObtenerMaterias())
                     {
-                        if(!ids.Contains(mate.id))
-                            auxNombres.Add(mate.id + " - " + mate.nombre);
+                        if(!ids.Contains(mate.Id))
+                            auxNombres.Add(mate.Id + " - " + mate.Nombre);
                     }
                     cmbMaterias.Items.AddRange(auxNombres.ToArray());
                     cmbMaterias.SelectedIndex = 0;
@@ -75,9 +75,9 @@ namespace IICAPS_v1.Presentacion
             {
                 try
                 {
-                    foreach (Materia m in control.obtenerMaterias())
+                    foreach (Materia m in control.ObtenerMaterias())
                     {
-                        auxNombres.Add(m.id + " - " + m.nombre);
+                        auxNombres.Add(m.Id + " - " + m.Nombre);
                     }
                     cmbMaterias.Items.AddRange(auxNombres.ToArray());
                     cmbMaterias.SelectedIndex = 0;
@@ -126,14 +126,14 @@ namespace IICAPS_v1.Presentacion
                     {
                         DataGridViewCellCollection cells = dataGridViewMaterias.Rows[i].Cells;
                         Materia m = new Materia();                        
-                        aux.Add(control.consultarMateria(cells[0].Value.ToString()));
+                        aux.Add(control.ConsultarMateria(cells[0].Value.ToString()));
                     }
                     p.MapaCurricular = aux;
                     try
                     {
                         if (modificacion)
                         {
-                            if (control.actualizarPrograma(p))
+                            if (control.ActualizarPrograma(p))
                             {
                                 MessageBox.Show("Datos actualizados exitosamente!");
                                 Close();
@@ -144,7 +144,7 @@ namespace IICAPS_v1.Presentacion
                         }
                         else
                         {
-                            if (control.agregarPrograma(p))
+                            if (control.AgregarPrograma(p))
                             {
                                 MessageBox.Show("Datos guardados exitosamente!");
                                 Close();
@@ -195,9 +195,9 @@ namespace IICAPS_v1.Presentacion
             Materia materia = md.getMateria();
             if (materia != null)
             {
-                int n = control.obtenerUltimoIDMateria();
-                dataGridViewMaterias.Rows.Insert(dataGridViewMaterias.RowCount, n, materia.nombre, materia.semestre);
-                cmbMaterias.Items.Add(n + " - " + materia.nombre);
+                int n = control.ObtenerUltimoIDMateria();
+                dataGridViewMaterias.Rows.Insert(dataGridViewMaterias.RowCount, n, materia.Nombre, materia.Semestre);
+                cmbMaterias.Items.Add(n + " - " + materia.Nombre);
                 cmbMaterias.Refresh();
             }
         }
@@ -214,8 +214,8 @@ namespace IICAPS_v1.Presentacion
                     if (dataGridViewMaterias.Rows[row.Index].Cells[0].Value.ToString() == id)
                         return;
                 }
-                Materia m = control.consultarMateria(id);
-                dataGridViewMaterias.Rows.Insert(dataGridViewMaterias.RowCount, m.id, m.nombre, m.semestre);
+                Materia m = control.ConsultarMateria(id);
+                dataGridViewMaterias.Rows.Insert(dataGridViewMaterias.RowCount, m.Id, m.Nombre, m.Semestre);
                 cmbMaterias.Items.RemoveAt(cmbMaterias.SelectedIndex);
             }
             catch (Exception ex) {

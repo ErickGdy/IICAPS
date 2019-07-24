@@ -8,8 +8,8 @@ namespace IICAPS_v1.DataObject
 {
     public class Grupo
     {
-        public string codigo { get; set; }
-        public string generacion { get; set; }
-        public string programa { get; set; }
+        public string Codigo { get; set; }
+        public string Generacion { get; set; }
+        public string Programa { get; set; }
     }
 }

@@ -27,14 +27,14 @@ namespace IICAPS_v1.Presentacion
             lblFecha.Text = DateTime.Now.ToShortDateString();
             empleados = new List<string>();
             List<String> aux = new List<string>();
-            foreach (string c in control.obtenerConceptos("Pago",modulo))
+            foreach (string c in control.ObtenerConceptos("Pago",modulo))
             {
                 aux.Add(c);
             }
             cmbConcepto.Items.AddRange(aux.ToArray());
-            cmbConcepto.SelectedItem = pago.concepto;
+            cmbConcepto.SelectedItem = pago.Concepto;
             aux.Clear();
-            foreach (Empleado e in control.obtenerEmpleados())
+            foreach (Empleado e in control.ObtenerEmpleados())
             {
                 aux.Add(e.Nombre);
                 empleados.Add(e.Matricula);
@@ -43,12 +43,12 @@ namespace IICAPS_v1.Presentacion
             if (pago != null)
             {
                 this.pago = pago;
-                cmbRecibio.SelectedIndex = empleados.IndexOf(pago.recibio);
-                cmbConcepto.SelectedItem = pago.concepto;
-                txtCantidad.Value = Convert.ToDecimal(pago.cantidad);
-                txtObservaciones.Text = pago.observaciones;
-                txtEmisor.Text = pago.emisor;
-                lblFolio.Text = pago.formatoFolio();
+                cmbRecibio.SelectedIndex = empleados.IndexOf(pago.Recibio);
+                cmbConcepto.SelectedItem = pago.Concepto;
+                txtCantidad.Value = Convert.ToDecimal(pago.Cantidad);
+                txtObservaciones.Text = pago.Observaciones;
+                txtEmisor.Text = pago.Emisor;
+                lblFolio.Text = pago.Formato_folio();
                 lblFolio.Visible = true;
                 lblFolio1.Visible = true;
                 if (consultar)
@@ -70,14 +70,14 @@ namespace IICAPS_v1.Presentacion
             empleados = new List<string>();
             List<String> aux = new List<string>();
             pago = new Pago();
-            foreach (string c in control.obtenerConceptos("Pago", modulo))
+            foreach (string c in control.ObtenerConceptos("Pago", modulo))
             {
                 aux.Add(c);
             }
             cmbConcepto.Items.AddRange(aux.ToArray());
             cmbConcepto.SelectedItem = concepto;
             aux.Clear();
-            foreach (Empleado e in control.obtenerEmpleados())
+            foreach (Empleado e in control.ObtenerEmpleados())
             {
                 aux.Add(e.Nombre);
                 empleados.Add(e.Matricula);
@@ -98,13 +98,13 @@ namespace IICAPS_v1.Presentacion
                 if(consultar)
                     Dispose();
                 if (validarCampos()) {
-                    pago.cantidad = Convert.ToDouble(txtCantidad.Value);
-                    pago.concepto = cmbConcepto.SelectedItem.ToString();
-                    pago.observaciones = txtObservaciones.Text;
-                    pago.recibio = empleados.ElementAt(cmbRecibio.SelectedIndex);
-                    pago.fechaPago = DateTime.Now;
-                    pago.emisor = txtEmisor.Text;
-                    pago.id = control.obtenerUltimoIDPagos();
+                    pago.Cantidad = Convert.ToDouble(txtCantidad.Value);
+                    pago.Concepto = cmbConcepto.SelectedItem.ToString();
+                    pago.Observaciones = txtObservaciones.Text;
+                    pago.Recibio = empleados.ElementAt(cmbRecibio.SelectedIndex);
+                    pago.FechaPago = DateTime.Now;
+                    pago.Emisor = txtEmisor.Text;
+                    pago.Id = control.ObtenerUltimoIDPagos();
                     Close();
                 }else
                 {

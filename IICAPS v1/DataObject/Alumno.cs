@@ -8,24 +8,24 @@ namespace IICAPS_v1.DataObject
 {
     public class Alumno
     {
-        public string rfc { get; set; }
-        public string nombre { get; set; }
-        public string direccion { get; set; }
-        public string telefono1 { get; set; }
-        public string telefono2 { get; set; }
-        public string correo { get; set; }
-        public string facebook { get; set; }
-        public string curp { get; set; }
-        public string sexo { get; set; }
-        public string estadoCivil { get; set; }
-        public string escuelaProcedencia { get; set; }
-        public string carrera { get; set; }
-        public string programa { get; set; }
-        public string nivel { get; set; }
-        public DateTime fecha { get; set; }
-        public string estado { get; set; }
-        public string tipo { get; set; }
-        public string observaciones { get; set; }
-        public string matricula { get; set; }
+        public string Rfc { get; set; }
+        public string Nombre { get; set; }
+        public string Direccion { get; set; }
+        public string Telefono1 { get; set; }
+        public string Telefono2 { get; set; }
+        public string Correo { get; set; }
+        public string Facebook { get; set; }
+        public string Curp { get; set; }
+        public string Sexo { get; set; }
+        public string EstadoCivil { get; set; }
+        public string EscuelaProcedencia { get; set; }
+        public string Carrera { get; set; }
+        public string Programa { get; set; }
+        public string Nivel { get; set; }
+        public DateTime Fecha { get; set; }
+        public string Estado { get; set; }
+        public string Tipo { get; set; }
+        public string Observaciones { get; set; }
+        public string Matricula { get; set; }
     }
 }

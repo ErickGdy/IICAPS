@@ -1,6 +1,5 @@
 ﻿using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
-using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,7 +32,7 @@ namespace IICAPS_v1.Presentacion
                 printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
                 lblFecha.Text = DateTime.Now.ToShortDateString();
                 control = ControlIicaps.getInstance();
-                this.paciente = control.consultarPaciente(id_Paciente);
+                this.paciente = control.ConsultarPaciente(id_Paciente);
                 actualizarDatos();
                 actualizarTabla();
             }
@@ -44,28 +43,28 @@ namespace IICAPS_v1.Presentacion
         }
         public void actualizarDatos()
         {
-            txtnombre.Text = paciente.nombre;
-            txtApellidos.Text = paciente.apellidos;
-            txtTelefono.Text = paciente.telefono;
-            txtEscuelaEmpresa.Text = paciente.institucion;
-            txtFecha.Text = paciente.fechaNacimiento.ToShortDateString();
-            txtNombreTutor.Text = paciente.nombre_tutor;
-            txtTelefonoTutor.Text = paciente.telefono_tutor;
-            if (paciente.psicoterapeuta != null)
-                txtPsicoterapeuta.Text = control.consultarEmpleado(paciente.psicoterapeuta).Nombre;
-            if (paciente.datos_facturacion != null)
+            txtnombre.Text = paciente.Nombre;
+            txtApellidos.Text = paciente.Apellidos;
+            txtTelefono.Text = paciente.Telefono;
+            txtEscuelaEmpresa.Text = paciente.Institucion;
+            txtFecha.Text = paciente.FechaNacimiento.ToShortDateString();
+            txtNombreTutor.Text = paciente.Nombre_tutor;
+            txtTelefonoTutor.Text = paciente.Telefono_tutor;
+            if (paciente.Psicoterapeuta != null)
+                txtPsicoterapeuta.Text = control.ConsultarEmpleado(paciente.Psicoterapeuta).Nombre;
+            if (paciente.Datos_facturacion != null)
             {
-                txtFacturacionRFC.Text = paciente.datos_facturacion[0];
-                txtFacturacionNombre.Text = paciente.datos_facturacion[1];
-                txtFacturacionRazonSocial.Text = paciente.datos_facturacion[2];
-                txtFacturacionDireccion.Text = paciente.datos_facturacion[3];
+                txtFacturacionRFC.Text = paciente.Datos_facturacion[0];
+                txtFacturacionNombre.Text = paciente.Datos_facturacion[1];
+                txtFacturacionRazonSocial.Text = paciente.Datos_facturacion[2];
+                txtFacturacionDireccion.Text = paciente.Datos_facturacion[3];
             }
         }
         private void actualizarTabla()
         {
             try
             {
-                SqlDataAdapter data = control.obtenerSesionesPacienteTable(id_Paciente);
+                SqlDataAdapter data = control.ObtenerSesionesPacienteTable(id_Paciente);
                 DataTable dtDatos = new DataTable();
                 //Con la informacion del adaptador se llena el datatable
                 data.Fill(dtDatos);
@@ -145,7 +144,7 @@ namespace IICAPS_v1.Presentacion
             {
                 FormPaciente fp = new FormPaciente(paciente);
                 fp.ShowDialog();
-                this.paciente = control.consultarPaciente(id_Paciente);
+                this.paciente = control.ConsultarPaciente(id_Paciente);
                 actualizarDatos();
             }
             catch (Exception ex)
@@ -170,7 +169,7 @@ namespace IICAPS_v1.Presentacion
 
         private void agendarNuevaSesiónToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormSesiones fs = new FormSesiones(paciente.id.ToString(),null);
+            FormSesiones fs = new FormSesiones(paciente.Id.ToString(),null);
             fs.ShowDialog();
             actualizarTabla();
         }
@@ -183,7 +182,7 @@ namespace IICAPS_v1.Presentacion
                 DialogResult dialogresult = MessageBox.Show("¿Desea eliminar sesión?", "Eliminar sesión", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dialogresult == DialogResult.OK)
                 {
-                    if (control.cancelarSesion(id))
+                    if (control.CancelarSesion(id))
                     {
                         MessageBox.Show("Sesión cancelada");
                         actualizarTabla();
@@ -200,13 +199,13 @@ namespace IICAPS_v1.Presentacion
 
         private void evaluacionesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            EvaluacionesPaciente fev = new EvaluacionesPaciente(paciente.id.ToString());
+            EvaluacionesPaciente fev = new EvaluacionesPaciente(paciente.Id.ToString());
             fev.Show();
         }
 
         private void pagosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PagosPaciente pp = new PagosPaciente(paciente.id.ToString());
+            PagosPaciente pp = new PagosPaciente(paciente.Id.ToString());
             pp.Show();
         }
     }

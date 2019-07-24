@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 
 namespace IICAPS_v1.Presentacion.Mains.Escuela
@@ -26,7 +25,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             control = ControlIicaps.getInstance();
             try
             {
-                actualizarTabla(control.obtenerGruposTable());
+                actualizarTabla(control.ObtenerGruposTable());
             }
             catch (Exception e)
             {
@@ -70,14 +69,14 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         }
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTabla(control.obtenerGruposTable(txtBuscar.Text));
+            actualizarTabla(control.ObtenerGruposTable(txtBuscar.Text));
         }
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                Grupo grupo = control.consultarGrupo(id);
+                Grupo grupo = control.ConsultarGrupo(id);
                 //MessageBox.Show("Reporte referente al grupo "+ grupo.codigo);
                 DetalleGrupo fa = new DetalleGrupo(grupo);
                 fa.Show();
@@ -92,7 +91,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                Grupo grupo = control.consultarGrupo(id);
+                Grupo grupo = control.ConsultarGrupo(id);
                 FormGrupos fa = new FormGrupos(grupo);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -110,10 +109,10 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 DialogResult dialogresult = MessageBox.Show("¿Desea calcelar el grupo?", "Cancelar grupo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if(dialogresult == DialogResult.OK)
                 {
-                    if (control.desactivarGrupo(id))
+                    if (control.DesactivarGrupo(id))
                     {
                         MessageBox.Show("Grupo cancelado");
-                        actualizarTabla(control.obtenerGruposTable());
+                        actualizarTabla(control.ObtenerGruposTable());
                     }
                     else
                         MessageBox.Show("Error al cancelar grupo");
@@ -130,7 +129,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             txtBuscar.Text = "";
             try
             {
-                actualizarTabla(control.obtenerGruposTable());
+                actualizarTabla(control.ObtenerGruposTable());
             }
             catch (Exception ex)
             {
@@ -139,7 +138,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         }
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTabla(control.obtenerGruposTable(txtBuscar.Text));
+            actualizarTabla(control.ObtenerGruposTable(txtBuscar.Text));
         }
         private void Main_SizeChanged(object sender, EventArgs e)
         {
@@ -172,7 +171,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 {
                     try
                     {
-                        actualizarTabla(control.obtenerGruposTable(texto));
+                        actualizarTabla(control.ObtenerGruposTable(texto));
                     }
                     catch (Exception ex)
                     {
@@ -185,7 +184,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 limpiarBusqueda.Visible = false;
                 try
                 {
-                    actualizarTabla(control.obtenerGruposTable());
+                    actualizarTabla(control.ObtenerGruposTable());
                 }
                 catch (Exception ex)
                 {
@@ -200,7 +199,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                Grupo grupo = control.consultarGrupo(id);
+                Grupo grupo = control.ConsultarGrupo(id);
                 DetalleGrupoListas dtg = new DetalleGrupoListas(grupo);
                 dtg.Show();
             }
@@ -215,7 +214,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                Grupo grupo = control.consultarGrupo(id);
+                Grupo grupo = control.ConsultarGrupo(id);
                 DetalleGrupoCalificaciones dtg = new DetalleGrupoCalificaciones(grupo);
                 dtg.Show();
             }

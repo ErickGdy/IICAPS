@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 
 namespace IICAPS_v1.Presentacion.Mains.Escuela
@@ -26,7 +25,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             control = ControlIicaps.getInstance();
             try
             {
-                actualizarTabla(control.obtenerProgramaTable());
+                actualizarTabla(control.ObtenerProgramaTable());
             }
             catch (Exception e)
             {
@@ -72,7 +71,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTabla(control.obtenerProgramaTable(txtBuscar.Text));
+            actualizarTabla(control.ObtenerProgramaTable(txtBuscar.Text));
         }
 
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -80,8 +79,8 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                Programa programa = control.consultarPrograma(id);
-                programa.MapaCurricular = control.consultarMapaCurricularPrograma(programa.Codigo);
+                Programa programa = control.ConsultarPrograma(id);
+                programa.MapaCurricular = control.ConsultarMapaCurricularPrograma(programa.Codigo);
                 MessageBox.Show("Reporte referente al programa "+programa.Codigo);
                 //FormPrograma fa = new FormPrograma(programa);
                 //fa.FormClosed += new FormClosedEventHandler(form_Closed);
@@ -98,8 +97,8 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                Programa programa = control.consultarPrograma(id);
-                programa.MapaCurricular = control.consultarMapaCurricularPrograma(programa.Codigo);
+                Programa programa = control.ConsultarPrograma(id);
+                programa.MapaCurricular = control.ConsultarMapaCurricularPrograma(programa.Codigo);
                 FormPrograma fa = new FormPrograma(programa);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -118,10 +117,10 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 DialogResult dialogresult = MessageBox.Show("¿Desea calcelar el programa?", "Cancelar programa", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if(dialogresult == DialogResult.OK)
                 {
-                    if (control.desactivarPrograma(id))
+                    if (control.DesactivarPrograma(id))
                     {
                         MessageBox.Show("Programa cancelado");
-                        actualizarTabla(control.obtenerProgramaTable());
+                        actualizarTabla(control.ObtenerProgramaTable());
                     }
                     else
                         MessageBox.Show("Error al cancelar programa");
@@ -139,7 +138,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             txtBuscar.Text = "";
             try
             {
-                actualizarTabla(control.obtenerProgramaTable());
+                actualizarTabla(control.ObtenerProgramaTable());
             }
             catch (Exception ex)
             {
@@ -150,7 +149,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTabla(control.obtenerProgramaTable(txtBuscar.Text));
+            actualizarTabla(control.ObtenerProgramaTable(txtBuscar.Text));
         }
 
         private void Main_SizeChanged(object sender, EventArgs e)
@@ -185,7 +184,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 {
                     try
                     {
-                        actualizarTabla(control.obtenerProgramaTable(texto));
+                        actualizarTabla(control.ObtenerProgramaTable(texto));
                     }
                     catch (Exception ex)
                     {
@@ -198,7 +197,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 limpiarBusqueda.Visible = false;
                 try
                 {
-                    actualizarTabla(control.obtenerProgramaTable());
+                    actualizarTabla(control.ObtenerProgramaTable());
                 }
                 catch (Exception ex)
                 {

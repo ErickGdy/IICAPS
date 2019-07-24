@@ -25,12 +25,12 @@ namespace IICAPS_v1.Presentacion
             else
             {
                 this.taller = taller;
-                txtNombre.Text = taller.nombre;
-                txtFecha.Value = taller.fecha;
-                txtCostoClientes.Value = taller.costoClientes;
-                txtCostoPublico.Value = taller.costoPublico;
-                txtCapacidad.Value = taller.capacidad;
-                txtRequisitos.Text = taller.requisitos;
+                txtNombre.Text = taller.Nombre;
+                txtFecha.Value = taller.Fecha;
+                txtCostoClientes.Value = taller.CostoClientes;
+                txtCostoPublico.Value = taller.CostoPublico;
+                txtCapacidad.Value = taller.Capacidad;
+                txtRequisitos.Text = taller.Requisitos;
             }
 
         }
@@ -39,17 +39,17 @@ namespace IICAPS_v1.Presentacion
         {
             if (validarCampos())
             {
-                this.taller.nombre = txtNombre.Text;
-                this.taller.fecha = txtFecha.Value;
-                this.taller.costoClientes = txtCostoClientes.Value;
-                this.taller.costoPublico = txtCostoPublico.Value;
-                this.taller.capacidad = Convert.ToInt32(txtCapacidad.Value);
-                this.taller.requisitos = txtRequisitos.Text;
+                this.taller.Nombre = txtNombre.Text;
+                this.taller.Fecha = txtFecha.Value;
+                this.taller.CostoClientes = txtCostoClientes.Value;
+                this.taller.CostoPublico = txtCostoPublico.Value;
+                this.taller.Capacidad = Convert.ToInt32(txtCapacidad.Value);
+                this.taller.Requisitos = txtRequisitos.Text;
                 try
                 {
-                    if (this.taller.id != 0)
+                    if (this.taller.Id != 0)
                     {
-                        if (control.actualizarTaller(this.taller))
+                        if (control.ActualizarTaller(this.taller))
                         {
                             MessageBox.Show("Datos actualizados exitosamente!");
                             Close();
@@ -60,7 +60,7 @@ namespace IICAPS_v1.Presentacion
                     }
                     else
                     {
-                        if (control.agregarTaller(this.taller))
+                        if (control.AgregarTaller(this.taller))
                         {
                             MessageBox.Show("Datos guardados exitosamente!");
                             Close();

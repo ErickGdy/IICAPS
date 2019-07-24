@@ -9,7 +9,7 @@ namespace IICAPS_v1.DataObject
     class PaseDeListaAlumno
     {
         public string RFC { get; set; }
-        public string alumno { get; set; }
-        public List<Asistencias> asistencias { get; set; }
+        public string Alumno { get; set; }
+        public List<Asistencias> Asistencias { get; set; }
     }
 }

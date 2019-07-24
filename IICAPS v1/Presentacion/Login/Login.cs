@@ -22,7 +22,7 @@ namespace IICAPS.Presentacion
             control = ControlIicaps.getInstance();
             try
             {
-                string user = control.leerUserDoc();
+                string user = control.LeerUserDoc();
                 if (user != "")
                 {
                     txtUsuario.Text = user;
@@ -37,7 +37,7 @@ namespace IICAPS.Presentacion
             BringToFront();
         }
 
-        private void textBox1_Enter(object sender, EventArgs e)
+        private void TextBox1_Enter(object sender, EventArgs e)
         {
             if (txtUsuario.Text == "Usuario")
             {
@@ -45,7 +45,7 @@ namespace IICAPS.Presentacion
                 txtUsuario.ForeColor = Color.Black;
             }
         }
-        private void textBox1_Leave(object sender, EventArgs e)
+        private void TextBox1_Leave(object sender, EventArgs e)
         {
             if (txtUsuario.Text == "")
             {
@@ -53,7 +53,7 @@ namespace IICAPS.Presentacion
                 txtUsuario.ForeColor = Color.Gray;
             }
         }
-        private void textPass_Enter(object sender, EventArgs e)
+        private void TextPass_Enter(object sender, EventArgs e)
         {
             if (txtPass.Text == "Contraseña")
             {
@@ -62,7 +62,7 @@ namespace IICAPS.Presentacion
                 this.txtPass.PasswordChar = '*';
             }
         }
-        private void textPass_Leave(object sender, EventArgs e)
+        private void TextPass_Leave(object sender, EventArgs e)
         {
             if (txtPass.Text == "")
             {
@@ -72,21 +72,21 @@ namespace IICAPS.Presentacion
             }
         }
 
-        private void btnIniciarSesion_Click(object sender, EventArgs e)
+        private void BtnIniciarSesion_Click(object sender, EventArgs e)
         {
             if (txtUsuario.Text != "" && txtPass.Text != "")
             {
                 //Validaciones
                 try
                 {
-                    Usuario user = control.consultarUsuario(txtUsuario.Text);
+                    Usuario user = control.ConsultarUsuario(txtUsuario.Text);
                     if (user == null)
                         MessageBox.Show("Usuario invalido");
                     else
                         if (user.Contrasena != txtPass.Text)
                         MessageBox.Show("Contraseña incorrecta");
                     else
-                        abrirVentanaPrincipal(user);
+                        AbrirVentanaPrincipal(user);
                 }
                 catch (Exception ex)
                 {
@@ -103,14 +103,14 @@ namespace IICAPS.Presentacion
 
         }
 
-        private void olvidarPass_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void OlvidarPass_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             MessageBox.Show("Contacte a soporte tecnico para restablecer contraseña");
             //LoginOlvidarContrasena lc = new LoginOlvidarContrasena();
             //lc.Show();
         }
 
-        private void noSpaces_KeyPress(object sender, KeyPressEventArgs e)
+        private void NoSpaces_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (Char.IsSeparator(e.KeyChar))
             {
@@ -121,7 +121,7 @@ namespace IICAPS.Presentacion
                 e.Handled = false;
             }
         }
-        private void txtPass_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtPass_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (Char.IsSeparator(e.KeyChar))
             {
@@ -134,16 +134,16 @@ namespace IICAPS.Presentacion
 
             if (e.KeyChar == '\r')
             {
-                btnIniciarSesion_Click(null,null);
+                BtnIniciarSesion_Click(null,null);
             }
         }
 
-        private void abrirVentanaPrincipal(Usuario user)
+        private void AbrirVentanaPrincipal(Usuario user)
         {
             if (checkRecordar.Checked)
-                control.recordarUsuario(txtUsuario.Text);
+                control.RecordarUsuario(txtUsuario.Text);
             else
-                control.recordarUsuario(null);
+                control.RecordarUsuario(null);
 
             Principal p = new Principal(user);
             p.Show();

@@ -31,9 +31,9 @@ namespace IICAPS_v1.Presentacion
             control = ControlIicaps.getInstance();
             try
             {
-                cmbUbicacion.Items.AddRange(control.parametros_Generales.ubicaciones.ToArray());
+                cmbUbicacion.Items.AddRange(control.parametros_Generales.Ubicaciones.ToArray());
                 cmbUbicacion.SelectedIndex = 0;
-                reservaciones = control.obtenerReservaciones(DateTime.Now);
+                reservaciones = control.ObtenerReservaciones(DateTime.Now);
                 this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
                 if (agregar)
                 {
@@ -43,7 +43,7 @@ namespace IICAPS_v1.Presentacion
                 consultar = cons;
                 lblFecha.Text = DateTime.Now.ToShortDateString();
                 List<String> aux = new List<string>();
-                foreach (string c in control.obtenerConceptos("Reservacion", modulo))
+                foreach (string c in control.ObtenerConceptos("Reservacion", modulo))
                 {
                     aux.Add(c);
                 }
@@ -53,16 +53,16 @@ namespace IICAPS_v1.Presentacion
                 if (reservacion != null)
                 {
                     this.reservacion = reservacion;
-                    cmbReservante.SelectedIndex = empleados.IndexOf(reservacion.reservante);
-                    cmbConcepto.SelectedItem = reservacion.concepto;
-                    txtHoras.Value = Convert.ToDecimal(reservacion.duracion.Hours);
-                    txtMinutos.Value = Convert.ToDecimal(reservacion.duracion.Minutes);
-                    datePicker_Fecha.Text = reservacion.fecha.ToShortDateString();
-                    datePicker_Hora.Value = new DateTime(2000, 1, 1, reservacion.hora_Inicio.Hours, reservacion.hora_Inicio.Minutes, 00);
-                    txtObservaciones.Text = reservacion.observaciones;
-                    cmbUbicacion.SelectedItem = reservacion.ubicacion;
+                    cmbReservante.SelectedIndex = empleados.IndexOf(reservacion.Reservante);
+                    cmbConcepto.SelectedItem = reservacion.Concepto;
+                    txtHoras.Value = Convert.ToDecimal(reservacion.Duracion.Hours);
+                    txtMinutos.Value = Convert.ToDecimal(reservacion.Duracion.Minutes);
+                    datePicker_Fecha.Text = reservacion.Fecha.ToShortDateString();
+                    datePicker_Hora.Value = new DateTime(2000, 1, 1, reservacion.Hora_Inicio.Hours, reservacion.Hora_Inicio.Minutes, 00);
+                    txtObservaciones.Text = reservacion.Observaciones;
+                    cmbUbicacion.SelectedItem = reservacion.Ubicacion;
                     btnDisponible.Visible = true;
-                    lblCodigo_Reservacion.Text = reservacion.formatoFolio();
+                    lblCodigo_Reservacion.Text = reservacion.Formato_folio();
                     lblCodigo_Reservacion.Visible = true;
                     lblReservacionT.Visible = true;
                     if (consultar)
@@ -82,7 +82,7 @@ namespace IICAPS_v1.Presentacion
                 else
                 {
                     datePicker_Fecha.MinDate = DateTime.Now;
-                    lblCodigo_Reservacion.Text = control.obtenerUltimoIDReservaciones().ToString("00000000");
+                    lblCodigo_Reservacion.Text = control.ObtenerUltimoIDReservaciones().ToString("00000000");
                     this.reservacion = new Reservacion();
                     if (concepto != null && concepto != "")
                     {
@@ -104,23 +104,23 @@ namespace IICAPS_v1.Presentacion
                 control = ControlIicaps.getInstance();
                 lblFecha.Text = DateTime.Now.ToShortDateString();
                 List<String> aux = new List<string>();
-                foreach (string c in control.obtenerConceptos("Reservacion", modulo))
+                foreach (string c in control.ObtenerConceptos("Reservacion", modulo))
                 {
                     aux.Add(c);
                 }
                 cmbConcepto.Items.AddRange(aux.ToArray());
                 cmbConcepto.Items.Add("Otro");
-                cmbUbicacion.Items.AddRange(control.parametros_Generales.ubicaciones.ToArray());
+                cmbUbicacion.Items.AddRange(control.parametros_Generales.Ubicaciones.ToArray());
                 Llenar_ComboBox_Personal();
                 //Validar datos y setearlos a los campos de texto
                 if (fecha != null)
                 {
                     fecha=new DateTime(fecha.Year, fecha.Month, fecha.Day, 23, 59, 59);
-                    reservaciones = control.obtenerReservaciones(fecha);
+                    reservaciones = control.ObtenerReservaciones(fecha);
                     datePicker_Fecha.Value = fecha;
                 }
                 else
-                    reservaciones = control.obtenerReservaciones(DateTime.Now);
+                    reservaciones = control.ObtenerReservaciones(DateTime.Now);
                 if (hora != null)
                     datePicker_Hora.Value = new DateTime(2000, 1, 1, hora.Hours, hora.Minutes, 00);
                 if (ubicacion != null)
@@ -129,16 +129,16 @@ namespace IICAPS_v1.Presentacion
                 if (reservacion != null)
                 {
                     this.reservacion = reservacion;
-                    cmbReservante.SelectedIndex = empleados.IndexOf(reservacion.reservante);
-                    cmbConcepto.SelectedItem = reservacion.concepto;
-                    txtHoras.Value = Convert.ToDecimal(reservacion.duracion.Hours);
-                    txtMinutos.Value = Convert.ToDecimal(reservacion.duracion.Minutes);
-                    datePicker_Fecha.Text = reservacion.fecha.ToShortDateString();
-                    datePicker_Hora.Value = new DateTime(2000, 1, 1, reservacion.hora_Inicio.Hours, reservacion.hora_Inicio.Minutes, 00);
-                    txtObservaciones.Text = reservacion.observaciones;
-                    cmbUbicacion.SelectedItem = reservacion.ubicacion;
+                    cmbReservante.SelectedIndex = empleados.IndexOf(reservacion.Reservante);
+                    cmbConcepto.SelectedItem = reservacion.Concepto;
+                    txtHoras.Value = Convert.ToDecimal(reservacion.Duracion.Hours);
+                    txtMinutos.Value = Convert.ToDecimal(reservacion.Duracion.Minutes);
+                    datePicker_Fecha.Text = reservacion.Fecha.ToShortDateString();
+                    datePicker_Hora.Value = new DateTime(2000, 1, 1, reservacion.Hora_Inicio.Hours, reservacion.Hora_Inicio.Minutes, 00);
+                    txtObservaciones.Text = reservacion.Observaciones;
+                    cmbUbicacion.SelectedItem = reservacion.Ubicacion;
                     btnDisponible.Visible = true;
-                    lblCodigo_Reservacion.Text = reservacion.formatoFolio();
+                    lblCodigo_Reservacion.Text = reservacion.Formato_folio();
                     lblCodigo_Reservacion.Visible = true;
                     lblReservacionT.Visible = true;
                     if (consultar)
@@ -159,7 +159,7 @@ namespace IICAPS_v1.Presentacion
                 else
                 {
                     datePicker_Fecha.MinDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 00, 00, 00);
-                    lblCodigo_Reservacion.Text = control.obtenerUltimoIDReservaciones().ToString("00000000");
+                    lblCodigo_Reservacion.Text = control.ObtenerUltimoIDReservaciones().ToString("00000000");
                     this.reservacion = new Reservacion();
                 }
                 if (concepto != null && concepto != "")
@@ -182,15 +182,15 @@ namespace IICAPS_v1.Presentacion
                 if(consultar)
                     Dispose();
                 if (validarCampos()) {
-                    reservacion.duracion = new TimeSpan(Convert.ToInt32(txtHoras.Value), Convert.ToInt32(txtMinutos.Value), 00);
-                    reservacion.hora_Inicio = new TimeSpan(Convert.ToInt32(datePicker_Hora.Value.Hour), Convert.ToInt32(datePicker_Hora.Value.Minute), 00);
-                    reservacion.hora_Fin = reservacion.hora_Inicio.Add(reservacion.duracion);
-                    reservacion.fecha = datePicker_Fecha.Value;
-                    reservacion.concepto = cmbConcepto.SelectedItem.ToString();
-                    reservacion.ubicacion = cmbUbicacion.SelectedItem.ToString();
-                    reservacion.observaciones = txtObservaciones.Text;
-                    reservacion.reservante = empleados.ElementAt(cmbReservante.SelectedIndex);
-                    reservacion.codigo_Reservacion = lblCodigo_Reservacion.Text;
+                    reservacion.Duracion = new TimeSpan(Convert.ToInt32(txtHoras.Value), Convert.ToInt32(txtMinutos.Value), 00);
+                    reservacion.Hora_Inicio = new TimeSpan(Convert.ToInt32(datePicker_Hora.Value.Hour), Convert.ToInt32(datePicker_Hora.Value.Minute), 00);
+                    reservacion.Hora_Fin = reservacion.Hora_Inicio.Add(reservacion.Duracion);
+                    reservacion.Fecha = datePicker_Fecha.Value;
+                    reservacion.Concepto = cmbConcepto.SelectedItem.ToString();
+                    reservacion.Ubicacion = cmbUbicacion.SelectedItem.ToString();
+                    reservacion.Observaciones = txtObservaciones.Text;
+                    reservacion.Reservante = empleados.ElementAt(cmbReservante.SelectedIndex);
+                    reservacion.Codigo_Reservacion = lblCodigo_Reservacion.Text;
                     Close();
                 }else
                 {
@@ -210,19 +210,19 @@ namespace IICAPS_v1.Presentacion
                     Dispose();
                 if (validarCampos())
                 {
-                    reservacion.duracion = new TimeSpan(Convert.ToInt32(txtHoras.Value), Convert.ToInt32(txtMinutos.Value), 00);
-                    reservacion.hora_Inicio = new TimeSpan(Convert.ToInt32(datePicker_Hora.Value.Hour), Convert.ToInt32(datePicker_Hora.Value.Minute), 00);
-                    reservacion.hora_Fin = reservacion.hora_Inicio.Add(reservacion.duracion);
-                    reservacion.fecha = datePicker_Fecha.Value;
-                    reservacion.concepto = cmbConcepto.SelectedItem.ToString();
-                    reservacion.ubicacion = cmbUbicacion.SelectedItem.ToString();
-                    reservacion.observaciones = txtObservaciones.Text;
-                    reservacion.reservante = empleados.ElementAt(cmbReservante.SelectedIndex);
-                    reservacion.id_parent = "0";
-                    reservacion.codigo_Reservacion = lblCodigo_Reservacion.Text;
-                    if (reservacion.id == 0)
+                    reservacion.Duracion = new TimeSpan(Convert.ToInt32(txtHoras.Value), Convert.ToInt32(txtMinutos.Value), 00);
+                    reservacion.Hora_Inicio = new TimeSpan(Convert.ToInt32(datePicker_Hora.Value.Hour), Convert.ToInt32(datePicker_Hora.Value.Minute), 00);
+                    reservacion.Hora_Fin = reservacion.Hora_Inicio.Add(reservacion.Duracion);
+                    reservacion.Fecha = datePicker_Fecha.Value;
+                    reservacion.Concepto = cmbConcepto.SelectedItem.ToString();
+                    reservacion.Ubicacion = cmbUbicacion.SelectedItem.ToString();
+                    reservacion.Observaciones = txtObservaciones.Text;
+                    reservacion.Reservante = empleados.ElementAt(cmbReservante.SelectedIndex);
+                    reservacion.Id_parent = "0";
+                    reservacion.Codigo_Reservacion = lblCodigo_Reservacion.Text;
+                    if (reservacion.Id == 0)
                     {
-                        if (control.agregarReservacion(reservacion))
+                        if (control.AgregarReservacion(reservacion))
                         {
                             MessageBox.Show("Reservación registrada exitosamente");
                             Close();
@@ -233,7 +233,7 @@ namespace IICAPS_v1.Presentacion
                     }
                     else
                     {
-                        if (control.actualizarReservacion(reservacion))
+                        if (control.ActualizarReservacion(reservacion))
                         {
                             MessageBox.Show("Reservación actualizada exitosamente");
                             Close();
@@ -320,18 +320,18 @@ namespace IICAPS_v1.Presentacion
                 if (reservaciones != null)
                     foreach (Reservacion aux in reservaciones)
                     {
-                        if (aux.ubicacion == cmbUbicacion.SelectedItem.ToString())
+                        if (aux.Ubicacion == cmbUbicacion.SelectedItem.ToString())
                         {
-                            hora_Inicio.CompareTo(aux.hora_Inicio);//>= 0
-                            hora_Inicio.CompareTo(aux.hora_Fin);//<0
-                            hora_Fin.CompareTo(aux.hora_Inicio);//>0
-                            hora_Fin.CompareTo(aux.hora_Fin);//<= 0
-                            if ((hora_Inicio.CompareTo(aux.hora_Inicio) >= 0 && hora_Inicio.CompareTo(aux.hora_Fin) < 0) || (hora_Fin.CompareTo(aux.hora_Inicio) > 0 && hora_Fin.CompareTo(aux.hora_Fin) <= 0))
+                            hora_Inicio.CompareTo(aux.Hora_Inicio);//>= 0
+                            hora_Inicio.CompareTo(aux.Hora_Fin);//<0
+                            hora_Fin.CompareTo(aux.Hora_Inicio);//>0
+                            hora_Fin.CompareTo(aux.Hora_Fin);//<= 0
+                            if ((hora_Inicio.CompareTo(aux.Hora_Inicio) >= 0 && hora_Inicio.CompareTo(aux.Hora_Fin) < 0) || (hora_Fin.CompareTo(aux.Hora_Inicio) > 0 && hora_Fin.CompareTo(aux.Hora_Fin) <= 0))
                             {
                                 btnDisponible.Visible = false;
                                 return false;
                             }
-                            if ((aux.hora_Inicio.CompareTo(hora_Inicio) >= 0 && aux.hora_Inicio.CompareTo(hora_Fin) < 0) || (aux.hora_Fin.CompareTo(hora_Inicio) > 0 && aux.hora_Fin.CompareTo(hora_Fin) <= 0))
+                            if ((aux.Hora_Inicio.CompareTo(hora_Inicio) >= 0 && aux.Hora_Inicio.CompareTo(hora_Fin) < 0) || (aux.Hora_Fin.CompareTo(hora_Inicio) > 0 && aux.Hora_Fin.CompareTo(hora_Fin) <= 0))
                             {
                                 btnDisponible.Visible = false;
                                 return false;
@@ -360,7 +360,7 @@ namespace IICAPS_v1.Presentacion
         {
             try
             {
-                reservaciones = control.obtenerReservaciones(datePicker_Fecha.Value);
+                reservaciones = control.ObtenerReservaciones(datePicker_Fecha.Value);
                 if (validarDisponibilidad())
                     btnAceptar.Enabled = true;
                 else
@@ -383,7 +383,7 @@ namespace IICAPS_v1.Presentacion
             try
             {
                 List<Empleado> lista = new List<Empleado>();
-                lista = control.obtenerEmpleados();
+                lista = control.ObtenerEmpleados();
                 empleadosCount = lista.Count;
                 foreach (Empleado e in lista)
                 {
@@ -395,7 +395,7 @@ namespace IICAPS_v1.Presentacion
             try
             {
                 List<Psicoterapeuta> lista = new List<Psicoterapeuta>();
-                lista = control.obtenerPsicoterapeutas();
+                lista = control.ObtenerPsicoterapeutas();
                 foreach (Psicoterapeuta e in lista)
                 {
                     aux.Add("P: "+e.Nombre);

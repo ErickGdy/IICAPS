@@ -10,6 +10,6 @@ namespace IICAPS_v1.DataObject
     {
         public string Estado { get; set; }
         public DateTime Fecha { get; set; }
-        public bool isTarde { get; set; }
+        public bool IsTarde { get; set; }
     }
 }

@@ -8,12 +8,12 @@ namespace IICAPS_v1.DataObject
 {
     public class Materia
     {
-        public int id { get; set; }
-        public string nombre { get; set; }
-        public string duracion { get; set; }
-        public string semestre { get; set; }
-        public decimal costo { get; set; }
-        public string programa { get; set; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string Duracion { get; set; }
+        public string Semestre { get; set; }
+        public decimal Costo { get; set; }
+        public string Programa { get; set; }
 
     }
 }

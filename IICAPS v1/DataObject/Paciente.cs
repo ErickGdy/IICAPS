@@ -8,24 +8,24 @@ namespace IICAPS_v1.DataObject
 {
     public class Paciente
     {
-        public int id { get; set; }
-        public string nombre { get; set; }
-        public string apellidos { get; set; }
-        public string institucion { get; set; }
-        public DateTime fechaNacimiento { get; set; }
-        public string telefono { get; set; }
-        public decimal costoEspecial { get; set; }
-        public string nombre_tutor { get; set; }
-        public string telefono_tutor { get; set; }
-        public string estado { get; set; }
-        public string[] datos_facturacion { get; set; }
-        public string psicoterapeuta { get; set; }
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public string Apellidos { get; set; }
+        public string Institucion { get; set; }
+        public DateTime FechaNacimiento { get; set; }
+        public string Telefono { get; set; }
+        public decimal CostoEspecial { get; set; }
+        public string Nombre_tutor { get; set; }
+        public string Telefono_tutor { get; set; }
+        public string Estado { get; set; }
+        public string[] Datos_facturacion { get; set; }
+        public string Psicoterapeuta { get; set; }
 
         public string NombreCompleto()
         {
             try
             {
-                return this.nombre + " " + apellidos;
+                return this.Nombre + " " + Apellidos;
             }
             catch (Exception ex)
             {

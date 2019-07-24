@@ -8,17 +8,17 @@ namespace IICAPS_v1.DataObject
 {
     public class Sesion
     {
-        public int id { get; set; }
-        public Reservacion reservacion { get; set; }
-        public string psicoterapeuta { get; set; }
-        public int paciente { get; set; }
+        public int Id { get; set; }
+        public Reservacion Reservacion { get; set; }
+        public string Psicoterapeuta { get; set; }
+        public int Paciente { get; set; }
         public decimal Costo { get; set; }
         public decimal Pago { get; set; }
         public decimal Pendiente { get; set; }
-        public DateTime fecha { get; set; }
-        public TimeSpan hora { get; set; }
-        public string tipo { get; set; }
-        public string observaciones { get; set; }
-        public string estado { get; set; }
+        public DateTime Fecha { get; set; }
+        public TimeSpan Hora { get; set; }
+        public string Tipo { get; set; }
+        public string Observaciones { get; set; }
+        public string Estado { get; set; }
     }
 }

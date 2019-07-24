@@ -24,7 +24,7 @@ namespace IICAPS_v1.Presentacion
             List<String> auxNombres = new List<string>();
             List<String> auxId = new List<string>();
             this.grupo = new Grupo();
-            foreach (Programa p in control.obtenerProgramas())
+            foreach (Programa p in control.ObtenerProgramas())
             {
                 auxNombres.Add(p.Nombre);
                 auxId.Add(p.Codigo.ToString());
@@ -36,12 +36,12 @@ namespace IICAPS_v1.Presentacion
             {
                 this.grupo = grupo;
                 modificacion = true;
-                txtGeneracion.Text = grupo.generacion;
-                txtCodigo.Text = grupo.codigo;
+                txtGeneracion.Text = grupo.Generacion;
+                txtCodigo.Text = grupo.Codigo;
                 //txtCodigo.ReadOnly = true;
-                if (grupo.programa != null)
+                if (grupo.Programa != null)
                 {
-                    cmbIDProgramas.SelectedItem = grupo.programa;
+                    cmbIDProgramas.SelectedItem = grupo.Programa;
                     cmbProgramas.SelectedIndex = cmbIDProgramas.SelectedIndex;
                 }
             }
@@ -52,14 +52,14 @@ namespace IICAPS_v1.Presentacion
             if (validarCampos())
             {
                 cmbIDProgramas.SelectedIndex = cmbProgramas.SelectedIndex;
-                this.grupo.generacion = txtGeneracion.Text;
-                this.grupo.codigo = txtCodigo.Text;
-                this.grupo.programa = cmbIDProgramas.SelectedItem.ToString();
+                this.grupo.Generacion = txtGeneracion.Text;
+                this.grupo.Codigo = txtCodigo.Text;
+                this.grupo.Programa = cmbIDProgramas.SelectedItem.ToString();
                 try
                 {
                     if (modificacion)
                     {
-                        if (control.actualizarGrupo(this.grupo))
+                        if (control.ActualizarGrupo(this.grupo))
                         {
                             MessageBox.Show("Datos actualizados exitosamente!");
                             Close();
@@ -70,7 +70,7 @@ namespace IICAPS_v1.Presentacion
                     }
                     else
                     {
-                        if (control.agregarGrupo(this.grupo))
+                        if (control.AgregarGrupo(this.grupo))
                         {
                             MessageBox.Show("Datos guardados exitosamente!");
                             Close();

@@ -59,7 +59,7 @@ namespace IICAPS_v1.Control
             parra1.Range.set_Style(ref styleHeading1);
             parra1.Range.Font.Bold = 1;
             parra1.Range.Font.Color = WdColor.wdColorDarkGreen;
-            parra1.Range.Text = Environment.NewLine + Environment.NewLine  +"Recibo de documentos para: " + control.obtenerNombrePrograma(control.obtenerProgramaAlumno(doc.alumno));
+            parra1.Range.Text = Environment.NewLine + Environment.NewLine  +"Recibo de documentos para: " + control.ObtenerNombrePrograma(control.ObtenerProgramaAlumno(doc.Alumno));
             parra1.Range.InsertParagraphAfter();
             //Parrafos restantes del documento
             Paragraph parra2 = documento.Content.Paragraphs.Add(ref missing);
@@ -68,72 +68,72 @@ namespace IICAPS_v1.Control
             parra2.Range.Font.Bold = 1;
             parra2.Range.Font.Color = WdColor.wdColorDarkRed;
             //parra1.Range.Text = "Recibo de documentos para: " + control.obtenerProgramaAlumno(doc.alumno);
-            parra2.Range.Text = "Se han recibido los siguientes documentos del alumno: " + control.obtenerNombreAlumno(doc.alumno) + Environment.NewLine;
+            parra2.Range.Text = "Se han recibido los siguientes documentos del alumno: " + control.ObtenerNombreAlumno(doc.Alumno) + Environment.NewLine;
             //Damos formato a los parrafos siguientes dentro de los if
             object style2 = "Normal";
-            if (doc.actaNacimientoCop)
+            if (doc.ActaNacimientoCop)
             {
                 Paragraph parra3 = documento.Content.Paragraphs.Add(ref missing);
                 parra3.Range.set_Style(ref style2);
                 parra3.Range.Font.Size = 12;
                 parra3.Range.Text = "Copia del acta de Nacimiento - Recibido" + Environment.NewLine;
             }
-            if (doc.actaNacimientoOrg)
+            if (doc.ActaNacimientoOrg)
             {
                 Paragraph parra4 = documento.Content.Paragraphs.Add(ref missing);
                 parra4.Range.set_Style(ref style2);
                 parra4.Range.Font.Size = 12;
                 parra4.Range.Text = "Acta de Nacimiento - Recibido" + Environment.NewLine;
             }
-            if (doc.tituloCedulaOrg)
+            if (doc.TituloCedulaOrg)
             {
                 Paragraph parra5 = documento.Content.Paragraphs.Add(ref missing);
                 parra5.Range.set_Style(ref style2);
                 parra5.Range.Font.Size = 12;
                 parra5.Range.Text = "Título Licenciatura y Cedula Profesional - Recibido" + Environment.NewLine;
             }
-            if (doc.tituloLicCop)
+            if (doc.TituloLicCop)
             {
                 Paragraph parra6 = documento.Content.Paragraphs.Add(ref missing);
                 parra6.Range.set_Style(ref style2);
                 parra6.Range.Font.Size = 12;
                 parra6.Range.Text = "Copia del Título de Licenciatura - Recibido" + Environment.NewLine;
             }
-            if (doc.cedProfCop)
+            if (doc.CedProfCop)
             {
                 Paragraph parra7 = documento.Content.Paragraphs.Add(ref missing);
                 parra7.Range.set_Style(ref style2);
                 parra7.Range.Font.Size = 12;
                 parra7.Range.Text = "Copia de la Cedula Profesional - Recibido" + Environment.NewLine;
             }
-            if (doc.solicitudOpcTitulacion)
+            if (doc.SolicitudOpcTitulacion)
             {
                 Paragraph parra8 = documento.Content.Paragraphs.Add(ref missing);
                 parra8.Range.set_Style(ref style2);
                 parra8.Range.Font.Size = 12;
                 parra8.Range.Text = "Solicitud como opción de titulación - Recibido" + Environment.NewLine;
             }
-            if (doc.certificadoLicCop)
+            if (doc.CertificadoLicCop)
             {
                 Paragraph parra9 = documento.Content.Paragraphs.Add(ref missing);
                 parra9.Range.set_Style(ref style2);
                 parra9.Range.Text = "Copia del Certificado de Licenciatura - Recibido" + Environment.NewLine;
             }
-            if (doc.constanciaLibSSOrg)
+            if (doc.ConstanciaLibSSOrg)
             {
                 Paragraph parra10 = documento.Content.Paragraphs.Add(ref missing);
                 parra10.Range.set_Style(ref style2);
                 parra10.Range.Font.Size = 12;
                 parra10.Range.Text = "Constancia de Liberación del Servicio Social - Recibido" + Environment.NewLine;
             }
-            if (doc.curp)
+            if (doc.Curp)
             {
                 Paragraph parra11 = documento.Content.Paragraphs.Add(ref missing);
                 parra11.Range.set_Style(ref style2);
                 parra11.Range.Font.Size = 12;
                 parra11.Range.Text = "CURP - Recibido" + Environment.NewLine;
             }
-            if (doc.fotografias)
+            if (doc.Fotografias)
             {
                 Paragraph parra12 = documento.Content.Paragraphs.Add(ref missing);
                 parra12.Range.set_Style(ref style2);
@@ -143,12 +143,12 @@ namespace IICAPS_v1.Control
             Paragraph parra13 = documento.Content.Paragraphs.Add(ref missing);
             parra13.Range.set_Style(ref style2);
             parra13.Range.Font.Size = 12;
-            parra13.Range.Text= Environment.NewLine + "Recibió: " + control.obtenerNombreEmpleado(doc.recibioEmpleado) + Environment.NewLine + "Firma: __________________________________";
+            parra13.Range.Text= Environment.NewLine + "Recibió: " + control.ObtenerNombreEmpleado(doc.RecibioEmpleado) + Environment.NewLine + "Firma: __________________________________";
             //Hacemos visible el documento
             word.Visible = true;
             //Guardamos el documento
             string path = Directory.GetCurrentDirectory() + @"\Documentos";
-            object filename = Directory.GetCurrentDirectory() + @"\Documentos\ReciboDocumentos" + doc.alumno;
+            object filename = Directory.GetCurrentDirectory() + @"\Documentos\ReciboDocumentos" + doc.Alumno;
             // comprobar si el fichero ya existe
             if (!Directory.Exists(path))
             {
@@ -201,7 +201,7 @@ namespace IICAPS_v1.Control
             object styleHeading1 = "Título 1";
             parra1.Range.set_Style(ref styleHeading1);
             parra1.Range.Font.Color = WdColor.wdColorDarkGreen;
-            parra1.Range.Text = Environment.NewLine + Environment.NewLine  +"Se recibió el pago de: " + control.obtenerNombreAlumno(pago.alumnoID);
+            parra1.Range.Text = Environment.NewLine + Environment.NewLine  +"Se recibió el pago de: " + control.ObtenerNombreAlumno(pago.AlumnoID);
             parra1.Range.InsertParagraphAfter();
             //Parrafos restantes del documento
             documento.Content.SetRange(0, 0);
@@ -210,16 +210,16 @@ namespace IICAPS_v1.Control
             parra2.Range.set_Style(ref style1);
             parra2.Range.Font.Size = 12;
             //parra1.Range.Text = "Recibo de documentos para: " + control.obtenerProgramaAlumno(doc.alumno);
-            parra2.Range.Text = "La cantidad de: $" + pago.cantidad + Environment.NewLine + 
-                "Por concepto de: " +pago.concepto + Environment.NewLine + 
-                "Fecha: "+pago.fechaPago+ Environment.NewLine + Environment.NewLine + 
-                "Recibió: "+ control.obtenerNombreEmpleado(pago.recibio) + Environment.NewLine + "Firma: ___________________________________________";
+            parra2.Range.Text = "La cantidad de: $" + pago.Cantidad + Environment.NewLine + 
+                "Por concepto de: " +pago.Concepto + Environment.NewLine + 
+                "Fecha: "+pago.FechaPago+ Environment.NewLine + Environment.NewLine + 
+                "Recibió: "+ control.ObtenerNombreEmpleado(pago.Recibio) + Environment.NewLine + "Firma: ___________________________________________";
             parra2.Range.InsertParagraphAfter();
             //Hacemos visible el documento
             word.Visible = true;
             //Guardamos el documento
             string path = Directory.GetCurrentDirectory() + @"\PagosAlumnos";
-            object filename = Directory.GetCurrentDirectory() + @"\PagosAlumnos\ReciboDePago" + pago.alumnoID;
+            object filename = Directory.GetCurrentDirectory() + @"\PagosAlumnos\ReciboDePago" + pago.AlumnoID;
             // comprobar si el fichero ya existe
             if (!Directory.Exists(path))
             {
@@ -289,15 +289,15 @@ namespace IICAPS_v1.Control
             parra3.Range.set_Style(ref style1);
             parra3.Range.Font.Size = 12;
             parra3.Alignment = WdParagraphAlignment.wdAlignParagraphJustify;
-            parra3.Range.Text = "Por medio de la presente autorizo la solicitud de crédito educativo a él(la) alumno(a) "+control.obtenerNombreAlumno(credito.alumno)+
-                ", inscrita actualmente en el programa "+control.obtenerNombrePrograma(control.obtenerProgramaAlumno(credito.alumno))+".";
+            parra3.Range.Text = "Por medio de la presente autorizo la solicitud de crédito educativo a él(la) alumno(a) "+control.ObtenerNombreAlumno(credito.Alumno)+
+                ", inscrita actualmente en el programa "+control.ObtenerNombrePrograma(control.ObtenerProgramaAlumno(credito.Alumno))+".";
             parra3.Range.InsertParagraphAfter();
             Paragraph parra4 = documento.Content.Paragraphs.Add(ref missing);
             parra4.Range.set_Style(ref style1);
             parra4.Range.Font.Size = 12;
             parra4.Alignment = WdParagraphAlignment.wdAlignParagraphJustify;
-            parra4.Range.Text = "Dicho crédito consistirá en pagar una colegiatura de $" + credito.cantidadMensualidad +
-                " ($" + credito.cantidadAbonoMensual + " colegiatura + $" + credito.cantidadAbonoCredito + " costo del crédito) durante "+credito.cantidadMeses+" meses.";
+            parra4.Range.Text = "Dicho crédito consistirá en pagar una colegiatura de $" + credito.CantidadMensualidad +
+                " ($" + credito.CantidadAbonoMensual + " colegiatura + $" + credito.CantidadAbonoCredito + " costo del crédito) durante "+credito.CantidadMeses+" meses.";
             parra4.Range.InsertParagraphAfter();
             Paragraph parra5 = documento.Content.Paragraphs.Add(ref missing);
             parra5.Range.set_Style(ref style1);
@@ -344,14 +344,14 @@ namespace IICAPS_v1.Control
             parra6.Range.Font.Size = 12;
             parra6.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
             parra6.Range.Text = "______________________________           ______________________________" + Environment.NewLine +
-                ""+control.parametros_Generales.Director+"           " + control.obtenerNombreAlumno(credito.alumno) + Environment.NewLine +
+                ""+control.parametros_Generales.Director+"           " + control.ObtenerNombreAlumno(credito.Alumno) + Environment.NewLine +
                 "           Director                                 Alumno" + Environment.NewLine;
             parra6.Range.InsertParagraphAfter();
             //Hacemos visible el documento
             word.Visible = true;
             //Guardamos el documento
             string path = Directory.GetCurrentDirectory() + @"\Documentos";
-            object filename = Directory.GetCurrentDirectory() + @"\Documentos\ContratoCreditoEducativo" + credito.alumno;
+            object filename = Directory.GetCurrentDirectory() + @"\Documentos\ContratoCreditoEducativo" + credito.Alumno;
             // comprobar si el fichero ya existe
             if (!Directory.Exists(path))
             {
@@ -409,7 +409,7 @@ namespace IICAPS_v1.Control
             object styleHeading1 = "Título 1";
             parra1.Range.set_Style(ref styleHeading1);
             parra1.Range.Font.Color = WdColor.wdColorDarkGreen;
-            parra1.Range.Text = Environment.NewLine + Environment.NewLine + "Se recibió el pago de: " + pago.emisor;
+            parra1.Range.Text = Environment.NewLine + Environment.NewLine + "Se recibió el pago de: " + pago.Emisor;
             parra1.Range.InsertParagraphAfter();
             //Parrafos restantes del documento
             documento.Content.SetRange(0, 0);
@@ -418,11 +418,11 @@ namespace IICAPS_v1.Control
             parra2.Range.set_Style(ref style1);
             parra2.Range.Font.Size = 12;
             //parra1.Range.Text = "Recibo de documentos para: " + control.obtenerProgramaAlumno(doc.alumno);
-            parra2.Range.Text = "La cantidad de: $" + pago.cantidad + Environment.NewLine +
-                "Por concepto de: " + pago.concepto + Environment.NewLine +
-                "Fecha: " + pago.fechaPago + Environment.NewLine 
+            parra2.Range.Text = "La cantidad de: $" + pago.Cantidad + Environment.NewLine +
+                "Por concepto de: " + pago.Concepto + Environment.NewLine +
+                "Fecha: " + pago.FechaPago + Environment.NewLine 
                 + Environment.NewLine + 
-                "Recibió: " + control.obtenerNombreEmpleado(pago.recibio) + Environment.NewLine
+                "Recibió: " + control.ObtenerNombreEmpleado(pago.Recibio) + Environment.NewLine
                 + Environment.NewLine 
                 + "Firma: ___________________________________________";
             parra2.Range.InsertParagraphAfter();
@@ -430,7 +430,7 @@ namespace IICAPS_v1.Control
             word.Visible = true;
             //Guardamos el documento
             string path = Directory.GetCurrentDirectory() + @"\Recibos de pagos";
-            object filename = Directory.GetCurrentDirectory() + @"\Recibos de pagos\ReciboDePago" + pago.formatoFolio();
+            object filename = Directory.GetCurrentDirectory() + @"\Recibos de pagos\ReciboDePago" + pago.Formato_folio();
             // comprobar si el fichero ya existe
             if (!Directory.Exists(path))
             {
@@ -520,9 +520,9 @@ namespace IICAPS_v1.Control
             objTableDatosAlumno.Cell(4, 1).Range.Text = datosAlumno[3];
 
             objTableDatosAlumno.Cell(1, 2).Range.Font.Bold = 1;
-            objTableDatosAlumno.Cell(1, 2).Range.Text = alumno.matricula;
+            objTableDatosAlumno.Cell(1, 2).Range.Text = alumno.Matricula;
             objTableDatosAlumno.Cell(2, 2).Range.Font.Bold = 1;
-            objTableDatosAlumno.Cell(2, 2).Range.Text = alumno.nombre;
+            objTableDatosAlumno.Cell(2, 2).Range.Text = alumno.Nombre;
             objTableDatosAlumno.Cell(3, 2).Range.Font.Bold = 1;
             objTableDatosAlumno.Cell(3, 2).Range.Text = programa;
             objTableDatosAlumno.Cell(4, 2).Range.Font.Bold = 1;
@@ -536,7 +536,7 @@ namespace IICAPS_v1.Control
             parra3.Range.Text = Environment.NewLine + "Asignaturas del Plan de Estudios Vigente";
             parra3.Range.InsertParagraphAfter();
             
-            List<Materia> materias = control.consultarMapaCurricularPrograma(alumno.programa);
+            List<Materia> materias = control.ConsultarMapaCurricularPrograma(alumno.Programa);
             string[] headerTabla = new string[] { "ID","Materia","Calificación Tareas","Calificación Final" };
 
             //TABLA DE CALIFICACIONES
@@ -560,10 +560,10 @@ namespace IICAPS_v1.Control
 
             for (int i = 2; i <= calificaciones.Count+1; i++)
             {
-                objTableCalificaciones.Cell(i, 1).Range.Text = calificaciones.ElementAt(i-2).materia.ToString();
-                objTableCalificaciones.Cell(i, 2).Range.Text = calificaciones.ElementAt(i-2).materiaNombre;
-                objTableCalificaciones.Cell(i, 3).Range.Text = calificaciones.ElementAt(i-2).calificacionTareas.ToString();
-                objTableCalificaciones.Cell(i, 4).Range.Text = calificaciones.ElementAt(i-2).calificacionFinal.ToString();
+                objTableCalificaciones.Cell(i, 1).Range.Text = calificaciones.ElementAt(i-2).Materia.ToString();
+                objTableCalificaciones.Cell(i, 2).Range.Text = calificaciones.ElementAt(i-2).MateriaNombre;
+                objTableCalificaciones.Cell(i, 3).Range.Text = calificaciones.ElementAt(i-2).CalificacionTareas.ToString();
+                objTableCalificaciones.Cell(i, 4).Range.Text = calificaciones.ElementAt(i-2).CalificacionFinal.ToString();
 
             }
             objTableCalificaciones.Columns[1].Width = 38;
@@ -576,14 +576,14 @@ namespace IICAPS_v1.Control
             //word.Visible = true;
             //Guardamos el documento
             string path = Directory.GetCurrentDirectory() + @"\Reportes Academicos";
-            object filename = Directory.GetCurrentDirectory() + @"\Reportes Academicos\Reportes_Academico_" + alumno.matricula;
+            object filename = Directory.GetCurrentDirectory() + @"\Reportes Academicos\Reportes_Academico_" + alumno.Matricula;
             // comprobar si el fichero ya existe
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
             
-            object newFileName = Directory.GetCurrentDirectory() + @"\Reportes Academicos\Reportes_Academico_" + alumno.matricula+".pdf";
+            object newFileName = Directory.GetCurrentDirectory() + @"\Reportes Academicos\Reportes_Academico_" + alumno.Matricula+".pdf";
             documento.SaveAs2(ref filename);
             documento.SaveAs2(ref newFileName, ref formatoArchivoPDF);
             //word.Visible = true;
@@ -667,8 +667,8 @@ namespace IICAPS_v1.Control
             parra4.Range.set_Style(ref style1);
             parra4.Range.Font.Size = 12;
             parra4.Alignment = WdParagraphAlignment.wdAlignParagraphRight;
-            parra4.Range.Text = "Que él(la) alumno(a) " + alumno.nombre + ", está cursando X ciclo de formación profesional en el programa " + programa +
-                " en el Instituto de Investigación, Capacitación y Psicoterapia (IICAPS) de manera satisfactoria, registrado con la matricula: " + alumno.matricula +
+            parra4.Range.Text = "Que él(la) alumno(a) " + alumno.Nombre + ", está cursando X ciclo de formación profesional en el programa " + programa +
+                " en el Instituto de Investigación, Capacitación y Psicoterapia (IICAPS) de manera satisfactoria, registrado con la matricula: " + alumno.Matricula +
                 ", según obra en los archivos de nuestra institución. \nSe le expide la presente, con la finalidad de realizar la identificación como alumno activo.\n\n"+control.parametros_Generales.Sede+". " + DateTime.Now.ToLongDateString() + ".";
             parra4.Alignment = WdParagraphAlignment.wdAlignParagraphRight;
             parra4.Range.InsertParagraphAfter();
@@ -692,7 +692,7 @@ namespace IICAPS_v1.Control
             word.Visible = true;
             //Guardamos el documento
             string path = Directory.GetCurrentDirectory() + @"\Documentos";
-            object filename = Directory.GetCurrentDirectory() + @"\Documentos\Constancia" + alumno.matricula;
+            object filename = Directory.GetCurrentDirectory() + @"\Documentos\Constancia" + alumno.Matricula;
             // comprobar si el fichero ya existe
             if (!Directory.Exists(path))
             {

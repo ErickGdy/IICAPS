@@ -26,13 +26,13 @@ namespace IICAPS_v1.Presentacion
             try
             {
                 control = ControlIicaps.getInstance();
-                foreach (Empleado aux in control.obtenerEmpleados())
+                foreach (Empleado aux in control.ObtenerEmpleados())
                 {
                     empleadosNombre.Add(aux.Nombre);
                     empleados.Add(aux.Matricula);
                 }
                 cmbEntrega.DataSource = empleadosNombre;
-                foreach (Psicoterapeuta aux in control.obtenerPsicoterapeutas())
+                foreach (Psicoterapeuta aux in control.ObtenerPsicoterapeutas())
                 {
                     psicoterapeutasNombre.Add(aux.Nombre);
                     psicoterapeutas.Add(aux.Matricula);
@@ -66,7 +66,7 @@ namespace IICAPS_v1.Presentacion
                 nomina.Total = Convert.ToDecimal(txtCantidad.Text);
                 if (this.nomina.ID != 0)
                 {
-                    if (control.actualizarNomina(this.nomina))
+                    if (control.ActualizarNomina(this.nomina))
                     {
                         MessageBox.Show("Datos de nomina actualizados exitosamente!");
                         Close();
@@ -78,7 +78,7 @@ namespace IICAPS_v1.Presentacion
                 else
                 {
                     nomina.DiaEntrega = new DateTime();
-                    if (control.agregarNomina(this.nomina))
+                    if (control.AgregarNomina(this.nomina))
                     {
                         MessageBox.Show("Datos guardados exitosamente!");
                         Close();

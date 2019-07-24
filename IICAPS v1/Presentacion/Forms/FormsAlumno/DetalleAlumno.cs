@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using IICAPS_v1.Presentacion.Mains.Escuela;
 using System.Threading;
 
@@ -33,9 +32,9 @@ namespace IICAPS_v1.Presentacion
             try
             {
                 actualizarPanel(0);
-                lblNombreHeader.Text = al.nombre;
-                lblProgramaHeader.Text = control.consultarPrograma(al.programa).Nombre;
-                programas = control.obtenerProgramas();
+                lblNombreHeader.Text = al.Nombre;
+                lblProgramaHeader.Text = control.ConsultarPrograma(al.Programa).Nombre;
+                programas = control.ObtenerProgramas();
                 linkLabel3_LinkClicked(null,null);
             }
             catch (Exception e)
@@ -127,7 +126,7 @@ namespace IICAPS_v1.Presentacion
                     {
                         DataTable dtDatos = new DataTable();
                         //Con la informacion del adaptador se llena el datatable
-                        control.consultarCalificacionesAlumno(alumno.rfc, control.consultarGrupoAlumno(alumno.rfc)).Fill(dtDatos);
+                        control.ConsultarCalificacionesAlumno(alumno.Rfc, control.ConsultarGrupoAlumno(alumno.Rfc)).Fill(dtDatos);
                         //Se asigna el datatable como origen de datos del datagridview
                         dataGridViewCalificaciones.DataSource = dtDatos;
                         //Actualiza el valor del ancho de la columnas
@@ -145,42 +144,42 @@ namespace IICAPS_v1.Presentacion
                 case 2:
                     try
                     {
-                        al = control.consultarEntregaDocumentos(alumno.rfc);
-                        checkInscActaCopia.Checked = al.actaNacimientoOrg;
-                        checkInscActaOrignial.Checked = al.actaNacimientoOrg;
-                        checkInscCopiaCedula.Checked = al.cedProfCop;
-                        checkInscCopiaTitulo.Checked = al.tituloLicCop;
-                        checkInscCURP.Checked = al.curp;
-                        checkInscFotos.Checked = al.fotografias;
-                        checkInscTituloCedula.Checked = al.tituloCedulaOrg;
-                        checkTituActa.Checked = al.actaNacimientoOrg;
-                        checkTituCopiaActa.Checked = al.actaNacimientoCop;
-                        checkTituCopiaCertificado.Checked = al.certificadoLicCop;
-                        checkTituCopiaConstancia.Checked = al.constanciaLibSSCop;
-                        checkTituCURP.Checked = al.curp;
-                        checkTituFotos.Checked = al.fotografias;
-                        checkTituSolicitud.Checked = al.solicitudOpcTitulacion;
+                        al = control.ConsultarEntregaDocumentos(alumno.Rfc);
+                        checkInscActaCopia.Checked = al.ActaNacimientoOrg;
+                        checkInscActaOrignial.Checked = al.ActaNacimientoOrg;
+                        checkInscCopiaCedula.Checked = al.CedProfCop;
+                        checkInscCopiaTitulo.Checked = al.TituloLicCop;
+                        checkInscCURP.Checked = al.Curp;
+                        checkInscFotos.Checked = al.Fotografias;
+                        checkInscTituloCedula.Checked = al.TituloCedulaOrg;
+                        checkTituActa.Checked = al.ActaNacimientoOrg;
+                        checkTituCopiaActa.Checked = al.ActaNacimientoCop;
+                        checkTituCopiaCertificado.Checked = al.CertificadoLicCop;
+                        checkTituCopiaConstancia.Checked = al.ConstanciaLibSSCop;
+                        checkTituCURP.Checked = al.Curp;
+                        checkTituFotos.Checked = al.Fotografias;
+                        checkTituSolicitud.Checked = al.SolicitudOpcTitulacion;
                     }
                     catch (Exception ex) { }
                     break;
                 case 3:
                     try { 
-                        alumno = control.consultarAlumno(alumno.rfc);
-                        lblCarrera.Text = alumno.carrera;
-                        lblCorreo.Text = alumno.correo;
-                        lblCurp.Text = alumno.curp;
-                        lblDireccion.Text = alumno.direccion;
-                        lblEscuelaProcedencia.Text = alumno.escuelaProcedencia;
-                        lblEstadoCivil.Text = alumno.estadoCivil;
-                        lblFacebook.Text = alumno.facebook;
-                        lblNivel.Text = alumno.nivel;
-                        lblNombre.Text = alumno.nombre;
-                        lblRFC.Text = alumno.rfc;
-                        lblSexo.Text = alumno.sexo;
-                        lblTelefono1.Text = alumno.telefono1;
-                        lblTelefono2.Text = alumno.telefono2;
-                        lblObservaciones.Text = alumno.observaciones;
-                        lblMatricula.Text = alumno.matricula;
+                        alumno = control.ConsultarAlumno(alumno.Rfc);
+                        lblCarrera.Text = alumno.Carrera;
+                        lblCorreo.Text = alumno.Correo;
+                        lblCurp.Text = alumno.Curp;
+                        lblDireccion.Text = alumno.Direccion;
+                        lblEscuelaProcedencia.Text = alumno.EscuelaProcedencia;
+                        lblEstadoCivil.Text = alumno.EstadoCivil;
+                        lblFacebook.Text = alumno.Facebook;
+                        lblNivel.Text = alumno.Nivel;
+                        lblNombre.Text = alumno.Nombre;
+                        lblRFC.Text = alumno.Rfc;
+                        lblSexo.Text = alumno.Sexo;
+                        lblTelefono1.Text = alumno.Telefono1;
+                        lblTelefono2.Text = alumno.Telefono2;
+                        lblObservaciones.Text = alumno.Observaciones;
+                        lblMatricula.Text = alumno.Matricula;
                     }
                     catch (Exception ex) { }
                     break;
@@ -189,7 +188,7 @@ namespace IICAPS_v1.Presentacion
                     cmbProgramaSitacionAcademica.Items.Clear();
                     try
                     {
-                        programasAlumno = control.obtenerProgramasAlumno(alumno.rfc);
+                        programasAlumno = control.ObtenerProgramasAlumno(alumno.Rfc);
                         foreach (Programa aux in programas)
                         {
                             foreach (string codigo in programasAlumno)
@@ -213,22 +212,22 @@ namespace IICAPS_v1.Presentacion
                     try
                     {
                         cmbGrupos.Items.Clear();
-                        string group = control.consultarGrupoAlumno(alumno.rfc);
+                        string group = control.ConsultarGrupoAlumno(alumno.Rfc);
                         if (group != null)
                         {
                             lblMensajeInscripciones.Text = "Alumno inscrito en el grupo " + group;
                         }
                         else
                             lblMensajeInscripciones.Text = "El alumno no se encuentra inscrito en ningún grupo";
-                        foreach (Grupo grupo in control.obtenerGrupos(cmbGrupos.Text, alumno.programa))
+                        foreach (Grupo grupo in control.ObtenerGrupos(cmbGrupos.Text, alumno.Programa))
                         {
-                            cmbGrupos.Items.Add(grupo.codigo + " - " + grupo.generacion);
-                            if (group == grupo.codigo)
-                                group = grupo.codigo + " - " + grupo.generacion;
+                            cmbGrupos.Items.Add(grupo.Codigo + " - " + grupo.Generacion);
+                            if (group == grupo.Codigo)
+                                group = grupo.Codigo + " - " + grupo.Generacion;
                         }
                         cmbGrupos.SelectedItem = group;
                         if (al == null)
-                            al = control.consultarEntregaDocumentos(alumno.rfc);
+                            al = control.ConsultarEntregaDocumentos(alumno.Rfc);
                     }
                     catch (Exception ex) {
                     }
@@ -274,7 +273,7 @@ namespace IICAPS_v1.Presentacion
         {
             try
             {
-                alumno = control.consultarAlumno(alumno.rfc);
+                alumno = control.ConsultarAlumno(alumno.Rfc);
                 actualizarPanel(3);
             }
             catch (Exception ex)
@@ -336,14 +335,14 @@ namespace IICAPS_v1.Presentacion
             try
             {
                 string programa = programasAlumno.ElementAt(cmbProgramaSitacionAcademica.SelectedIndex);
-                string grupo = control.consultarGrupoAlumno(alumno.rfc);
+                string grupo = control.ConsultarGrupoAlumno(alumno.Rfc);
                 if (grupo != null)
                 {
                     foreach (Programa aux in programas)
                     {
                         if (aux.Codigo == programa)
                         {
-                            Thread t = new Thread(new ThreadStart(() => new DocumentosWord(alumno, control.obtenerCalificacionesAlumno(alumno.rfc, grupo), grupo, aux.Nombre)));
+                            Thread t = new Thread(new ThreadStart(() => new DocumentosWord(alumno, control.ObtenerCalificacionesAlumno(alumno.Rfc, grupo), grupo, aux.Nombre)));
                             t.Start();
                             break;
                         }
@@ -363,16 +362,16 @@ namespace IICAPS_v1.Presentacion
         {
             try
             {
-                DocumentosInscripcion al = control.consultarEntregaDocumentos(alumno.rfc);
+                DocumentosInscripcion al = control.ConsultarEntregaDocumentos(alumno.Rfc);
                 if (tabControlDocumentacion.SelectedIndex == 0)
                 {
-                    FormDocumentosInscripcion fa = new FormDocumentosInscripcion(al, false,lblProgramaHeader.Text, alumno.nombre);
+                    FormDocumentosInscripcion fa = new FormDocumentosInscripcion(al, false,lblProgramaHeader.Text, alumno.Nombre);
                     fa.FormClosed += new FormClosedEventHandler(form_ClosedDocumentos);
                     fa.Show();
                 }
                 else
                 {
-                    FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(al, false, lblProgramaHeader.Text, alumno.nombre);
+                    FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(al, false, lblProgramaHeader.Text, alumno.Nombre);
                     fa.FormClosed += new FormClosedEventHandler(form_ClosedDocumentos);
                     fa.Show();
                 }
@@ -387,7 +386,7 @@ namespace IICAPS_v1.Presentacion
         {
             try
             {
-                alumno = control.consultarAlumno(alumno.rfc);
+                alumno = control.ConsultarAlumno(alumno.Rfc);
                 actualizarPanel(2);
             }
             catch (Exception ex)
@@ -414,9 +413,9 @@ namespace IICAPS_v1.Presentacion
             try
             {
                 cmbGrupos.Items.Clear();
-                foreach (Grupo grupo in control.obtenerGrupos(cmbGrupos.Text, alumno.programa))
+                foreach (Grupo grupo in control.ObtenerGrupos(cmbGrupos.Text, alumno.Programa))
                 {
-                    cmbGrupos.Items.Add(grupo.codigo + " - " + grupo.generacion);
+                    cmbGrupos.Items.Add(grupo.Codigo + " - " + grupo.Generacion);
                 }
                 cmbGrupos.Select(cmbGrupos.Text.Length,0);
             }
@@ -435,7 +434,7 @@ namespace IICAPS_v1.Presentacion
                 {
                     string grupo = cmbGrupos.SelectedItem.ToString();
                     grupo = grupo.Substring(0, grupo.IndexOf(" - "));
-                    if (control.inscribirAlumnoGrupo(alumno.rfc, grupo, alumno.programa))
+                    if (control.InscribirAlumnoGrupo(alumno.Rfc, grupo, alumno.Programa))
                     {
                         MessageBox.Show("Alumno inscrito en el grupo " + grupo);
                         actualizarPanel(5);
@@ -488,14 +487,14 @@ namespace IICAPS_v1.Presentacion
 
         private void cmbGrupos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (al.validarDocumentacion())
+            if (al.Validar_documentacion())
             {
                 btnInscribir_Inscripciones.Enabled = false;
                 lblMensajeInscripcion.Text = "Documentacion pendiente de entrega";
             }
             else
             {
-                if (control.consultarGrupoAlumno(alumno.rfc) == null)
+                if (control.ConsultarGrupoAlumno(alumno.Rfc) == null)
                     if (cmbGrupos.SelectedIndex != -1)
                         btnInscribir_Inscripciones.Enabled = true;
                     else
@@ -515,7 +514,7 @@ namespace IICAPS_v1.Presentacion
                 DialogResult dialogresult = MessageBox.Show("¿Desea dar de baja el alumno?", "Baja de Alumno", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dialogresult == DialogResult.OK)
                 {
-                    if (control.darDeBajaAlumno(alumno.rfc))
+                    if (control.DarDeBajaAlumno(alumno.Rfc))
                     {
                         MessageBox.Show("Alumno dado de baja");
                         actualizarPanel(5);
@@ -537,7 +536,7 @@ namespace IICAPS_v1.Presentacion
                 DialogResult dialogresult = MessageBox.Show("¿Desea dar de Alta el alumno?", "Alta de Alumno", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dialogresult == DialogResult.OK)
                 {
-                    if (control.darDeAltaAlumno(alumno.rfc))
+                    if (control.DarDeAltaAlumno(alumno.Rfc))
                     {
                         MessageBox.Show("Alumno dado de Alta");
                         actualizarPanel(5);
@@ -573,7 +572,7 @@ namespace IICAPS_v1.Presentacion
 
         private void linkLabelCredito_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            CreditoAlumnos ca = new CreditoAlumnos(control.consultarCreditoActivoAlumno(alumno.rfc), alumno);
+            CreditoAlumnos ca = new CreditoAlumnos(control.ConsultarCreditoActivoAlumno(alumno.Rfc), alumno);
             ca.Show();
         }
     }

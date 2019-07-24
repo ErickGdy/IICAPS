@@ -1,6 +1,5 @@
 ﻿using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
-using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,7 +31,7 @@ namespace IICAPS_v1.Presentacion
                 printDocument1.PrintPage += new PrintPageEventHandler(printDocument1_PrintPage);
                 lblFecha.Text = DateTime.Now.ToShortDateString();
                 control = ControlIicaps.getInstance();
-                this.psicoterapeuta = control.consultarPsicoterapeuta(ID_Psicoterapeuta);
+                this.psicoterapeuta = control.ConsultarPsicoterapeuta(ID_Psicoterapeuta);
                 actualizarDatos();
                 actualizarTabla();
             }
@@ -55,7 +54,7 @@ namespace IICAPS_v1.Presentacion
         {
             try
             {
-                SqlDataAdapter data = control.obtenerConsultasPsicoterapeutaTable(ID_Psicoterapeuta);
+                SqlDataAdapter data = control.ObtenerConsultasPsicoterapeutaTable(ID_Psicoterapeuta);
                 DataTable dtDatos = new DataTable();
                 //Con la informacion del adaptador se llena el datatable
                 data.Fill(dtDatos);

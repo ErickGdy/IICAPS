@@ -8,32 +8,32 @@ namespace IICAPS_v1.DataObject
 {
     public class DocumentosInscripcion
     {
-        public string alumno { get; set; }
-        public bool actaNacimientoOrg { get; set; }
-        public bool actaNacimientoCop { get; set; }
-        public bool tituloCedulaOrg { get; set; }
-        public bool tituloCedulaCop { get; set; }
-        public bool tituloLicCop { get; set; }
-        public bool cedProfCop { get; set; }
-        public bool solicitudOpcTitulacion { get; set; }
-        public bool certificadoLicCop { get; set; }
-        public bool constanciaLibSSOrg { get; set; }
-        public bool constanciaLibSSCop { get; set; }
-        public bool curp { get; set; }
-        public bool fotografias { get; set; }
-        public string recibioEmpleado { get; set; }
-        public int tipoInscripcion { get; set; }
+        public string Alumno { get; set; }
+        public bool ActaNacimientoOrg { get; set; }
+        public bool ActaNacimientoCop { get; set; }
+        public bool TituloCedulaOrg { get; set; }
+        public bool TituloCedulaCop { get; set; }
+        public bool TituloLicCop { get; set; }
+        public bool CedProfCop { get; set; }
+        public bool SolicitudOpcTitulacion { get; set; }
+        public bool CertificadoLicCop { get; set; }
+        public bool ConstanciaLibSSOrg { get; set; }
+        public bool ConstanciaLibSSCop { get; set; }
+        public bool Curp { get; set; }
+        public bool Fotografias { get; set; }
+        public string RecibioEmpleado { get; set; }
+        public int TipoInscripcion { get; set; }
 
 
-        public bool validarDocumentacion()
+        public bool Validar_documentacion()
         {
-            if (actaNacimientoCop && actaNacimientoOrg && curp && fotografias)
+            if (ActaNacimientoCop && ActaNacimientoOrg && Curp && Fotografias)
             {
-                if (tituloCedulaCop && tituloCedulaOrg && tituloLicCop && cedProfCop)
+                if (TituloCedulaCop && TituloCedulaOrg && TituloLicCop && CedProfCop)
                 {
                     return true;
                 }
-                else if (solicitudOpcTitulacion && constanciaLibSSOrg && certificadoLicCop)
+                else if (SolicitudOpcTitulacion && ConstanciaLibSSOrg && CertificadoLicCop)
                 {
                     return true;
                 }

@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Threading;
 using System.Data.SqlClient;
 
@@ -27,7 +26,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             control = ControlIicaps.getInstance();
             try
             {
-                actualizarTablaAlumnos(control.obtenerAlumnosTable());
+                actualizarTablaAlumnos(control.ObtenerAlumnosTable());
             }
             catch (Exception e)
             {
@@ -76,7 +75,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTablaAlumnos(control.obtenerAlumnosTable(txtBuscarAlumno.Text));
+            actualizarTablaAlumnos(control.ObtenerAlumnosTable(txtBuscarAlumno.Text));
         }
 
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -84,7 +83,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String rfc = dataGridViewAlumnos.CurrentRow.Cells[0].Value.ToString();
-                FormDetalleAlumno fa = new FormDetalleAlumno(control.consultarAlumno(rfc));
+                FormDetalleAlumno fa = new FormDetalleAlumno(control.ConsultarAlumno(rfc));
                 fa.MdiParent = this.ParentForm;
                 fa.Size = new Size(this.ParentForm.Size.Width - 20, this.ParentForm.Size.Height - 45);
                 fa.Show();
@@ -100,7 +99,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String rfc = dataGridViewAlumnos.CurrentRow.Cells[0].Value.ToString();
-                Alumno alumno = control.consultarAlumno(rfc);
+                Alumno alumno = control.ConsultarAlumno(rfc);
                 Alumnos fa = new Alumnos(alumno);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -119,10 +118,10 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 DialogResult dialogresult = MessageBox.Show("¿Desea dar de baja el alumno?", "Baja de Alumno", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if(dialogresult == DialogResult.OK)
                 {
-                    if (control.darDeBajaAlumno(rfc))
+                    if (control.DarDeBajaAlumno(rfc))
                     {
                         MessageBox.Show("Alumno dado de baja");
-                        actualizarTablaAlumnos(control.obtenerAlumnosTable());
+                        actualizarTablaAlumnos(control.ObtenerAlumnosTable());
                     }
                     else
                         MessageBox.Show("Error al dar la baja del alumno");
@@ -140,7 +139,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             txtBuscarAlumno.Text = "";
             try
             {
-                actualizarTablaAlumnos(control.obtenerAlumnosTable());
+                actualizarTablaAlumnos(control.ObtenerAlumnosTable());
             }
             catch (Exception ex)
             {
@@ -151,7 +150,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void button1_Click(object sender, EventArgs e)
         {
-            actualizarTablaAlumnos(control.obtenerAlumnosTable(txtBuscarAlumno.Text));
+            actualizarTablaAlumnos(control.ObtenerAlumnosTable(txtBuscarAlumno.Text));
         }
 
         private void Main_SizeChanged(object sender, EventArgs e)
@@ -184,10 +183,10 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 DialogResult dialogresult = MessageBox.Show("¿Desea dar de Alta el alumno?", "Alta de Alumno", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dialogresult == DialogResult.OK)
                 {
-                    if (control.darDeAltaAlumno(rfc))
+                    if (control.DarDeAltaAlumno(rfc))
                     {
                         MessageBox.Show("Alumno dado de Alta");
-                        actualizarTablaAlumnos(control.obtenerAlumnosTable());
+                        actualizarTablaAlumnos(control.ObtenerAlumnosTable());
                     }
                     else
                         MessageBox.Show("Error al dar el Alta del alumno");
@@ -215,7 +214,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 {
                     try
                     {
-                        actualizarTablaAlumnos(control.obtenerAlumnosTable(txtBuscarAlumno.Text));
+                        actualizarTablaAlumnos(control.ObtenerAlumnosTable(txtBuscarAlumno.Text));
                     }
                     catch (Exception ex)
                     {
@@ -234,7 +233,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String rfc = dataGridViewAlumnos.CurrentRow.Cells[0].Value.ToString();
-                DetallePagosAlumno fa = new DetallePagosAlumno(control.consultarAlumno(rfc));
+                DetallePagosAlumno fa = new DetallePagosAlumno(control.ConsultarAlumno(rfc));
                 fa.ShowDialog();
             }
             catch (Exception es)

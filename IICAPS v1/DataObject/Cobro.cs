@@ -8,14 +8,14 @@ namespace IICAPS_v1.DataObject
 {
     public class Cobro
     {
-        public int id { get; set; }
-        public string parent_id { get; set; }
-        public DateTime fecha { get; set; }
-        public decimal cantidad { get; set; }
-        public decimal restante { get; set; }
-        public decimal pago { get; set; }
-        public string concepto { get; set; }
-        public string alumno { get; set; }
+        public int Id { get; set; }
+        public string Parent_id { get; set; }
+        public DateTime Fecha { get; set; }
+        public decimal Cantidad { get; set; }
+        public decimal Restante { get; set; }
+        public decimal Pago { get; set; }
+        public string Concepto { get; set; }
+        public string Alumno { get; set; }
 
     }
 }

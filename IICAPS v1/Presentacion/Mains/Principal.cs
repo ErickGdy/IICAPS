@@ -30,7 +30,7 @@ namespace IICAPS.Presentacion.Mains
             btnIndex_Click(null, null);
             try
             {
-                btnUsuario.Text = ControlIicaps.getInstance().consultarEmpleado(usuario.Matricula).Nombre;
+                btnUsuario.Text = ControlIicaps.getInstance().ConsultarEmpleado(usuario.Matricula).Nombre;
             }
             catch (Exception ex)
             {
@@ -80,10 +80,7 @@ namespace IICAPS.Presentacion.Mains
             //lc.Show();
         }
 
-        private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Dispose();
-        }
+        private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e) => this.Dispose();
 
         /** Metodos de control**/
         private void closeForms()
@@ -92,7 +89,7 @@ namespace IICAPS.Presentacion.Mains
             {
                 aux.Dispose();
             }
-            inhabilitarBoton("","");
+            inhabilitarBoton("", "");
         }
         public void minimizeForms()
         {

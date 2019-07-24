@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Data.SqlClient;
 
 namespace IICAPS_v1.Presentacion.Mains.Escuela
@@ -26,7 +25,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             control = ControlIicaps.getInstance();
             try
             {
-                actualizarTabla(control.obtenerTalleresTable());
+                actualizarTabla(control.ObtenerTalleresTable());
             }
             catch (Exception e)
             {
@@ -71,14 +70,14 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         }
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTabla(control.obtenerTalleresTable(txtBuscar.Text));
+            actualizarTabla(control.ObtenerTalleresTable(txtBuscar.Text));
         }
         private void modificarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                Taller taller = control.consultarTaller(id);
+                Taller taller = control.ConsultarTaller(id);
                 //MessageBox.Show("Reporte referente al grupo "+ grupo.codigo);
                 FormTalleres fa = new FormTalleres(taller);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
@@ -97,10 +96,10 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 DialogResult dialogresult = MessageBox.Show("¿Desea calcelar el taller?", "Cancelar taller", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if(dialogresult == DialogResult.OK)
                 {
-                    if (control.cancelarTaller(id))
+                    if (control.CancelarTaller(id))
                     {
                         MessageBox.Show("Taller cancelado");
-                        actualizarTabla(control.obtenerTalleresTable());
+                        actualizarTabla(control.ObtenerTalleresTable());
                     }
                     else
                         MessageBox.Show("Error al cancelar taller");
@@ -117,7 +116,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             txtBuscar.Text = "";
             try
             {
-                actualizarTabla(control.obtenerTalleresTable());
+                actualizarTabla(control.ObtenerTalleresTable());
             }
             catch (Exception ex)
             {
@@ -126,7 +125,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         }
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            actualizarTabla(control.obtenerTalleresTable(txtBuscar.Text));
+            actualizarTabla(control.ObtenerTalleresTable(txtBuscar.Text));
         }
         private void Main_SizeChanged(object sender, EventArgs e)
         {
@@ -160,7 +159,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 {
                     try
                     {
-                        actualizarTabla(control.obtenerTalleresTable(texto));
+                        actualizarTabla(control.ObtenerTalleresTable(texto));
                     }
                     catch (Exception ex)
                     {
@@ -173,7 +172,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 limpiarBusqueda.Visible = false;
                 try
                 {
-                    actualizarTabla(control.obtenerTalleresTable());
+                    actualizarTabla(control.ObtenerTalleresTable());
                 }
                 catch (Exception ex)
                 {
@@ -188,7 +187,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                DetalleTaller dtg = new DetalleTaller(control.consultarTaller(id));
+                DetalleTaller dtg = new DetalleTaller(control.ConsultarTaller(id));
                 dtg.Show();
             }
             catch (Exception ex)

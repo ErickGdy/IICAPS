@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 
 namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
 {
@@ -37,7 +36,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                 intervalos.Add(new TimeSpan(0, 30, 0));
                 intervalos.Add(new TimeSpan(1, 0, 0));
                 cmbIntervalo.SelectedIndex = 0;
-                ubicaciones = control.parametros_Generales.ubicaciones;
+                ubicaciones = control.parametros_Generales.Ubicaciones;
                 FillDatos();
                 Agregar_Columnas();
                 Mostrar_Columnas();
@@ -59,7 +58,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
 
         public void FillDatos()
         {
-            reservaciones = control.obtenerReservaciones(datePicker_Fecha.Value);
+            reservaciones = control.ObtenerReservaciones(datePicker_Fecha.Value);
             foreach (DataGridViewRow aux in dataGridView1.Rows)
             {
                 foreach (DataGridViewCell cell in aux.Cells)
@@ -157,23 +156,23 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
             foreach (Reservacion r in reservaciones)
             {
                 string columna;
-                TimeSpan hora = new TimeSpan(r.hora_Inicio.Hours, 0, 0);
+                TimeSpan hora = new TimeSpan(r.Hora_Inicio.Hours, 0, 0);
                 Color columnaColor;
                 while (true)
                 {
-                    if (hora == r.hora_Inicio)
+                    if (hora == r.Hora_Inicio)
                     {
-                        columna = r.hora_Inicio.Hours.ToString("00") + ":00";
+                        columna = r.Hora_Inicio.Hours.ToString("00") + ":00";
                         columnaColor = Color.Red;
                         break;
                     }
-                    else if (hora.Add(intervalo) == r.hora_Inicio)
+                    else if (hora.Add(intervalo) == r.Hora_Inicio)
                     {
-                        columna = r.hora_Inicio.Hours.ToString("00") + ":" + r.hora_Inicio.Minutes.ToString("00");
+                        columna = r.Hora_Inicio.Hours.ToString("00") + ":" + r.Hora_Inicio.Minutes.ToString("00");
                         columnaColor = Color.Red;
                         break;
                     }
-                    else if (hora < r.hora_Inicio && hora.Add(intervalo) > r.hora_Inicio)
+                    else if (hora < r.Hora_Inicio && hora.Add(intervalo) > r.Hora_Inicio)
                     {
                         columna = hora.Hours.ToString("00") + ":" + hora.Minutes.ToString("00");
                         columnaColor = Color.MistyRose;
@@ -182,39 +181,39 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                     else
                         hora = hora.Add(intervalo);
                 }
-                if (dataGridView1.Rows[ubicaciones.IndexOf(r.ubicacion)].Cells[dataGridView1.Columns[columna].Index].Value != null)
+                if (dataGridView1.Rows[ubicaciones.IndexOf(r.Ubicacion)].Cells[dataGridView1.Columns[columna].Index].Value != null)
                 {
-                    dataGridView1.Rows[ubicaciones.IndexOf(r.ubicacion)].Cells[dataGridView1.Columns[columna].Index].Value += "\n --------------------- \n" + r.agendaText();
-                    dataGridView1.Rows[ubicaciones.IndexOf(r.ubicacion)].Cells[dataGridView1.Columns[columna].Index].Style.BackColor = Color.Red;
-                    dataGridView1.Rows[ubicaciones.IndexOf(r.ubicacion)].Cells[dataGridView1.Columns[columna].Index].Tag += "," + r.codigo_Reservacion;
+                    dataGridView1.Rows[ubicaciones.IndexOf(r.Ubicacion)].Cells[dataGridView1.Columns[columna].Index].Value += "\n --------------------- \n" + r.Agenda_text();
+                    dataGridView1.Rows[ubicaciones.IndexOf(r.Ubicacion)].Cells[dataGridView1.Columns[columna].Index].Style.BackColor = Color.Red;
+                    dataGridView1.Rows[ubicaciones.IndexOf(r.Ubicacion)].Cells[dataGridView1.Columns[columna].Index].Tag += "," + r.Codigo_Reservacion;
                 }
                 else
                 {
-                    dataGridView1.Rows[ubicaciones.IndexOf(r.ubicacion)].Cells[dataGridView1.Columns[columna].Index].Value = r.agendaText();
-                    dataGridView1.Rows[ubicaciones.IndexOf(r.ubicacion)].Cells[dataGridView1.Columns[columna].Index].Style.BackColor = columnaColor;
-                    dataGridView1.Rows[ubicaciones.IndexOf(r.ubicacion)].Cells[dataGridView1.Columns[columna].Index].Tag = r.codigo_Reservacion;
+                    dataGridView1.Rows[ubicaciones.IndexOf(r.Ubicacion)].Cells[dataGridView1.Columns[columna].Index].Value = r.Agenda_text();
+                    dataGridView1.Rows[ubicaciones.IndexOf(r.Ubicacion)].Cells[dataGridView1.Columns[columna].Index].Style.BackColor = columnaColor;
+                    dataGridView1.Rows[ubicaciones.IndexOf(r.Ubicacion)].Cells[dataGridView1.Columns[columna].Index].Tag = r.Codigo_Reservacion;
                 }
 
                 TimeSpan newHora = new TimeSpan(Convert.ToInt32(columna.Substring(0, 2)), Convert.ToInt32(columna.Substring(3)), 0).Add(intervalos.ElementAt(cmbIntervalo.SelectedIndex));
-                while (r.hora_Fin > newHora)
+                while (r.Hora_Fin > newHora)
                 {
                     columna = newHora.Hours.ToString("00") + ":" + newHora.Minutes.ToString("00");
-                    if (dataGridView1.Rows[ubicaciones.IndexOf(r.ubicacion)].Cells[dataGridView1.Columns[columna].Index].Value != null)
+                    if (dataGridView1.Rows[ubicaciones.IndexOf(r.Ubicacion)].Cells[dataGridView1.Columns[columna].Index].Value != null)
                     {
-                        dataGridView1.Rows[ubicaciones.IndexOf(r.ubicacion)].Cells[dataGridView1.Columns[columna].Index].Value += "\n --------------------- \n" + r.agendaText();
-                        dataGridView1.Rows[ubicaciones.IndexOf(r.ubicacion)].Cells[dataGridView1.Columns[columna].Index].Style.BackColor = Color.Red;
-                        dataGridView1.Rows[ubicaciones.IndexOf(r.ubicacion)].Cells[dataGridView1.Columns[columna].Index].Tag += "," + r.codigo_Reservacion;
+                        dataGridView1.Rows[ubicaciones.IndexOf(r.Ubicacion)].Cells[dataGridView1.Columns[columna].Index].Value += "\n --------------------- \n" + r.Agenda_text();
+                        dataGridView1.Rows[ubicaciones.IndexOf(r.Ubicacion)].Cells[dataGridView1.Columns[columna].Index].Style.BackColor = Color.Red;
+                        dataGridView1.Rows[ubicaciones.IndexOf(r.Ubicacion)].Cells[dataGridView1.Columns[columna].Index].Tag += "," + r.Codigo_Reservacion;
                     }
                     else
                     {
-                        dataGridView1.Rows[ubicaciones.IndexOf(r.ubicacion)].Cells[dataGridView1.Columns[columna].Index].Value = r.agendaText();
-                        dataGridView1.Rows[ubicaciones.IndexOf(r.ubicacion)].Cells[dataGridView1.Columns[columna].Index].Style.BackColor = Color.Red;
-                        dataGridView1.Rows[ubicaciones.IndexOf(r.ubicacion)].Cells[dataGridView1.Columns[columna].Index].Tag = r.codigo_Reservacion;
+                        dataGridView1.Rows[ubicaciones.IndexOf(r.Ubicacion)].Cells[dataGridView1.Columns[columna].Index].Value = r.Agenda_text();
+                        dataGridView1.Rows[ubicaciones.IndexOf(r.Ubicacion)].Cells[dataGridView1.Columns[columna].Index].Style.BackColor = Color.Red;
+                        dataGridView1.Rows[ubicaciones.IndexOf(r.Ubicacion)].Cells[dataGridView1.Columns[columna].Index].Tag = r.Codigo_Reservacion;
                     }
-                    if (r.hora_Fin.Subtract(newHora) < intervalo)
+                    if (r.Hora_Fin.Subtract(newHora) < intervalo)
                     {
-                        if (dataGridView1.Rows[ubicaciones.IndexOf(r.ubicacion)].Cells[dataGridView1.Columns[columna].Index].Value.ToString().IndexOf("-----") == -1)
-                            dataGridView1.Rows[ubicaciones.IndexOf(r.ubicacion)].Cells[dataGridView1.Columns[columna].Index].Style.BackColor = Color.MistyRose;
+                        if (dataGridView1.Rows[ubicaciones.IndexOf(r.Ubicacion)].Cells[dataGridView1.Columns[columna].Index].Value.ToString().IndexOf("-----") == -1)
+                            dataGridView1.Rows[ubicaciones.IndexOf(r.Ubicacion)].Cells[dataGridView1.Columns[columna].Index].Style.BackColor = Color.MistyRose;
                         break;
                     }
                     newHora = newHora.Add(intervalos.ElementAt(cmbIntervalo.SelectedIndex));
@@ -244,13 +243,13 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                     if (id.Contains(","))
                         id = id.Substring(0, id.IndexOf(","));
                     lblCodigo.Text = id;
-                    Reservacion res = control.consultarReservacion(id);
-                    lblConcepto.Text = res.concepto;
-                    lblDuracion.Text = res.duracion.Hours + ":" + res.duracion.Minutes + " hrs";
-                    lblHora.Text = res.hora_Inicio.Hours + ":" + res.hora_Inicio.Minutes + " hrs";
-                    lblFecha.Text = res.fecha.ToShortDateString();
-                    lblReservante.Text = res.reservante;
-                    lblUbicacion.Text = res.ubicacion;
+                    Reservacion res = control.ConsultarReservacion(id);
+                    lblConcepto.Text = res.Concepto;
+                    lblDuracion.Text = res.Duracion.Hours + ":" + res.Duracion.Minutes + " hrs";
+                    lblHora.Text = res.Hora_Inicio.Hours + ":" + res.Hora_Inicio.Minutes + " hrs";
+                    lblFecha.Text = res.Fecha.ToShortDateString();
+                    lblReservante.Text = res.Reservante;
+                    lblUbicacion.Text = res.Ubicacion;
                     modificarToolStripMenuItem.Visible = true;
                     consultarToolStripMenuItem.Visible = true;
                     agendarAquiToolStripMenuItem.Visible = false;
@@ -290,13 +289,13 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                     idL.Add(ids);
                     FormSeleccionReservacion fsr = new FormSeleccionReservacion(idL);
                     fsr.ShowDialog();
-                    Reservacion reservacion = control.consultarReservacion(fsr.getCodigo_Reservacion());
+                    Reservacion reservacion = control.ConsultarReservacion(fsr.getCodigo_Reservacion());
                     FormReservacion frs = new FormReservacion(reservacion, false, true, "Otro", "Psicoterapia");
                     frs.BringToFront();
                     frs.FormClosed += new FormClosedEventHandler(form_Closed);
                     frs.Show();
                 } else {
-                    Reservacion reservacion = control.consultarReservacion(ids);
+                    Reservacion reservacion = control.ConsultarReservacion(ids);
                     FormReservacion frs = new FormReservacion(reservacion, false, true, "Otro", "Psicoterapia");
                     frs.BringToFront();
                     frs.FormClosed += new FormClosedEventHandler(form_Closed);
@@ -327,7 +326,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                     fsr.ShowDialog();
                     ids = fsr.getCodigo_Reservacion();
                 }
-                Reservacion reservacion = control.consultarReservacion(ids);
+                Reservacion reservacion = control.ConsultarReservacion(ids);
                 FormReservacion frs = new FormReservacion(reservacion, false, false, "Otro", "Psicoterapia");
                 frs.BringToFront();
                 frs.FormClosed += new FormClosedEventHandler(form_Closed);
@@ -360,7 +359,7 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
                         fsr.ShowDialog();
                         ids = fsr.getCodigo_Reservacion();
                     }
-                    if (control.cancelarReservacion(ids))
+                    if (control.CancelarReservacion(ids))
                     {
                         MessageBox.Show("Reservacion cancelada");
                         Filtro_Click(null,null);

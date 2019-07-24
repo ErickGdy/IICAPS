@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 using System.Threading;
 using System.Data.SqlClient;
 
@@ -28,7 +27,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             control = ControlIicaps.getInstance();
             try
             {
-                actualizarTablaCreditos(control.obtenerCreditoAlumnosTable());
+                actualizarTablaCreditos(control.ObtenerCreditoAlumnosTable());
             }
             catch (Exception e)
             {
@@ -78,7 +77,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void form_Closed(object sender, FormClosedEventArgs e)
         {
-            actualizarTablaCreditos(control.obtenerCreditoAlumnosTable(txtBuscarCredito.Text));
+            actualizarTablaCreditos(control.ObtenerCreditoAlumnosTable(txtBuscarCredito.Text));
         }
 
         private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -91,7 +90,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String rfc = dataGridViewCreditos.CurrentRow.Cells[1].Value.ToString();
-                CreditoAlumno credito = control.consultarCreditoAlumno(rfc);
+                CreditoAlumno credito = control.ConsultarCreditoAlumno(rfc);
                 CreditoAlumnos fa = new CreditoAlumnos(credito, false);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -108,7 +107,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             txtBuscarCredito.Text = "";
             try
             {
-                actualizarTablaCreditos(control.obtenerCreditoAlumnosTable());
+                actualizarTablaCreditos(control.ObtenerCreditoAlumnosTable());
             }
             catch (Exception ex)
             {
@@ -121,7 +120,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
             try
             {
                 String rfc = dataGridViewCreditos.CurrentRow.Cells[1].Value.ToString();
-                CreditoAlumno credito = control.consultarCreditoAlumno(rfc);
+                CreditoAlumno credito = control.ConsultarCreditoAlumno(rfc);
                 CreditoAlumnos fa = new CreditoAlumnos(credito, true);
                 fa.FormClosed += new FormClosedEventHandler(form_Closed);
                 fa.Show();
@@ -134,7 +133,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void button1_Click(object sender, EventArgs e)
         {
-            actualizarTablaCreditos(control.obtenerCreditoAlumnosTable(txtBuscarCredito.Text));
+            actualizarTablaCreditos(control.ObtenerCreditoAlumnosTable(txtBuscarCredito.Text));
         }
 
         private void Main_SizeChanged(object sender, EventArgs e)
@@ -163,7 +162,7 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         private void darDeBajaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             String rfc = dataGridViewCreditos.CurrentRow.Cells[1].Value.ToString();
-            credito = control.consultarCreditoAlumno(rfc);
+            credito = control.ConsultarCreditoAlumno(rfc);
             Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));
             t.Start();
         }
@@ -176,10 +175,10 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 DialogResult dialogresult = MessageBox.Show("¿Desea cancelar el crédito?", "Cancelar crédito", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dialogresult == DialogResult.OK)
                 {
-                    if (control.cancelarCredito(id))
+                    if (control.CancelarCredito(id))
                     {
                         MessageBox.Show("Crédito cancelado");
-                        actualizarTablaCreditos(control.obtenerCreditoAlumnosTable());
+                        actualizarTablaCreditos(control.ObtenerCreditoAlumnosTable());
                     }
                     else
                         MessageBox.Show("Error al cancelar el crédito");

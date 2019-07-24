@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using IICAPS_v1.Control;
 using IICAPS_v1.DataObject;
 using IICAPS_v1.Presentacion;
-using MySql.Data.MySqlClient;
 
 namespace IICAPS_v1.Presentacion
 {
@@ -33,7 +32,7 @@ namespace IICAPS_v1.Presentacion
                 txtPorcentajeEvaluacion.Text = control.parametros_Generales.Porcentaje_Pago_Evaluacion.ToString();
                 txtDirector.Text = control.parametros_Generales.Director;
                 txtSede.Text = control.parametros_Generales.Sede;
-                listUbicaciones.Items.AddRange(control.parametros_Generales.ubicaciones.ToArray());
+                listUbicaciones.Items.AddRange(control.parametros_Generales.Ubicaciones.ToArray());
             }
             catch (Exception e)
             {
@@ -78,12 +77,12 @@ namespace IICAPS_v1.Presentacion
                 parametros.Porcentaje_Pago_Evaluacion = Convert.ToDecimal(txtPorcentajeEvaluacion.Text);
                 parametros.Director = txtDirector.Text;
                 parametros.Sede = txtSede.Text;
-                parametros.ubicaciones = new List<string>();
+                parametros.Ubicaciones = new List<string>();
                 foreach (string item in listUbicaciones.Items)
                 {
-                    parametros.ubicaciones.Add(item);
+                    parametros.Ubicaciones.Add(item);
                 }
-                if (control.actualizarParametrosGenerales(parametros))
+                if (control.ActualizarParametrosGenerales(parametros))
                 {
                     MessageBox.Show("Datos actualizados exitosamente");
                     this.Dispose();

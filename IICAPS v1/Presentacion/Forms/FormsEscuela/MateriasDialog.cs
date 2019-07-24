@@ -30,11 +30,11 @@ namespace IICAPS_v1.Presentacion
                 if (validarCampos())
                 {
                     m = new Materia();
-                    m.nombre = txtNombre.Text;
-                    m.semestre = txtSemestre.Value.ToString();
-                    m.duracion = txtDuracion.Text;
-                    m.costo = txtCosto.Value;
-                    if (control.agregarMateria(m))
+                    m.Nombre = txtNombre.Text;
+                    m.Semestre = txtSemestre.Value.ToString();
+                    m.Duracion = txtDuracion.Text;
+                    m.Costo = txtCosto.Value;
+                    if (control.AgregarMateria(m))
                     {
                         Hide();
                         Close();

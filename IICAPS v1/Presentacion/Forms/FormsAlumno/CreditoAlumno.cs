@@ -30,7 +30,7 @@ namespace IICAPS_v1.Presentacion
             lblFecha.Text = DateTime.Now.ToShortDateString();
             try
             {
-                foreach (Programa p in control.obtenerProgramas())
+                foreach (Programa p in control.ObtenerProgramas())
                 {
                     auxPrograma.Add(p.Nombre);
                     auxIDPrograma.Add(p.Codigo.ToString());
@@ -43,18 +43,18 @@ namespace IICAPS_v1.Presentacion
             if (c != null)
             {
                 modificacion = true;
-                cmbIDPrograma.SelectedItem = control.obtenerProgramaAlumno(c.alumno);
+                cmbIDPrograma.SelectedItem = control.ObtenerProgramaAlumno(c.Alumno);
                 cmbPrograma.SelectedIndex = cmbIDPrograma.SelectedIndex;
                 cmbPrograma.Enabled = false;
-                cmbIDAlumno.SelectedItem = c.alumno;                
+                cmbIDAlumno.SelectedItem = c.Alumno;                
                 cmbAlumno.SelectedIndex = cmbIDAlumno.SelectedIndex;
                 cmbAlumno.Enabled = false;
-                numMensualidad.Value = Convert.ToDecimal(c.cantidadMensualidad);
-                numCantidad.Value = c.cantidadMeses;
-                txtObservaciones.Text = c.observaciones;
-                lblCredito.Text = lblCredito.Text + c.cantidadAbonoCredito.ToString();
-                lblMensualidad.Text = lblMensualidad.Text + c.cantidadAbonoMensual.ToString();
-                lblPago.Text = "Pagado: $"+c.pago;
+                numMensualidad.Value = Convert.ToDecimal(c.CantidadMensualidad);
+                numCantidad.Value = c.CantidadMeses;
+                txtObservaciones.Text = c.Observaciones;
+                lblCredito.Text = lblCredito.Text + c.CantidadAbonoCredito.ToString();
+                lblMensualidad.Text = lblMensualidad.Text + c.CantidadAbonoMensual.ToString();
+                lblPago.Text = "Pagado: $"+c.Pago;
                 if (consultar)
                 {
                     cmbPrograma.Enabled = false;
@@ -76,7 +76,7 @@ namespace IICAPS_v1.Presentacion
             lblFecha.Text = DateTime.Now.ToShortDateString();
             try
             {
-                foreach (Programa p in control.obtenerProgramas())
+                foreach (Programa p in control.ObtenerProgramas())
                 {
                     auxPrograma.Add(p.Nombre);
                     auxIDPrograma.Add(p.Codigo.ToString());
@@ -91,33 +91,33 @@ namespace IICAPS_v1.Presentacion
                 modificacion = true;
                 try
                 {
-                    cmbIDPrograma.SelectedItem = control.obtenerProgramaAlumno(c.alumno);
+                    cmbIDPrograma.SelectedItem = control.ObtenerProgramaAlumno(c.Alumno);
                 }
                 catch (Exception ex) { }
                 cmbPrograma.SelectedIndex = cmbIDPrograma.SelectedIndex;
                 cmbPrograma.Enabled = false;
-                cmbIDAlumno.SelectedItem = c.alumno;
+                cmbIDAlumno.SelectedItem = c.Alumno;
                 cmbAlumno.SelectedIndex = cmbIDAlumno.SelectedIndex;
                 cmbAlumno.Enabled = false;
-                numMensualidad.Value = Convert.ToDecimal(c.cantidadMensualidad);
-                numCantidad.Value = c.cantidadMeses;
-                txtObservaciones.Text = c.observaciones;
-                lblCredito.Text = lblCredito.Text + c.cantidadAbonoCredito.ToString();
-                lblMensualidad.Text = lblMensualidad.Text + c.cantidadAbonoMensual.ToString();
-                lblPago.Text = "Pagado: $" + c.pago;
+                numMensualidad.Value = Convert.ToDecimal(c.CantidadMensualidad);
+                numCantidad.Value = c.CantidadMeses;
+                txtObservaciones.Text = c.Observaciones;
+                lblCredito.Text = lblCredito.Text + c.CantidadAbonoCredito.ToString();
+                lblMensualidad.Text = lblMensualidad.Text + c.CantidadAbonoMensual.ToString();
+                lblPago.Text = "Pagado: $" + c.Pago;
             }else
             {
                 if (alumno != null)
                 {
                     try
                     {
-                        lblPago.Text = "Pagado: $" + control.consultarCobrosDeAlumnoPorConcepto(alumno.rfc, "Colegiatura").pago.ToString();
-                        cmbIDPrograma.SelectedItem = control.obtenerProgramaAlumno(alumno.rfc);
+                        lblPago.Text = "Pagado: $" + control.ConsultarCobroColegiatura(alumno.Rfc).Pago.ToString();
+                        cmbIDPrograma.SelectedItem = control.ObtenerProgramaAlumno(alumno.Rfc);
                     }
                     catch (Exception ex) { }
                     cmbPrograma.SelectedIndex = cmbIDPrograma.SelectedIndex;
                     cmbPrograma.Enabled = false;
-                    cmbAlumno.SelectedItem = alumno.nombre;
+                    cmbAlumno.SelectedItem = alumno.Nombre;
                     cmbAlumno.Enabled = false;
                 }
             }
@@ -156,12 +156,12 @@ namespace IICAPS_v1.Presentacion
         {
             try
             {
-                Programa programa = control.consultarPrograma(cmbIDPrograma.SelectedItem.ToString());
-                List<Materia> lista = control.consultarMapaCurricularPrograma(cmbIDPrograma.SelectedItem.ToString());
+                Programa programa = control.ConsultarPrograma(cmbIDPrograma.SelectedItem.ToString());
+                List<Materia> lista = control.ConsultarMapaCurricularPrograma(cmbIDPrograma.SelectedItem.ToString());
                 decimal totalmaterias = 0, grantotal = 0;
                 foreach (Materia materia in lista)
                 {
-                    totalmaterias += Convert.ToDecimal(materia.costo);
+                    totalmaterias += Convert.ToDecimal(materia.Costo);
                 }
                 decimal costoCredito;
                 if (programa.Nivel.Contains("Maestria") || programa.Nivel.Contains("MAESTRIA") || programa.Nivel.Contains("Maestría") || programa.Nivel.Contains("MAESTRÍA"))
@@ -202,17 +202,17 @@ namespace IICAPS_v1.Presentacion
             cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
             cmbIDAlumno.SelectedIndex = cmbAlumno.SelectedIndex;
             c = new CreditoAlumno();
-            c.alumno = cmbIDAlumno.SelectedItem.ToString();
-            c.cantidadMensualidad = Convert.ToDecimal(numMensualidad.Value);
-            c.cantidadMeses = Convert.ToInt32(numCantidad.Value);
-            c.observaciones = txtObservaciones.Text;
-            c.cantidadAbonoCredito = varaux1;
-            c.cantidadAbonoMensual = varaux2;
-            c.estado = "Activo";
+            c.Alumno = cmbIDAlumno.SelectedItem.ToString();
+            c.CantidadMensualidad = Convert.ToDecimal(numMensualidad.Value);
+            c.CantidadMeses = Convert.ToInt32(numCantidad.Value);
+            c.Observaciones = txtObservaciones.Text;
+            c.CantidadAbonoCredito = varaux1;
+            c.CantidadAbonoMensual = varaux2;
+            c.Estado = "Activo";
             if (modificacion)
             {
-                c.alumno = cmbIDAlumno.SelectedItem.ToString();
-                if (control.actualizarCredito(c))
+                c.Alumno = cmbIDAlumno.SelectedItem.ToString();
+                if (control.ActualizarCredito(c))
                 {
                     //Run method in a thread
                     Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));
@@ -224,7 +224,7 @@ namespace IICAPS_v1.Presentacion
             }
             else
             {
-                if (control.agregarCreditoAlumno(c))
+                if (control.AgregarCreditoAlumno(c))
                 {
                     Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));
                     t.Start();
@@ -245,10 +245,10 @@ namespace IICAPS_v1.Presentacion
             cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
             List<String> auxAlumno = new List<string>();
             List<String> auxIDAlumno = new List<string>();
-            foreach (Alumno a in control.obtenerAlumnosByPrograma(cmbIDPrograma.SelectedItem.ToString()))
+            foreach (Alumno a in control.ObtenerAlumnosByPrograma(cmbIDPrograma.SelectedItem.ToString()))
             {
-                auxAlumno.Add(a.nombre);
-                auxIDAlumno.Add(a.rfc.ToString());
+                auxAlumno.Add(a.Nombre);
+                auxIDAlumno.Add(a.Rfc.ToString());
             }
             cmbIDAlumno.Items.AddRange(auxIDAlumno.ToArray());
             cmbAlumno.Items.AddRange(auxAlumno.ToArray());
