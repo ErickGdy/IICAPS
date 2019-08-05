@@ -15,7 +15,7 @@ namespace IICAPS_v1.DataObject
         public decimal Restante { get; set; }
         public decimal Pago { get; set; }
         public string Concepto { get; set; }
-        public string Alumno { get; set; }
+        public string Remitente { get; set; }
 
     }
 }

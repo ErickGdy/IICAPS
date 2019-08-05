@@ -11,6 +11,8 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
     <PublishUrl>publicar\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -23,10 +25,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -96,10 +96,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Control\ComboBoxItem.cs" />
     <Compile Include="Control\ControlIicaps.cs" />
     <Compile Include="Control\DataGridViewPrinter.cs" />
     <Compile Include="Control\DocumentosWord.cs" />
     <Compile Include="DataObject\Cobro.cs" />
+    <Compile Include="DataObject\DetalleVentaLibro.cs" />
     <Compile Include="DataObject\Libro.cs" />
     <Compile Include="DataObject\PagoLibreria.cs" />
     <Compile Include="DataObject\ParametrosGenerales.cs" />
@@ -127,6 +129,7 @@
     <Compile Include="DataObject\DocumentosInscripcion.cs" />
     <Compile Include="DataObject\PaseDeListaAlumno.cs" />
     <Compile Include="DataObject\Usuario.cs" />
+    <Compile Include="DataObject\VentaLibro.cs" />
     <Compile Include="MainUpdater\GUI\Main_Updater.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -234,6 +237,12 @@
     </Compile>
     <Compile Include="Presentacion\Forms\FormsLibreria\FormLibro.Designer.cs">
       <DependentUpon>FormLibro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsLibreria\FormVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsLibreria\FormVenta.Designer.cs">
+      <DependentUpon>FormVenta.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Forms\FormsLibreria\FormRegistrarPagoLibreria.cs">
       <SubType>Form</SubType>
@@ -567,6 +576,9 @@
     <EmbeddedResource Include="Presentacion\Forms\FormsLibreria\FormLibro.resx">
       <DependentUpon>FormLibro.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsLibreria\FormVenta.resx">
+      <DependentUpon>FormVenta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsLibreria\FormRegistrarPagoLibreria.resx">
       <DependentUpon>FormRegistrarPagoLibreria.cs</DependentUpon>
     </EmbeddedResource>
@@ -792,7 +804,7 @@
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 y x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

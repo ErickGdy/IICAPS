@@ -206,7 +206,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(69, 18);
             this.label1.TabIndex = 58;
-            this.label1.Text = "Alumno:";
+            this.label1.Text = "Remitente:";
             // 
             // label4
             // 
@@ -339,7 +339,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CreditoAlumnos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Credito de Alumno";
+            this.Text = "Credito de Remitente";
             ((System.ComponentModel.ISupportInitialize)(this.numMensualidad)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCantidad)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

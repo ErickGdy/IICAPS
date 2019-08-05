@@ -47,10 +47,12 @@
             this.txtEditorial = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.groupStock = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.txtAlmacen = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.txtPrestados = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.txtVitrina2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtCosto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -58,6 +60,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtVitrina1)).BeginInit();
             this.groupStock.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtAlmacen)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPrestados)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAceptar
@@ -75,7 +78,7 @@
             // 
             this.labelVitrina2.AutoSize = true;
             this.labelVitrina2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelVitrina2.Location = new System.Drawing.Point(13, 60);
+            this.labelVitrina2.Location = new System.Drawing.Point(11, 60);
             this.labelVitrina2.Name = "labelVitrina2";
             this.labelVitrina2.Size = new System.Drawing.Size(81, 20);
             this.labelVitrina2.TabIndex = 37;
@@ -94,7 +97,7 @@
             // txtVitrina2
             // 
             this.txtVitrina2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVitrina2.Location = new System.Drawing.Point(100, 59);
+            this.txtVitrina2.Location = new System.Drawing.Point(98, 59);
             this.txtVitrina2.Maximum = new decimal(new int[] {
             20,
             0,
@@ -138,7 +141,7 @@
             // 
             this.labelVitrina.AutoSize = true;
             this.labelVitrina.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelVitrina.Location = new System.Drawing.Point(13, 21);
+            this.labelVitrina.Location = new System.Drawing.Point(11, 21);
             this.labelVitrina.Name = "labelVitrina";
             this.labelVitrina.Size = new System.Drawing.Size(81, 20);
             this.labelVitrina.TabIndex = 61;
@@ -212,7 +215,7 @@
             this.checkStock.Checked = true;
             this.checkStock.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkStock.Location = new System.Drawing.Point(124, 302);
+            this.checkStock.Location = new System.Drawing.Point(39, 297);
             this.checkStock.Name = "checkStock";
             this.checkStock.Size = new System.Drawing.Size(137, 24);
             this.checkStock.TabIndex = 5;
@@ -224,7 +227,7 @@
             // txtVitrina1
             // 
             this.txtVitrina1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVitrina1.Location = new System.Drawing.Point(100, 20);
+            this.txtVitrina1.Location = new System.Drawing.Point(98, 20);
             this.txtVitrina1.Maximum = new decimal(new int[] {
             20,
             0,
@@ -255,18 +258,43 @@
             // 
             // groupStock
             // 
+            this.groupStock.Controls.Add(this.txtPrestados);
+            this.groupStock.Controls.Add(this.label5);
             this.groupStock.Controls.Add(this.txtAlmacen);
             this.groupStock.Controls.Add(this.label4);
             this.groupStock.Controls.Add(this.txtVitrina1);
             this.groupStock.Controls.Add(this.labelVitrina);
             this.groupStock.Controls.Add(this.txtVitrina2);
             this.groupStock.Controls.Add(this.labelVitrina2);
-            this.groupStock.Location = new System.Drawing.Point(269, 267);
+            this.groupStock.Location = new System.Drawing.Point(184, 262);
             this.groupStock.Name = "groupStock";
-            this.groupStock.Size = new System.Drawing.Size(190, 130);
+            this.groupStock.Size = new System.Drawing.Size(323, 130);
             this.groupStock.TabIndex = 68;
             this.groupStock.TabStop = false;
             this.groupStock.Text = "Stocks";
+            // 
+            // txtAlmacen
+            // 
+            this.txtAlmacen.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAlmacen.Location = new System.Drawing.Point(98, 96);
+            this.txtAlmacen.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.txtAlmacen.Name = "txtAlmacen";
+            this.txtAlmacen.Size = new System.Drawing.Size(55, 24);
+            this.txtAlmacen.TabIndex = 66;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(9, 97);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(83, 20);
+            this.label4.TabIndex = 67;
+            this.label4.Text = "Almacen:";
             // 
             // button1
             // 
@@ -302,28 +330,29 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // txtAlmacen
+            // txtPrestados
             // 
-            this.txtAlmacen.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAlmacen.Location = new System.Drawing.Point(100, 96);
-            this.txtAlmacen.Maximum = new decimal(new int[] {
+            this.txtPrestados.Enabled = false;
+            this.txtPrestados.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPrestados.Location = new System.Drawing.Point(262, 56);
+            this.txtPrestados.Maximum = new decimal(new int[] {
             20,
             0,
             0,
             0});
-            this.txtAlmacen.Name = "txtAlmacen";
-            this.txtAlmacen.Size = new System.Drawing.Size(55, 24);
-            this.txtAlmacen.TabIndex = 66;
+            this.txtPrestados.Name = "txtPrestados";
+            this.txtPrestados.Size = new System.Drawing.Size(55, 24);
+            this.txtPrestados.TabIndex = 68;
             // 
-            // label4
+            // label5
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(11, 97);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(83, 20);
-            this.label4.TabIndex = 67;
-            this.label4.Text = "Almacen:";
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(168, 57);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(95, 20);
+            this.label5.TabIndex = 69;
+            this.label5.Text = "Prestados:";
             // 
             // FormLibro
             // 
@@ -360,6 +389,7 @@
             this.groupStock.ResumeLayout(false);
             this.groupStock.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtAlmacen)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPrestados)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -389,5 +419,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.NumericUpDown txtAlmacen;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown txtPrestados;
+        private System.Windows.Forms.Label label5;
     }
 }

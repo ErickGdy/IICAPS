@@ -707,7 +707,76 @@ namespace IICAPS_v1.Control
         }
 
 
+        public DocumentosWord(PagoLibreria pago)
+        {
+            control = ControlIicaps.getInstance();
+            Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
+            //Quitar animacion y visibilidad mientras se crea y edita
+            word.ShowAnimation = false;
+            word.Visible = false;
+            //Missing para rellenar parametros de creacion
+            object missing = System.Reflection.Missing.Value;
+            //Creacion del documento
+            Document documento = word.Documents.Add(ref missing, ref missing, ref missing);
+            //Agregar encabezado
+            foreach (Section section in documento.Sections)
+            {
+                //Encabezado y configuracion
+                Range headerRange = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                headerRange.Fields.Add(headerRange, WdFieldType.wdFieldPage);
+                headerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+                HeaderFooter header = section.Headers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
+                header.Range.ParagraphFormat.SpaceAfter = 0;
+                if (File.Exists(imgHeader1))
+                    header.Shapes.AddPicture(imgHeader1);
+            }
+            //Agregar pie de pagina
+            foreach (Section wordSection in documento.Sections)
+            {
+                //Pie de pagina y configuracion
+                Range footerRange = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                footerRange.ParagraphFormat.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+                HeaderFooter footer = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary];
+                footer.Range.ParagraphFormat.SpaceAfter = 50;
+                if (File.Exists(imgFooter1))
+                    footer.Shapes.AddPicture(imgFooter1);
 
+            }
+            //Agregar parrafo de texto con estilo de titulo 1
+            Paragraph parra1 = documento.Content.Paragraphs.Add(ref missing);
+            object styleHeading1 = "Título 1";
+            parra1.Range.set_Style(ref styleHeading1);
+            parra1.Range.Font.Color = WdColor.wdColorDarkGreen;
+            parra1.Range.Text = Environment.NewLine + Environment.NewLine + "Se recibió el pago de: " + pago.CompradorID;
+            parra1.Range.InsertParagraphAfter();
+            //Parrafos restantes del documento
+            documento.Content.SetRange(0, 0);
+            Paragraph parra2 = documento.Content.Paragraphs.Add(ref missing);
+            object style1 = "Normal";
+            parra2.Range.set_Style(ref style1);
+            parra2.Range.Font.Size = 12;
+            //parra1.Range.Text = "Recibo de documentos para: " + control.obtenerProgramaAlumno(doc.alumno);
+            parra2.Range.Text = "La cantidad de: $" + pago.Cantidad + Environment.NewLine +
+                "Por concepto de: " + pago.Concepto + Environment.NewLine +
+                "Fecha: " + pago.FechaPago + Environment.NewLine
+                + Environment.NewLine +
+                "Recibió: " + control.ObtenerNombreEmpleado(pago.Recibio) + Environment.NewLine
+                + Environment.NewLine
+                + "Firma: ___________________________________________";
+            parra2.Range.InsertParagraphAfter();
+            //Hacemos visible el documento
+            word.Visible = true;
+            //Guardamos el documento
+            string path = Directory.GetCurrentDirectory() + @"\Recibos de pagos";
+            object filename = Directory.GetCurrentDirectory() + @"\Recibos de pagos\ReciboDePago" + pago.Formato_folio();
+            // comprobar si el fichero ya existe
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            documento.SaveAs2(ref filename);
+            MessageBox.Show("¡Recibo de pago creado exitosamente!");
+        }
 
     }
 }

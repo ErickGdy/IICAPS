@@ -125,7 +125,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(113, 31);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Alumno:";
+            this.label1.Text = "Remitente:";
             // 
             // btnAgregarPago
             // 
@@ -173,7 +173,7 @@
             this.lblNombreAlumno.Name = "lblNombreAlumno";
             this.lblNombreAlumno.Size = new System.Drawing.Size(251, 31);
             this.lblNombreAlumno.TabIndex = 41;
-            this.lblNombreAlumno.Text = "Nombre del Alumno";
+            this.lblNombreAlumno.Text = "Nombre del Remitente";
             // 
             // label2
             // 

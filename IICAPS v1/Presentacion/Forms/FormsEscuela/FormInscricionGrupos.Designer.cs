@@ -141,7 +141,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(74, 20);
             this.label1.TabIndex = 66;
-            this.label1.Text = "Alumno:";
+            this.label1.Text = "Remitente:";
             // 
             // FormInscricionGrupos
             // 
@@ -163,7 +163,7 @@
             this.MaximizeBox = false;
             this.Name = "FormInscricionGrupos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Registrar Alumno en Grupo";
+            this.Text = "Registrar Remitente en Grupo";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

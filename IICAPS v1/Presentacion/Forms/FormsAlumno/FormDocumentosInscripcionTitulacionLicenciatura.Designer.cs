@@ -147,7 +147,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(69, 18);
             this.label1.TabIndex = 23;
-            this.label1.Text = "Alumno:";
+            this.label1.Text = "Remitente:";
             // 
             // pictureBox1
             // 

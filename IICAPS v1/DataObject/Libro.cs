@@ -16,8 +16,9 @@ namespace IICAPS_v1.DataObject
         public int Stock_vitrina_1 { get; set; }
         public int Stock_vitrina_2 { get; set; }
         public int Stock_almacen { get; set; }
+        public int Prestados { get; set; }
         public int Stock_total() {
-            return Stock_almacen + Stock_vitrina_1 + Stock_vitrina_2;
+            return Stock_almacen + Stock_vitrina_1 + Stock_vitrina_2 + Prestados;
         }
     }
 }

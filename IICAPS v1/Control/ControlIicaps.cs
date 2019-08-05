@@ -18,19 +18,19 @@ namespace IICAPS_v1.Control
         readonly SqlConnectionStringBuilder Builder;
         readonly SqlCommand Cmd;
 
-        //Devs
-        readonly string Server = @"DESKTOP-0SEOAIM\SQLEXPRESS";
-        readonly string UserID = "iic2ps1d_db";
-        readonly string Password = "ConejoVolador11";
-        readonly string Database = "iicaps_db_devs";
-        readonly uint Port = 1433;
-
-        ////Production
-        //readonly string Server = @"WIN-B2Q6B50DPEM";
-        //readonly string UserID = "iic2ps1d_devs_db";
+        ////Devs
+        //readonly string Server = @"DESKTOP-0SEOAIM\SQLEXPRESS";
+        //readonly string UserID = "iic2ps1d_db";
         //readonly string Password = "ConejoVolador11";
-        //readonly string Database = "iicaps_db_prod";
+        //readonly string Database = "iicaps_db_devs";
         //readonly uint Port = 1433;
+
+        //Production
+        readonly string Server = @"WIN-B2Q6B50DPEM";
+        readonly string UserID = "iic2ps1d_devs_db";
+        readonly string Password = "ConejoVolador11";
+        readonly string Database = "iicaps_db_prod";
+        readonly uint Port = 1433;
 
         public static ControlIicaps instance;
         public ParametrosGenerales parametros_Generales;
@@ -890,7 +890,7 @@ namespace IICAPS_v1.Control
                         Cantidad = reader.GetDecimal(2),
                         Pago = reader.GetDecimal(3),
                         Restante = reader.GetDecimal(4),
-                        Alumno = reader.GetString(5),
+                        Remitente = reader.GetString(5),
                         Parent_id = reader.GetString(6)
                     };
                     Conn.Close();
@@ -924,7 +924,7 @@ namespace IICAPS_v1.Control
                         Cantidad = reader.GetDecimal(2),
                         Pago = reader.GetDecimal(3),
                         Restante = reader.GetDecimal(4),
-                        Alumno = reader.GetString(5),
+                        Remitente = reader.GetString(5),
                         Parent_id = reader.GetString(6)
                     };
                     aux.Add(cobro);
@@ -1071,7 +1071,7 @@ namespace IICAPS_v1.Control
             //CREAR COMANDO Y QUERY PARA SER EJECUTADO
             try
             {
-                SqlDataAdapter mdaDatos = new SqlDataAdapter("SELECT M.ID, M.Nombre, M.Duracion,M.Semestre,M.Costo, P.Nombre AS 'Programa' FROM materia M LEFT JOIN mapaCurricular C ON C.Materia=M.ID LEFT JOIN programa P ON C.Programa=P.Codigo ORDER BY M.ID ASC", Conn);
+                SqlDataAdapter mdaDatos = new SqlDataAdapter("SELECT M.ID, M.Nombre, M.Duracion,M.Semestre,M.Costo, P.Nombre AS 'Programa' FROM materia M LEFT JOIN mapaCurricular C ON C.Materia=M.ID INNER JOIN programa P ON C.Programa=P.Codigo ORDER BY M.ID ASC", Conn);
                 Conn.Close();
                 return mdaDatos;
             }
@@ -1088,7 +1088,7 @@ namespace IICAPS_v1.Control
             //CREAR COMANDO Y QUERY PARA SER EJECUTADO
             try
             {
-                string sqlString = "SELECT M.ID, M.Nombre, M.Duracion,M.Semestre,M.Costo, P.Nombre AS 'Programa' FROM materia M LEFT JOIN mapaCurricular C ON C.Materia=M.ID LEFT JOIN programa P ON C.Programa=P.Codigo " +
+                string sqlString = "SELECT M.ID, M.Nombre, M.Duracion,M.Semestre,M.Costo, P.Nombre AS 'Programa' FROM materia M LEFT JOIN mapaCurricular C ON C.Materia=M.ID INNER JOIN programa P ON C.Programa=P.Codigo " +
                     " WHERE " +
                     "(M.ID LIKE '%" + parameter + "%' or " +
                     " M.Nombre LIKE '%" + parameter + "%' or " +
@@ -5648,8 +5648,50 @@ namespace IICAPS_v1.Control
             }
         }
 
-        //-------------------------------PAGOS ALUMNO--------------------------------------//
-        public bool AgregarPagoLibreria(PagoLibreria pago, List<Cobro> cobros)
+        //-----------------------------------VENTA LIBROS -----------------------//
+        public bool AgregarVentaLibreria(PagoLibreria pago, Cobro cobro, List<DetalleVentaLibro> LibrosVendidos) 
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                string pagoQuery = "INSERT INTO pagosLibreria (CompradorID, FechaPago, Cantidad, Concepto, Observaciones, Recibio) VALUES ('"
+                        + pago.CompradorID + "', '" + FormatearFecha(pago.FechaPago) + "'," + pago.Cantidad + ", '" + pago.Concepto + "', '"
+                        + pago.Observaciones + "', '" + pago.Recibio + "');";
+
+                string actualizaCobros = "";
+                if(cobro != null)
+                    actualizaCobros ="INSERT INTO cobrosAlumno (Alumno, Concepto,Cantidad, Pago, Restante, Fecha, Parent_ID) VALUES ('" + cobro.Remitente + "','" + cobro.Concepto + "','" + cobro.Cantidad + "','" + cobro.Pago + "','" + cobro.Restante + "', '" + FormatearFecha(cobro.Fecha) + "','" + pago.Id + "');" : "" ;
+                string queryLibros = "";
+                foreach (DetalleVentaLibro aux in LibrosVendidos)
+                {
+                    queryLibros = "";
+                }
+
+
+                Cmd.CommandText = "BEGIN TRANSACTION;" +
+                    pagoQuery +
+                    actualizaCobros +
+                    queryLibros +
+                    "COMMIT;";
+                int rowsAfected = Cmd.ExecuteNonQuery();
+                Conn.Close();
+                if (rowsAfected > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception E)
+            {
+                Conn.Close();
+                throw new Exception("Error al agregar el pago del alumno a la base de datos");
+            }
+        }
+
+
+        //-------------------------------PAGOS LIBRERIA--------------------------------------//
+        public bool AgregarPagoLibreria(PagoLibreria pago, Cobro cobros)
         {
             //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
             OpenConection();
@@ -5690,9 +5732,13 @@ namespace IICAPS_v1.Control
             //CREAR COMANDO Y QUERY PARA SER EJECUTADO
             try
             {
-                Cmd.CommandText = "INSERT INTO pagosLibreria (CompradorID, FechaPago, Cantidad, Concepto, Observaciones, Recibio) VALUES ('"
+                string queryContador = "INSERT INTO pagosLibreria (CompradorID, FechaPago, Cantidad, Concepto, Observaciones, Recibio) VALUES ('"
                         + pago.CompradorID + "', '" + FormatearFecha(pago.FechaPago) + "'," + pago.Cantidad + ", '" + pago.Concepto + "', '"
                         + pago.Observaciones + "', '" + pago.Recibio + "')";
+                string queryCredito = "INSERT INTO cobrosAlumno(Alumno, Concepto, Cantidad, Pago, Restante, Fecha, Parent_ID)SELECT '"
+                     + pago.CompradorID + "','Credito Librería', '" + pago.Cantidad + "','"+ pago.Cantidad+"','" + (credito.CantidadMensualidad * credito.CantidadMeses) + "','" + FormatearFecha(DateTime.Now) +
+                     "', AUTO_INCREMENT-1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '" + this.Database +
+                     "' AND TABLE_NAME = 'pagosLibreria';";
                 int rowsAfected = Cmd.ExecuteNonQuery();
                 Conn.Close();
                 if (rowsAfected > 0)
@@ -5848,92 +5894,328 @@ namespace IICAPS_v1.Control
 
             }
         }
-        //public Cobro ConsultarCobrosDeAlumnoPorConcepto(String rfc, string concepto)
-        //{
-        //    //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
-        //    OpenConection();
-        //    //CREAR COMANDO Y QUERY PARA SER EJECUTADO
-        //    try
-        //    {
-        //        Cmd.CommandText = "SELECT ID,Concepto,Cantidad,Pago,Restante,Alumno,Parent_ID FROM cobrosAlumno WHERE Alumno = '" + rfc + "' AND Concepto='" + concepto + "';";
-        //        SqlDataReader reader = Cmd.ExecuteReader();
-        //        while (reader.Read())
-        //        {
-        //            Cobro cobro = new Cobro();
-        //            cobro.id = reader.GetInt32(0);
-        //            cobro.concepto = reader.GetString(1);
-        //            cobro.cantidad = reader.GetDecimal(2);
-        //            cobro.pago = reader.GetDecimal(3);
-        //            cobro.restante = reader.GetDecimal(4);
-        //            cobro.alumno = reader.GetString(5);
-        //            cobro.parent_id = reader.GetString(6);
-        //            Conn.Close();
-        //            return cobro;
-        //        }
-        //        return null;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Conn.Close();
-        //        throw new Exception("Error al obtener los datos de los pagos del alumno de la base de datos");
-        //    }
+        public Cobro ConsultarCobroDeAlumnoLibreria(String rfc)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                Cmd.CommandText = "SELECT ID,Concepto,Cantidad,Pago,Restante,Alumno,Parent_ID FROM cobrosAlumno WHERE Alumno = '" + rfc + "' AND Concepto='Libreria';";
+                SqlDataReader reader = Cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Cobro cobro = new Cobro();
+                    cobro.Id = reader.GetInt32(0);
+                    cobro.Concepto = reader.GetString(1);
+                    cobro.Cantidad = reader.GetDecimal(2);
+                    cobro.Pago = reader.GetDecimal(3);
+                    cobro.Restante = reader.GetDecimal(4);
+                    cobro.Remitente = reader.GetString(5);
+                    cobro.Parent_id = reader.GetString(6);
+                    Conn.Close();
+                    return cobro;
+                }
+                return null;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener los datos de los pagos del alumno de la base de datos");
+            }
 
-        //}
-        //public List<Cobro> ConsultarCobrosDeAlumno(String rfc)
-        //{
-        //    //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
-        //    OpenConection();
-        //    //CREAR COMANDO Y QUERY PARA SER EJECUTADO
-        //    try
-        //    {
-        //        Cmd.CommandText = "SELECT ID,Concepto,Cantidad,Pago,Restante,Alumno,Parent_ID FROM cobrosAlumno WHERE Alumno = '" + rfc + "' AND Restante > 0";
-        //        SqlDataReader reader = Cmd.ExecuteReader();
-        //        List<Cobro> aux = new List<Cobro>();
-        //        while (reader.Read())
-        //        {
-        //            Cobro cobro = new Cobro();
-        //            cobro.id = reader.GetInt32(0);
-        //            cobro.concepto = reader.GetString(1);
-        //            cobro.cantidad = reader.GetDecimal(2);
-        //            cobro.pago = reader.GetDecimal(3);
-        //            cobro.restante = reader.GetDecimal(4);
-        //            cobro.alumno = reader.GetString(5);
-        //            cobro.parent_id = reader.GetString(6);
-        //            aux.Add(cobro);
-        //        }
-        //        Conn.Close();
-        //        if (aux.Count != 0)
-        //            return aux;
-        //        else
-        //            return null;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Conn.Close();
-        //        throw new Exception("Error al obtener los datos de los pagos del alumno de la base de datos");
-        //    }
+        }
+        public List<Cobro> ConsultarCobrosDeAlumnoLibreria(String rfc)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                Cmd.CommandText = "SELECT ID,Concepto,Cantidad,Pago,Restante,Alumno,Parent_ID FROM cobrosAlumno WHERE Alumno = '" + rfc + "' AND Restante > 0";
+                SqlDataReader reader = Cmd.ExecuteReader();
+                List<Cobro> aux = new List<Cobro>();
+                while (reader.Read())
+                {
+                    Cobro cobro = new Cobro();
+                    cobro.id = reader.GetInt32(0);
+                    cobro.concepto = reader.GetString(1);
+                    cobro.cantidad = reader.GetDecimal(2);
+                    cobro.pago = reader.GetDecimal(3);
+                    cobro.restante = reader.GetDecimal(4);
+                    cobro.alumno = reader.GetString(5);
+                    cobro.parent_id = reader.GetString(6);
+                    aux.Add(cobro);
+                }
+                Conn.Close();
+                if (aux.Count != 0)
+                    return aux;
+                else
+                    return null;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener los datos de los pagos del alumno de la base de datos");
+            }
 
-        //}
-        //public SqlDataAdapter ObtenerCobrosDeAlumnoTable(String rfc)
-        //{
-        //    //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
-        //    OpenConection();
-        //    //CREAR COMANDO Y QUERY PARA SER EJECUTADO
-        //    try
-        //    {
-        //        SqlDataAdapter mdaDatos = new SqlDataAdapter("SELECT ID,Concepto,Cantidad,Pago,Restante,Fecha FROM cobrosAlumno WHERE Alumno = '" + rfc + "'", Conn);
-        //        Conn.Close();
-        //        return mdaDatos;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Conn.Close();
-        //        throw new Exception("Error al obtener los datos de los pagos del alumno de la base de datos");
-        //    }
+        }
+        public SqlDataAdapter ObtenerCobrosDeAlumnoLibreriaTable(String rfc)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                SqlDataAdapter mdaDatos = new SqlDataAdapter("SELECT ID,Concepto,Cantidad,Pago,Restante,Fecha FROM cobrosAlumno WHERE Alumno = '" + rfc + "'", Conn);
+                Conn.Close();
+                return mdaDatos;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener los datos de los pagos del alumno de la base de datos");
+            }
 
-        //}
+        }
+
+        //-------------------------------Credito de alumnos-------------------------------//
+        public bool AgregarCreditoAlumno(CreditoAlumno credito)
+        {
+
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                string creditoQuery = "INSERT INTO creditoAlumno (AlumnoID, CantidadMensualidad, CantidadMeses, CantidadAbonoCredito, CantidadAbonoMensual, FechaSolicitud, Observaciones, Estado) VALUES ('"
+                    + credito.Alumno + "', '" + credito.CantidadMensualidad + "', '" + credito.CantidadMeses + "', '"
+                    + credito.CantidadAbonoCredito + "', '" + credito.CantidadAbonoMensual + "','"
+                    + FormatearFecha(DateTime.Now) + "', '" + credito.Observaciones + "', '" + credito.Estado + "');";
+                string registroCobro = "INSERT INTO cobrosAlumno(Alumno, Concepto, Cantidad, Pago, Restante, Fecha, Parent_ID)SELECT '"
+                    + credito.Alumno + "','Credito', '" + (credito.CantidadMensualidad * credito.CantidadMeses) +
+                    "','0.00','" + (credito.CantidadMensualidad * credito.CantidadMeses) + "','" + FormatearFecha(DateTime.Now) +
+                    "', AUTO_INCREMENT-1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '" + this.Database +
+                    "' AND TABLE_NAME = 'creditoAlumno';";
+                string updateColegiatura = "UPDATE cobrosAlumno SET Restante=0,Cantidad=Pago WHERE Parent_ID = '" + credito.Alumno + "' AND Restante > 0;";
 
 
+                Cmd.CommandText = "BEGIN TRANSACTION;" +
+                    creditoQuery +
+                    registroCobro +
+                    updateColegiatura +
+                    "COMMIT;";
+                int rowsAfected = Cmd.ExecuteNonQuery();
+                if (rowsAfected > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception E)
+            {
+                Conn.Close();
+                throw new Exception("Error al agregar el credito del alumnos a la base d datos");
+
+            }
+        }
+        public SqlDataAdapter ObtenerCreditoAlumnosTable()
+        {
+
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                SqlDataAdapter mdaDatos = new SqlDataAdapter("SELECT ID, AlumnoID, CantidadMensualidad AS 'Mensualidad' , CantidadMeses AS 'No. de Meses',  FechaSolicitud AS 'Fecha de Solicitud', Observaciones FROM creditoAlumno WHERE Estado NOT LIKE 'Cancelado'", Conn);
+                Conn.Close();
+                return mdaDatos;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener los datos de los creditos de los alumnos de la base de datos");
+            }
+
+        }
+        public SqlDataAdapter ObtenerCreditoAlumnosTable(string parameter)
+        {
+
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                string sqlString = "SELECT ID, AlumnoID, CantidadMensualidad AS 'Mensualidad' , CantidadMeses AS 'No. de Meses',  FechaSolicitud AS 'Fecha de Solicitud', Observaciones FROM creditoAlumno WHERE Estado NOT LIKE 'Cancelado' AND " +
+                    "(AlumnoID LIKE '%" + parameter + "%' or " +
+                    "CantidadMensualidad LIKE '%" + parameter + "%' or " +
+                    "CantidadMeses LIKE '%" + parameter + "%' or " +
+                    "Observaciones LIKE '%" + parameter + "%')";
+                SqlDataAdapter mdaDatos = new SqlDataAdapter(sqlString, Conn);
+                Conn.Close();
+                return mdaDatos;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener los datos de los creditos de los alumnos de la base de datos");
+            }
+
+        }
+        public CreditoAlumno ConsultarCreditoActivoAlumno(string rfc)
+        {
+
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                Cmd.CommandText = "SELECT C.ID, C.AlumnoID, C.CantidadMensualidad, C.CantidadMeses, C.CantidadAbonoCredito, C.CantidadAbonoMensual, C.FechaSolicitud, C.Observaciones, C.Estado, A.Pago FROM creditoAlumno C, cobrosAlumno A WHERE A.Parent_ID=C.ID AND AlumnoID='" + rfc + "' AND C.Estado='Activo'";
+                SqlDataReader reader = Cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    CreditoAlumno credito = new CreditoAlumno
+                    {
+                        Id = reader.GetInt32(0),
+                        Alumno = reader.GetString(1),
+                        CantidadMensualidad = reader.GetDecimal(2),
+                        CantidadMeses = reader.GetInt32(3),
+                        CantidadAbonoCredito = reader.GetDecimal(4),
+                        CantidadAbonoMensual = reader.GetDecimal(5),
+                        FechaSolicitud = reader.GetDateTime(6),
+                        Observaciones = reader.GetString(7),
+                        Estado = reader.GetString(8),
+                        Pago = reader.GetDecimal(9)
+                    };
+                    Conn.Close();
+                    return credito;
+                }
+                Conn.Close();
+                return null;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener los datos del credito del alumno de la base de datos");
+            }
+
+        }
+        public CreditoAlumno ConsultarCreditoAlumno(string rfc)
+        {
+
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                Cmd.CommandText = "SELECT C.ID, C.AlumnoID, C.CantidadMensualidad, C.CantidadMeses, C.CantidadAbonoCredito, C.CantidadAbonoMensual, C.FechaSolicitud, C.Observaciones, C.Estado, A.Pago FROM creditoAlumno C, cobrosAlumno A WHERE A.Parent_ID=C.ID AND AlumnoID='" + rfc + "'";
+                SqlDataReader reader = Cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    CreditoAlumno credito = new CreditoAlumno
+                    {
+                        Id = reader.GetInt32(0),
+                        Alumno = reader.GetString(1),
+                        CantidadMensualidad = reader.GetDecimal(2),
+                        CantidadMeses = reader.GetInt32(3),
+                        CantidadAbonoCredito = reader.GetDecimal(4),
+                        CantidadAbonoMensual = reader.GetDecimal(5),
+                        FechaSolicitud = reader.GetDateTime(6),
+                        Observaciones = reader.GetString(7),
+                        Estado = reader.GetString(8),
+                        Pago = reader.GetDecimal(9)
+                    };
+                    Conn.Close();
+                    return credito;
+                }
+                Conn.Close();
+                return null;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener los datos del credito del alumno de la base de datos");
+            }
+
+        }
+        public bool ActualizarEstadoCredito(string credito_ID, string estado)
+        {
+
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                string creditoQuery = "UPDATE creditoAlumno SET Estado ='" + estado + "' WHERE ID = '" + credito_ID + "'";
+                Cmd.CommandText = "BEGIN TRANSACTION;" +
+                    creditoQuery +
+                    "COMMIT;";
+                int rowsAfected = Cmd.ExecuteNonQuery();
+                Conn.Close();
+                if (rowsAfected > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al actualizar los datos del credito del alumno en la Base de Datos");
+            }
+        }
+        public bool ActualizarCredito(CreditoAlumno credito)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                string creditoQuery = "UPDATE creditoAlumno SET CantidadMensualidad= '" + credito.CantidadMensualidad + "', CantidadMeses= '" + credito.CantidadMeses +
+                    "', CantidadAbonoCredito=" + credito.CantidadAbonoCredito + "', CantidadAbonoMensual='" + credito.CantidadAbonoMensual +
+                    "', Observaciones= '" + credito.Observaciones + "' WHERE AlumnoID = '" + credito.Alumno + "'";
+                string registroCobro = "UPDATE cobrosAlumno set Alumno='" + credito.Alumno + "',Concepto='Credito', Cantidad='" + (credito.CantidadMensualidad * credito.CantidadMeses) +
+                    "',Restante=" + (credito.CantidadMensualidad * credito.CantidadMeses) + "- pago,Fecha='" + FormatearFecha(DateTime.Now) + "' WHERE Parent_ID = '" + credito.Id + "';";
+
+                Cmd.CommandText = "BEGIN TRANSACTION;" +
+                    creditoQuery +
+                    registroCobro +
+                    "COMMIT;";
+                int rowsAfected = Cmd.ExecuteNonQuery();
+                Conn.Close();
+                if (rowsAfected > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al actualizar los datos del credito del alumno en la Base de Datos");
+            }
+
+        }
+        public bool CancelarCredito(string id)
+        {
+
+
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                Cmd.CommandText = "UPDATE creditoAlumno SET Estado = 'Cancelado' WHERE ID=" + id;
+                int rowsAfected = Cmd.ExecuteNonQuery();
+                Conn.Close();
+                if (rowsAfected > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al cancelar el crédito del alumno en la Base de Datos");
+            }
+        }
 
 
 
@@ -6030,6 +6312,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error..! Error al desactivar usuario de la Base de Datos");
             }
         }
+
 
         //--------------------------------PARAMETROS GENERALES ----------------------------------//
         private void ConsultarParametrosGenerales()

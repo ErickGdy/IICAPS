@@ -132,7 +132,7 @@ namespace IICAPS_v1.Presentacion
                 Recibio = cmbIDRecibio.SelectedItem.ToString(),
                 FechaPago = DateTime.Now
             };
-            List<Cobro> pagoPendientes = control.ConsultarCobrosDeAlumno(p.CompradorID);
+            List<Cobro> pagoPendientes = control.ConsultarCobrosDeAlumnoLibreria(p.CompradorID);
             if (pagoPendientes != null) {
                 decimal cantidad = Convert.ToDecimal(p.Cantidad);
                 int posicion = 0;

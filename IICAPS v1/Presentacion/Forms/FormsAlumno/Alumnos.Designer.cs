@@ -220,7 +220,7 @@
             this.tabInfoAlumno.Padding = new System.Windows.Forms.Padding(2);
             this.tabInfoAlumno.Size = new System.Drawing.Size(675, 222);
             this.tabInfoAlumno.TabIndex = 0;
-            this.tabInfoAlumno.Text = "Datos del Alumno";
+            this.tabInfoAlumno.Text = "Datos del Remitente";
             this.tabInfoAlumno.UseVisualStyleBackColor = true;
             // 
             // linkLabel2

@@ -184,7 +184,7 @@
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(164, 32);
             this.btnAgregar.TabIndex = 1;
-            this.btnAgregar.Text = "Inscribir Alumno";
+            this.btnAgregar.Text = "Inscribir Remitente";
             this.btnAgregar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAgregar.UseVisualStyleBackColor = false;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);

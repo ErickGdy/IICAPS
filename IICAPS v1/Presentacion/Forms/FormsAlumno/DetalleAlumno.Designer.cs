@@ -145,7 +145,7 @@
             this.lblNombreHeader.Name = "lblNombreHeader";
             this.lblNombreHeader.Size = new System.Drawing.Size(326, 25);
             this.lblNombreHeader.TabIndex = 3;
-            this.lblNombreHeader.Text = "Nombre Completo Del Alumno";
+            this.lblNombreHeader.Text = "Nombre Completo Del Remitente";
             // 
             // linkLabel1
             // 
@@ -244,7 +244,7 @@
             this.lblProgramaHeader.Name = "lblProgramaHeader";
             this.lblProgramaHeader.Size = new System.Drawing.Size(375, 25);
             this.lblProgramaHeader.TabIndex = 48;
-            this.lblProgramaHeader.Text = "Alumno no inscrito en algun programa";
+            this.lblProgramaHeader.Text = "Remitente no inscrito en algun programa";
             // 
             // lblCentroAlumnado
             // 

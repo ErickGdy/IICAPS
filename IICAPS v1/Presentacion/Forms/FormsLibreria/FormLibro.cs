@@ -30,6 +30,7 @@ namespace IICAPS_v1.Presentacion
             txtVitrina2.Value = libro.Stock_vitrina_2;
             txtCosto.Value = libro.Precio_base;
             txtAlmacen.Value = libro.Stock_almacen;
+            txtPrestados.Value = libro.Prestados;
             if (libro.Stock_vitrina_1 <= 0 || libro.Stock_vitrina_2 <= 0)
             {
                 checkStock.Checked=true;
@@ -67,6 +68,7 @@ namespace IICAPS_v1.Presentacion
                 libro.Editorial = txtEditorial.Text;
                 libro.Autor = txtAutor.Text;
                 libro.Precio_base = txtCosto.Value;
+                libro.Prestados = Convert.ToInt32(txtPrestados.Value);
                 try
                 {
                     if (modificacion)
