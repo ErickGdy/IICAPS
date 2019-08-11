@@ -156,7 +156,7 @@ namespace IICAPS_v1.Presentacion
                 libros.Add(libro);
             }
             //Crear logica de venta y modificacion
-            if (control.AgregarPagoLibreria(Pago,cobro))
+            if (Venta.Id != 0 ? control.ActualizarVentaLibreria(Pago, cobro, libros) : control.AgregarVentaLibreria(Pago,cobro,libros))
             {
                 Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));
                 t.Start();

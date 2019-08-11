@@ -126,7 +126,7 @@ namespace IICAPS_v1.Presentacion
             p = new PagoLibreria
             {
                 CompradorID = cmbIDAlumno.SelectedItem.ToString(),
-                Cantidad = Convert.ToDouble(numericUpDown1.Value),
+                Cantidad = Convert.ToDecimal(numericUpDown1.Value),
                 Concepto = cmbConcepto.SelectedItem.ToString(),
                 Observaciones = txtObservaciones.Text,
                 Recibio = cmbIDRecibio.SelectedItem.ToString(),

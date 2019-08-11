@@ -31,7 +31,6 @@ namespace IICAPS_v1.Control
         readonly string Password = "ConejoVolador11";
         readonly string Database = "iicaps_db_prod";
         readonly uint Port = 1433;
-
         public static ControlIicaps instance;
         public ParametrosGenerales parametros_Generales;
         /** MYSSQL SERVER
@@ -87,6 +86,7 @@ namespace IICAPS_v1.Control
 
             Conn = new SqlConnection(Builder.ConnectionString);
             Cmd = Conn.CreateCommand();
+            
 
             try
             {
@@ -448,17 +448,13 @@ namespace IICAPS_v1.Control
                     + credito.CantidadAbonoCredito + "', '" + credito.CantidadAbonoMensual + "','"
                     + FormatearFecha(DateTime.Now) + "', '" + credito.Observaciones + "', '" + credito.Estado + "');";
                 string registroCobro = "INSERT INTO cobrosAlumno(Alumno, Concepto, Cantidad, Pago, Restante, Fecha, Parent_ID)SELECT '"
-                    + credito.Alumno + "','Credito', '" + (credito.CantidadMensualidad * credito.CantidadMeses) +
+                    + credito.Alumno + "','Credito Escolar', '" + (credito.CantidadMensualidad * credito.CantidadMeses) +
                     "','0.00','" + (credito.CantidadMensualidad * credito.CantidadMeses) + "','" + FormatearFecha(DateTime.Now) +
                     "', AUTO_INCREMENT-1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '" + this.Database +
-                    "' AND TABLE_NAME = 'creditoAlumno';";
-                string updateColegiatura = "UPDATE cobrosAlumno SET Restante=0,Cantidad=Pago WHERE Parent_ID = '" + credito.Alumno + "' AND Restante > 0;";
-
-
+                    "' AND TABLE_NAME = 'creditoAlumno');";
                 Cmd.CommandText = "BEGIN TRANSACTION;" +
                     creditoQuery +
                     registroCobro +
-                    updateColegiatura +
                     "COMMIT;";
                 int rowsAfected = Cmd.ExecuteNonQuery();
                 if (rowsAfected > 0)
@@ -524,7 +520,7 @@ namespace IICAPS_v1.Control
             //CREAR COMANDO Y QUERY PARA SER EJECUTADO
             try
             {
-                Cmd.CommandText = "SELECT C.ID, C.AlumnoID, C.CantidadMensualidad, C.CantidadMeses, C.CantidadAbonoCredito, C.CantidadAbonoMensual, C.FechaSolicitud, C.Observaciones, C.Estado, A.Pago FROM creditoAlumno C, cobrosAlumno A WHERE A.Parent_ID=C.ID AND AlumnoID='" + rfc + "' AND C.Estado='Activo'";
+                Cmd.CommandText = "SELECT C.ID, C.AlumnoID, C.CantidadMensualidad, C.CantidadMeses, C.CantidadAbonoCredito, C.CantidadAbonoMensual, C.FechaSolicitud, C.Observaciones, C.Estado, A.Pago FROM creditoAlumno C, cobrosAlumno A WHERE A.Parent_ID=C.ID AND C.AlumnoID='" + rfc + "' AND C.Estado='Activo'";
                 SqlDataReader reader = Cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -562,7 +558,7 @@ namespace IICAPS_v1.Control
             //CREAR COMANDO Y QUERY PARA SER EJECUTADO
             try
             {
-                Cmd.CommandText = "SELECT C.ID, C.AlumnoID, C.CantidadMensualidad, C.CantidadMeses, C.CantidadAbonoCredito, C.CantidadAbonoMensual, C.FechaSolicitud, C.Observaciones, C.Estado, A.Pago FROM creditoAlumno C, cobrosAlumno A WHERE A.Parent_ID=C.ID AND AlumnoID='" + rfc + "'";
+                Cmd.CommandText = "SELECT C.ID, C.AlumnoID, C.CantidadMensualidad, C.CantidadMeses, C.CantidadAbonoCredito, C.CantidadAbonoMensual, C.FechaSolicitud, C.Observaciones, C.Estado, A.Pago FROM creditoAlumno C, cobrosAlumno A WHERE A.Parent_ID=C.ID AND C.AlumnoID='" + rfc + "' AND A.Concepto='Credito Escolar'";
                 SqlDataReader reader = Cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -627,8 +623,8 @@ namespace IICAPS_v1.Control
                 string creditoQuery = "UPDATE creditoAlumno SET CantidadMensualidad= '" + credito.CantidadMensualidad + "', CantidadMeses= '" + credito.CantidadMeses +
                     "', CantidadAbonoCredito=" + credito.CantidadAbonoCredito + "', CantidadAbonoMensual='" + credito.CantidadAbonoMensual +
                     "', Observaciones= '" + credito.Observaciones + "' WHERE AlumnoID = '" + credito.Alumno + "'";
-                string registroCobro = "UPDATE cobrosAlumno set Alumno='" + credito.Alumno + "',Concepto='Credito', Cantidad='" + (credito.CantidadMensualidad * credito.CantidadMeses) +
-                    "',Restante=" + (credito.CantidadMensualidad * credito.CantidadMeses) + "- pago,Fecha='" + FormatearFecha(DateTime.Now) + "' WHERE Parent_ID = '" + credito.Id + "';";
+                string registroCobro = "UPDATE cobrosAlumno set Alumno='" + credito.Alumno + "',Concepto='Credito Escolar', Cantidad='" + (credito.CantidadMensualidad * credito.CantidadMeses) +
+                    "',Restante=" + (credito.CantidadMensualidad * credito.CantidadMeses) + "- pago,Fecha='" + FormatearFecha(DateTime.Now) + "' WHERE Parent_ID = '" + credito.Id + "' AND Concepto='Credito Escolar';";
 
                 Cmd.CommandText = "BEGIN TRANSACTION;" +
                     creditoQuery +
@@ -657,7 +653,9 @@ namespace IICAPS_v1.Control
             //CREAR COMANDO Y QUERY PARA SER EJECUTADO
             try
             {
-                Cmd.CommandText = "UPDATE creditoAlumno SET Estado = 'Cancelado' WHERE ID=" + id;
+                string query = "UPDATE creditoAlumno SET Estado = 'Cancelado' WHERE ID=" + id;
+                query+= "UPDATE cobrosAlumno SET Estado = 'Cancelado' WHERE Parent_ID="+ id +"AND Concepto='Credito Alumno'";
+                Cmd.CommandText = query;
                 int rowsAfected = Cmd.ExecuteNonQuery();
                 Conn.Close();
                 if (rowsAfected > 0)
@@ -5662,11 +5660,11 @@ namespace IICAPS_v1.Control
 
                 string actualizaCobros = "";
                 if(cobro != null)
-                    actualizaCobros ="INSERT INTO cobrosAlumno (Alumno, Concepto,Cantidad, Pago, Restante, Fecha, Parent_ID) VALUES ('" + cobro.Remitente + "','" + cobro.Concepto + "','" + cobro.Cantidad + "','" + cobro.Pago + "','" + cobro.Restante + "', '" + FormatearFecha(cobro.Fecha) + "','" + pago.Id + "');" : "" ;
+                    actualizaCobros ="INSERT INTO cobrosAlumno (Alumno, Concepto,Cantidad, Pago, Restante, Fecha, Parent_ID) select '" + cobro.Remitente + "','" + cobro.Concepto + "','" + cobro.Cantidad + "','" + cobro.Pago + "','" + cobro.Restante + "', '" + FormatearFecha(cobro.Fecha) + "', MAX(ID) from pagosLibreria;";
                 string queryLibros = "";
                 foreach (DetalleVentaLibro aux in LibrosVendidos)
                 {
-                    queryLibros = "";
+                    queryLibros += " insert INTO DetalleVentaLibros ( Libro, Precio_Unitario,Cantidad, Total, Venta) select '" + aux.Libro + "','" + aux.Precio_Unitario + "','" + aux.Cantidad + "','" + aux.Total + "', MAX(ID) from pagosLibreria;"; 
                 }
 
 
@@ -5685,13 +5683,141 @@ namespace IICAPS_v1.Control
             catch (Exception E)
             {
                 Conn.Close();
-                throw new Exception("Error al agregar el pago del alumno a la base de datos");
+                throw new Exception("Error al agregar el Venta de libros a la base de datos");
             }
         }
+        public bool ActualizarVentaLibreria(PagoLibreria pago, Cobro cobro, List<DetalleVentaLibro> LibrosVendidos) 
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                string pagoQuery = "UPDATE pagosLibreria SET CompradorID='"+ pago.CompradorID + "', FechaPago='" + FormatearFecha(pago.FechaPago) + "', Cantidad='" + pago.Cantidad +
+                    "', Concepto='"+ pago.Concepto + "', Observaciones='"+pago.Observaciones + "', Recibio='"+pago.Recibio + "', Activa=1 WHERE ID="+pago.Id+";";
 
+                string actualizaCobros = "";
+                if(cobro != null)
+                    actualizaCobros = "UPDATE cobrosAlumno SET Alumno='" + cobro.Remitente + "', Concepto='" + cobro.Concepto + "',Cantidad='" + cobro.Cantidad +
+                        "', Pago='" + cobro.Pago + "', Restante='" + cobro.Restante + "', Fecha='" + FormatearFecha(cobro.Fecha) + "', Parent_ID =" + pago.Id + " WHERE ID=" + cobro.Id + ";";
+                string queryLibros = "DELETE FROM DetalleVentaLibros WHERE Venta=" + pago.Id + "; ";
+                foreach (DetalleVentaLibro aux in LibrosVendidos)
+                {
+                    queryLibros += " insert INTO DetalleVentaLibros ( Libro, Precio_Unitario,Cantidad, Total, Venta) select '" + aux.Libro + "','" + aux.Precio_Unitario + "','" + aux.Cantidad + "','" + aux.Total + "',"+pago.Id+"; "; 
+                }
+
+
+                Cmd.CommandText = "BEGIN TRANSACTION;" +
+                    pagoQuery +
+                    actualizaCobros +
+                    queryLibros +
+                    "COMMIT;";
+                int rowsAfected = Cmd.ExecuteNonQuery();
+                Conn.Close();
+                if (rowsAfected > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception E)
+            {
+                Conn.Close();
+                throw new Exception("Error al agregar el Venta de libros a la base de datos");
+            }
+        }
+        public bool CancelarPagoLibreria(int id)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                string query = "UPDATE pagosLibreria SET Activo=0 WHERE ID=" + id;
+                query += "UPDATE cobroAlumno SET Activo = 0 WHERE ID = " + id;
+                Cmd.CommandText = query;
+                int rowsAfected = Cmd.ExecuteNonQuery();
+                Conn.Close();
+                if (rowsAfected > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al cancelar el pago del alumno en la Base de Datos");
+
+            }
+        }
+        public PagoLibreria ConsultarVentaLibreria_Pago(int id)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                Cmd.CommandText = "SELECT * FROM pagosLibreria WHERE ID='" + id + "'";
+                SqlDataReader reader = Cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    PagoLibreria pago = new PagoLibreria
+                    {
+                        Id = reader.GetInt32(0),
+                        CompradorID = reader.GetString(1),
+                        FechaPago = reader.GetDateTime(2),
+                        Cantidad = reader.GetInt32(3),
+                        Concepto = reader.GetString(4),
+                        Observaciones = reader.GetString(5),
+                        Recibio = reader.GetString(6)
+                    };
+                    Conn.Close();
+                    return pago;
+                }
+                Conn.Close();
+                return null;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener los datos del pago de la base de datos");
+            }
+        }
+        public PagoLibreria ConsultarVentaLibreria_DetallesDeVenta(int id)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                Cmd.CommandText = "SELECT * FROM DetalleVentaLibros WHERE ID='" + id + "'";
+                SqlDataReader reader = Cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    PagoLibreria pago = new PagoLibreria
+                    {
+                        Id = reader.GetInt32(0),
+                        CompradorID = reader.GetString(1),
+                        FechaPago = reader.GetDateTime(2),
+                        Cantidad = reader.GetInt32(3),
+                        Concepto = reader.GetString(4),
+                        Observaciones = reader.GetString(5),
+                        Recibio = reader.GetString(6)
+                    };
+                    Conn.Close();
+                    return pago;
+                }
+                Conn.Close();
+                return null;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener los datos del pago de la base de datos");
+            }
+        }
+        
 
         //-------------------------------PAGOS LIBRERIA--------------------------------------//
-        public bool AgregarPagoLibreria(PagoLibreria pago, Cobro cobros)
+        public bool AgregarPagoLibreria(PagoLibreria pago, List<Cobro> cobros)
         {
             //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
             OpenConection();
@@ -5938,13 +6064,13 @@ namespace IICAPS_v1.Control
                 while (reader.Read())
                 {
                     Cobro cobro = new Cobro();
-                    cobro.id = reader.GetInt32(0);
-                    cobro.concepto = reader.GetString(1);
-                    cobro.cantidad = reader.GetDecimal(2);
-                    cobro.pago = reader.GetDecimal(3);
-                    cobro.restante = reader.GetDecimal(4);
-                    cobro.alumno = reader.GetString(5);
-                    cobro.parent_id = reader.GetString(6);
+                    cobro.Id = reader.GetInt32(0);
+                    cobro.Concepto = reader.GetString(1);
+                    cobro.Cantidad = reader.GetDecimal(2);
+                    cobro.Pago = reader.GetDecimal(3);
+                    cobro.Restante = reader.GetDecimal(4);
+                    cobro.Remitente = reader.GetString(5);
+                    cobro.Parent_id = reader.GetString(6);
                     aux.Add(cobro);
                 }
                 Conn.Close();
@@ -5979,8 +6105,8 @@ namespace IICAPS_v1.Control
 
         }
 
-        //-------------------------------Credito de alumnos-------------------------------//
-        public bool AgregarCreditoAlumno(CreditoAlumno credito)
+        //-------------------------------Credito de Libreria-------------------------------//
+        public bool AgregarCreditoLibreriaAlumno(CreditoAlumno credito)
         {
 
             //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
@@ -5993,7 +6119,7 @@ namespace IICAPS_v1.Control
                     + credito.CantidadAbonoCredito + "', '" + credito.CantidadAbonoMensual + "','"
                     + FormatearFecha(DateTime.Now) + "', '" + credito.Observaciones + "', '" + credito.Estado + "');";
                 string registroCobro = "INSERT INTO cobrosAlumno(Alumno, Concepto, Cantidad, Pago, Restante, Fecha, Parent_ID)SELECT '"
-                    + credito.Alumno + "','Credito', '" + (credito.CantidadMensualidad * credito.CantidadMeses) +
+                    + credito.Alumno + "','Credito Escolar', '" + (credito.CantidadMensualidad * credito.CantidadMeses) +
                     "','0.00','" + (credito.CantidadMensualidad * credito.CantidadMeses) + "','" + FormatearFecha(DateTime.Now) +
                     "', AUTO_INCREMENT-1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '" + this.Database +
                     "' AND TABLE_NAME = 'creditoAlumno';";
@@ -6018,7 +6144,7 @@ namespace IICAPS_v1.Control
 
             }
         }
-        public SqlDataAdapter ObtenerCreditoAlumnosTable()
+        public SqlDataAdapter ObtenerCreditoLibreriaAlumnosTable()
         {
 
             //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
@@ -6037,7 +6163,7 @@ namespace IICAPS_v1.Control
             }
 
         }
-        public SqlDataAdapter ObtenerCreditoAlumnosTable(string parameter)
+        public SqlDataAdapter ObtenerCreditoLibreriaAlumnosTable(string parameter)
         {
 
             //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
@@ -6061,7 +6187,7 @@ namespace IICAPS_v1.Control
             }
 
         }
-        public CreditoAlumno ConsultarCreditoActivoAlumno(string rfc)
+        public CreditoAlumno ConsultarCreditoLibreriaActivoAlumno(string rfc)
         {
 
             //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
@@ -6099,7 +6225,7 @@ namespace IICAPS_v1.Control
             }
 
         }
-        public CreditoAlumno ConsultarCreditoAlumno(string rfc)
+        public CreditoAlumno ConsultarCreditoLibreriaAlumno(string rfc)
         {
 
             //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
@@ -6137,7 +6263,7 @@ namespace IICAPS_v1.Control
             }
 
         }
-        public bool ActualizarEstadoCredito(string credito_ID, string estado)
+        public bool ActualizarEstadoCreditoLibreria(string credito_ID, string estado)
         {
 
             //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
@@ -6162,7 +6288,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al actualizar los datos del credito del alumno en la Base de Datos");
             }
         }
-        public bool ActualizarCredito(CreditoAlumno credito)
+        public bool ActualizarCreditoLibreria(CreditoAlumno credito)
         {
             //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
             OpenConection();
@@ -6172,8 +6298,8 @@ namespace IICAPS_v1.Control
                 string creditoQuery = "UPDATE creditoAlumno SET CantidadMensualidad= '" + credito.CantidadMensualidad + "', CantidadMeses= '" + credito.CantidadMeses +
                     "', CantidadAbonoCredito=" + credito.CantidadAbonoCredito + "', CantidadAbonoMensual='" + credito.CantidadAbonoMensual +
                     "', Observaciones= '" + credito.Observaciones + "' WHERE AlumnoID = '" + credito.Alumno + "'";
-                string registroCobro = "UPDATE cobrosAlumno set Alumno='" + credito.Alumno + "',Concepto='Credito', Cantidad='" + (credito.CantidadMensualidad * credito.CantidadMeses) +
-                    "',Restante=" + (credito.CantidadMensualidad * credito.CantidadMeses) + "- pago,Fecha='" + FormatearFecha(DateTime.Now) + "' WHERE Parent_ID = '" + credito.Id + "';";
+                string registroCobro = "UPDATE cobrosAlumno set Alumno='" + credito.Alumno + "', Cantidad='" + (credito.CantidadMensualidad * credito.CantidadMeses) +
+                    "',Restante=" + (credito.CantidadMensualidad * credito.CantidadMeses) + "- pago,Fecha='" + FormatearFecha(DateTime.Now) + "' WHERE Parent_ID = '" + credito.Id + "' AND Concepto='Credito Escolar';";
 
                 Cmd.CommandText = "BEGIN TRANSACTION;" +
                     creditoQuery +
@@ -6193,7 +6319,7 @@ namespace IICAPS_v1.Control
             }
 
         }
-        public bool CancelarCredito(string id)
+        public bool CancelarCreditoLibreria(string id)
         {
 
 

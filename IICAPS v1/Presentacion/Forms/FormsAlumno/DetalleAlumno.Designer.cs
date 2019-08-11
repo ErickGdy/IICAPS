@@ -35,6 +35,7 @@
             this.linkLabel3 = new System.Windows.Forms.LinkLabel();
             this.linkLabel5 = new System.Windows.Forms.LinkLabel();
             this.groupMenus = new System.Windows.Forms.GroupBox();
+            this.linkLabelCredito = new System.Windows.Forms.LinkLabel();
             this.linkHistoriaPagos = new System.Windows.Forms.LinkLabel();
             this.linkInscripciones = new System.Windows.Forms.LinkLabel();
             this.lblProgramaHeader = new System.Windows.Forms.Label();
@@ -122,7 +123,6 @@
             this.label33 = new System.Windows.Forms.Label();
             this.cmbGrupos = new System.Windows.Forms.ComboBox();
             this.label34 = new System.Windows.Forms.Label();
-            this.linkLabelCredito = new System.Windows.Forms.LinkLabel();
             this.groupMenus.SuspendLayout();
             this.panelCalificaciones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCalificaciones)).BeginInit();
@@ -143,7 +143,7 @@
             this.lblNombreHeader.Location = new System.Drawing.Point(190, 62);
             this.lblNombreHeader.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNombreHeader.Name = "lblNombreHeader";
-            this.lblNombreHeader.Size = new System.Drawing.Size(326, 25);
+            this.lblNombreHeader.Size = new System.Drawing.Size(354, 25);
             this.lblNombreHeader.TabIndex = 3;
             this.lblNombreHeader.Text = "Nombre Completo Del Remitente";
             // 
@@ -211,6 +211,18 @@
             this.groupMenus.TabStop = false;
             this.groupMenus.Text = "Menú";
             // 
+            // linkLabelCredito
+            // 
+            this.linkLabelCredito.AutoSize = true;
+            this.linkLabelCredito.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabelCredito.Location = new System.Drawing.Point(37, 202);
+            this.linkLabelCredito.Name = "linkLabelCredito";
+            this.linkLabelCredito.Size = new System.Drawing.Size(60, 20);
+            this.linkLabelCredito.TabIndex = 7;
+            this.linkLabelCredito.TabStop = true;
+            this.linkLabelCredito.Text = "Crédito";
+            this.linkLabelCredito.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelCredito_LinkClicked);
+            // 
             // linkHistoriaPagos
             // 
             this.linkHistoriaPagos.AutoSize = true;
@@ -242,7 +254,7 @@
             this.lblProgramaHeader.Location = new System.Drawing.Point(190, 93);
             this.lblProgramaHeader.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblProgramaHeader.Name = "lblProgramaHeader";
-            this.lblProgramaHeader.Size = new System.Drawing.Size(375, 25);
+            this.lblProgramaHeader.Size = new System.Drawing.Size(400, 25);
             this.lblProgramaHeader.TabIndex = 48;
             this.lblProgramaHeader.Text = "Remitente no inscrito en algun programa";
             // 
@@ -1213,18 +1225,6 @@
             this.label34.TabIndex = 53;
             this.label34.Text = "Inscripciones";
             // 
-            // linkLabelCredito
-            // 
-            this.linkLabelCredito.AutoSize = true;
-            this.linkLabelCredito.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLabelCredito.Location = new System.Drawing.Point(37, 202);
-            this.linkLabelCredito.Name = "linkLabelCredito";
-            this.linkLabelCredito.Size = new System.Drawing.Size(60, 20);
-            this.linkLabelCredito.TabIndex = 7;
-            this.linkLabelCredito.TabStop = true;
-            this.linkLabelCredito.Text = "Crédito";
-            this.linkLabelCredito.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelCredito_LinkClicked);
-            // 
             // FormDetalleAlumno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1236,11 +1236,11 @@
             this.Controls.Add(this.lblNombreHeader);
             this.Controls.Add(this.lblLineaHeader);
             this.Controls.Add(this.lblProgramaHeader);
+            this.Controls.Add(this.panelInscripcion);
             this.Controls.Add(this.panelCalificaciones);
             this.Controls.Add(this.panelInformacionPersonal);
             this.Controls.Add(this.panelDocumentacion);
             this.Controls.Add(this.panelSituacionAcademica);
-            this.Controls.Add(this.panelInscripcion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormDetalleAlumno";

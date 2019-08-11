@@ -141,7 +141,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(74, 20);
             this.label1.TabIndex = 66;
-            this.label1.Text = "Remitente:";
+            this.label1.Text = "Alumno:";
             // 
             // FormInscricionGrupos
             // 
