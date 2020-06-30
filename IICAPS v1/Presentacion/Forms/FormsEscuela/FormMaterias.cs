@@ -64,6 +64,7 @@ namespace IICAPS_v1.Presentacion
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            btnAceptar.Enabled = false;
             if (validarCampos())
             {
                 cmbIDProgramas.SelectedIndex = cmbProgramas.SelectedIndex;
@@ -106,6 +107,8 @@ namespace IICAPS_v1.Presentacion
             }
             else
                 MessageBox.Show("No dejar campos vacios");
+            btnAceptar.Enabled = true;
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

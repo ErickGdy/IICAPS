@@ -72,9 +72,16 @@ namespace IICAPS_v1.Presentacion
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            FormInscricionClubDeTareas fa = new FormInscricionClubDeTareas(this.ClubDeTareas.ID.ToString(),null);
-            fa.FormClosed += new FormClosedEventHandler(form_Closed);
-            fa.ShowDialog();
+            try
+            {
+                FormInscricionClubDeTareas fa = new FormInscricionClubDeTareas(this.ClubDeTareas.ID.ToString(), null);
+                fa.FormClosed += new FormClosedEventHandler(form_Closed);
+                fa.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ha ocurrido un error al intentar abrir el formulario");
+            }
         }
         private void form_Closed(object sender, FormClosedEventArgs e)
         {

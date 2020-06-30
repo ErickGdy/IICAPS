@@ -185,9 +185,16 @@ namespace IICAPS_v1.Presentacion
 
         private void btnMateriaNueva_Click(object sender, EventArgs e)
         {
-            md = new MateriasDialog();
-            md.FormClosed += new FormClosedEventHandler(form_Closed);
-            md.ShowDialog();
+            try
+            {
+                md = new MateriasDialog();
+                md.FormClosed += new FormClosedEventHandler(form_Closed);
+                md.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ha ocurrido un error al intentar abrir el formulario");
+            }
         }
 
         private void form_Closed(object sender, FormClosedEventArgs e)

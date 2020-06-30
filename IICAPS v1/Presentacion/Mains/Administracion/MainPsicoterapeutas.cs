@@ -65,9 +65,16 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            FormPsicoterapeuta fa = new FormPsicoterapeuta(null,null);
-            fa.FormClosed += new FormClosedEventHandler(form_Closed);
-            fa.Show();
+            try
+            {
+                FormPsicoterapeuta fa = new FormPsicoterapeuta(null, null);
+                fa.FormClosed += new FormClosedEventHandler(form_Closed);
+                fa.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ha ocurrido un error al intentar abrir el formulario");
+            }
         }
 
         private void form_Closed(object sender, FormClosedEventArgs e)

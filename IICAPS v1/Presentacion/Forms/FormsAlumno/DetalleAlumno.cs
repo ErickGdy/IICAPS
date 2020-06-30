@@ -264,9 +264,16 @@ namespace IICAPS_v1.Presentacion
 
         private void btnActualizarInformacionPersonal_Click(object sender, EventArgs e)
         {
-            Alumnos fa = new Alumnos(alumno);
-            fa.FormClosed += new FormClosedEventHandler(form_ClosedInformacion);
-            fa.Show();
+            try
+            {
+                Alumnos fa = new Alumnos(alumno);
+                fa.FormClosed += new FormClosedEventHandler(form_ClosedInformacion);
+                fa.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ha ocurrido un error al intentar abrir el formulario");
+            }
         }
 
         private void form_ClosedInformacion(object sender, FormClosedEventArgs e)

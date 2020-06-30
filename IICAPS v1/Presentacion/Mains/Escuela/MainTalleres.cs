@@ -64,9 +64,16 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         }
         private void btnAgregarAlumno_Click(object sender, EventArgs e)
         {
-            FormTalleres fa = new FormTalleres(null);
-            fa.FormClosed += new FormClosedEventHandler(form_Closed);
-            fa.Show();
+            try
+            {
+                FormTalleres fa = new FormTalleres(null);
+                fa.FormClosed += new FormClosedEventHandler(form_Closed);
+                fa.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ha ocurrido un error al intentar abrir el formulario");
+            }
         }
         private void form_Closed(object sender, FormClosedEventArgs e)
         {

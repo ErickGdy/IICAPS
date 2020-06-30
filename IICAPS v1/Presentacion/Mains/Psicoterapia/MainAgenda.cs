@@ -263,10 +263,17 @@ namespace IICAPS_v1.Presentacion.Mains.Psicoterapia
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            FormReservacion frs = new FormReservacion(null,true, false, null, "Psicoterapia");
-            frs.BringToFront();
-            frs.FormClosed += new FormClosedEventHandler(form_Closed);
-            frs.Show();
+            try
+            {
+                FormReservacion frs = new FormReservacion(null, true, false, null, "Psicoterapia");
+                frs.BringToFront();
+                frs.FormClosed += new FormClosedEventHandler(form_Closed);
+                frs.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ha ocurrido un error al intentar abrir el formulario");
+            }
         }
         public void form_Closed(object sender, FormClosedEventArgs e)
         {

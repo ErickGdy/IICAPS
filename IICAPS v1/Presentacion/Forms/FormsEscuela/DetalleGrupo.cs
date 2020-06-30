@@ -67,9 +67,16 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            FormInscricionGrupos fa = new FormInscricionGrupos(this.grupo.Codigo, null);
-            fa.FormClosed += new FormClosedEventHandler(form_Closed);
-            fa.ShowDialog();
+            try
+            {
+                FormInscricionGrupos fa = new FormInscricionGrupos(this.grupo.Codigo, null);
+                fa.FormClosed += new FormClosedEventHandler(form_Closed);
+                fa.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ha ocurrido un error al intentar abrir el formulario");
+            }
         }
         private void form_Closed(object sender, FormClosedEventArgs e)
         {

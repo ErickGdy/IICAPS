@@ -103,13 +103,20 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            PagoAlumno pago = new PagoAlumno();
-            pago.AlumnoID = alumno.Rfc;
-            pago.Cantidad = Convert.ToDouble(lblPendiente.Text);
-            pago.Concepto = "Pago de Adeudo General";
-            FormRegistrarPago fa = new FormRegistrarPago(pago, false);
-            fa.FormClosed += new FormClosedEventHandler(form_Closed);
-            fa.ShowDialog();
+            try
+            {
+                PagoAlumno pago = new PagoAlumno();
+                pago.AlumnoID = alumno.Rfc;
+                pago.Cantidad = Convert.ToDouble(lblPendiente.Text);
+                pago.Concepto = "Pago de Adeudo General";
+                FormRegistrarPago fa = new FormRegistrarPago(pago, false);
+                fa.FormClosed += new FormClosedEventHandler(form_Closed);
+                fa.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ha ocurrido un error al intentar abrir el formulario");
+            }
         }
         private void form_Closed(object sender, FormClosedEventArgs e)
         {

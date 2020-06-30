@@ -67,19 +67,26 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
 
         private void btnAgregarAlumno_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("Seleccione SI para agregar Documentos de Inscripción o NO para agregar Documentos de Inscripcion para Titulación de Licenciatura ",
-                "Agregar Documentos", MessageBoxButtons.YesNo,MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
+            try
             {
-                FormDocumentosInscripcion fa = new FormDocumentosInscripcion(null, false);
-                fa.FormClosed += new FormClosedEventHandler(form_Closed);
-                fa.Show();
+                var result = MessageBox.Show("Seleccione SI para agregar Documentos de Inscripción o NO para agregar Documentos de Inscripcion para Titulación de Licenciatura ",
+                    "Agregar Documentos", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    FormDocumentosInscripcion fa = new FormDocumentosInscripcion(null, false);
+                    fa.FormClosed += new FormClosedEventHandler(form_Closed);
+                    fa.Show();
+                }
+                else
+                {
+                    FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(null, false);
+                    fa.FormClosed += new FormClosedEventHandler(form_Closed);
+                    fa.Show();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                FormDocumentosInscripcionTitulacionLicenciatura fa = new FormDocumentosInscripcionTitulacionLicenciatura(null, false);
-                fa.FormClosed += new FormClosedEventHandler(form_Closed);
-                fa.Show();
+                MessageBox.Show("Ha ocurrido un error al intentar abrir el formulario");
             }
         }
 
