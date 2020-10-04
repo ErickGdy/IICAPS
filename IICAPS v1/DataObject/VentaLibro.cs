@@ -13,8 +13,10 @@ namespace IICAPS_v1.DataObject
         public string TipoVenta { get; set; }
         public string Recibio { get; set; }
         public decimal Total { get; set; }
-        public decimal Pago { get; set; }
+        public string Observaciones { get; set; }
+        public DateTime Fecha { get; set; }
         public List<DetalleVentaLibro> DetallesVenta { get; set; }
-        public decimal Cambio { get { return Total - Pago; } }
+
+        public Cobro cobro { get; set; }
     }
 }

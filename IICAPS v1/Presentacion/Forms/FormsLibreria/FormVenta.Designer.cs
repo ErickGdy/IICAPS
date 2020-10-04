@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVenta));
             this.btnAceptar = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -50,10 +51,13 @@
             this.checkPublico = new System.Windows.Forms.CheckBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Col_Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Libro = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Precio_Unitario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Col_Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnAgregarLibro = new System.Windows.Forms.Button();
             this.txtTotal = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -68,15 +72,24 @@
             this.txtPago = new System.Windows.Forms.NumericUpDown();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtObservaciones = new System.Windows.Forms.TextBox();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.group_Pagos = new System.Windows.Forms.GroupBox();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.txtCantidad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupAlumno.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtPago)).BeginInit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.group_Pagos.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAceptar
@@ -257,6 +270,7 @@
             this.cmbLibros.Name = "cmbLibros";
             this.cmbLibros.Size = new System.Drawing.Size(349, 26);
             this.cmbLibros.TabIndex = 79;
+            this.cmbLibros.SelectedIndexChanged += new System.EventHandler(this.cmbLibros_SelectedIndexChanged);
             // 
             // label8
             // 
@@ -305,6 +319,7 @@
             this.checkPublico.TabIndex = 84;
             this.checkPublico.Text = "Publico General";
             this.checkPublico.UseVisualStyleBackColor = true;
+            this.checkPublico.CheckedChanged += new System.EventHandler(this.checkPublico_CheckedChanged);
             // 
             // dataGridView1
             // 
@@ -313,13 +328,17 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Col_Count,
+            this.Libro,
             this.Col_Descripcion,
             this.Col_Precio_Unitario,
             this.Col_Cantidad,
             this.Col_Total});
+            this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridView1.Location = new System.Drawing.Point(11, 265);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(572, 110);
             this.dataGridView1.TabIndex = 85;
             // 
@@ -330,9 +349,15 @@
             this.Col_Count.ReadOnly = true;
             this.Col_Count.Width = 30;
             // 
+            // Libro
+            // 
+            this.Libro.HeaderText = "Libro";
+            this.Libro.Name = "Libro";
+            this.Libro.Visible = false;
+            // 
             // Col_Descripcion
             // 
-            this.Col_Descripcion.HeaderText = "Descripción";
+            this.Col_Descripcion.HeaderText = "Libro";
             this.Col_Descripcion.Name = "Col_Descripcion";
             this.Col_Descripcion.ReadOnly = true;
             this.Col_Descripcion.Width = 280;
@@ -356,6 +381,21 @@
             this.Col_Total.ReadOnly = true;
             this.Col_Total.Width = 70;
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(118, 26);
+            // 
+            // removeToolStripMenuItem
+            // 
+            this.removeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("removeToolStripMenuItem.Image")));
+            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.removeToolStripMenuItem.Text = "Remove";
+            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            // 
             // btnAgregarLibro
             // 
             this.btnAgregarLibro.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -373,6 +413,7 @@
             this.btnAgregarLibro.Text = "Agregar";
             this.btnAgregarLibro.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAgregarLibro.UseVisualStyleBackColor = false;
+            this.btnAgregarLibro.Click += new System.EventHandler(this.btnAgregarLibro_Click);
             // 
             // txtTotal
             // 
@@ -505,6 +546,8 @@
             this.txtPago.Size = new System.Drawing.Size(97, 26);
             this.txtPago.TabIndex = 93;
             this.txtPago.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtPago.ValueChanged += new System.EventHandler(this.txtPago_ValueChanged);
+            this.txtPago.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtPago_KeyUp);
             // 
             // groupBox3
             // 
@@ -524,12 +567,69 @@
             this.txtObservaciones.Size = new System.Drawing.Size(265, 46);
             this.txtObservaciones.TabIndex = 0;
             // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5});
+            this.dataGridView2.ContextMenuStrip = this.contextMenuStrip1;
+            this.dataGridView2.Location = new System.Drawing.Point(7, 21);
+            this.dataGridView2.MultiSelect = false;
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowHeadersVisible = false;
+            this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView2.Size = new System.Drawing.Size(565, 72);
+            this.dataGridView2.TabIndex = 95;
+            // 
+            // group_Pagos
+            // 
+            this.group_Pagos.Controls.Add(this.dataGridView2);
+            this.group_Pagos.Location = new System.Drawing.Point(12, 381);
+            this.group_Pagos.Name = "group_Pagos";
+            this.group_Pagos.Size = new System.Drawing.Size(580, 99);
+            this.group_Pagos.TabIndex = 96;
+            this.group_Pagos.TabStop = false;
+            this.group_Pagos.Text = "Pagos";
+            this.group_Pagos.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "#";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 30;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "Fecha";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 110;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Pago";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.HeaderText = "Observaciones";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.Width = 300;
+            // 
             // FormVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1062, 644);
+            this.Controls.Add(this.group_Pagos);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.txtPago);
             this.Controls.Add(this.groupBox2);
@@ -563,6 +663,7 @@
             this.groupAlumno.ResumeLayout(false);
             this.groupAlumno.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -570,6 +671,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtPago)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            this.group_Pagos.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -597,11 +700,6 @@
         private System.Windows.Forms.GroupBox groupAlumno;
         private System.Windows.Forms.CheckBox checkPublico;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Col_Count;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Col_Descripcion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Col_Precio_Unitario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Col_Cantidad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Col_Total;
         private System.Windows.Forms.Button btnAgregarLibro;
         private System.Windows.Forms.TextBox txtTotal;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -616,5 +714,19 @@
         private System.Windows.Forms.NumericUpDown txtPago;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox txtObservaciones;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Col_Count;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Libro;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Col_Descripcion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Col_Precio_Unitario;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Col_Cantidad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Col_Total;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.GroupBox group_Pagos;
     }
 }

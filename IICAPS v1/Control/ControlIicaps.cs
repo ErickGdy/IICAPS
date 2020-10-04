@@ -18,19 +18,19 @@ namespace IICAPS_v1.Control
         readonly SqlConnectionStringBuilder Builder;
         readonly SqlCommand Cmd;
 
-        ////Devs
-        //readonly string Server = @"DESKTOP-0SEOAIM\SQLEXPRESS";
-        //readonly string UserID = "iic2ps1d_db";
-        //readonly string Password = "ConejoVolador11";
-        //readonly string Database = "iicaps_db_devs";
-        //readonly uint Port = 1433;
-
-        //Production
-        readonly string Server = @"WIN-B2Q6B50DPEM";
+        //Devs
+        readonly string Server = @"DESKTOP-HENEPIV\SQLEXPRESS";
         readonly string UserID = "iic2ps1d_devs_db";
         readonly string Password = "ConejoVolador11";
-        readonly string Database = "iicaps_db_prod";
+        readonly string Database = "iicaps_db_devs";
         readonly uint Port = 1433;
+
+        //Production
+        //readonly string Server = @"WIN-B2Q6B50DPEM";
+        //readonly string UserID = "iic2ps1d_db";
+        //readonly string Password = "ConejoVolador11";
+        //readonly string Database = "iicaps_db_prod";
+        //readonly uint Port = 1433;
         public static ControlIicaps instance;
         public ParametrosGenerales parametros_Generales;
         /** MYSSQL SERVER
@@ -235,6 +235,7 @@ namespace IICAPS_v1.Control
                 throw new Exception("ERROR...! \n\n No ha sido posible guardar los datos. Si el error persiste consulte con soporte técnico");
             }
         }
+
         public List<Alumno> ObtenerAlumnos()
         {
             //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
@@ -1069,7 +1070,7 @@ namespace IICAPS_v1.Control
             //CREAR COMANDO Y QUERY PARA SER EJECUTADO
             try
             {
-                SqlDataAdapter mdaDatos = new SqlDataAdapter("SELECT M.ID, M.Nombre, M.Duracion,M.Semestre,M.Costo, P.Nombre AS 'Programa' FROM materia M LEFT JOIN mapaCurricular C ON C.Materia=M.ID INNER JOIN programa P ON C.Programa=P.Codigo ORDER BY M.ID ASC", Conn);
+                SqlDataAdapter mdaDatos = new SqlDataAdapter("SELECT M.ID, M.Nombre, M.Duracion,M.Semestre,M.Costo, P.Nombre AS 'Programa' FROM materia M LEFT JOIN mapaCurricular C ON C.Materia=M.ID INNER JOIN programa P ON C.Programa=P.Codigo WHERE M.Activo=1 ORDER BY M.ID ASC", Conn);
                 Conn.Close();
                 return mdaDatos;
             }
@@ -1092,7 +1093,7 @@ namespace IICAPS_v1.Control
                     " M.Nombre LIKE '%" + parameter + "%' or " +
                     " M.Semestre LIKE '%" + parameter + "%' or " +
                     " P.Nombre LIKE '%" + parameter + "%' or " +
-                    " C.Programa LIKE '%" + parameter + "%') ORDER BY M.ID ASC";
+                    " C.Programa LIKE '%" + parameter + "%') WHERE M.Activo=1 ORDER BY M.ID ASC";
                 SqlDataAdapter mdaDatos = new SqlDataAdapter(sqlString, this.Conn);
                 this.Conn.Close();
                 return mdaDatos;
@@ -2640,6 +2641,41 @@ namespace IICAPS_v1.Control
             try
             {
                 Cmd.CommandText = "SELECT E.ID, E.Matricula, E.Nombre, E.Telefono, E.Puesto, E.Correo FROM empleados E WHERE E.Estado = 1";
+                SqlDataReader reader = Cmd.ExecuteReader();
+                List<Empleado> aux = new List<Empleado>();
+                while (reader.Read())
+                {
+                    Empleado a = new Empleado
+                    {
+                        ID = reader.GetInt32(0),
+                        Matricula = reader.GetString(1),
+                        Nombre = reader.GetString(2),
+                        Telefono = reader.GetString(3),
+                        Puesto = reader.GetString(4),
+                        Correo = reader.GetString(5)
+                    };
+                    aux.Add(a);
+                }
+                Conn.Close();
+                if (aux.Count != 0)
+                    return aux;
+                else
+                    return null;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener datos de los empleados de la base de datos");
+            }
+        }
+        public List<Empleado> ObtenerEmpleadosAll()
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                Cmd.CommandText = "SELECT E.ID, E.Matricula, E.Nombre, E.Telefono, E.Puesto, E.Correo FROM empleados E";
                 SqlDataReader reader = Cmd.ExecuteReader();
                 List<Empleado> aux = new List<Empleado>();
                 while (reader.Read())
@@ -5454,11 +5490,8 @@ namespace IICAPS_v1.Control
             {
                 string agregar = "INSERT INTO libro (Titulo, Autor, Editorial, Precio_Base) VALUES('"
                         + libro.Titulo + "','" + libro.Autor + "','" + libro.Editorial + "','" + libro.Precio_base + "');";
-                string stock = "";
-                if (libro.Stock_vitrina_1 <= 0 || libro.Stock_vitrina_1 <= 0)
-                    stock = "INSERT INTO stock_Libros (Libro, Vitrina_1, Vitrina_2, Almacen) VALUES (" +
+                string stock = "INSERT INTO stock_Libros (Libro, Vitrina_1, Vitrina_2, Almacen) VALUES (" +
                         "(select TOP 1 ID from libro ORDER BY ID DESC), '" + libro.Stock_vitrina_1 + "', '" + libro.Stock_vitrina_2 + "', '" + libro.Stock_almacen + "'); ";
-
 
                 Cmd.CommandText = "BEGIN TRANSACTION; "
                                     + agregar
@@ -5646,32 +5679,93 @@ namespace IICAPS_v1.Control
             }
         }
 
+        public List<Libro> ObtenerLibrosAll()
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                Cmd.CommandText = "SELECT L.ID, L.Titulo, L.Autor,L.Editorial,L.Precio_Base AS 'Precio', S.Vitrina_1 , S.Vitrina_2, S.Almacen FROM libro L LEFT JOIN stock_Libros S ON L.ID = S.Libro";
+                SqlDataReader reader = Cmd.ExecuteReader();
+                List<Libro> aux = new List<Libro>();
+                while (reader.Read())
+                {
+
+                    Libro a = new Libro
+                    {
+                        Id = reader.GetInt32(0),
+                        Titulo = reader.GetString(1),
+                        Autor = reader.GetString(2),
+                        Editorial = reader.GetString(3),
+                        Precio_base = reader.GetDecimal(4),
+                        Stock_vitrina_1 = reader.GetInt32(5),
+                        Stock_vitrina_2 = reader.GetInt32(6),
+                        Stock_almacen = reader.GetInt32(7)
+                    };
+                    aux.Add(a);
+                }
+                Conn.Close();
+                if (aux.Count != 0)
+                    return aux;
+                else
+                    return null;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener datos de los Libros de la base de datos");
+            }
+        }
+
         //-----------------------------------VENTA LIBROS -----------------------//
-        public bool AgregarVentaLibreria(PagoLibreria pago, Cobro cobro, List<DetalleVentaLibro> LibrosVendidos) 
+        public bool AgregarVentaLibreria(VentaLibro venta, PagoLibreria pago, Cobro cobro) 
         {
             //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
             OpenConection();
             //CREAR COMANDO Y QUERY PARA SER EJECUTADO
             try
             {
-                string pagoQuery = "INSERT INTO pagosLibreria (CompradorID, FechaPago, Cantidad, Concepto, Observaciones, Recibio) VALUES ('"
-                        + pago.CompradorID + "', '" + FormatearFecha(pago.FechaPago) + "'," + pago.Cantidad + ", '" + pago.Concepto + "', '"
-                        + pago.Observaciones + "', '" + pago.Recibio + "');";
+                string ventaQuery = "INSERT INTO venta (CompradorID, Fecha, Total, TipoVenta, Observaciones, Recibio) VALUES ('"
+                        + venta.Comprador_ID + "', '" + FormatearFecha(venta.Fecha) + "'," + venta.Total + ",'" + venta.TipoVenta + "', '"  + pago.Observaciones + "', '" + pago.Recibio + "');";
+                string pagoQuery = "INSERT INTO pagosLibreria (CompradorID, FechaPago, Total,Pago, Cambio, Concepto, Observaciones, Recibio, Parent_Id) select '"
+                        + pago.CompradorID + "', '" + FormatearFecha(pago.FechaPago) + "'," + pago.Total + "," + pago.Pago + "," + pago.Cambio + ", '" + pago.Concepto + "', '"
+                        + pago.Observaciones + "', '" + pago.Recibio + "', MAX(ID) from ventas;";
 
                 string actualizaCobros = "";
                 if(cobro != null)
-                    actualizaCobros ="INSERT INTO cobrosAlumno (Alumno, Concepto,Cantidad, Pago, Restante, Fecha, Parent_ID) select '" + cobro.Remitente + "','" + cobro.Concepto + "','" + cobro.Cantidad + "','" + cobro.Pago + "','" + cobro.Restante + "', '" + FormatearFecha(cobro.Fecha) + "', MAX(ID) from pagosLibreria;";
+                    actualizaCobros = "INSERT INTO cobrosLibreria (Alumno, Concepto,Cantidad, Pago, Restante, Fecha, Parent_ID) select '" + cobro.Remitente + "','" + cobro.Concepto + "','" + cobro.Cantidad + "','" + cobro.Pago + "','" + cobro.Restante + "', '" + FormatearFecha(cobro.Fecha) + "', MAX(ID) from ventas;";
                 string queryLibros = "";
-                foreach (DetalleVentaLibro aux in LibrosVendidos)
+                string query_inventario = "";
+                foreach (DetalleVentaLibro aux in venta.DetallesVenta)
                 {
-                    queryLibros += " insert INTO DetalleVentaLibros ( Libro, Precio_Unitario,Cantidad, Total, Venta) select '" + aux.Libro + "','" + aux.Precio_Unitario + "','" + aux.Cantidad + "','" + aux.Total + "', MAX(ID) from pagosLibreria;"; 
+                    int vitrina1 = aux.Libro.Stock_vitrina_1, vitrina2 = aux.Libro.Stock_vitrina_2, almacen = aux.Libro.Stock_almacen;
+                    if (aux.Cantidad <= aux.Libro.Stock_almacen)
+                    {
+                        almacen = aux.Libro.Stock_almacen - aux.Cantidad;
+                    }
+                    else if(aux.Cantidad-aux.Libro.Stock_almacen <= aux.Libro.Stock_vitrina_1)
+                    {
+                        almacen = 0;
+                        vitrina1 = aux.Cantidad - aux.Libro.Stock_almacen;
+                    }
+                    else
+                    {
+                        almacen = 0;
+                        vitrina1 = 0;
+                        vitrina2 = aux.Cantidad - aux.Libro.Stock_almacen -aux.Libro.Stock_vitrina_1;
+                    }
+                    query_inventario += "update stock_Libros SET Vitrina_1 ="+vitrina1+" Vitrina_2="+ vitrina2 + " Almacen="+almacen+" WHERE Libro="+aux.Libro_Id + "; ";
+                    queryLibros += " insert INTO detalleVentaLibros ( Libro, Precio_Unitario,Cantidad, Total, Venta) select '" + aux.Libro_Id + "','" + aux.Precio_Unitario + "','" + aux.Cantidad + "','" + aux.Total + "', MAX(ID) from ventas; "; 
                 }
-
+                //FALTA ACTUALIZAR INVERNTARIO LIBROS********************************
 
                 Cmd.CommandText = "BEGIN TRANSACTION;" +
+                    ventaQuery +
                     pagoQuery +
                     actualizaCobros +
                     queryLibros +
+                    query_inventario +
                     "COMMIT;";
                 int rowsAfected = Cmd.ExecuteNonQuery();
                 Conn.Close();
@@ -5686,31 +5780,65 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al agregar el Venta de libros a la base de datos");
             }
         }
-        public bool ActualizarVentaLibreria(PagoLibreria pago, Cobro cobro, List<DetalleVentaLibro> LibrosVendidos) 
+        public bool ActualizarVentaLibreria(VentaLibro venta, List<DetalleVentaLibro> old_detalleVentas, List<PagoLibreria> old_pagos, PagoLibreria pago, Cobro cobro) 
         {
             //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
             OpenConection();
             //CREAR COMANDO Y QUERY PARA SER EJECUTADO
             try
             {
-                string pagoQuery = "UPDATE pagosLibreria SET CompradorID='"+ pago.CompradorID + "', FechaPago='" + FormatearFecha(pago.FechaPago) + "', Cantidad='" + pago.Cantidad +
-                    "', Concepto='"+ pago.Concepto + "', Observaciones='"+pago.Observaciones + "', Recibio='"+pago.Recibio + "', Activa=1 WHERE ID="+pago.Id+";";
-
+                string ventaQuery = "UPDATE venta SET CompradorID='"+ venta.Comprador_ID+ "', Fecha='" + FormatearFecha(venta.Fecha) + "', Total='" + venta.Total + 
+                    "', TipoVenta='" + venta.TipoVenta+ "', Observaciones='" + venta.Observaciones + "', Recibio='" + venta.Recibio + "' WHERE ID="+venta.Id+";";
+                string pagos_old = "";
+                foreach (var item in old_pagos)
+                {
+                    pagos_old += "DELETE FROM pagosLibreria WHERE ID="+item.Id+";";
+                }
+                string pagoQuery = "INSERT INTO pagosLibreria (CompradorID, FechaPago, Total,Pago, Cambio, Concepto, Observaciones, Recibio, Parent_Id) select '"
+                       + pago.CompradorID + "', '" + FormatearFecha(pago.FechaPago) + "'," + pago.Total + "," + pago.Pago + "," + pago.Cambio + ", '" + pago.Concepto + "', '"
+                       + pago.Observaciones + "', '" + pago.Recibio + "', '"+venta.Id+"'";
                 string actualizaCobros = "";
                 if(cobro != null)
-                    actualizaCobros = "UPDATE cobrosAlumno SET Alumno='" + cobro.Remitente + "', Concepto='" + cobro.Concepto + "',Cantidad='" + cobro.Cantidad +
-                        "', Pago='" + cobro.Pago + "', Restante='" + cobro.Restante + "', Fecha='" + FormatearFecha(cobro.Fecha) + "', Parent_ID =" + pago.Id + " WHERE ID=" + cobro.Id + ";";
-                string queryLibros = "DELETE FROM DetalleVentaLibros WHERE Venta=" + pago.Id + "; ";
-                foreach (DetalleVentaLibro aux in LibrosVendidos)
+                    actualizaCobros = "UPDATE cobrosLibreria SET Alumno='" + cobro.Remitente + "', Concepto='" + cobro.Concepto + "',Cantidad='" + cobro.Cantidad +
+                        "', Pago='" + cobro.Pago + "', Restante='" + cobro.Restante + "', Fecha='" + FormatearFecha(cobro.Fecha) + "', Parent_ID =" + venta.Id + " WHERE ID=" + cobro.Id + ";";
+                string queryLibros = "DELETE FROM detalleVentaLibros WHERE venta=" + pago.Id + "; ";
+                string query_inventario_old = "";
+                foreach (var item in old_detalleVentas)
                 {
-                    queryLibros += " insert INTO DetalleVentaLibros ( Libro, Precio_Unitario,Cantidad, Total, Venta) select '" + aux.Libro + "','" + aux.Precio_Unitario + "','" + aux.Cantidad + "','" + aux.Total + "',"+pago.Id+"; "; 
+                    query_inventario_old += "update stock_Libros SET Almacen=Almacen" + item.Cantidad + " WHERE Libro=" + item.Libro_Id + "; ";
                 }
-
-
+                string query_inventario = "";
+                foreach (DetalleVentaLibro aux in venta.DetallesVenta)
+                {
+                    aux.Cantidad += old_detalleVentas.Where(m => m.Libro_Id == aux.Libro_Id).FirstOrDefault().Cantidad;
+                    int vitrina1 = aux.Libro.Stock_vitrina_1, vitrina2 = aux.Libro.Stock_vitrina_2, almacen = aux.Libro.Stock_almacen;
+                    if (aux.Cantidad <= aux.Libro.Stock_almacen)
+                    {
+                        almacen = aux.Libro.Stock_almacen - aux.Cantidad;
+                    }
+                    else if (aux.Cantidad - aux.Libro.Stock_almacen <= aux.Libro.Stock_vitrina_1)
+                    {
+                        almacen = 0;
+                        vitrina1 = aux.Cantidad - aux.Libro.Stock_almacen;
+                    }
+                    else
+                    {
+                        almacen = 0;
+                        vitrina1 = 0;
+                        vitrina2 = aux.Cantidad - aux.Libro.Stock_almacen - aux.Libro.Stock_vitrina_1;
+                    }
+                    query_inventario += "update stock_Libros SET Vitrina_1 =" + vitrina1 + " Vitrina_2=" + vitrina2 + " Almacen=" + almacen + " WHERE Libro=" + aux.Libro_Id + "; ";
+                    queryLibros += " insert INTO detalleVentaLibros ( Libro, Precio_Unitario,Cantidad, Total, Venta) select '" + aux.Libro_Id + "','" + aux.Precio_Unitario + "','" + aux.Cantidad + "','" + aux.Total + "',"+ venta.Id+"; "; 
+                }
+                //FALTA ACTUALIZAR INVERNTARIO LIBROS********************************
                 Cmd.CommandText = "BEGIN TRANSACTION;" +
+                    ventaQuery +
+                    pagos_old +
                     pagoQuery +
                     actualizaCobros +
                     queryLibros +
+                    query_inventario_old +
+                    query_inventario +
                     "COMMIT;";
                 int rowsAfected = Cmd.ExecuteNonQuery();
                 Conn.Close();
@@ -5725,16 +5853,206 @@ namespace IICAPS_v1.Control
                 throw new Exception("Error al agregar el Venta de libros a la base de datos");
             }
         }
-        public bool CancelarPagoLibreria(int id)
+        public Cobro ConsultarCobroLibreria(string id)
         {
             //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
             OpenConection();
             //CREAR COMANDO Y QUERY PARA SER EJECUTADO
             try
             {
-                string query = "UPDATE pagosLibreria SET Activo=0 WHERE ID=" + id;
-                query += "UPDATE cobroAlumno SET Activo = 0 WHERE ID = " + id;
-                Cmd.CommandText = query;
+                Cmd.CommandText = "SELECT ID, Alumno, Concepto,Cantidad, Pago, Restante, Fecha, Parent_ID FROM cobrosLibreria" +
+                    " WHERE Parent_ID='" + id + "' AND Concepto='Credito Libreria' ";
+                SqlDataReader reader = Cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Cobro Cobro = new Cobro
+                    {
+                        Id = reader.GetInt32(0),
+                        Remitente = reader.GetString(1),
+                        Concepto = reader.GetString(2),
+                        Cantidad = reader.GetDecimal(3),
+                        Pago = reader.GetDecimal(4),
+                        Restante = reader.GetDecimal(5),
+                        Fecha = reader.GetDateTime(6),
+                        Parent_id = reader.GetString(7)
+                    };
+                    Conn.Close();
+                    return Cobro;
+                }
+                Conn.Close();
+                return null;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener los datos del cobro de la base de datos");
+            }
+        }        
+        public VentaLibro ConsultarVentaLibreria(string id)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                Cmd.CommandText = "SELECT ID, Comprador_ID, Fecha, TipoVenta,Recibio, Total, Observaciones FROM ventas" +
+                    " WHERE ID='" + id + "'";
+                SqlDataReader reader = Cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    VentaLibro VentaLibro = new VentaLibro
+                    {
+                        Id = reader.GetInt32(0),
+                        Comprador_ID = reader.GetString(1),
+                        Fecha = reader.GetDateTime(2),
+                        TipoVenta= reader.GetString(3),
+                        Recibio = reader.GetString(4),
+                        Total = reader.GetDecimal(5),
+                        Observaciones = reader.GetString(6),
+                    };
+                    Conn.Close();
+                    return VentaLibro;
+                }
+                Conn.Close();
+                return null;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener los datos del pago de la base de datos");
+            }
+        }
+
+        public List<PagoLibreria> ConsultarVentaLibreria_Pagos(string id)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                Cmd.CommandText = "SELECT ID, CompradorID, FechaPago, Total,Pago, Cambio, Concepto, Observaciones, Recibio, Parent_Id FROM pagosLibreria WHERE Concepto='Venta Libros' AND Parent_Id='" + id + "'";
+                SqlDataReader reader = Cmd.ExecuteReader();
+                List<PagoLibreria> pagos = new List<PagoLibreria>();
+                while (reader.Read())
+                {
+                    PagoLibreria pago = new PagoLibreria
+                    {
+                        Id = reader.GetInt32(0),
+                        CompradorID = reader.GetString(1),
+                        FechaPago = reader.GetDateTime(2),
+                        Total = reader.GetDecimal(3),
+                        Pago = reader.GetDecimal(4),
+                        Cambio = reader.GetDecimal(5),
+                        Concepto = reader.GetString(6),
+                        Observaciones = reader.GetString(7),
+                        Recibio = reader.GetString(8)
+                    };
+                    pagos.Add(pago);
+                }
+                Conn.Close();
+                return pagos;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener los datos del pagos de venta de la base de datos");
+            }
+        }
+        public List<DetalleVentaLibro> ConsultarVentaLibreria_DetallesDeVenta(string id)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                Cmd.CommandText = "SELECT Libro, Cantidad, Precio_Unitario, Total FROM detalleVentaLibros WHERE Venta='" + id + "'";
+                SqlDataReader reader = Cmd.ExecuteReader();
+                List<DetalleVentaLibro> aux = new List<DetalleVentaLibro>();
+                while (reader.Read())
+                {
+                    DetalleVentaLibro detalle = new DetalleVentaLibro
+                    {
+                        Libro_Id = reader.GetString(0),
+                        Cantidad = reader.GetInt32(1),
+                        Precio_Unitario = reader.GetInt32(2),
+                        Total= reader.GetInt32(3)
+                    };
+                    aux.Add(detalle);
+                }
+                Conn.Close();
+                return aux;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener los datos de venta de la base de datos");
+            }
+        }
+
+        public SqlDataAdapter ObtenerVentaLibrosTable()
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                SqlDataAdapter mdaDatos = new SqlDataAdapter("SELECT Id ,IIF(Comprador_ID = '0' , 'Público General', Comprador_Id) as Comprador ,Fecha,Recibio,TipoVenta,Observaciones,Total,Activo FROM ventas"
+                    , Conn);
+                Conn.Close();
+                return mdaDatos;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener los datos de las materias de la base de datos");
+            }
+        }
+        public SqlDataAdapter ObtenerVentaLibrosTable(string parameter)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                string sqlString = "SELECT Id ,IIF(Comprador_ID = '0' , 'Público General', Comprador_Id) as Comprador ,Fecha,Recibio,TipoVenta,Observaciones,Total,Activo FROM ventas "+
+                    " WHERE " +
+                    "(Comprador_ID LIKE '%" + parameter + "%' or " +
+                    " Id LIKE '%" + parameter + "%' or " +
+                    " Fecha LIKE '%" + parameter + "%' or " +
+                    " Recibio LIKE '%" + parameter + "%' or " +
+                    " TipoVenta LIKE '%" + parameter + "%' or " +
+                    " Observaciones LIKE '%" + parameter + "%' or " +
+                    " 'Comprador' LIKE '%" + parameter + "%' or " +
+                    " Total LIKE '%" + parameter + "%') AND Activo=1 ";
+                SqlDataAdapter mdaDatos = new SqlDataAdapter(sqlString, this.Conn);
+                this.Conn.Close();
+                return mdaDatos;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener los datos de las materias de la base de datos");
+            }
+        }
+        public bool CancelarVentaLibreria(string id, List<DetalleVentaLibro> venta)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                string ventaQuery = "UPDATE ventas SET Activo=0 WHERE ID=" + id + ";";
+                string queryLibros = "DELETE FROM detalleVentaLibro WHERE Venta=" + id + "; ";
+                string query_inventario_old = "";
+                foreach (var item in venta)
+                {
+                    query_inventario_old += "update stock_Libros SET Almacen=Almacen+" + item.Cantidad + " WHERE Libro=" + item.Libro_Id + "; ";
+                }
+                Cmd.CommandText = "BEGIN TRANSACTION;" +
+                    ventaQuery +
+                    queryLibros +
+                    query_inventario_old +
+                    "COMMIT;";
                 int rowsAfected = Cmd.ExecuteNonQuery();
                 Conn.Close();
                 if (rowsAfected > 0)
@@ -5742,79 +6060,13 @@ namespace IICAPS_v1.Control
                 else
                     return false;
             }
-            catch (Exception e)
+            catch (Exception E)
             {
-                throw new Exception("Error al cancelar el pago del alumno en la Base de Datos");
+                Conn.Close();
+                throw new Exception("Error al cancelar venta de libros a la base de datos");
+            }
+        }
 
-            }
-        }
-        public PagoLibreria ConsultarVentaLibreria_Pago(int id)
-        {
-            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
-            OpenConection();
-            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
-            try
-            {
-                Cmd.CommandText = "SELECT * FROM pagosLibreria WHERE ID='" + id + "'";
-                SqlDataReader reader = Cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    PagoLibreria pago = new PagoLibreria
-                    {
-                        Id = reader.GetInt32(0),
-                        CompradorID = reader.GetString(1),
-                        FechaPago = reader.GetDateTime(2),
-                        Cantidad = reader.GetInt32(3),
-                        Concepto = reader.GetString(4),
-                        Observaciones = reader.GetString(5),
-                        Recibio = reader.GetString(6)
-                    };
-                    Conn.Close();
-                    return pago;
-                }
-                Conn.Close();
-                return null;
-            }
-            catch (Exception e)
-            {
-                Conn.Close();
-                throw new Exception("Error al obtener los datos del pago de la base de datos");
-            }
-        }
-        public PagoLibreria ConsultarVentaLibreria_DetallesDeVenta(int id)
-        {
-            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
-            OpenConection();
-            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
-            try
-            {
-                Cmd.CommandText = "SELECT * FROM DetalleVentaLibros WHERE ID='" + id + "'";
-                SqlDataReader reader = Cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    PagoLibreria pago = new PagoLibreria
-                    {
-                        Id = reader.GetInt32(0),
-                        CompradorID = reader.GetString(1),
-                        FechaPago = reader.GetDateTime(2),
-                        Cantidad = reader.GetInt32(3),
-                        Concepto = reader.GetString(4),
-                        Observaciones = reader.GetString(5),
-                        Recibio = reader.GetString(6)
-                    };
-                    Conn.Close();
-                    return pago;
-                }
-                Conn.Close();
-                return null;
-            }
-            catch (Exception e)
-            {
-                Conn.Close();
-                throw new Exception("Error al obtener los datos del pago de la base de datos");
-            }
-        }
-        
 
         //-------------------------------PAGOS LIBRERIA--------------------------------------//
         public bool AgregarPagoLibreria(PagoLibreria pago, List<Cobro> cobros)
@@ -5824,8 +6076,8 @@ namespace IICAPS_v1.Control
             //CREAR COMANDO Y QUERY PARA SER EJECUTADO
             try
             {
-                string pagoQuery = "INSERT INTO pagosLibreria (CompradorID, FechaPago, Cantidad, Concepto, Observaciones, Recibio) VALUES ('"
-                        + pago.CompradorID + "', '" + FormatearFecha(pago.FechaPago) + "'," + pago.Cantidad + ", '" + pago.Concepto + "', '"
+                string pagoQuery = "INSERT INTO pagosLibreria (CompradorID, FechaPago, Total,Pago,Cambio, Concepto, Observaciones, Recibio) VALUES ('"
+                        + pago.CompradorID + "', '" + FormatearFecha(pago.FechaPago) + "'," + pago.Total + "," + pago.Pago + "," + pago.Cambio + ", '" + pago.Concepto + "', '"
                         + pago.Observaciones + "', '" + pago.Recibio + "');";
                 string actualizarCobros = "";
                 foreach (Cobro aux in cobros)
@@ -5858,13 +6110,10 @@ namespace IICAPS_v1.Control
             //CREAR COMANDO Y QUERY PARA SER EJECUTADO
             try
             {
-                string queryContador = "INSERT INTO pagosLibreria (CompradorID, FechaPago, Cantidad, Concepto, Observaciones, Recibio) VALUES ('"
-                        + pago.CompradorID + "', '" + FormatearFecha(pago.FechaPago) + "'," + pago.Cantidad + ", '" + pago.Concepto + "', '"
-                        + pago.Observaciones + "', '" + pago.Recibio + "')";
-                string queryCredito = "INSERT INTO cobrosAlumno(Alumno, Concepto, Cantidad, Pago, Restante, Fecha, Parent_ID)SELECT '"
-                     + pago.CompradorID + "','Credito Librería', '" + pago.Cantidad + "','"+ pago.Cantidad+"','" + (credito.CantidadMensualidad * credito.CantidadMeses) + "','" + FormatearFecha(DateTime.Now) +
-                     "', AUTO_INCREMENT-1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '" + this.Database +
-                     "' AND TABLE_NAME = 'pagosLibreria';";
+                string pagoQuery = "INSERT INTO pagosLibreria (CompradorID, FechaPago, Total,Pago,Cambio, Concepto, Observaciones, Recibio) VALUES ('"
+                        + pago.CompradorID + "', '" + FormatearFecha(pago.FechaPago) + "'," + pago.Total + "," + pago.Pago + "," + pago.Cambio + ", '" + pago.Concepto + "', '"
+                        + pago.Observaciones + "', '" + pago.Recibio + "');";
+                Cmd.CommandText = pagoQuery;
                 int rowsAfected = Cmd.ExecuteNonQuery();
                 Conn.Close();
                 if (rowsAfected > 0)
@@ -5927,7 +6176,7 @@ namespace IICAPS_v1.Control
             //CREAR COMANDO Y QUERY PARA SER EJECUTADO
             try
             {
-                Cmd.CommandText = "SELECT * FROM pagosLibreria WHERE ID='" + id + "'";
+                Cmd.CommandText = "SELECT  ID ,CompradorID,FechaPago,Total,Pago,Cambio,Concepto,Observaciones,Recibio,Estado FROM pagosLibreria WHERE ID='" + id + "'";
                 SqlDataReader reader = Cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -5936,10 +6185,12 @@ namespace IICAPS_v1.Control
                         Id = reader.GetInt32(0),
                         CompradorID = reader.GetString(1),
                         FechaPago = reader.GetDateTime(2),
-                        Cantidad = reader.GetInt32(3),
-                        Concepto = reader.GetString(4),
-                        Observaciones = reader.GetString(5),
-                        Recibio = reader.GetString(6)
+                        Total = reader.GetDecimal(3),
+                        Pago = reader.GetDecimal(4),
+                        Cambio = reader.GetDecimal(5),
+                        Concepto = reader.GetString(6),
+                        Observaciones = reader.GetString(7),
+                        Recibio = reader.GetString(8)
                     };
                     Conn.Close();
                     return pago;
@@ -5999,14 +6250,16 @@ namespace IICAPS_v1.Control
             }
 
         }
-        public bool CancelarPagoLibreria(string id)
+        public bool CancelarPagoLibreria(int id)
         {
             //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
             OpenConection();
             //CREAR COMANDO Y QUERY PARA SER EJECUTADO
             try
             {
-                Cmd.CommandText = "UPDATE pagosLibreria SET Estado = 'Cancelado' WHERE ID=" + id;
+                string query = "UPDATE pagosLibreria SET Activo=0 WHERE ID=" + id;
+                query += "UPDATE cobroAlumno SET Activo = 0 WHERE ID = " + id;
+                Cmd.CommandText = query;
                 int rowsAfected = Cmd.ExecuteNonQuery();
                 Conn.Close();
                 if (rowsAfected > 0)
@@ -6344,10 +6597,289 @@ namespace IICAPS_v1.Control
         }
 
 
+        //-----------------------------------PRÉSTAMOS LIBROS -----------------------//
+        public bool AgregarPrestamoLibreria(Prestamo prestamo)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                string ventaQuery = "INSERT INTO prestamos (CompradorID, FechaPrestamo, FechaLimite, DiasPrestamo Observaciones, Recibio) VALUES ('"
+                        + prestamo.Comprador_ID + "', '" + FormatearFecha(prestamo.FechaPrestamo) + "'," + FormatearFecha(prestamo.FechaLimite) + "'," + prestamo.Dias + ",'" + prestamo.Observaciones + "', '" + prestamo.Recibio + "');";
+                string queryLibros = "";
+                string query_inventario = "";
+                foreach (DetallePrestamoLibro aux in prestamo.DetallesPrestamo)
+                {
+                    int vitrina1 = aux.Libro.Stock_vitrina_1, vitrina2 = aux.Libro.Stock_vitrina_2, almacen = aux.Libro.Stock_almacen;
+                    if (aux.Cantidad <= aux.Libro.Stock_almacen)
+                    {
+                        almacen = aux.Libro.Stock_almacen - aux.Cantidad;
+                    }
+                    else if (aux.Cantidad - aux.Libro.Stock_almacen <= aux.Libro.Stock_vitrina_1)
+                    {
+                        almacen = 0;
+                        vitrina1 = aux.Cantidad - aux.Libro.Stock_almacen;
+                    }
+                    else
+                    {
+                        almacen = 0;
+                        vitrina1 = 0;
+                        vitrina2 = aux.Cantidad - aux.Libro.Stock_almacen - aux.Libro.Stock_vitrina_1;
+                    }
+                    query_inventario += "update stock_Libros SET Vitrina_1 =" + vitrina1 + ", Vitrina_2=" + vitrina2 + ", Almacen=" + almacen + ", Prestados=Prestados+"+aux.Cantidad+" WHERE Libro=" + aux.Libro_Id + "; ";
+                    queryLibros += " insert INTO detallePrestamoLibro ( Libro, Cantidad, Prestamo) select '" + aux.Libro_Id + "','" + aux.Cantidad + "', MAX(ID) from prestamos;";
+                }
 
+                Cmd.CommandText = "BEGIN TRANSACTION;" +
+                    ventaQuery +
+                    queryLibros +
+                    query_inventario+
+                    "COMMIT;";
+                int rowsAfected = Cmd.ExecuteNonQuery();
+                Conn.Close();
+                if (rowsAfected > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception E)
+            {
+                Conn.Close();
+                throw new Exception("Error al agregar el préstamo de libros a la base de datos");
+            }
+        }
+        public bool ActualizarPrestamoLibreria(Prestamo prestamo, List<DetallePrestamoLibro> old_detallePrestamo)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                string ventaQuery = "UPDATE prestamos SET CompradorID='" + prestamo.Comprador_ID + "', FechaPrestamo='" + FormatearFecha(prestamo.FechaPrestamo) +
+                    "', FechaLimite='" + FormatearFecha(prestamo.FechaLimite) + "', DiasPrestamo='" + prestamo.Dias +
+                    "', Observaciones='" + prestamo.Observaciones + "', Recibio='" + prestamo.Recibio + "' WHERE ID=" + prestamo.Id + ";";
+                string queryLibros = "DELETE FROM detallePrestamoLibros WHERE Prestamo=" + prestamo.Id + "; ";
+                string query_inventario_old = "";
+                foreach (var item in old_detallePrestamo)
+                {
+                    query_inventario_old += "update stock_Libros SET Almacen=Almacen+" + item.Cantidad + ", Prestados=Prestados-"+item.Cantidad+" WHERE Libro=" + item.Libro_Id + "; ";
+                }
+                string query_inventario = "";
+                foreach (DetallePrestamoLibro aux in prestamo.DetallesPrestamo)
+                {
+                    aux.Cantidad += old_detallePrestamo.Where(m => m.Libro_Id == aux.Libro_Id).FirstOrDefault().Cantidad;
+                    int vitrina1 = aux.Libro.Stock_vitrina_1, vitrina2 = aux.Libro.Stock_vitrina_2, almacen = aux.Libro.Stock_almacen;
+                    if (aux.Cantidad <= aux.Libro.Stock_almacen)
+                    {
+                        almacen = aux.Libro.Stock_almacen - aux.Cantidad;
+                    }
+                    else if (aux.Cantidad - aux.Libro.Stock_almacen <= aux.Libro.Stock_vitrina_1)
+                    {
+                        almacen = 0;
+                        vitrina1 = aux.Cantidad - aux.Libro.Stock_almacen;
+                    }
+                    else
+                    {
+                        almacen = 0;
+                        vitrina1 = 0;
+                        vitrina2 = aux.Cantidad - aux.Libro.Stock_almacen - aux.Libro.Stock_vitrina_1;
+                    }
+                    query_inventario += "update stock_Libros SET Vitrina_1 =" + vitrina1 + ", Vitrina_2=" + vitrina2 + ", Almacen=" + almacen + ",Prestados=Prestados+" + aux.Cantidad+" WHERE Libro=" + aux.Libro_Id + "; ";
+                    queryLibros += " insert INTO detallePrestamoLibro ( Libro, Cantidad, Prestamo) select '" + aux.Libro_Id + "','" + aux.Cantidad + "'," + prestamo.Id + "; ";
+                }
+                Cmd.CommandText = "BEGIN TRANSACTION;" +
+                    ventaQuery +
+                    queryLibros +
+                    query_inventario_old+
+                    query_inventario+
+                    "COMMIT;";
+                int rowsAfected = Cmd.ExecuteNonQuery();
+                Conn.Close();
+                if (rowsAfected > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception E)
+            {
+                Conn.Close();
+                throw new Exception("Error al agregar el Venta de libros a la base de datos");
+            }
+        }
+        public Prestamo ConsultarPrestamoLibreria(string id)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                Cmd.CommandText = "SELECT ID, Comprador_ID, FechaPrestamo, FechaLimite,Recibio, DiasPrestamo, Observaciones FROM prestamos" +
+                    " WHERE ID='" + id + "'";
+                SqlDataReader reader = Cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Prestamo Prestamo = new Prestamo
+                    {
+                        Id = reader.GetInt32(0),
+                        Comprador_ID = reader.GetString(1),
+                        FechaPrestamo = reader.GetDateTime(2),
+                        FechaLimite = reader.GetDateTime(3),
+                        Recibio = reader.GetString(4),
+                        Dias = reader.GetInt32(5),
+                        Observaciones = reader.GetString(6),
+                    };
+                    Conn.Close();
+                    return Prestamo;
+                }
+                Conn.Close();
+                return null;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener los datos del pago de la base de datos");
+            }
+        }
+        public List<DetallePrestamoLibro> ConsultarPrestamoLibreria_DetallesDePrestamo(string id)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                Cmd.CommandText = "SELECT Libro, Cantidad FROM detallePrestamoLibro WHERE Prestamo='" + id + "'";
+                SqlDataReader reader = Cmd.ExecuteReader();
+                List<DetallePrestamoLibro> aux = new List<DetallePrestamoLibro>();
+                while (reader.Read())
+                {
+                    DetallePrestamoLibro detalle = new DetallePrestamoLibro
+                    {
+                        Id = reader.GetInt32(0),
+                        Cantidad = reader.GetInt32(1),
+                    };
+                    aux.Add(detalle);
+                }
+                Conn.Close();
+                return aux;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener los datos del pago de la base de datos");
+            }
+        }
+        public SqlDataAdapter ObtenerPrestamoLibrosTable()
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                SqlDataAdapter mdaDatos = new SqlDataAdapter("SELECT Id, Comprador_ID, FechaPrestamo, FechaLimite,Recibio, DiasPrestamo, Observaciones, Activo FROM prestamos "
+                    , Conn);
+                Conn.Close();
+                return mdaDatos;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener los datos de los prestamos de la base de datos");
+            }
+        }
+        public SqlDataAdapter ObtenerPrestamoLibrosTable(string parameter)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                string sqlString = "SELECT Id, Comprador_ID, FechaPrestamo, FechaLimite,Recibio, DiasPrestamo, Observaciones, Activo FROM prestamos " +
+                    " WHERE " +
+                    "(Comprador_ID LIKE '%" + parameter + "%' or " +
+                    " Id LIKE '%" + parameter + "%' or " +
+                    " FechaPrestamo LIKE '%" + parameter + "%' or " +
+                    " FechaLimite LIKE '%" + parameter + "%' or " +
+                    " Recibio LIKE '%" + parameter + "%' or " +
+                    " Observaciones LIKE '%" + parameter + "%') AND Activo=1 ";
+                SqlDataAdapter mdaDatos = new SqlDataAdapter(sqlString, this.Conn);
+                this.Conn.Close();
+                return mdaDatos;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener los datos de los prestamos de la base de datos");
+            }
+        }
+        public bool CancelarPrestamoLibreria(string id, List<DetallePrestamoLibro> prestamo)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                string ventaQuery = "UPDATE prestamos SET Activo=0 WHERE ID=" + id + ";";
+                string queryLibros = "DELETE FROM detallePrestamoLibros WHERE Prestamo=" + id + "; ";
+                string query_inventario_old = "";
+                foreach (var item in prestamo)
+                {
+                    query_inventario_old += "update stock_Libros SET Almacen=Almacen+" + item.Cantidad + ", Prestados=Prestados-" + item.Cantidad + " WHERE Libro=" + item.Libro_Id + "; ";
+                }
+                Cmd.CommandText = "BEGIN TRANSACTION;" +
+                    ventaQuery +
+                    queryLibros +
+                    query_inventario_old +
+                    "COMMIT;";
+                int rowsAfected = Cmd.ExecuteNonQuery();
+                Conn.Close();
+                if (rowsAfected > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception E)
+            {
+                Conn.Close();
+                throw new Exception("Error al cancelar préstamo de libros a la base de datos");
+            }
+        }
 
-
-
+        public List<PagoLibreria> ConsultarPrestamoLibreria_Pagos(string id)
+        {
+            //INTENTANDO GENERAR Y ABRIR CONEXION CON EL SERVIDOR
+            OpenConection();
+            //CREAR COMANDO Y QUERY PARA SER EJECUTADO
+            try
+            {
+                Cmd.CommandText = "SELECT ID, CompradorID, FechaPago, Total,Pago, Cambio, Concepto, Observaciones, Recibio, Parent_Id FROM pagosLibreria WHERE  Concepto='Prestamo Libreria' AND  Parent_Id='" + id + "'";
+                SqlDataReader reader = Cmd.ExecuteReader();
+                List<PagoLibreria> pagos = new List<PagoLibreria>();
+                while (reader.Read())
+                {
+                    PagoLibreria pago = new PagoLibreria
+                    {
+                        Id = reader.GetInt32(0),
+                        CompradorID = reader.GetString(1),
+                        FechaPago = reader.GetDateTime(2),
+                        Total = reader.GetDecimal(3),
+                        Pago = reader.GetDecimal(4),
+                        Cambio = reader.GetDecimal(5),
+                        Concepto = reader.GetString(6),
+                        Observaciones = reader.GetString(7),
+                        Recibio = reader.GetString(8)
+                    };
+                    pagos.Add(pago);
+                }
+                Conn.Close();
+                return pagos;
+            }
+            catch (Exception e)
+            {
+                Conn.Close();
+                throw new Exception("Error al obtener los datos del pagos de venta de la base de datos");
+            }
+        }
 
 
 

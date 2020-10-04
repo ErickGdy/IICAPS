@@ -866,6 +866,7 @@
             this.btnLibreria2.Text = "Ventas";
             this.btnLibreria2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnLibreria2.UseVisualStyleBackColor = true;
+            this.btnLibreria2.Click += new System.EventHandler(this.btnLibreria2_Click);
             // 
             // logoDisgrawMenuLibreria
             // 

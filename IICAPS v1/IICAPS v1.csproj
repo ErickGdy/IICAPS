@@ -114,6 +114,7 @@
     <Compile Include="Control\DataGridViewPrinter.cs" />
     <Compile Include="Control\DocumentosWord.cs" />
     <Compile Include="DataObject\Cobro.cs" />
+    <Compile Include="DataObject\DetallePrestamoLibro.cs" />
     <Compile Include="DataObject\DetalleVentaLibro.cs" />
     <Compile Include="DataObject\Libro.cs" />
     <Compile Include="DataObject\PagoLibreria.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="DataObject\DocumentosInscripcion.cs" />
     <Compile Include="DataObject\PaseDeListaAlumno.cs" />
     <Compile Include="DataObject\Usuario.cs" />
+    <Compile Include="DataObject\Prestamo.cs" />
     <Compile Include="DataObject\VentaLibro.cs" />
     <Compile Include="MainUpdater\GUI\Main_Updater.cs">
       <SubType>Form</SubType>
@@ -250,6 +252,18 @@
     </Compile>
     <Compile Include="Presentacion\Forms\FormsLibreria\FormLibro.Designer.cs">
       <DependentUpon>FormLibro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsLibreria\FormPrestamo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsLibreria\FormPrestamo.Designer.cs">
+      <DependentUpon>FormPrestamo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsLibreria\FormDevolverPrestamo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Forms\FormsLibreria\FormDevolverPrestamo.Designer.cs">
+      <DependentUpon>FormDevolverPrestamo.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Forms\FormsLibreria\FormVenta.cs">
       <SubType>Form</SubType>
@@ -412,6 +426,18 @@
     </Compile>
     <Compile Include="Presentacion\Mains\Libreria\LibreriaMain.Designer.cs">
       <DependentUpon>LibreriaMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Libreria\MainPrestamos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Libreria\MainPrestamos.Designer.cs">
+      <DependentUpon>MainPrestamos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Libreria\MainVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Mains\Libreria\MainVentas.Designer.cs">
+      <DependentUpon>MainVentas.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Mains\Libreria\MainLibros.cs">
       <SubType>Form</SubType>
@@ -589,6 +615,12 @@
     <EmbeddedResource Include="Presentacion\Forms\FormsLibreria\FormLibro.resx">
       <DependentUpon>FormLibro.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsLibreria\FormPrestamo.resx">
+      <DependentUpon>FormPrestamo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Forms\FormsLibreria\FormDevolverPrestamo.resx">
+      <DependentUpon>FormDevolverPrestamo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Forms\FormsLibreria\FormVenta.resx">
       <DependentUpon>FormVenta.cs</DependentUpon>
     </EmbeddedResource>
@@ -669,6 +701,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Mains\Libreria\LibreriaMain.resx">
       <DependentUpon>LibreriaMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Mains\Libreria\MainPrestamos.resx">
+      <DependentUpon>MainPrestamos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Mains\Libreria\MainVentas.resx">
+      <DependentUpon>MainVentas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Mains\Libreria\MainLibros.resx">
       <DependentUpon>MainLibros.cs</DependentUpon>

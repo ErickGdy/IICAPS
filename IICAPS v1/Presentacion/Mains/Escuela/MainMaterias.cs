@@ -213,5 +213,28 @@ namespace IICAPS_v1.Presentacion.Mains.Escuela
                 dataGridView1.Columns[0].Visible = false;
             }
         }
+
+        private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                String id = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                DialogResult dialogresult = MessageBox.Show("¿Desea quitar la materia?", "Quitar materia", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (dialogresult == DialogResult.OK)
+                {
+                    if (control.DesactivarMateria(id))
+                    {
+                        MessageBox.Show("Materia cancelada");
+                        actualizarTabla(control.ObtenerMateriasTable());
+                    }
+                    else
+                        MessageBox.Show("Error al cancelar materia");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

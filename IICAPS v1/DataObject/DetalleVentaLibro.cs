@@ -3,7 +3,8 @@
     public class DetalleVentaLibro
     {
         public int Id { get; set; }
-        public string Libro { get; set; }
+        public string Libro_Id { get; set; }
+        public Libro Libro { get; set; }
         public int Cantidad { get; set; }
         public decimal Precio_Unitario { get; set; }
         public decimal Total { get; set; }

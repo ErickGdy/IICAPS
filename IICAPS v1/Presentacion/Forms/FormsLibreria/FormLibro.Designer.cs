@@ -47,20 +47,20 @@
             this.txtEditorial = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.groupStock = new System.Windows.Forms.GroupBox();
+            this.txtPrestados = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
             this.txtAlmacen = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.txtPrestados = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.txtVitrina2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtCosto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtVitrina1)).BeginInit();
             this.groupStock.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtAlmacen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPrestados)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlmacen)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAceptar
@@ -69,7 +69,7 @@
             this.btnAceptar.Location = new System.Drawing.Point(158, 414);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(103, 36);
-            this.btnAceptar.TabIndex = 7;
+            this.btnAceptar.TabIndex = 12;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
@@ -105,7 +105,7 @@
             0});
             this.txtVitrina2.Name = "txtVitrina2";
             this.txtVitrina2.Size = new System.Drawing.Size(55, 24);
-            this.txtVitrina2.TabIndex = 3;
+            this.txtVitrina2.TabIndex = 9;
             // 
             // btnCancelar
             // 
@@ -113,7 +113,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(286, 414);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(103, 36);
-            this.btnCancelar.TabIndex = 8;
+            this.btnCancelar.TabIndex = 13;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -146,7 +146,6 @@
             this.labelVitrina.Size = new System.Drawing.Size(81, 20);
             this.labelVitrina.TabIndex = 61;
             this.labelVitrina.Text = "Vitrina 1:";
-            this.labelVitrina.Visible = false;
             // 
             // label3
             // 
@@ -218,7 +217,7 @@
             this.checkStock.Location = new System.Drawing.Point(39, 297);
             this.checkStock.Name = "checkStock";
             this.checkStock.Size = new System.Drawing.Size(137, 24);
-            this.checkStock.TabIndex = 5;
+            this.checkStock.TabIndex = 7;
             this.checkStock.Text = "Asignar stock";
             this.checkStock.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.checkStock.UseVisualStyleBackColor = true;
@@ -235,7 +234,7 @@
             0});
             this.txtVitrina1.Name = "txtVitrina1";
             this.txtVitrina1.Size = new System.Drawing.Size(55, 24);
-            this.txtVitrina1.TabIndex = 65;
+            this.txtVitrina1.TabIndex = 8;
             // 
             // txtEditorial
             // 
@@ -244,7 +243,7 @@
             this.txtEditorial.Margin = new System.Windows.Forms.Padding(2);
             this.txtEditorial.Name = "txtEditorial";
             this.txtEditorial.Size = new System.Drawing.Size(240, 24);
-            this.txtEditorial.TabIndex = 66;
+            this.txtEditorial.TabIndex = 3;
             // 
             // label6
             // 
@@ -273,6 +272,30 @@
             this.groupStock.TabStop = false;
             this.groupStock.Text = "Stocks";
             // 
+            // txtPrestados
+            // 
+            this.txtPrestados.Enabled = false;
+            this.txtPrestados.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPrestados.Location = new System.Drawing.Point(262, 56);
+            this.txtPrestados.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.txtPrestados.Name = "txtPrestados";
+            this.txtPrestados.Size = new System.Drawing.Size(55, 24);
+            this.txtPrestados.TabIndex = 11;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(168, 57);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(95, 20);
+            this.label5.TabIndex = 69;
+            this.label5.Text = "Prestados:";
+            // 
             // txtAlmacen
             // 
             this.txtAlmacen.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -284,7 +307,7 @@
             0});
             this.txtAlmacen.Name = "txtAlmacen";
             this.txtAlmacen.Size = new System.Drawing.Size(55, 24);
-            this.txtAlmacen.TabIndex = 66;
+            this.txtAlmacen.TabIndex = 10;
             // 
             // label4
             // 
@@ -307,7 +330,7 @@
             this.button1.Location = new System.Drawing.Point(300, 224);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(90, 32);
-            this.button1.TabIndex = 69;
+            this.button1.TabIndex = 5;
             this.button1.Text = "Gandhi";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button1.UseVisualStyleBackColor = false;
@@ -324,35 +347,11 @@
             this.button2.Location = new System.Drawing.Point(395, 224);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(90, 32);
-            this.button2.TabIndex = 70;
+            this.button2.TabIndex = 6;
             this.button2.Text = "Trillas";
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // txtPrestados
-            // 
-            this.txtPrestados.Enabled = false;
-            this.txtPrestados.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPrestados.Location = new System.Drawing.Point(262, 56);
-            this.txtPrestados.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.txtPrestados.Name = "txtPrestados";
-            this.txtPrestados.Size = new System.Drawing.Size(55, 24);
-            this.txtPrestados.TabIndex = 68;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(168, 57);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(95, 20);
-            this.label5.TabIndex = 69;
-            this.label5.Text = "Prestados:";
             // 
             // FormLibro
             // 
@@ -388,8 +387,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtVitrina1)).EndInit();
             this.groupStock.ResumeLayout(false);
             this.groupStock.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.txtAlmacen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPrestados)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtAlmacen)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

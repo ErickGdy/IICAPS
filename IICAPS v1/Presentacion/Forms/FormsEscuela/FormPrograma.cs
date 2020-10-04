@@ -68,7 +68,7 @@ namespace IICAPS_v1.Presentacion
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("Ha ocurrido un error al obtener el formulario");
                 }
             }
             else
@@ -86,7 +86,7 @@ namespace IICAPS_v1.Presentacion
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("Ha ocurrido un error al obtener el formulario");
                 }
             }
             foreach (string s in cmbMaterias.Items)

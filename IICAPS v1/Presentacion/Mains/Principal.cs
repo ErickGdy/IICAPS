@@ -30,7 +30,7 @@ namespace IICAPS.Presentacion.Mains
             btnIndex_Click(null, null);
             try
             {
-                btnUsuario.Text = ControlIicaps.getInstance().ConsultarEmpleado(usuario.Matricula).Nombre;
+                btnUsuario.Text = ControlIicaps.getInstance().ConsultarEmpleado(usuario.Matricula)?.Nombre;
             }
             catch (Exception ex)
             {
@@ -430,6 +430,15 @@ namespace IICAPS.Presentacion.Mains
         {
             minimizeForms();
             MainLibros form = MainLibros.getInstance();
+            configurarForm(form);
+            form.Show();
+            inhabilitarBoton("Libreria", "Libreria");
+        }
+
+        private void btnLibreria2_Click(object sender, EventArgs e)
+        {
+            minimizeForms();
+            MainVentas form = MainVentas.getInstance();
             configurarForm(form);
             form.Show();
             inhabilitarBoton("Libreria", "Libreria");

@@ -17,79 +17,61 @@ namespace IICAPS_v1.Presentacion
     {
         ControlIicaps control;
         PagoLibreria pagos;
-        PagoLibreria p;
-        public FormRegistrarPagoLibreria(PagoLibreria pago, bool consultar)
+        Cobro Cobro;
+        VentaLibro Venta;
+        List<ComboBoxItem> Empleados = new List<ComboBoxItem>();
+        public FormRegistrarPagoLibreria(VentaLibro ventaAux, Cobro cobroAux)
         {
             InitializeComponent();
             control = ControlIicaps.getInstance();
             lblFecha.Text = DateTime.Now.ToShortDateString();
-            List<String> auxPrograma = new List<string>();
-            List<String> auxIDPrograma = new List<string>();
-            List<String> auxAlumno = new List<string>();
-            List<String> auxIDAlumno = new List<string>();
-            List<String> auxRecibio = new List<string>();
-            List<String> auxIDRecibio = new List<string>();
-            List<String> auxConcepto = new List<string>();
+            Venta = ventaAux;
             try
             {
-                auxConcepto.Add("Pago de Adeudo General");
-                foreach (string c in control.ObtenerConceptosDePagoLibreria("libreria"))
-                {
-                    auxConcepto.Add(c);
-                }
-                cmbConcepto.Items.AddRange(auxConcepto.ToArray());
+                txtRestante.Value = cobroAux.Restante;
+                txtPago.Maximum = cobroAux.Restante;
             }
-            catch (Exception ex) { }
+            catch { }
             try
             {
-                foreach (Programa p in control.ObtenerProgramas())
+                foreach (Empleado c in control.ObtenerEmpleados())
                 {
-                    auxPrograma.Add(p.Nombre);
-                    auxIDPrograma.Add(p.Codigo.ToString());
+                    ComboBoxItem item = new ComboBoxItem();
+                    item.Text = c.Nombre;
+                    item.ValueItem = c.Matricula;
+                    Empleados.Add(item);
                 }
-                cmbIDPrograma.Items.AddRange(auxIDPrograma.ToArray());
-                cmbPrograma.Items.AddRange(auxPrograma.ToArray());
+                cmbRecibio.Items.AddRange(Empleados.ToArray());
             }
-            catch (Exception ex) { }
+            catch { }
+
             try
             {
-                foreach (Empleado e in control.ObtenerEmpleados())
+                foreach (DetalleVentaLibro item in Venta.DetallesVenta)
                 {
-                    auxRecibio.Add(e.Nombre);
-                    auxIDRecibio.Add(e.Matricula);
+                    dataGridView1.Rows.Add(dataGridView1.Rows.Count + 1, item.Id, item.Libro_Id, item.Cantidad.ToString(), item.Total.ToString());
                 }
-                cmbIDRecibio.Items.AddRange(auxIDRecibio.ToArray());
-                cmbRecibio.Items.AddRange(auxRecibio.ToArray());
-            }
-            catch (Exception ex) { }
-            try
-            {
-                if (pago != null)
+                try
                 {
-                    pagos = pago;
-                    cmbIDPrograma.SelectedItem = control.ObtenerProgramaAlumno(pago.CompradorID);
-                    cmbIDRecibio.SelectedItem = pago.Recibio;
-                    cmbPrograma.SelectedIndex = cmbIDPrograma.SelectedIndex;
-                    cmbIDAlumno.SelectedItem = pago.CompradorID;
-                    cmbAlumno.SelectedIndex = cmbIDAlumno.SelectedIndex;
-                    cmbRecibio.SelectedIndex = cmbIDRecibio.SelectedIndex;
-                    cmbConcepto.SelectedItem = pago.Concepto;
-                    cmbAlumno.Enabled = false; 
-                    cmbPrograma.Enabled = false;
-                    numericUpDown1.Maximum = Convert.ToDecimal(pago.Cantidad);
-                    numericUpDown1.Value = Convert.ToDecimal(pago.Cantidad);
-                    txtObservaciones.Text = pago.Observaciones;
-                    if (consultar)
+                    Alumno al = control.ConsultarAlumno(Venta.Comprador_ID);
+                    txtAlumno.Text = al.Nombre;
+                }
+                catch { }
+                try
+                {
+                    Empleado em = control.ConsultarEmpleado(Venta.Recibio);
+                    txtEmpleado.Text = em.Nombre;
+                }
+                catch { }
+                txtObservaciones.Text = ventaAux.Observaciones;
+                try
+                {
+                    foreach (PagoLibreria item in control.ConsultarVentaLibreria_Pagos(ventaAux.Id.ToString()))
                     {
-                        cmbPrograma.Enabled = false;
-                        cmbAlumno.Enabled = false;
-                        cmbRecibio.Enabled = false;
-                        numericUpDown1.Enabled = false;
-                        cmbConcepto.Enabled = false;
-                        txtObservaciones.Enabled = false;
-                        btnAceptar.Enabled = false;
+                        dataGridView2.Rows.Add(dataGridView1.Rows.Count + 1, item.FechaPago.ToShortDateString(), item.Pago.ToString(), item.Observaciones);
                     }
                 }
+                catch { }
             }
             catch (Exception ex) { }
         }
@@ -120,74 +102,37 @@ namespace IICAPS_v1.Presentacion
 
         private bool Agregar_pago()
         {
-            cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
-            cmbIDAlumno.SelectedIndex = cmbAlumno.SelectedIndex;
+
             cmbIDRecibio.SelectedIndex = cmbRecibio.SelectedIndex;
-            p = new PagoLibreria
+            PagoLibreria p = new PagoLibreria
             {
-                CompradorID = cmbIDAlumno.SelectedItem.ToString(),
-                Cantidad = Convert.ToDecimal(numericUpDown1.Value),
+                CompradorID = Venta.Comprador_ID,
+                Pago = Convert.ToDecimal(txtPago.Value),
                 Concepto = cmbConcepto.SelectedItem.ToString(),
                 Observaciones = txtObservaciones.Text,
                 Recibio = cmbIDRecibio.SelectedItem.ToString(),
-                FechaPago = DateTime.Now
+                FechaPago = DateTime.Now,
+                Parent_ID = Venta.Id.ToString()
             };
-            List<Cobro> pagoPendientes = control.ConsultarCobrosDeAlumnoLibreria(p.CompradorID);
-            if (pagoPendientes != null) {
-                decimal cantidad = Convert.ToDecimal(p.Cantidad);
-                int posicion = 0;
-                List<Cobro> cobrosActualizados = new List<Cobro>();
-                while (cantidad > 0)
-                {
-                    Cobro aux = pagoPendientes.ElementAt(posicion);
-                    if (aux.Restante > 0)
-                    {
-                        if (aux.Restante > cantidad)
-                        {
-                            aux.Restante -= cantidad;
-                            aux.Pago += cantidad;
-                            cantidad = 0;
-                        }
-                        else
-                        {
-                            cantidad -= aux.Restante;
-                            aux.Restante = 0;
-                            aux.Pago = aux.Cantidad;
-                        }
-                        cobrosActualizados.Add(aux);
-                    }
-                    posicion++;
-                }
-                if (control.AgregarPagoLibreria(p, cobrosActualizados))
-                {
-                    Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));
-                    t.Start();
-                    return true;
-                }
-                else
-                    throw new Exception("Error al agregar pago del alumno");
+            decimal cantidad = Convert.ToDecimal(p.Pago);
+            Cobro.Restante -= cantidad;
+            Cobro.Pago += cantidad;
+            List<Cobro> cobros = new List<Cobro>();
+            cobros.Add(Cobro);
+            if (control.AgregarPagoLibreria(p, cobros))
+            {
+                Thread t = new Thread(new ThreadStart(ThreadMethodDocumentos));
+                t.Start();
+                return true;
             }
-            return false;
-            
+            else
+                throw new Exception("Error al agregar pago a librería");
         }
         private void ThreadMethodDocumentos()
         {
             //DocumentosWord word = new DocumentosWord(p);
         }
 
-        private void CmbPrograma_selectedIndexChanged(object sender, EventArgs e)
-        {
-            cmbIDPrograma.SelectedIndex = cmbPrograma.SelectedIndex;
-            List<String> auxAlumno = new List<string>();
-            List<String> auxIDAlumno = new List<string>();
-            foreach (Alumno a in control.ObtenerAlumnosByPrograma(cmbIDPrograma.SelectedItem.ToString()))
-            {
-                auxAlumno.Add(a.Nombre);
-                auxIDAlumno.Add(a.Rfc.ToString());
-            }
-            cmbIDAlumno.Items.AddRange(auxIDAlumno.ToArray());
-            cmbAlumno.Items.AddRange(auxAlumno.ToArray());
-            cmbAlumno.SelectedIndex = 0;
-        }
+
     }
 }

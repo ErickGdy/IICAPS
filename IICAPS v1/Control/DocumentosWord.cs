@@ -756,7 +756,7 @@ namespace IICAPS_v1.Control
             parra2.Range.set_Style(ref style1);
             parra2.Range.Font.Size = 12;
             //parra1.Range.Text = "Recibo de documentos para: " + control.obtenerProgramaAlumno(doc.alumno);
-            parra2.Range.Text = "La cantidad de: $" + pago.Cantidad + Environment.NewLine +
+            parra2.Range.Text = "La cantidad de: $" + pago.Pago + Environment.NewLine +
                 "Por concepto de: " + pago.Concepto + Environment.NewLine +
                 "Fecha: " + pago.FechaPago + Environment.NewLine
                 + Environment.NewLine +
